@@ -1,8 +1,16 @@
+:library: Asciidoctor
+:idprefix:
+:numbered:
+:toc: left
+
 = Mobile Security
 
-All things mobile security related
+All things mobile security related.
 
-== Research Documentation
+:toc:
 
-. link:research/owaspCheatSheetSeries.adoc[OWASP Cheat Sheet Series]
-. link:research/owaspMobileVerificationStandard.adoc[OWASP Mobile Verification Standard]
+== Updating
+Run `asciidoctor index.adoc` to generate a new `index.html`.
+
+include::research/owaspCheatSheetSeries.adoc[leveloffset=+1]
+include::research/owaspMobileVerificationStandard.adoc[leveloffset=+1]
