@@ -1,6 +1,6 @@
 = OWASP Cheat Sheet Series
 
-toc::[]
+This is a summary of notes taken from the https://www.owasp.org/index.php/OWASP_Cheat_[OWASP Cheat Sheet Series]
 
 == Cryptographic Requirements
 
