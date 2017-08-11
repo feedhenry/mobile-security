@@ -454,6 +454,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#other_mobile_vulnerabilities">3.10. Other Mobile Vulnerabilities</a></li>
 </ul>
 </li>
+<li><a href="#android_security_guide">4. Android Security Guide</a>
+<ul class="sectlevel2">
+<li><a href="#kernel_security">4.1. Kernel Security</a></li>
+<li><a href="#application_security">4.2. Application Security</a></li>
+<li><a href="#authentication">4.3. Authentication</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -1630,10 +1637,217 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="android_security_guide">4. Android Security Guide</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is a summary of the <a href="https://source.android.com/security/">Android Security Guide</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="kernel_security">4.1. Kernel Security</h3>
+<div class="sect3">
+<h4 id="application_sandbox">4.1.1. Application Sandbox</h4>
+<div class="paragraph">
+<p>Android uses the UNIX user-based protection to identify and isolate running applications.
+The Android system assigns a unique UID (User ID) to each Android application and runs the application as a certain user in a separate process.
+By default, applications cannot interact with each other. This is due to the user privileges being different for each application.
+Memory corruption errors in one application will not lead to corruption in other applications, due to this isolation.</p>
+</div>
+<div class="paragraph">
+<p>However, if the <code>android:sharedUserId</code> attribute is set (in the App Manifest) to the same value for two or more applications, they will all share the same User ID — provided that their certificate sets are identical.
+Applications with the same user ID can access each other&#8217;s data and also run in the same process.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="filesystem_permissions">4.1.2. Filesystem Permissions</h4>
+<div class="paragraph">
+<p>The filesystem permissions ensure that one user cannot alter or read another user&#8217;s files. In the context of Android, this means that one application, cannot access or alter the data for another application, unless they explicitly allow it.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="device_rooting">4.1.3. Device Rooting</h4>
+<div class="paragraph">
+<p>By default, only the kernel and small number of core applications run using root permissions. Root permissions will allow you full access to all applications on the device, as well as their applications data.</p>
+</div>
+<div class="paragraph">
+<p>Encrypting data with a key stored on the device will not protect the application from a root user.
+Applications could use a key stored off-device, but this approach will only provide temporary protection while the key is not present on the device.
+At some point the key must be provided to the application and it then becomes accessible to root users.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="filesystem_encryption">4.1.4. Filesystem Encryption</h4>
+<div class="paragraph">
+<p>A number of different filesytem encryption approaches have been used by different versions of Android.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>Android 3.0</em></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Full filesystem encryption in the kernel.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><em>Android 5.0</em></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Full-disk encryption which uses a single key—protected with the user’s device password—to protect the whole of a device’s userdata partition.</p>
+</li>
+<li>
+<p>Upon boot, users must provide their credentials before any part of the disk is accessible.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><em>Android 7.0</em></p>
+<div class="ulist">
+<ul>
+<li>
+<p>File-based encryption allows different files to be encrypted with different keys that can be unlocked independently.</p>
+</li>
+<li>
+<p>The Direct Boot feature allows encrypted devices to boot straight to the lock screen.</p>
+</li>
+<li>
+<p>This makes profiles more secure because it allows more than one user to be protected at a time as the encryption is no longer based solely on a boot time password.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="application_security">4.2. Application Security</h3>
+<div class="sect3">
+<h4 id="certificate_authorities">4.2.1. Certificate Authorities</h4>
+<div class="paragraph">
+<p>Android includes a set of installed system Certificate Authorities, which are trusted system-wide.
+Devices running Android 7.0 and above will have an Android stock set of system CAs as device manufacturers supplied CA&#8217;s are no longer permitted.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="application_signing">4.2.2. Application Signing</h4>
+<div class="paragraph">
+<p>APK Signing will allow a developer to identify the author of the application.
+The signed application certificate defines which user id is associated with which application.
+The application signing ensures that applications cannot access each other except through a well-defined IPC (Inter-process communication).</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="authentication">4.3. Authentication</h3>
+<div class="paragraph">
+<p>Two key pieces make up Authentication &amp; Key Storage from Android 6.0.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>Android Keystore</em> - Cryptographic key storage which also provides standard crypto actions.</p>
+</li>
+<li>
+<p><em>Authentication Components</em> - Assert the user&#8217;s presence and/or provide user authentication.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>There are two authentication components:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>Gatekeeper</em> - Pin, Pattern &amp; Password Authentication</p>
+</li>
+<li>
+<p><em>Fingerprint</em>  - Fingerprint Authentication</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The two authentication components work with the Keystore and (other components) to support the use of hardware-backed authentication tokens or AuthTokens.</p>
+</div>
+<div class="sect3">
+<h4 id="enrollment">4.3.1. Enrollment</h4>
+<div class="paragraph">
+<p>On first boot of the device, the user must initially enroll a PIN/pattern/password with Gatekeeper.
+This is known as enrollment.
+This is necessary to to create the User&#8217;s SID (User Secure Identifier) which is a 64-bit randomly generated ID.</p>
+</div>
+<div class="paragraph">
+<p>This SID is cryptographically bound to the user&#8217;s password, so when a successful authentication takes place, the AuthTokens will contain the User SID for that password.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="authentication_process">4.3.2. Authentication Process</h4>
+<div class="paragraph">
+<p>Once a user has set up a credential (eg. a Pattern lock) and they have received their User SID (Secure User Id), they are now ready to authenticate.</p>
+</div>
+<div class="paragraph">
+<p>As part of Android authentication, an operating system (known as Trusty OS) runs on a processor intended to provide a TEE (Trusted Execution Environment).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="assets/android-authentication-flow.png" alt="600" width="600">
+</div>
+<div class="title">Figure 1: Android Authentication Process</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Authentication begins when a user enters a Gatekeeper credential (eg. a Pin, Pattern, Password) or a Fingerprint.</p>
+</li>
+<li>
+<p>The next step involves either the Gatekeeper daemon (gatekeeperd) or the Fingerprint daemon (fingerprintd) depending on what authentication credential is used.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>The <code>gatekeeperd</code> daemon will send a hash of the password/ping/pattern it received in step 1, to its counterpart <code>gatekeeper</code> in the TEE (TEE OS).</p>
+</li>
+<li>
+<p>Alternatively, the <code>fingerprintd</code> daemon sends the data to its <code>fingerprint</code> counterpart in the TEE.</p>
+</li>
+<li>
+<p>If authentication in the TEE (TEE OS) is successful, <code>gatekeeper</code> or <code>fingerprint</code> in the TEE sends an AuthToken containing the corresponding User SID, signed with the AuthToken HMAC key, to its counterpart in the Android OS.</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Remember that the SID is cryptographically bound to the user&#8217;s password.</p>
+</li>
+<li>
+<p>The HMAC is used for message integrity.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>The <code>gatekeeperd</code> or <code>fingerprintd</code> daemon receives a signed AuthToken from the TEE and passes the AuthToken to the <code>keystore service</code>.</p>
+</li>
+<li>
+<p>Lastly, the <code>keystore service</code> passes the AuthTokens received from <code>gatekeeperd</code> and <code>fingerprintd</code> to the <code>keymaster</code>.
+The AuthToken is verified with the <code>AuthToken HMAC key</code> which was previously shared with the <code>gatekeeper</code> and <code>fingerprint</code> "trustlets" in step 2.
+The <code>keymaster</code> trusts the timestamp in the token as the last authentication time and bases a key release decision (to allow an app to use the key) on the timestamp.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-08-10 12:25:21 IST
+Last updated 2017-08-11 14:12:56 IST
 </div>
 </div>
 </body>
