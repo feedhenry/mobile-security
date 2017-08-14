@@ -9,9 +9,7 @@ All things mobile security related.
 
 :toc:
 
-== Updating
-Run `asciidoctor index.adoc` to generate a new `index.html`.
-
 include::owaspCheatSheetSeries.adoc[leveloffset=+1]
 include::owaspMobileVerificationStandard.adoc[leveloffset=+1]
 include::androidSecurityGuide.adoc[leveloffset=+1]
+include::nispMobileSecurityVetting.adoc[leveloffset=+1]
