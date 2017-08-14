@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.6.1">
+<meta name="generator" content="Asciidoctor 1.5.5">
 <title>Mobile Security</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -89,12 +89,13 @@ strong,b{font-weight:bold;line-height:inherit}
 small{font-size:60%;line-height:inherit}
 code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
 ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
-ul,ol{margin-left:1.5em}
+ul,ol,ul.no-bullet,ol.no-bullet{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
 ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
 ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
+ul.no-bullet{list-style:none}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -130,11 +131,7 @@ strong strong{font-weight:400}
 kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background-color:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
 .keyseq kbd:first-child{margin-left:0}
 .keyseq kbd:last-child{margin-right:0}
-.menuseq,.menuref{color:#000}
-.menuseq b:not(.caret),.menuref{font-weight:inherit}
-.menuseq{word-spacing:-.02em}
-.menuseq b.caret{font-size:1.25em;line-height:.8}
-.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+.menuseq,.menu{color:rgba(0,0,0,.8)}
 b.button:before,b.button:after{position:relative;top:-1px;font-weight:400}
 b.button:before{content:"[";padding:0 3px 0 2px}
 b.button:after{content:"]";padding:0 2px 0 3px}
@@ -201,7 +198,7 @@ table.tableblock>caption.title{white-space:nowrap;overflow:visible;max-width:0}
 table.tableblock #preamble>.sectionbody>.paragraph:first-of-type p{font-size:inherit}
 .admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
 .admonitionblock>table td.icon{text-align:center;width:80px}
-.admonitionblock>table td.icon img{max-width:initial}
+.admonitionblock>table td.icon img{max-width:none}
 .admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #ddddd8;color:rgba(0,0,0,.6)}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
@@ -257,13 +254,13 @@ table.pyhltable .linenodiv{background:none!important;padding-right:0!important}
 table.tableblock{max-width:100%;border-collapse:separate}
 table.tableblock td>.paragraph:last-child p>p:last-child,table.tableblock th>p:last-child,table.tableblock td>p:last-child{margin-bottom:0}
 table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
-table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
-table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
-table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
-table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px 0}
-table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0 0}
-table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
-table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
+table.grid-all th.tableblock,table.grid-all td.tableblock{border-width:0 1px 1px 0}
+table.grid-all tfoot>tr>th.tableblock,table.grid-all tfoot>tr>td.tableblock{border-width:1px 1px 0 0}
+table.grid-cols th.tableblock,table.grid-cols td.tableblock{border-width:0 1px 0 0}
+table.grid-all *>tr>.tableblock:last-child,table.grid-cols *>tr>.tableblock:last-child{border-right-width:0}
+table.grid-rows th.tableblock,table.grid-rows td.tableblock{border-width:0 0 1px 0}
+table.grid-all tbody>tr:last-child>th.tableblock,table.grid-all tbody>tr:last-child>td.tableblock,table.grid-all thead:last-child>tr>th.tableblock,table.grid-rows tbody>tr:last-child>th.tableblock,table.grid-rows tbody>tr:last-child>td.tableblock,table.grid-rows thead:last-child>tr>th.tableblock{border-bottom-width:0}
+table.grid-rows tfoot>tr>th.tableblock,table.grid-rows tfoot>tr>td.tableblock{border-width:1px 0 0 0}
 table.frame-all{border-width:1px}
 table.frame-sides{border-width:0 1px}
 table.frame-topbot{border-width:1px 0}
@@ -284,12 +281,10 @@ ul li ol{margin-left:1.5em}
 dl dd{margin-left:1.125em}
 dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
 ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
-ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
-ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
-ul.unstyled,ol.unstyled{margin-left:0}
-ul.checklist{margin-left:.625em}
-ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
-ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
+ul.unstyled,ol.unnumbered,ul.checklist,ul.none{list-style-type:none}
+ul.unstyled,ol.unnumbered,ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1em;font-size:.85em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{width:1em;position:relative;top:1px}
 ul.inline{margin:0 auto .625em auto;margin-left:-1.375em;margin-right:0;padding:0;list-style:none;overflow:hidden}
 ul.inline>li{list-style:none;float:left;margin-left:1.375em;display:block}
 ul.inline>li>*{display:block}
@@ -306,8 +301,7 @@ ol.lowergreek{list-style-type:lower-greek}
 td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
 td.hdlist1{font-weight:bold;padding-bottom:1.25em}
 .literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
-.colist>table tr>td:first-of-type{padding:.4em .75em 0 .75em;line-height:1;vertical-align:top}
-.colist>table tr>td:first-of-type img{max-width:initial}
+.colist>table tr>td:first-of-type{padding:0 .75em;line-height:1}
 .colist>table tr>td:last-of-type{padding:.25em 0}
 .thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
 .imageblock.left,.imageblock[style*="float: left"]{margin:.25em .625em 1.25em 0}
@@ -370,7 +364,6 @@ div.unbreakable{page-break-inside:avoid}
 .yellow{color:#bfbf00}
 .yellow-background{background-color:#fafa00}
 span.icon>.fa{cursor:default}
-a span.icon>.fa{cursor:inherit}
 .admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
 .admonitionblock td.icon .icon-note:before{content:"\f05a";color:#19407c}
 .admonitionblock td.icon .icon-tip:before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
@@ -431,34 +424,42 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#updating">1. Updating</a></li>
-<li><a href="#owasp_cheat_sheet_series">2. OWASP Cheat Sheet Series</a>
+<li><a href="#owasp_cheat_sheet_series">1. OWASP Cheat Sheet Series</a>
 <ul class="sectlevel2">
-<li><a href="#cryptographic_requirements">2.1. Cryptographic Requirements</a></li>
-<li><a href="#certificate_pinning">2.2. Certificate Pinning</a></li>
-<li><a href="#jailbreaking">2.3. Jailbreaking</a></li>
-<li><a href="#mobile_testing">2.4. Mobile Testing</a></li>
+<li><a href="#cryptographic_requirements">1.1. Cryptographic Requirements</a></li>
+<li><a href="#certificate_pinning">1.2. Certificate Pinning</a></li>
+<li><a href="#jailbreaking">1.3. Jailbreaking</a></li>
+<li><a href="#mobile_testing">1.4. Mobile Testing</a></li>
 </ul>
 </li>
-<li><a href="#owasp_mobile_verification_standard">3. OWASP Mobile Verification Standard</a>
+<li><a href="#owasp_mobile_verification_standard">2. OWASP Mobile Verification Standard</a>
 <ul class="sectlevel2">
-<li><a href="#table_keys">3.1. Table Keys</a></li>
-<li><a href="#architecture_design_and_threat_modelling">3.2. Architecture, Design and Threat Modelling</a></li>
-<li><a href="#data_storage_and_privacy">3.3. Data Storage and Privacy</a></li>
-<li><a href="#cryptography">3.4. Cryptography</a></li>
-<li><a href="#authentication_and_session_management">3.5. Authentication and Session Management</a></li>
-<li><a href="#network_communication">3.6. Network Communication</a></li>
-<li><a href="#environmental_interaction">3.7. Environmental Interaction</a></li>
-<li><a href="#code_quality_and_build_settings">3.8. Code Quality and Build Settings</a></li>
-<li><a href="#resiliency_against_reverse_engineering_requirements">3.9. Resiliency Against Reverse Engineering Requirements</a></li>
-<li><a href="#other_mobile_vulnerabilities">3.10. Other Mobile Vulnerabilities</a></li>
+<li><a href="#table_keys">2.1. Table Keys</a></li>
+<li><a href="#architecture_design_and_threat_modelling">2.2. Architecture, Design and Threat Modelling</a></li>
+<li><a href="#data_storage_and_privacy">2.3. Data Storage and Privacy</a></li>
+<li><a href="#cryptography">2.4. Cryptography</a></li>
+<li><a href="#authentication_and_session_management">2.5. Authentication and Session Management</a></li>
+<li><a href="#network_communication">2.6. Network Communication</a></li>
+<li><a href="#environmental_interaction">2.7. Environmental Interaction</a></li>
+<li><a href="#code_quality_and_build_settings">2.8. Code Quality and Build Settings</a></li>
+<li><a href="#resiliency_against_reverse_engineering_requirements">2.9. Resiliency Against Reverse Engineering Requirements</a></li>
+<li><a href="#other_mobile_vulnerabilities">2.10. Other Mobile Vulnerabilities</a></li>
 </ul>
 </li>
-<li><a href="#android_security_guide">4. Android Security Guide</a>
+<li><a href="#android_security_guide">3. Android Security Guide</a>
 <ul class="sectlevel2">
-<li><a href="#kernel_security">4.1. Kernel Security</a></li>
-<li><a href="#application_security">4.2. Application Security</a></li>
-<li><a href="#authentication">4.3. Authentication</a></li>
+<li><a href="#kernel_security">3.1. Kernel Security</a></li>
+<li><a href="#application_security">3.2. Application Security</a></li>
+<li><a href="#authentication">3.3. Authentication</a></li>
+<li><a href="#keystore">3.4. Keystore</a></li>
+<li><a href="#trusted_execution_environment">3.5. Trusted Execution Environment</a></li>
+</ul>
+</li>
+<li><a href="#vetting_the_security_of_mobile_applications">4. Vetting the Security of Mobile Applications</a>
+<ul class="sectlevel2">
+<li><a href="#app_vetting_process">4.1. App Vetting Process</a></li>
+<li><a href="#app_testing">4.2. App Testing</a></li>
+<li><a href="#app_approval_rejection">4.3. App Approval/Rejection</a></li>
 </ul>
 </li>
 </ul>
@@ -473,21 +474,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="updating">1. Updating</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Run <code>asciidoctor index.adoc</code> to generate a new <code>index.html</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="owasp_cheat_sheet_series">2. OWASP Cheat Sheet Series</h2>
+<h2 id="owasp_cheat_sheet_series">1. OWASP Cheat Sheet Series</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This is a summary of notes taken from the <a href="https://www.owasp.org/index.php/OWASP_Cheat_">OWASP Cheat Sheet Series</a></p>
 </div>
 <div class="sect2">
-<h3 id="cryptographic_requirements">2.1. Cryptographic Requirements</h3>
+<h3 id="cryptographic_requirements">1.1. Cryptographic Requirements</h3>
 <div class="paragraph">
 <p>The recommended minimal key lengths and algorithms by OWASP are outlined below.</p>
 </div>
@@ -525,13 +518,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </table>
 </div>
 <div class="sect2">
-<h3 id="certificate_pinning">2.2. Certificate Pinning</h3>
+<h3 id="certificate_pinning">1.2. Certificate Pinning</h3>
 <div class="paragraph">
 <p>Pinning is the process of associating a host with their expected X509 certificate or public key.
 Once a certificate or public key is known or seen for a host, the certificate or public key is associated or 'pinned' to the host. If more than one certificate or public key is acceptable, then the program holds a pinset. In this case, the advertised identity must match one of the elements in the pinset.</p>
 </div>
 <div class="sect3">
-<h4 id="pinning_methods">2.2.1. Pinning Methods</h4>
+<h4 id="pinning_methods">1.2.1. Pinning Methods</h4>
 <div class="paragraph">
 <p>There are a number of ways you can pin the certificate to the client: the whole certificate, the public key of the certificate or a hash of the information.</p>
 </div>
@@ -598,19 +591,19 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </div>
 </div>
 <div class="sect3">
-<h4 id="trustkit">2.2.2. TrustKit</h4>
+<h4 id="trustkit">1.2.2. TrustKit</h4>
 <div class="paragraph">
 <p><a href="https://github.com/datatheorem/TrustKit">TrustKit</a> for iOS and <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit-Android</a> for Android allow SSL pinning for native mobile apps.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="jailbreaking">2.3. Jailbreaking</h3>
+<h3 id="jailbreaking">1.3. Jailbreaking</h3>
 <div class="paragraph">
 <p>Jailbreaking or rooting is the process of gaining unauthorized access or elevated privileges on a system.</p>
 </div>
 <div class="sect3">
-<h4 id="detecting_jailbreak">2.3.1. Detecting Jailbreak</h4>
+<h4 id="detecting_jailbreak">1.3.1. Detecting Jailbreak</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -630,7 +623,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </div>
 </div>
 <div class="sect2">
-<h3 id="mobile_testing">2.4. Mobile Testing</h3>
+<h3 id="mobile_testing">1.4. Mobile Testing</h3>
 <div class="paragraph">
 <p>The OWASP cheat sheet series also provides in-depth guides on how to analyse a mobile app for security risks.</p>
 </div>
@@ -648,13 +641,13 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </div>
 </div>
 <div class="sect1">
-<h2 id="owasp_mobile_verification_standard">3. OWASP Mobile Verification Standard</h2>
+<h2 id="owasp_mobile_verification_standard">2. OWASP Mobile Verification Standard</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This is a fork of the <a href="https://www.owasp.org/images/f/fe/MASVS_v0.9.3.pdf">OWASP Mobile Verification Standard</a>.</p>
 </div>
 <div class="sect2">
-<h3 id="table_keys">3.1. Table Keys</h3>
+<h3 id="table_keys">2.1. Table Keys</h3>
 <div class="paragraph">
 <p><em>Category</em> - The type of work required for each item. Some enhancements have been made.</p>
 </div>
@@ -682,7 +675,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </div>
 </div>
 <div class="sect2">
-<h3 id="architecture_design_and_threat_modelling">3.2. Architecture, Design and Threat Modelling</h3>
+<h3 id="architecture_design_and_threat_modelling">2.2. Architecture, Design and Threat Modelling</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 14.2857%;">
@@ -826,7 +819,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </table>
 </div>
 <div class="sect2">
-<h3 id="data_storage_and_privacy">3.3. Data Storage and Privacy</h3>
+<h3 id="data_storage_and_privacy">2.3. Data Storage and Privacy</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 14.2857%;">
@@ -961,7 +954,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </table>
 </div>
 <div class="sect2">
-<h3 id="cryptography">3.4. Cryptography</h3>
+<h3 id="cryptography">2.4. Cryptography</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 14.2857%;">
@@ -1042,7 +1035,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </table>
 </div>
 <div class="sect2">
-<h3 id="authentication_and_session_management">3.5. Authentication and Session Management</h3>
+<h3 id="authentication_and_session_management">2.5. Authentication and Session Management</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 14.2857%;">
@@ -1159,7 +1152,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </table>
 </div>
 <div class="sect2">
-<h3 id="network_communication">3.6. Network Communication</h3>
+<h3 id="network_communication">2.6. Network Communication</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 14.2857%;">
@@ -1231,7 +1224,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </table>
 </div>
 <div class="sect2">
-<h3 id="environmental_interaction">3.7. Environmental Interaction</h3>
+<h3 id="environmental_interaction">2.7. Environmental Interaction</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 14.2857%;">
@@ -1348,7 +1341,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </table>
 </div>
 <div class="sect2">
-<h3 id="code_quality_and_build_settings">3.8. Code Quality and Build Settings</h3>
+<h3 id="code_quality_and_build_settings">2.8. Code Quality and Build Settings</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 14.2857%;">
@@ -1447,7 +1440,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </table>
 </div>
 <div class="sect2">
-<h3 id="resiliency_against_reverse_engineering_requirements">3.9. Resiliency Against Reverse Engineering Requirements</h3>
+<h3 id="resiliency_against_reverse_engineering_requirements">2.9. Resiliency Against Reverse Engineering Requirements</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 14.2857%;">
@@ -1591,7 +1584,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </table>
 </div>
 <div class="sect2">
-<h3 id="other_mobile_vulnerabilities">3.10. Other Mobile Vulnerabilities</h3>
+<h3 id="other_mobile_vulnerabilities">2.10. Other Mobile Vulnerabilities</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 14.2857%;">
@@ -1638,15 +1631,15 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </div>
 </div>
 <div class="sect1">
-<h2 id="android_security_guide">4. Android Security Guide</h2>
+<h2 id="android_security_guide">3. Android Security Guide</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This is a summary of the <a href="https://source.android.com/security/">Android Security Guide</a>.</p>
 </div>
 <div class="sect2">
-<h3 id="kernel_security">4.1. Kernel Security</h3>
+<h3 id="kernel_security">3.1. Kernel Security</h3>
 <div class="sect3">
-<h4 id="application_sandbox">4.1.1. Application Sandbox</h4>
+<h4 id="application_sandbox">3.1.1. Application Sandbox</h4>
 <div class="paragraph">
 <p>Android uses the UNIX user-based protection to identify and isolate running applications.
 The Android system assigns a unique UID (User ID) to each Android application and runs the application as a certain user in a separate process.
@@ -1659,13 +1652,13 @@ Applications with the same user ID can access each other&#8217;s data and also r
 </div>
 </div>
 <div class="sect3">
-<h4 id="filesystem_permissions">4.1.2. Filesystem Permissions</h4>
+<h4 id="filesystem_permissions">3.1.2. Filesystem Permissions</h4>
 <div class="paragraph">
 <p>The filesystem permissions ensure that one user cannot alter or read another user&#8217;s files. In the context of Android, this means that one application, cannot access or alter the data for another application, unless they explicitly allow it.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="device_rooting">4.1.3. Device Rooting</h4>
+<h4 id="device_rooting">3.1.3. Device Rooting</h4>
 <div class="paragraph">
 <p>By default, only the kernel and small number of core applications run using root permissions. Root permissions will allow you full access to all applications on the device, as well as their applications data.</p>
 </div>
@@ -1676,7 +1669,7 @@ At some point the key must be provided to the application and it then becomes ac
 </div>
 </div>
 <div class="sect3">
-<h4 id="filesystem_encryption">4.1.4. Filesystem Encryption</h4>
+<h4 id="filesystem_encryption">3.1.4. Filesystem Encryption</h4>
 <div class="paragraph">
 <p>A number of different filesytem encryption approaches have been used by different versions of Android.</p>
 </div>
@@ -1726,16 +1719,16 @@ At some point the key must be provided to the application and it then becomes ac
 </div>
 </div>
 <div class="sect2">
-<h3 id="application_security">4.2. Application Security</h3>
+<h3 id="application_security">3.2. Application Security</h3>
 <div class="sect3">
-<h4 id="certificate_authorities">4.2.1. Certificate Authorities</h4>
+<h4 id="certificate_authorities">3.2.1. Certificate Authorities</h4>
 <div class="paragraph">
 <p>Android includes a set of installed system Certificate Authorities, which are trusted system-wide.
 Devices running Android 7.0 and above will have an Android stock set of system CAs as device manufacturers supplied CA&#8217;s are no longer permitted.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="application_signing">4.2.2. Application Signing</h4>
+<h4 id="application_signing">3.2.2. Application Signing</h4>
 <div class="paragraph">
 <p>APK Signing will allow a developer to identify the author of the application.
 The signed application certificate defines which user id is associated with which application.
@@ -1744,7 +1737,7 @@ The application signing ensures that applications cannot access each other excep
 </div>
 </div>
 <div class="sect2">
-<h3 id="authentication">4.3. Authentication</h3>
+<h3 id="authentication">3.3. Authentication</h3>
 <div class="paragraph">
 <p>Two key pieces make up Authentication &amp; Key Storage from Android 6.0.</p>
 </div>
@@ -1775,7 +1768,7 @@ The application signing ensures that applications cannot access each other excep
 <p>The two authentication components work with the Keystore and (other components) to support the use of hardware-backed authentication tokens or AuthTokens.</p>
 </div>
 <div class="sect3">
-<h4 id="enrollment">4.3.1. Enrollment</h4>
+<h4 id="enrollment">3.3.1. Enrollment</h4>
 <div class="paragraph">
 <p>On first boot of the device, the user must initially enroll a PIN/pattern/password with Gatekeeper.
 This is known as enrollment.
@@ -1786,7 +1779,7 @@ This is necessary to to create the User&#8217;s SID (User Secure Identifier) whi
 </div>
 </div>
 <div class="sect3">
-<h4 id="authentication_process">4.3.2. Authentication Process</h4>
+<h4 id="authentication_process">3.3.2. Authentication Process</h4>
 <div class="paragraph">
 <p>Once a user has set up a credential (eg. a Pattern lock) and they have received their User SID (Secure User Id), they are now ready to authenticate.</p>
 </div>
@@ -1809,7 +1802,7 @@ This is necessary to to create the User&#8217;s SID (User Secure Identifier) whi
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>The <code>gatekeeperd</code> daemon will send a hash of the password/ping/pattern it received in step 1, to its counterpart <code>gatekeeper</code> in the TEE (TEE OS).</p>
+<p>The <code>gatekeeperd</code> daemon will send a hash of the password/pin/pattern it received in step 1, to its counterpart <code>gatekeeper</code> in the TEE (TEE OS).</p>
 </li>
 <li>
 <p>Alternatively, the <code>fingerprintd</code> daemon sends the data to its <code>fingerprint</code> counterpart in the TEE.</p>
@@ -1842,12 +1835,650 @@ The <code>keymaster</code> trusts the timestamp in the token as the last authent
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="keystore">3.4. Keystore</h3>
+<div class="paragraph">
+<p>The Android Keystore system allows storage of cryptographic keys inside a container to make it more difficult to extract them from a device.
+Once keys are in the keystore, they can be used for cryptographic operations with the key material remaining non-exportable.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="trusted_execution_environment">3.5. Trusted Execution Environment</h3>
+<div class="paragraph">
+<p>A TEE processor is generally a separate microprocessor or a virtualized instance of the main processor.
+The TEE processor is isolated from the rest of the system using memory and I/O protection mechanisms supported by the hardware.</p>
+</div>
+<div class="paragraph">
+<p>TEE is necessary as the main processor on mobile devices is considered "untrusted".
+It is not allowed access to certain areas of RAM or where other device-specific cryptographic keys are stored.
+Applications running on the main processor will therefore delegate any operations that require use of secret/sensitive data to the TEE processor.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="vetting_the_security_of_mobile_applications">4. Vetting the Security of Mobile Applications</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is a summary of notes taken from the <a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-163.pdf">NIST Vetting the Security of Mobile Applications</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="app_vetting_process">4.1. App Vetting Process</h3>
+<div class="sect3">
+<h4 id="general_process">4.1.1. General Process</h4>
+<div class="paragraph">
+<p>In an enterprise environment, before the mobile apps are deployed to the devices, they needs to be vetted. The process works like this:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The apps are submitted to the administrator.</p>
+</li>
+<li>
+<p>The administrator submit the app for testing.
+The app testing process will use both static analysis and dynamic analysis services or tools to identity poteintial vulnerabilities of the apps.
+It should also generate reports about those vulnerabilities and produce risk assessments.</p>
+</li>
+<li>
+<p>The generated reports will be submitted to an auditor.
+Based on the reports the auditor will then submit the recommendation to the approver.</p>
+</li>
+<li>
+<p>Approver will either approve or reject the app.</p>
+</li>
+<li>
+<p>If the app is approved, the administrator will deploy the app. Otherwise the administrator will reject the app.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The following diagram can be used to describe the process:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="assets/mobile-app-vetting.png" alt="600" width="600">
+</div>
+</div>
+<div class="paragraph">
+<p>Further note that although app vetting processes may vary among organizations, organizations should strive to implement a process that is repeatable, efficient, consistent, and that limits errors.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="planning_the_vetting_process">4.1.2. Planning the Vetting Process</h4>
+<div class="paragraph">
+<p>Before an organization can implement an app vetting process, it is necessary for the organization to first</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>develop app security requirements</p>
+</li>
+<li>
+<p>understand the limitations of app vetting, and</p>
+</li>
+<li>
+<p>procure a budget and staff for supporting the app vetting process.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="recommendation">4.1.3. Recommendation</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Perform a risk analysis to understand and document the potential security impact of mobile apps on the organization’s computing, networking, and data resources.</p>
+</li>
+<li>
+<p>Review and document the mobile device hardware and operating system security controls, for example an encrypted file system, and identify which security and privacy requirements can be addressed by the mobile device itself.</p>
+</li>
+<li>
+<p>Review and document mobile enterprise security technologies, such as Mobile Device Management (MDM) solutions, and identify which security and privacy requirements can be addressed by these technologies.</p>
+</li>
+<li>
+<p>Review the organization’s mobile security architecture and understand what threats are mitigated through the technical and operational controls. Identify potential security and privacy risks that are not mitigated through these technical and operational controls.</p>
+</li>
+<li>
+<p>Develop organizational app security requirements by identifying general and context-sensitive requirements.</p>
+</li>
+<li>
+<p>Educate organizational staff on the limitations of app vetting and the value of human involvement in an app vetting process.</p>
+</li>
+<li>
+<p>Procure an adequate budget for performing an app vetting process.</p>
+</li>
+<li>
+<p>Hire personnel, particularly auditors, with appropriate expertise.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="app_testing">4.2. App Testing</h3>
+<div class="paragraph">
+<p>General app security requirements include:</p>
+</div>
+<div class="sect3">
+<h4 id="testing_requirements">4.2.1. Testing Requirements</h4>
+<div class="sect4">
+<h5 id="enabling_authorized_functionality">Enabling authorized functionality</h5>
+<div class="sect5">
+<h6 id="requirement">Requirement</h6>
+<div class="paragraph">
+<p>The app must work as described; all buttons, menu items, and other interfaces must work. Error conditions must be handled gracefully, such as when a service or function is unavailable (e.g., disabled, unreachable, etc.)</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="examples">Examples</h6>
+<div class="ulist">
+<ul>
+<li>
+<p>Testing the UI</p>
+</li>
+<li>
+<p>Usage of the physical sensors on the device</p>
+</li>
+<li>
+<p>Usage of Telephony and SMS messages of the device</p>
+</li>
+<li>
+<p>Usage of the device identifier or PII (personally identifiable information)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="preventing_unauthorized_functionality">Preventing unauthorized functionality</h5>
+<div class="sect5">
+<h6 id="requirement_2">Requirement</h6>
+<div class="paragraph">
+<p>Unauthorized functionality, such as data exfiltration performed by malware, must not be supported.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="examples_2">Examples</h6>
+<div class="ulist">
+<ul>
+<li>
+<p>Malicious malwares that can</p>
+<div class="ulist">
+<ul>
+<li>
+<p>exfiltrating confidential information or PII to a third party</p>
+</li>
+<li>
+<p>defrauding the user by sending premium SMS messages</p>
+</li>
+<li>
+<p>injection of fake websites into the victim’s browser</p>
+</li>
+<li>
+<p>the use of banner ads that may be presented in a manner which causes the user to unintentionally select ads that may attempt to deceive the user</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Use open source or commercially available malware detection and analysis tools to identify known or new form of malwares</p>
+</li>
+<li>
+<p>Are there communications with disreputable websites, domains, servers, etc</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="limiting_permissions">Limiting permissions</h5>
+<div class="sect5">
+<h6 id="requirement_3">Requirement</h6>
+<div class="paragraph">
+<p>Apps should have only the minimum permissions necessary and should only grant other applications the necessary permissions.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="examples_3">Examples</h6>
+<div class="ulist">
+<ul>
+<li>
+<p>File input/output (I/O) and removable storage</p>
+<div class="ulist">
+<ul>
+<li>
+<p>file scanning or access to files that are not part of an app’s own directory could be an indicator of malicious activity or bad coding practice</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Privileged commands</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Apps may possess the ability to invoke lower-level command line programs, which may allow access to low-level structures, such as the root directory, or may allow access to sensitive commands.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>APIs</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The app only uses designated APIs from the vendor-provided software development kit (SDK) and uses them properly; no other API calls are permitted</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="protecting_sensitive_data">Protecting sensitive data</h5>
+<div class="sect5">
+<h6 id="requirement_4">Requirement</h6>
+<div class="paragraph">
+<p>Apps that collect, store, and transmit sensitive data should protect the confidentiality and integrity of this data.
+This category includes preserving privacy, such as asking permission to use personal information and using it only for authorized purposes</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="examples_4">Examples</h6>
+<div class="ulist">
+<ul>
+<li>
+<p>Usage of invalid cryptography modules. See <a href="http://csrc.nist.gov/groups/STM/cmvp/documents/140-1/140val-all.htm">list of FIPS (Federal Information Processing Standards) validated modules</a></p>
+</li>
+<li>
+<p>Cryptography implementations must also be maintained in accordance with approved practices.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Cryptographic key management is often performed improperly, leading to exploitable weaknesses. See <a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-57pt3r1.pdf">NIST Recommendation for Key Management</a></p>
+</li>
+<li>
+<p>The failure to properly validate digital certificates, leaving communications protected by these certificates subject to man-in-themiddle attacks.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Privacy considerations need to be taken into account for apps that handle PII, including mobile-specific personal information like location data and pictures taken by onboard cameras, as well as the broadcast ID of the device.</p>
+</li>
+<li>
+<p>Data leakage</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Through unauthorized network connections.</p>
+</li>
+<li>
+<p>Shared system-level logs, where multiple apps log their security events to a single log file</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="securing_app_code_dependencies">Securing app code dependencies</h5>
+<div class="sect5">
+<h6 id="requirement_5">Requirement</h6>
+<div class="paragraph">
+<p>The app must use any dependencies, such as on libraries, in a reasonable manner and not for malicious reasons.
+Specifically, an app should properly use other bodies of code, such as libraries, only when needed, and not to attempt to obfuscate malicious activity</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="examples_5">Examples</h6>
+<div class="ulist">
+<ul>
+<li>
+<p>Native Methods</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Native method calls are typically calls to a library function that has already been loaded into memory.</p>
+</li>
+<li>
+<p>However, can provide a level of obfuscation that impacts the ability to perform analysis of the app.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>External Libraries and Classes</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Third-party libraries and classes can be closed source, can have selfmodifying code, or can execute unknown server-side code.</p>
+</li>
+<li>
+<p>Legitimate uses for loaded libraries and classes might be for the use of a cryptographic library or a graphics API.</p>
+</li>
+<li>
+<p>Tools are available that can list libraries, and these libraries can then be searched for in vulnerability databases to determine if they have known weaknesses.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Dynamic Behavior</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The key point here is the need to know where data used by an app originates from and knowing whether and how it gets sanitized.</p>
+</li>
+<li>
+<p>It is critical to recognize that data downloaded from an external source is particularly dangerous as a potential exploit vector unless it is clear how the app prevents insecure behaviors resulting from data from a source not trusted by the organization using the app.</p>
+</li>
+<li>
+<p>Requiring some level of risk-tolerance mitigation.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Inter-Application Communications</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Be aware of situations where an app is using nonhuman entities to make API calls to other devices, to communicate with third-party services, or to otherwise interact with other systems.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="testing_app_updates">Testing app updates</h5>
+<div class="sect5">
+<h6 id="requirement_6">Requirement</h6>
+<div class="paragraph">
+<p>New versions of the app must be tested to identify any new weaknesses.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="examples_6">Examples</h6>
+<div class="ulist">
+<ul>
+<li>
+<p>All apps, as well as their updates, should go through a software assurance vetting process, because each new version of an app can introduce new unintentional weaknesses or unreliable code.</p>
+</li>
+<li>
+<p>But devices can install updates automatically, or users can install updates from somewhere else</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Disabling all automatic updates</p>
+</li>
+<li>
+<p>Only permitting use of an organization-provided app store</p>
+</li>
+<li>
+<p>Enabling MDM mobile application management features</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="testing_approaches">4.2.2. Testing Approaches</h4>
+<div class="sect4">
+<h5 id="correctness_testing">Correctness Testing</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Software correctness testing is the process of executing a program with the intent of finding errors.</p>
+</li>
+<li>
+<p>Although software correctness testing is aimed primarily at improving quality assurance, verifying and validating described functionality, or estimating reliability, it can also help to reveal potential security vulnerabilities since such vulnerabilities often have a negative effect on the quality, functionality, and reliability of the software.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="source_code_versus_binary_code">Source Code Versus Binary Code</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>When source code is available, such as in the case of an open source app, a variety of tools can be used to analyze it.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Reviewers should generally use automated static analysis tools whether they are conducting an automated or a manual review, and they should express their findings in terms of Common Weakness Enumeration (CWE) identifiers or some other widely accepted nomenclature.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="static_versus_dynamic_analysis">Static Versus Dynamic Analysis</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Organizations should consider the technical trade-off differences between what static and dynamic tools offer and balance their usage given the organization’s software assurance goals.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="automated_tools">Automated Tools</h5>
+<div class="paragraph">
+<p>Classes of automated tools include</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Simulators</p>
+</li>
+<li>
+<p>Remote Device Access</p>
+</li>
+<li>
+<p>Automated Testing</p>
+<div class="ulist">
+<ul>
+<li>
+<p>User Interface-Driven Testing</p>
+</li>
+<li>
+<p>Data-Driven Testing</p>
+</li>
+<li>
+<p>Fuzzing</p>
+</li>
+<li>
+<p>Network-Level Testing</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Test Automation</p>
+</li>
+<li>
+<p>Static Tools</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Static Analysis Tools</p>
+</li>
+<li>
+<p>Metrics Tools</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Organizations will need to use multiple automated tools to meet their testing requirements.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="sharing_results">4.2.3. Sharing Results</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>The <a href="https://nvd.nist.gov/">National Vulnerability Database (NVD)</a> is the U.S. government repository of standards-based
+vulnerability management data represented using the <a href="https://scap.nist.gov/">Security Content Automation Protocol (SCAP)</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>The NVD includes databases of security checklists, security-related software flaws, misconfigurations,
+product names, and impact metrics.</p>
+</li>
+<li>
+<p>SCAP is a suite of specifications that standardize the format and nomenclature by which security software products communicate software flaw and security configuration information</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>The <a href="http://cwe.mitre.org/">CWE</a> and <a href="https://capec.mitre.org/">Common Attack Pattern Enumeration and Classification (CAPEC)</a> collections can provide a useful list of weaknesses and attack approaches to drive a binary or live system penetration test.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="recommendation_2">4.2.4. Recommendation</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Review licensing agreements associated with analyzers and understand the security implications surrounding the integrity, intellectual property, and licensing issues when submitting an app to an analyzer.</p>
+</li>
+<li>
+<p>Ensure that apps transmitted over the network use an encrypted channel (e.g., SSL) and that apps are stored on a secure machine at the analyzer&#8217;s location. In addition, ensure that only authorized users have access to that machine.</p>
+</li>
+<li>
+<p>Identify general app security requirements needed by the organization.</p>
+</li>
+<li>
+<p>Select appropriate testing tools and methodologies for determining the satisfaction or violation of general app security requirements.</p>
+</li>
+<li>
+<p>Ensure that app updates are tested.</p>
+</li>
+<li>
+<p>Leverage existing testing results where possible.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="app_approval_rejection">4.3. App Approval/Rejection</h3>
+<div class="sect3">
+<h4 id="report_and_risk_auditing">4.3.1. Report and Risk Auditing</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>One of the main issues related to report and risk auditing stems from the difficulty in collating and interpreting different reports and risk assessments from multiple analyzers due to the wide variety of security-related definitions, semantics, nomenclature, and metrics</p>
+<div class="ulist">
+<ul>
+<li>
+<p>It is recommended that an organization identify analyzers that leverage vulnerability reporting and risk assessment standards.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="organization_specific_vetting_criteria">4.3.2. Organization-Specific Vetting Criteria</h4>
+<div class="paragraph">
+<p>Sample criterias:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Requirements</p>
+</li>
+<li>
+<p>Provenance</p>
+</li>
+<li>
+<p>Data Sensitivity</p>
+</li>
+<li>
+<p>App Criticality</p>
+</li>
+<li>
+<p>Target Users</p>
+</li>
+<li>
+<p>Target Hardware</p>
+</li>
+<li>
+<p>Target Environment</p>
+</li>
+<li>
+<p>Digital Signature</p>
+</li>
+<li>
+<p>App Documentation</p>
+<div class="ulist">
+<ul>
+<li>
+<p>User Guide</p>
+</li>
+<li>
+<p>Test Plans</p>
+</li>
+<li>
+<p>Testing Results</p>
+</li>
+<li>
+<p>Service-Level Agreement</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="recommendation_3">4.3.3. Recommendation</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Use analyzers that leverage a standardized reporting format or risk assessment methodology, or that provides intuitive and easy-to-interpret reports and risk assessments.</p>
+</li>
+<li>
+<p>Ensure sufficient training of auditors on both the organization&#8217;s security requirements and interpretation of analyzer reports and risk assessments. Use multiple auditors to increase likelihood of appropriate recommendations.</p>
+</li>
+<li>
+<p>Identify organization-specific vetting criteria necessary for vetting context-sensitive app security requirements.</p>
+</li>
+<li>
+<p>Monitor public databases, mailing lists, and other publicly available security vulnerability reporting repositories to keep abreast of new developments that may impact the security of mobile devices and mobile apps.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-08-11 14:12:56 IST
+Last updated 2017-08-14 15:26:49 IST
 </div>
 </div>
 </body>
