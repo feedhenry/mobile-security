@@ -462,6 +462,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#app_approval_rejection">4.3. App Approval/Rejection</a></li>
 </ul>
 </li>
+<li><a href="#guidelines_for_managing_the_security_of_mobile_devices_in_the_enterprise">5. Guidelines for Managing the Security of Mobile Devices in the Enterprise</a>
+<ul class="sectlevel2">
+<li><a href="#high_level_threats_and_vulnerabilities_for_mobile_devices">5.1. High-Level Threats and Vulnerabilities for Mobile Devices</a></li>
+<li><a href="#technologies_for_mobile_device_management">5.2. Technologies for Mobile Device Management</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -2475,10 +2481,261 @@ product names, and impact metrics.</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="guidelines_for_managing_the_security_of_mobile_devices_in_the_enterprise">5. Guidelines for Managing the Security of Mobile Devices in the Enterprise</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is a summary of notes taken from the <a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-124r1.pdf">NIST Guidelines for Managing the Security of Mobile Devices in the Enterprise</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="high_level_threats_and_vulnerabilities_for_mobile_devices">5.1. High-Level Threats and Vulnerabilities for Mobile Devices</h3>
+<div class="sect3">
+<h4 id="lack_of_physical_security_controls">5.1.1. Lack of Physical Security Controls</h4>
+<div class="sect4">
+<h5 id="mitigations">Mitigations</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Requiring authentication before gaining access to the mobile device or the organization’s resources accessible through the device.</p>
+</li>
+<li>
+<p>Protecting sensitive data—either encrypting the mobile device’s storage so that sensitive data cannot be recovered from it by unauthorized parties, or not storing sensitive data on mobile devices.</p>
+</li>
+<li>
+<p>User training and awareness, to reduce the frequency of insecure physical security practices.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="use_of_untrusted_mobile_devices">5.1.2. Use of Untrusted Mobile Devices</h4>
+<div class="sect4">
+<h5 id="mitigations_2">Mitigations</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Restrict or prohibit use of BYOD devices, thus favoring organization-issued devices</p>
+</li>
+<li>
+<p>Fully secure each organization-issued mobile device; this gets the mobile device in as trusted a state as possible, and deviations from this secure state can be monitored and addressed.</p>
+</li>
+<li>
+<p>Use other technical solutions for achieving degrees of trust in BYOD devices</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="use_of_untrusted_networks">5.1.3. Use of Untrusted Networks</h4>
+<div class="sect4">
+<h5 id="mitigations_3">Mitigations</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Using strong encryption technologies (such as virtual private networks, VPNs) to protect the confidentiality and integrity of communications</p>
+</li>
+<li>
+<p>Using mutual authentication mechanisms to verify the identities of both endpoints before transmitting data</p>
+</li>
+<li>
+<p>Prohibit use of insecure Wi-Fi networks</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="use_of_untrusted_applications">5.1.4. Use of Untrusted Applications</h4>
+<div class="sect4">
+<h5 id="mitigations_4">Mitigations</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Prohibiting all installation of thirdparty applications, or implementing whitelisting to allow installation of approved applications only.</p>
+</li>
+<li>
+<p>Perform a risk assessment on each third-party application before permitting its use on the organization’s mobile devices</p>
+</li>
+<li>
+<p>Prohibiting or restricting browser access</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="interaction_with_other_systems">5.1.5. Interaction with Other Systems</h4>
+<div class="sect4">
+<h5 id="mitigations_5">Mitigations</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Preventing an organization-issued mobile device from syncing with a personally-owned computer necessitates security controls on the mobile device that restrict what devices it can synchronize with</p>
+</li>
+<li>
+<p>Preventing a personally-owned mobile device from syncing with an organization-issued computer necessitates security controls on the organizationissued computer, restricting the connection of mobile devices</p>
+</li>
+<li>
+<p>Preventing the use of remote backup services can possibly be achieved by blocking use of those services or by configuring the mobile devices not to use such services</p>
+</li>
+<li>
+<p>Users should be instructed not to connect their mobile devices to unknown charging devices; they should carry and use their own charging devices</p>
+</li>
+<li>
+<p>Mobile devices can be prevented from exchanging data with each other through logical or physical means</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="use_of_untrusted_content">5.1.6. Use of Untrusted Content</h4>
+<div class="sect4">
+<h5 id="mitigations_6">Mitigations</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Educate users on the risks inherent in untrusted content and to discourage users from accessing untrusted content with any mobile devices they use for work</p>
+</li>
+<li>
+<p>Have applications, such as QR readers, display the unobfuscated content (e.g., the URL) and allow users to accept or reject it before proceeding</p>
+</li>
+<li>
+<p>Use secure web gateways, HTTP proxy servers, or other intermediate devices to validate URLs before allowing them to be contacted.</p>
+</li>
+<li>
+<p>It is also possible to restrict peripheral use on mobile devices, such as disabling camera use in order to prevent QR codes from being processed</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="use_of_location_services">5.1.7. Use of Location Services</h4>
+<div class="sect4">
+<h5 id="mitigations_7">Mitigations</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Disabling location services or by prohibiting use of location services for particular applications such as social networking or photo applications.</p>
+</li>
+<li>
+<p>Users may also be trained to turn off location services when in sensitive areas</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="technologies_for_mobile_device_management">5.2. Technologies for Mobile Device Management</h3>
+<div class="paragraph">
+<p>The MDM system should have the following capabilities:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>General policy</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Restrict user and application access to hardware</p>
+</li>
+<li>
+<p>Restrict user and application access to native OS services</p>
+</li>
+<li>
+<p>Manage wireless network interfaces</p>
+</li>
+<li>
+<p>Automatically monitor, detect, and report when policy violations occur</p>
+</li>
+<li>
+<p>Limit or prevent access to enterprise services based on the mobile device’s operating system version</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Data Communication and Storage</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Strongly encrypt data communications between the mobile device and the organization.</p>
+</li>
+<li>
+<p>Strongly encrypt stored data on both built-in storage and removable media storage.</p>
+</li>
+<li>
+<p>Wipe the device (to scrub its stored data) before reissuing it to another user, retiring the device, etc.</p>
+</li>
+<li>
+<p>Remotely wipe the device (to scrub its stored data) if it is suspected that the device has been lost, stolen, or otherwise fallen into untrusted hands and is at risk of having its data recovered by an untrusted party.</p>
+</li>
+<li>
+<p>A device often can also be configured to wipe itself after a certain number of incorrect authentication attempts.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>User and Device Authentication</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Require a device password/passcode and/or other authentication (e.g., token-based authentication, network-based device authentication, domain authentication) before accessing the organization’s resources.</p>
+</li>
+<li>
+<p>If device account lockout is enabled or the device password/passcode is forgotten, an administrator can reset this remotely to restore access to the device.</p>
+</li>
+<li>
+<p>Have the device automatically lock itself after it is idle for a period</p>
+</li>
+<li>
+<p>Under the direction of an administrator, remotely lock the device if it is suspected that the device has been left in an unlocked state in an unsecured location</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Applications</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Restrict which app stores may be used.</p>
+</li>
+<li>
+<p>Restrict which applications may be installed through whitelisting (preferable) or blacklisting.</p>
+</li>
+<li>
+<p>Restrict the permissions (e.g., camera access, location access) assigned to each application.</p>
+</li>
+<li>
+<p>Install, update, and remove applications.</p>
+</li>
+<li>
+<p>Restrict the use of operating system and application synchronization services (e.g., local device synchronization, remote synchronization services and websites).</p>
+</li>
+<li>
+<p>Verify digital signatures on applications to ensure that only applications from trusted entities are installed on the device and that code has not been modified.</p>
+</li>
+<li>
+<p>Distribute the organization’s applications from a dedicated mobile application store</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-08-14 15:26:49 IST
+Last updated 2017-08-14 17:13:26 IST
 </div>
 </div>
 </body>
