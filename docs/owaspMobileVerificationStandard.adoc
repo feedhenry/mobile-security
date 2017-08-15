@@ -89,6 +89,8 @@ V5,Network Communication,Category,Comments,Android,iOS,Cordova
 
 We should also consider HPKP.",https://github.com/datatheorem/TrustKit-Android[TrustKit] for Android can be used for certificate pinning.,https://github.com/datatheorem/TrustKit[TrustKit] for iOS can be user for certificate pinning.,The Secure HTTP http://plugins.telerik.com/cordova/plugin/secure-http[cordova plugin] will allow certificate pinning.
 5.5,"Verify that the app doesn't rely on a single insecure communication channel (email or SMS) for critical operations, such as enrollments and account recovery.",Keycloak Task,Keycloak has a credentials reset flow which allows you to configure how password/credential resets should be carried out.,,,
+5.6,"Verify that the app uses some form of whitelisting to control access to external domains.",Coding Task,,,,We should follow the https://cordova.apache.org/docs/en/7.x/guide/appdev/whitelist/index.html[whitelist guide] for controlling external domain access in Cordova.
+
 |===
 == Environmental Interaction
 [%header,format=csv]
