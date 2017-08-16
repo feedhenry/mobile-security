@@ -1,0 +1,67 @@
+= Cordova Security Guide
+
+This is a summary of the https://cordova.apache.org/docs/en/latest/guide/appdev/security/[Cordova Security Guide].
+
+== Whitelist
+Domain whitelisting is a security model that controls access to external domains over which your application has no control. Cordova provides a configurable security policy to define which external sites may be accessed. By default, new apps are configured to allow access to any site. Before moving your application to production, you should formulate a whitelist and allow access to specific network domains and subdomains.
+
+Be aware that some websites may automatically redirect from their home page to a different url, such as using https protocol or to a country-specific domain. For example `http://www.google.com` will redirect to use SSL/TLS at `https://www.google.com`, and then may further redirect to a geography such as `https://www.google.co.uk`. Such scenarios may require modified or additional whitelist entries beyond your initial requirement
+
+Note that the whitelist applies only to the main Cordova webview, and does not apply to an https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-inappbrowser/[InAppBrowser] webview or opening links in the system web browser.
+
+== Iframes & Calback ID Mechanism
+If content is served in an iframe from a whitelisted domain, that domain will have access to the native Cordova bridge. This means that if you whitelist a third-party advertising network and serve those ads through an iframe, it is possible that a malicious ad will be able to break out of the iframe and perform malicious actions. Because of this, you should generally not use iframes unless you control the server that hosts the iframe content.
+
+== Certificate Pinning
+Cordova does not support true certificate pinning. The main barrier to this is a lack of native APIs in Android for intercepting SSL connections to perform the check of the server's certificate.
+Since Apache Cordova is meant to offer consistent APIs across multiple platforms, not having a capability in a major platform breaks that consistency.
+
+There are ways to approximate certificate pinning, such as checking the server's public key (fingerprint) is the expected value when your application starts or at other various times during your application's lifetime. There are third-party plugins available for Cordova that can do that. However, this is not the same as true certificate pinning which automatically verifies the expected value on every connection to the server.
+
+== Self-signed Certificates
+Using self-signed certificates on your server is not recommended.
+If you desire SSL, then it is highly recommended that your server have a certificate that has been properly signed by a well-known CA (certificate authority).
+The inability to do true certificate pinning makes this important.
+The reason is that accepting self-signed certificates bypasses the certificate chain validation, which allows any server certificate to be considered valid by the device.
+
+== Encrypted storage
+For encrypted storage, you could consider using one of a number of secure storage plugins for Cordova.
+The https://www.npmjs.com/package/cordova-plugin-secure-key-store[cordova-plugin-secure-key-store] plugin uses the Android Keystore and the iOS Keychain for stores sensitive data.
+
+== General Tips
+
+=== Use InAppBrowser for outside links
+Use the InAppBrowser when opening links to any outside website. This is much safer than whitelisting a domain name and including the content directly in your application because the InAppBrowser will use the native browser's security features and will not give the website access to your Cordova environment. Even if you trust the third party website and include it directly in your application, that third party website could link to malicious web content.
+
+If you want all page loads in your app to go through the InAppBrowser, you can simply hook `window.open` during initialization. For example:
+
+```
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+    window.open = cordova.InAppBrowser.open;
+}
+```
+
+=== Validate all User Input
+Always validate any and all input that your application accepts.
+This includes:
+
+* usernames
+* passwords
+* dates
+* uploaded media etc.
+
+Because an attacker could manipulate your HTML and JS assets (either by decompiling your application or using debugging tools like chrome://inspect), this validation should also be performed on your server, especially before handing the data off to any backend service.
+
+Other sources where data should be validated include:
+
+* User Documents
+* Contacts
+* Push Notifications
+
+=== Do not cache sensitive data
+If usernames, password, geolocation information, and other sensitive data is cached, then it could potentially be retrieved later by an unauthorized user or application.
+
+=== Do not assume that your source code is secure
+Since a Cordova application is built from HTML and JavaScript assets that get packaged in a native container, you should not consider your code to be secure.
+It is possible to reverse engineer a Cordova application to recover sensitive app data or hardcoded keys etc.

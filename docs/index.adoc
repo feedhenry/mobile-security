@@ -11,7 +11,9 @@ All things mobile security related.
 
 include::owaspCheatSheetSeries.adoc[leveloffset=+1]
 include::owaspMobileVerificationStandard.adoc[leveloffset=+1]
+include::owaspMobileThreatModelProject.adoc[leveloffset=+1]
 include::androidSecurityGuide.adoc[leveloffset=+1]
+include::cordovaSecurityGuide.adoc[leveloffset=+1]
 include::nispMobileSecurityVetting.adoc[leveloffset=+1]
 include::niapMobileAppVetting.adoc[leveloffset=+1]
 include::nispMobileDeviceSecurityGuides.adoc[leveloffset=+1]
