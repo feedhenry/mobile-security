@@ -453,45 +453,53 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#other_mobile_vulnerabilities">2.10. Other Mobile Vulnerabilities</a></li>
 </ul>
 </li>
-<li><a href="#android_security_guide">3. Android Security Guide</a>
+<li><a href="#owasp_threat_model_project">3. OWASP Threat Model Project</a>
 <ul class="sectlevel2">
-<li><a href="#kernel_security">3.1. Kernel Security</a></li>
-<li><a href="#application_security">3.2. Application Security</a></li>
-<li><a href="#authentication">3.3. Authentication</a></li>
-<li><a href="#keystore">3.4. Keystore</a></li>
-<li><a href="#trusted_execution_environment">3.5. Trusted Execution Environment</a></li>
+<li><a href="#mobile_threat_model_overview">3.1. Mobile Threat Model Overview</a></li>
+<li><a href="#mobile_architecture">3.2. Mobile Architecture</a></li>
+<li><a href="#mobile_data">3.3. Mobile Data</a></li>
+<li><a href="#threat_agent_identification">3.4. Threat Agent Identification</a></li>
 </ul>
 </li>
-<li><a href="#cordova_security_guide">4. Cordova Security Guide</a>
+<li><a href="#android_security_guide">4. Android Security Guide</a>
 <ul class="sectlevel2">
-<li><a href="#whitelist">4.1. Whitelist</a></li>
-<li><a href="#iframes_calback_id_mechanism">4.2. Iframes &amp; Calback ID Mechanism</a></li>
-<li><a href="#certificate_pinning_2">4.3. Certificate Pinning</a></li>
-<li><a href="#self_signed_certificates">4.4. Self-signed Certificates</a></li>
-<li><a href="#encrypted_storage">4.5. Encrypted storage</a></li>
-<li><a href="#general_tips">4.6. General Tips</a></li>
+<li><a href="#kernel_security">4.1. Kernel Security</a></li>
+<li><a href="#application_security">4.2. Application Security</a></li>
+<li><a href="#authentication">4.3. Authentication</a></li>
+<li><a href="#keystore">4.4. Keystore</a></li>
+<li><a href="#trusted_execution_environment">4.5. Trusted Execution Environment</a></li>
 </ul>
 </li>
-<li><a href="#vetting_the_security_of_mobile_applications">5. Vetting the Security of Mobile Applications</a>
+<li><a href="#cordova_security_guide">5. Cordova Security Guide</a>
 <ul class="sectlevel2">
-<li><a href="#app_vetting_process">5.1. App Vetting Process</a></li>
-<li><a href="#app_testing">5.2. App Testing</a></li>
-<li><a href="#app_approval_rejection">5.3. App Approval/Rejection</a></li>
+<li><a href="#whitelist">5.1. Whitelist</a></li>
+<li><a href="#iframes_calback_id_mechanism">5.2. Iframes &amp; Calback ID Mechanism</a></li>
+<li><a href="#certificate_pinning_2">5.3. Certificate Pinning</a></li>
+<li><a href="#self_signed_certificates">5.4. Self-signed Certificates</a></li>
+<li><a href="#encrypted_storage">5.5. Encrypted storage</a></li>
+<li><a href="#general_tips">5.6. General Tips</a></li>
 </ul>
 </li>
-<li><a href="#niap_mobile_app_vetting">6. NIAP Mobile App Vetting</a>
+<li><a href="#vetting_the_security_of_mobile_applications">6. Vetting the Security of Mobile Applications</a>
 <ul class="sectlevel2">
-<li><a href="#security_functional_requirements">6.1. Security Functional Requirements</a></li>
-<li><a href="#security_assurance_requirements">6.2. Security Assurance Requirements</a></li>
-<li><a href="#selection_based_security_functional_requirements">6.3. Selection-Based Security Functional Requirements</a></li>
-<li><a href="#objective_security_functional_requirements">6.4. Objective Security Functional Requirements</a></li>
-<li><a href="#optional_security_functional_requirements">6.5. Optional Security Functional Requirements</a></li>
+<li><a href="#app_vetting_process">6.1. App Vetting Process</a></li>
+<li><a href="#app_testing">6.2. App Testing</a></li>
+<li><a href="#app_approval_rejection">6.3. App Approval/Rejection</a></li>
 </ul>
 </li>
-<li><a href="#guidelines_for_managing_the_security_of_mobile_devices_in_the_enterprise">7. Guidelines for Managing the Security of Mobile Devices in the Enterprise</a>
+<li><a href="#niap_mobile_app_vetting">7. NIAP Mobile App Vetting</a>
 <ul class="sectlevel2">
-<li><a href="#high_level_threats_and_vulnerabilities_for_mobile_devices">7.1. High-Level Threats and Vulnerabilities for Mobile Devices</a></li>
-<li><a href="#technologies_for_mobile_device_management">7.2. Technologies for Mobile Device Management</a></li>
+<li><a href="#security_functional_requirements">7.1. Security Functional Requirements</a></li>
+<li><a href="#security_assurance_requirements">7.2. Security Assurance Requirements</a></li>
+<li><a href="#selection_based_security_functional_requirements">7.3. Selection-Based Security Functional Requirements</a></li>
+<li><a href="#objective_security_functional_requirements">7.4. Objective Security Functional Requirements</a></li>
+<li><a href="#optional_security_functional_requirements">7.5. Optional Security Functional Requirements</a></li>
+</ul>
+</li>
+<li><a href="#guidelines_for_managing_the_security_of_mobile_devices_in_the_enterprise">8. Guidelines for Managing the Security of Mobile Devices in the Enterprise</a>
+<ul class="sectlevel2">
+<li><a href="#high_level_threats_and_vulnerabilities_for_mobile_devices">8.1. High-Level Threats and Vulnerabilities for Mobile Devices</a></li>
+<li><a href="#technologies_for_mobile_device_management">8.2. Technologies for Mobile Device Management</a></li>
 </ul>
 </li>
 </ul>
@@ -1672,15 +1680,252 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </div>
 </div>
 <div class="sect1">
-<h2 id="android_security_guide">3. Android Security Guide</h2>
+<h2 id="owasp_threat_model_project">3. OWASP Threat Model Project</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is a summary of notes taken from the <a href="https://www.owasp.org/index.php/OWASP_Mobile_Security_Project#tab=M-Threat_Model_Project">OWASP Threat Model Project</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="mobile_threat_model_overview">3.1. Mobile Threat Model Overview</h3>
+<div class="paragraph">
+<p>To carry out threat modelling, you will need to have a clear understanding of the underlying system. Its important to define the following areas to understand possible threat to the mobile application.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Mobile App Architecture</strong> - This area describes how the application is designed from device specific features used by the application, such as:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Wireless transmission protocols</p>
+</li>
+<li>
+<p>Data transmission mediums</p>
+</li>
+<li>
+<p>Interaction with hardware components</p>
+</li>
+<li>
+<p>Other applications</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Mobile Data</strong> - This area cover what data does the application store and process, the business purpose of this data and what are the data workflows.</p>
+</li>
+<li>
+<p><strong>Threat Agent Identification</strong> - This area covers the threats to the mobile application and who are the threat agents.</p>
+</li>
+<li>
+<p><strong>Methods of Attack</strong> - This area covers the most common attacks utilized by threat agents.</p>
+</li>
+<li>
+<p><strong>Controls</strong> - This area covers the controls that can be used to prevent attacks.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mobile_architecture">3.2. Mobile Architecture</h3>
+<div class="paragraph">
+<p>The mobile application architecture should, at the very least, describe device specific features used by the application such as:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Wireless transmission protocols</p>
+</li>
+<li>
+<p>Data transmission medium</p>
+</li>
+<li>
+<p>Interaction with hardware components and other applications.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Once you know what features/resources are used within the mobile app architecture, you can then begin to look at the attack surface.</p>
+</div>
+<div class="paragraph">
+<p>Although mobile applications vary in function, they can be described using a generalized model as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Wireless interfaces</p>
+</li>
+<li>
+<p>Transmission Type</p>
+</li>
+<li>
+<p>Hardware Interaction</p>
+</li>
+<li>
+<p>Interaction with on device applications/services</p>
+</li>
+<li>
+<p>Interaction with off device applications/services</p>
+</li>
+<li>
+<p>Encryption Protocols</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mobile_data">3.3. Mobile Data</h3>
+<div class="paragraph">
+<p>Its important to know what purpose does the app serve from a business perspective and what data the app stores, transmits and receives.
+It’s also important to review data flow diagrams to determine exactly how data in the mobile app is handled.</p>
+</div>
+<div class="paragraph">
+<p>You should aim to answer the following questions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>What is the business functions of the app?</p>
+</li>
+<li>
+<p>Does personal data intermingle with corporate data?</p>
+</li>
+<li>
+<p>Is there specific business logic built into the app to process data?</p>
+</li>
+<li>
+<p>What does the data give you (or an attacker) access to?</p>
+</li>
+<li>
+<p>Do stored keys allow you to break crypto functions (data integrity)?</p>
+</li>
+<li>
+<p>Third party data, is it being stored/transmitted?</p>
+</li>
+<li>
+<p>Are there regulatory requirements to meet specific to user privacy?</p>
+</li>
+<li>
+<p>How does other data on the device affect the app (sandboxing restrictions enforced?)</p>
+</li>
+<li>
+<p>What is the impact of Jailbroken/Rooted vs Non Jailbroken/Rooted device and how this affects app data?</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="threat_agent_identification">3.4. Threat Agent Identification</h3>
+<div class="paragraph">
+<p>This area covers what the threats to the mobile application are and who are the threat agents.</p>
+</div>
+<div class="sect3">
+<h4 id="identifying_threat_agents">3.4.1. Identifying Threat Agents</h4>
+<div class="paragraph">
+<p>The process of identifying a threat agent is very simple and have been mentioned in the below steps:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>S1: Take the list of all sensitive data</p>
+</li>
+<li>
+<p>S2: Make a list of all the ways to access this data</p>
+</li>
+<li>
+<p>S3: The medium used to access the same listed in S2 above is the Threat Agent to be identified</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="listing_of_threat_agents_by_category">3.4.2. Listing of Threat Agents - By Category</h4>
+<div class="sect4">
+<h5 id="human_interaction_examples">Human Interaction Examples</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Stolen Device User</p>
+</li>
+<li>
+<p>Owner of the Device</p>
+</li>
+<li>
+<p>WiFi Network User</p>
+</li>
+<li>
+<p>Malicious Developer</p>
+</li>
+<li>
+<p>Organizations Internal Employee</p>
+</li>
+<li>
+<p>App Store Approvers/Reviewers</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="automated_programs_examples">Automated Programs Examples</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Malware on the device</p>
+</li>
+<li>
+<p>Scripts executign in the browser</p>
+</li>
+<li>
+<p>Malicous SMS</p>
+</li>
+<li>
+<p>Malicious App</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="methods_of_attack">3.4.3. Methods of Attack</h4>
+<div class="paragraph">
+<p>We should observe and list the different methods an attacker can use to reach the data.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="controls">3.4.4. Controls</h4>
+<div class="paragraph">
+<p>Given the above methods of attacks, we should outline some contols to:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Prevent the attacks</p>
+</li>
+<li>
+<p>Detect the attacks</p>
+</li>
+<li>
+<p>Minimize the impack of the attacks</p>
+</li>
+<li>
+<p>Protect users private information</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="android_security_guide">4. Android Security Guide</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This is a summary of the <a href="https://source.android.com/security/">Android Security Guide</a>.</p>
 </div>
 <div class="sect2">
-<h3 id="kernel_security">3.1. Kernel Security</h3>
+<h3 id="kernel_security">4.1. Kernel Security</h3>
 <div class="sect3">
-<h4 id="application_sandbox">3.1.1. Application Sandbox</h4>
+<h4 id="application_sandbox">4.1.1. Application Sandbox</h4>
 <div class="paragraph">
 <p>Android uses the UNIX user-based protection to identify and isolate running applications.
 The Android system assigns a unique UID (User ID) to each Android application and runs the application as a certain user in a separate process.
@@ -1693,13 +1938,13 @@ Applications with the same user ID can access each other&#8217;s data and also r
 </div>
 </div>
 <div class="sect3">
-<h4 id="filesystem_permissions">3.1.2. Filesystem Permissions</h4>
+<h4 id="filesystem_permissions">4.1.2. Filesystem Permissions</h4>
 <div class="paragraph">
 <p>The filesystem permissions ensure that one user cannot alter or read another user&#8217;s files. In the context of Android, this means that one application, cannot access or alter the data for another application, unless they explicitly allow it.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="device_rooting">3.1.3. Device Rooting</h4>
+<h4 id="device_rooting">4.1.3. Device Rooting</h4>
 <div class="paragraph">
 <p>By default, only the kernel and small number of core applications run using root permissions. Root permissions will allow you full access to all applications on the device, as well as their applications data.</p>
 </div>
@@ -1710,7 +1955,7 @@ At some point the key must be provided to the application and it then becomes ac
 </div>
 </div>
 <div class="sect3">
-<h4 id="filesystem_encryption">3.1.4. Filesystem Encryption</h4>
+<h4 id="filesystem_encryption">4.1.4. Filesystem Encryption</h4>
 <div class="paragraph">
 <p>A number of different filesytem encryption approaches have been used by different versions of Android.</p>
 </div>
@@ -1760,16 +2005,16 @@ At some point the key must be provided to the application and it then becomes ac
 </div>
 </div>
 <div class="sect2">
-<h3 id="application_security">3.2. Application Security</h3>
+<h3 id="application_security">4.2. Application Security</h3>
 <div class="sect3">
-<h4 id="certificate_authorities">3.2.1. Certificate Authorities</h4>
+<h4 id="certificate_authorities">4.2.1. Certificate Authorities</h4>
 <div class="paragraph">
 <p>Android includes a set of installed system Certificate Authorities, which are trusted system-wide.
 Devices running Android 7.0 and above will have an Android stock set of system CAs as device manufacturers supplied CA&#8217;s are no longer permitted.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="application_signing">3.2.2. Application Signing</h4>
+<h4 id="application_signing">4.2.2. Application Signing</h4>
 <div class="paragraph">
 <p>APK Signing will allow a developer to identify the author of the application.
 The signed application certificate defines which user id is associated with which application.
@@ -1778,7 +2023,7 @@ The application signing ensures that applications cannot access each other excep
 </div>
 </div>
 <div class="sect2">
-<h3 id="authentication">3.3. Authentication</h3>
+<h3 id="authentication">4.3. Authentication</h3>
 <div class="paragraph">
 <p>Two key pieces make up Authentication &amp; Key Storage from Android 6.0.</p>
 </div>
@@ -1809,7 +2054,7 @@ The application signing ensures that applications cannot access each other excep
 <p>The two authentication components work with the Keystore and (other components) to support the use of hardware-backed authentication tokens or AuthTokens.</p>
 </div>
 <div class="sect3">
-<h4 id="enrollment">3.3.1. Enrollment</h4>
+<h4 id="enrollment">4.3.1. Enrollment</h4>
 <div class="paragraph">
 <p>On first boot of the device, the user must initially enroll a PIN/pattern/password with Gatekeeper.
 This is known as enrollment.
@@ -1820,7 +2065,7 @@ This is necessary to to create the User&#8217;s SID (User Secure Identifier) whi
 </div>
 </div>
 <div class="sect3">
-<h4 id="authentication_process">3.3.2. Authentication Process</h4>
+<h4 id="authentication_process">4.3.2. Authentication Process</h4>
 <div class="paragraph">
 <p>Once a user has set up a credential (eg. a Pattern lock) and they have received their User SID (Secure User Id), they are now ready to authenticate.</p>
 </div>
@@ -1877,14 +2122,14 @@ The <code>keymaster</code> trusts the timestamp in the token as the last authent
 </div>
 </div>
 <div class="sect2">
-<h3 id="keystore">3.4. Keystore</h3>
+<h3 id="keystore">4.4. Keystore</h3>
 <div class="paragraph">
 <p>The Android Keystore system allows storage of cryptographic keys inside a container to make it more difficult to extract them from a device.
 Once keys are in the keystore, they can be used for cryptographic operations with the key material remaining non-exportable.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="trusted_execution_environment">3.5. Trusted Execution Environment</h3>
+<h3 id="trusted_execution_environment">4.5. Trusted Execution Environment</h3>
 <div class="paragraph">
 <p>A TEE processor is generally a separate microprocessor or a virtualized instance of the main processor.
 The TEE processor is isolated from the rest of the system using memory and I/O protection mechanisms supported by the hardware.</p>
@@ -1898,13 +2143,13 @@ Applications running on the main processor will therefore delegate any operation
 </div>
 </div>
 <div class="sect1">
-<h2 id="cordova_security_guide">4. Cordova Security Guide</h2>
+<h2 id="cordova_security_guide">5. Cordova Security Guide</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This is a summary of the <a href="https://cordova.apache.org/docs/en/latest/guide/appdev/security/">Cordova Security Guide</a>.</p>
 </div>
 <div class="sect2">
-<h3 id="whitelist">4.1. Whitelist</h3>
+<h3 id="whitelist">5.1. Whitelist</h3>
 <div class="paragraph">
 <p>Domain whitelisting is a security model that controls access to external domains over which your application has no control. Cordova provides a configurable security policy to define which external sites may be accessed. By default, new apps are configured to allow access to any site. Before moving your application to production, you should formulate a whitelist and allow access to specific network domains and subdomains.</p>
 </div>
@@ -1916,13 +2161,13 @@ Applications running on the main processor will therefore delegate any operation
 </div>
 </div>
 <div class="sect2">
-<h3 id="iframes_calback_id_mechanism">4.2. Iframes &amp; Calback ID Mechanism</h3>
+<h3 id="iframes_calback_id_mechanism">5.2. Iframes &amp; Calback ID Mechanism</h3>
 <div class="paragraph">
 <p>If content is served in an iframe from a whitelisted domain, that domain will have access to the native Cordova bridge. This means that if you whitelist a third-party advertising network and serve those ads through an iframe, it is possible that a malicious ad will be able to break out of the iframe and perform malicious actions. Because of this, you should generally not use iframes unless you control the server that hosts the iframe content.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="certificate_pinning_2">4.3. Certificate Pinning</h3>
+<h3 id="certificate_pinning_2">5.3. Certificate Pinning</h3>
 <div class="paragraph">
 <p>Cordova does not support true certificate pinning. The main barrier to this is a lack of native APIs in Android for intercepting SSL connections to perform the check of the server&#8217;s certificate.
 Since Apache Cordova is meant to offer consistent APIs across multiple platforms, not having a capability in a major platform breaks that consistency.</p>
@@ -1932,7 +2177,7 @@ Since Apache Cordova is meant to offer consistent APIs across multiple platforms
 </div>
 </div>
 <div class="sect2">
-<h3 id="self_signed_certificates">4.4. Self-signed Certificates</h3>
+<h3 id="self_signed_certificates">5.4. Self-signed Certificates</h3>
 <div class="paragraph">
 <p>Using self-signed certificates on your server is not recommended.
 If you desire SSL, then it is highly recommended that your server have a certificate that has been properly signed by a well-known CA (certificate authority).
@@ -1941,16 +2186,16 @@ The reason is that accepting self-signed certificates bypasses the certificate c
 </div>
 </div>
 <div class="sect2">
-<h3 id="encrypted_storage">4.5. Encrypted storage</h3>
+<h3 id="encrypted_storage">5.5. Encrypted storage</h3>
 <div class="paragraph">
 <p>For encrypted storage, you could consider using one of a number of secure storage plugins for Cordova.
 The <a href="https://www.npmjs.com/package/cordova-plugin-secure-key-store">cordova-plugin-secure-key-store</a> plugin uses the Android Keystore and the iOS Keychain for stores sensitive data.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="general_tips">4.6. General Tips</h3>
+<h3 id="general_tips">5.6. General Tips</h3>
 <div class="sect3">
-<h4 id="use_inappbrowser_for_outside_links">4.6.1. Use InAppBrowser for outside links</h4>
+<h4 id="use_inappbrowser_for_outside_links">5.6.1. Use InAppBrowser for outside links</h4>
 <div class="paragraph">
 <p>Use the InAppBrowser when opening links to any outside website. This is much safer than whitelisting a domain name and including the content directly in your application because the InAppBrowser will use the native browser&#8217;s security features and will not give the website access to your Cordova environment. Even if you trust the third party website and include it directly in your application, that third party website could link to malicious web content.</p>
 </div>
@@ -1967,7 +2212,7 @@ function onDeviceReady() {
 </div>
 </div>
 <div class="sect3">
-<h4 id="validate_all_user_input">4.6.2. Validate all User Input</h4>
+<h4 id="validate_all_user_input">5.6.2. Validate all User Input</h4>
 <div class="paragraph">
 <p>Always validate any and all input that your application accepts.
 This includes:</p>
@@ -2009,13 +2254,13 @@ This includes:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="do_not_cache_sensitive_data">4.6.3. Do not cache sensitive data</h4>
+<h4 id="do_not_cache_sensitive_data">5.6.3. Do not cache sensitive data</h4>
 <div class="paragraph">
 <p>If usernames, password, geolocation information, and other sensitive data is cached, then it could potentially be retrieved later by an unauthorized user or application.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="do_not_assume_that_your_source_code_is_secure">4.6.4. Do not assume that your source code is secure</h4>
+<h4 id="do_not_assume_that_your_source_code_is_secure">5.6.4. Do not assume that your source code is secure</h4>
 <div class="paragraph">
 <p>Since a Cordova application is built from HTML and JavaScript assets that get packaged in a native container, you should not consider your code to be secure.
 It is possible to reverse engineer a Cordova application to recover sensitive app data or hardcoded keys etc.</p>
@@ -2025,15 +2270,15 @@ It is possible to reverse engineer a Cordova application to recover sensitive ap
 </div>
 </div>
 <div class="sect1">
-<h2 id="vetting_the_security_of_mobile_applications">5. Vetting the Security of Mobile Applications</h2>
+<h2 id="vetting_the_security_of_mobile_applications">6. Vetting the Security of Mobile Applications</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This is a summary of notes taken from the <a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-163.pdf">NIST Vetting the Security of Mobile Applications</a>.</p>
 </div>
 <div class="sect2">
-<h3 id="app_vetting_process">5.1. App Vetting Process</h3>
+<h3 id="app_vetting_process">6.1. App Vetting Process</h3>
 <div class="sect3">
-<h4 id="general_process">5.1.1. General Process</h4>
+<h4 id="general_process">6.1.1. General Process</h4>
 <div class="paragraph">
 <p>In an enterprise environment, before the mobile apps are deployed to the devices, they needs to be vetted. The process works like this:</p>
 </div>
@@ -2072,7 +2317,7 @@ Based on the reports the auditor will then submit the recommendation to the appr
 </div>
 </div>
 <div class="sect3">
-<h4 id="planning_the_vetting_process">5.1.2. Planning the Vetting Process</h4>
+<h4 id="planning_the_vetting_process">6.1.2. Planning the Vetting Process</h4>
 <div class="paragraph">
 <p>Before an organization can implement an app vetting process, it is necessary for the organization to first</p>
 </div>
@@ -2091,7 +2336,7 @@ Based on the reports the auditor will then submit the recommendation to the appr
 </div>
 </div>
 <div class="sect3">
-<h4 id="recommendation">5.1.3. Recommendation</h4>
+<h4 id="recommendation">6.1.3. Recommendation</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2123,12 +2368,12 @@ Based on the reports the auditor will then submit the recommendation to the appr
 </div>
 </div>
 <div class="sect2">
-<h3 id="app_testing">5.2. App Testing</h3>
+<h3 id="app_testing">6.2. App Testing</h3>
 <div class="paragraph">
 <p>General app security requirements include:</p>
 </div>
 <div class="sect3">
-<h4 id="testing_requirements">5.2.1. Testing Requirements</h4>
+<h4 id="testing_requirements">6.2.1. Testing Requirements</h4>
 <div class="sect4">
 <h5 id="enabling_authorized_functionality">Enabling authorized functionality</h5>
 <div class="sect5">
@@ -2402,7 +2647,7 @@ Specifically, an app should properly use other bodies of code, such as libraries
 </div>
 </div>
 <div class="sect3">
-<h4 id="testing_approaches">5.2.2. Testing Approaches</h4>
+<h4 id="testing_approaches">6.2.2. Testing Approaches</h4>
 <div class="sect4">
 <h5 id="correctness_testing">Correctness Testing</h5>
 <div class="ulist">
@@ -2499,7 +2744,7 @@ Specifically, an app should properly use other bodies of code, such as libraries
 </div>
 </div>
 <div class="sect3">
-<h4 id="sharing_results">5.2.3. Sharing Results</h4>
+<h4 id="sharing_results">6.2.3. Sharing Results</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2524,7 +2769,7 @@ product names, and impact metrics.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="recommendation_2">5.2.4. Recommendation</h4>
+<h4 id="recommendation_2">6.2.4. Recommendation</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2550,9 +2795,9 @@ product names, and impact metrics.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="app_approval_rejection">5.3. App Approval/Rejection</h3>
+<h3 id="app_approval_rejection">6.3. App Approval/Rejection</h3>
 <div class="sect3">
-<h4 id="report_and_risk_auditing">5.3.1. Report and Risk Auditing</h4>
+<h4 id="report_and_risk_auditing">6.3.1. Report and Risk Auditing</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2569,7 +2814,7 @@ product names, and impact metrics.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="organization_specific_vetting_criteria">5.3.2. Organization-Specific Vetting Criteria</h4>
+<h4 id="organization_specific_vetting_criteria">6.3.2. Organization-Specific Vetting Criteria</h4>
 <div class="paragraph">
 <p>Sample criterias:</p>
 </div>
@@ -2622,7 +2867,7 @@ product names, and impact metrics.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="recommendation_3">5.3.3. Recommendation</h4>
+<h4 id="recommendation_3">6.3.3. Recommendation</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2644,15 +2889,15 @@ product names, and impact metrics.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="niap_mobile_app_vetting">6. NIAP Mobile App Vetting</h2>
+<h2 id="niap_mobile_app_vetting">7. NIAP Mobile App Vetting</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This is a summary of the <a href="https://www.niap-ccevs.org/pp/pp_app_v1.2_table-reqs.htm">NIAP Mobile App Vetting</a> Guidelines.</p>
 </div>
 <div class="sect2">
-<h3 id="security_functional_requirements">6.1. Security Functional Requirements</h3>
+<h3 id="security_functional_requirements">7.1. Security Functional Requirements</h3>
 <div class="sect3">
-<h4 id="random_bit_generation_services">6.1.1. Random Bit Generation Services</h4>
+<h4 id="random_bit_generation_services">7.1.1. Random Bit Generation Services</h4>
 <div class="paragraph">
 <p>The Application should select from the following approaches for its cryptographic operations:</p>
 </div>
@@ -2674,7 +2919,7 @@ product names, and impact metrics.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="storage_of_credentials">6.1.2. Storage of Credentials</h4>
+<h4 id="storage_of_credentials">7.1.2. Storage of Credentials</h4>
 <div class="paragraph">
 <p>The Application should select from the following approaches for storage of credentials in non-volatile memory:</p>
 </div>
@@ -2696,7 +2941,7 @@ product names, and impact metrics.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="access_to_platform_resources">6.1.3. Access to Platform Resources</h4>
+<h4 id="access_to_platform_resources">7.1.3. Access to Platform Resources</h4>
 <div class="paragraph">
 <p>The application shall restrict its access to the following and additonal hardware resources:</p>
 </div>
@@ -2758,7 +3003,7 @@ product names, and impact metrics.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="network_communications">6.1.4. Network Communications</h4>
+<h4 id="network_communications">7.1.4. Network Communications</h4>
 <div class="paragraph">
 <p>The application shall restrict network communication to the following and additional application-initiated communications:</p>
 </div>
@@ -2780,7 +3025,7 @@ product names, and impact metrics.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="encryption_of_sensitive_application_data">6.1.5. Encryption Of Sensitive Application Data</h4>
+<h4 id="encryption_of_sensitive_application_data">7.1.5. Encryption Of Sensitive Application Data</h4>
 <div class="paragraph">
 <p>The Application should select from the following approaches for storage of sensitive data in non-volatile memory:</p>
 </div>
@@ -2803,20 +3048,20 @@ The only exception is if the user intentionally exports the sensitive data to no
 </div>
 </div>
 <div class="sect3">
-<h4 id="supported_configuration_mechanism">6.1.6. Supported Configuration Mechanism</h4>
+<h4 id="supported_configuration_mechanism">7.1.6. Supported Configuration Mechanism</h4>
 <div class="paragraph">
 <p>The application shall invoke the mechanisms recommended by the platform or framework vendor for storing and setting configuration options.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="secure_by_default_configuration">6.1.7. Secure by Default Configuration</h4>
+<h4 id="secure_by_default_configuration">7.1.7. Secure by Default Configuration</h4>
 <div class="paragraph">
 <p>The application shall be configured by default with file permissions which protect it and its data from unauthorized access.
 There should be some form of trust boundary which protects the application and its data.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="specification_of_management_functions">6.1.8. Specification of Management Functions</h4>
+<h4 id="specification_of_management_functions">7.1.8. Specification of Management Functions</h4>
 <div class="paragraph">
 <p>The TSF (Target of Evaluation Security Functionality) shall be capable of performing the following management functions:</p>
 </div>
@@ -2844,7 +3089,7 @@ There should be some form of trust boundary which protects the application and i
 </div>
 </div>
 <div class="sect3">
-<h4 id="user_consent_for_transmission_of_personally_identifiable_information">6.1.9. User Consent for Transmission of Personally Identifiable Information</h4>
+<h4 id="user_consent_for_transmission_of_personally_identifiable_information">7.1.9. User Consent for Transmission of Personally Identifiable Information</h4>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -2865,13 +3110,13 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="use_of_supported_services_and_apis">6.1.10. Use of Supported Services and APIs</h4>
+<h4 id="use_of_supported_services_and_apis">7.1.10. Use of Supported Services and APIs</h4>
 <div class="paragraph">
 <p>The application shall use only documented platform APIs.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="anti_exploitation_capabilities">6.1.11. Anti-Exploitation Capabilities</h4>
+<h4 id="anti_exploitation_capabilities">7.1.11. Anti-Exploitation Capabilities</h4>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -2921,7 +3166,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="integrity_for_installation_and_update">6.1.12. Integrity for Installation and Update</h4>
+<h4 id="integrity_for_installation_and_update">7.1.12. Integrity for Installation and Update</h4>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -2949,7 +3194,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="use_of_third_party_libraries">6.1.13. Use of Third Party Libraries</h4>
+<h4 id="use_of_third_party_libraries">7.1.13. Use of Third Party Libraries</h4>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -2962,7 +3207,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="protection_of_data_in_transit">6.1.14. Protection of Data in Transit</h4>
+<h4 id="protection_of_data_in_transit">7.1.14. Protection of Data in Transit</h4>
 <div class="paragraph">
 <p>The application shall use one or more of the approaches for transmitting between itself and another trusted IT product:</p>
 </div>
@@ -2985,7 +3230,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect2">
-<h3 id="security_assurance_requirements">6.2. Security Assurance Requirements</h3>
+<h3 id="security_assurance_requirements">7.2. Security Assurance Requirements</h3>
 <div class="paragraph">
 <p>The application shall be labeled with a unique references:</p>
 </div>
@@ -3010,9 +3255,9 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect2">
-<h3 id="selection_based_security_functional_requirements">6.3. Selection-Based Security Functional Requirements</h3>
+<h3 id="selection_based_security_functional_requirements">7.3. Selection-Based Security Functional Requirements</h3>
 <div class="sect3">
-<h4 id="random_bit_generation_from_application">6.3.1. Random Bit Generation from Application</h4>
+<h4 id="random_bit_generation_from_application">7.3.1. Random Bit Generation from Application</h4>
 <div class="paragraph">
 <p>The application shall perform all deterministic random bit generation (DRBG) services in accordance with <a href="http://csrc.nist.gov/publications/nistpubs/800-90A/SP800-90A.pdf">NIST Special Publication 800-90A</a> using any of the following:</p>
 </div>
@@ -3060,7 +3305,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="cryptographic_key_generation_services">6.3.2. Cryptographic Key Generation Services</h4>
+<h4 id="cryptographic_key_generation_services">7.3.2. Cryptographic Key Generation Services</h4>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -3079,7 +3324,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="cryptographic_asymmetric_key_generation">6.3.3. Cryptographic Asymmetric Key Generation</h4>
+<h4 id="cryptographic_asymmetric_key_generation">7.3.3. Cryptographic Asymmetric Key Generation</h4>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -3109,7 +3354,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="cryptographic_operation_encryption_decryption">6.3.4. Cryptographic Operation - Encryption/Decryption</h4>
+<h4 id="cryptographic_operation_encryption_decryption">7.3.4. Cryptographic Operation - Encryption/Decryption</h4>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -3145,7 +3390,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="cryptographic_operation_hashing">6.3.5. Cryptographic Operation - Hashing</h4>
+<h4 id="cryptographic_operation_hashing">7.3.5. Cryptographic Operation - Hashing</h4>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -3199,7 +3444,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="cryptographic_operation_signing">6.3.6. Cryptographic Operation - Signing</h4>
+<h4 id="cryptographic_operation_signing">7.3.6. Cryptographic Operation - Signing</h4>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -3219,7 +3464,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="cryptographic_operation_keyed_hash_message_authentication">6.3.7. Cryptographic Operation - Keyed-Hash Message Authentication</h4>
+<h4 id="cryptographic_operation_keyed_hash_message_authentication">7.3.7. Cryptographic Operation - Keyed-Hash Message Authentication</h4>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -3280,7 +3525,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="tls_client_protocol">6.3.8. TLS Client Protocol</h4>
+<h4 id="tls_client_protocol">7.3.8. TLS Client Protocol</h4>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -3372,7 +3617,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="tls_server_protocol">6.3.9. TLS Server Protocol</h4>
+<h4 id="tls_server_protocol">7.3.9. TLS Server Protocol</h4>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -3500,7 +3745,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="dtls_implementation">6.3.10. DTLS Implementation</h4>
+<h4 id="dtls_implementation">7.3.10. DTLS Implementation</h4>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -3533,7 +3778,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="https_protocol">6.3.11. HTTPS Protocol</h4>
+<h4 id="https_protocol">7.3.11. HTTPS Protocol</h4>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -3582,7 +3827,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="x_509_certificate_validation">6.3.12. X.509 Certificate Validation</h4>
+<h4 id="x_509_certificate_validation">7.3.12. X.509 Certificate Validation</h4>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -3669,7 +3914,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="x_509_certificate_authentication">6.3.13. X.509 Certificate Authentication</h4>
+<h4 id="x_509_certificate_authentication">7.3.13. X.509 Certificate Authentication</h4>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -3712,9 +3957,9 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect2">
-<h3 id="objective_security_functional_requirements">6.4. Objective Security Functional Requirements</h3>
+<h3 id="objective_security_functional_requirements">7.4. Objective Security Functional Requirements</h3>
 <div class="sect3">
-<h4 id="tls_client_protocol_2">6.4.1. TLS Client Protocol</h4>
+<h4 id="tls_client_protocol_2">7.4.1. TLS Client Protocol</h4>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -3743,7 +3988,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="use_of_supported_services_and_apis_2">6.4.2. Use of Supported Services and APIs</h4>
+<h4 id="use_of_supported_services_and_apis_2">7.4.2. Use of Supported Services and APIs</h4>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -3756,7 +4001,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="software_identification_and_versions">6.4.3. Software Identification and Versions</h4>
+<h4 id="software_identification_and_versions">7.4.3. Software Identification and Versions</h4>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -3777,9 +4022,9 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect2">
-<h3 id="optional_security_functional_requirements">6.5. Optional Security Functional Requirements</h3>
+<h3 id="optional_security_functional_requirements">7.5. Optional Security Functional Requirements</h3>
 <div class="sect3">
-<h4 id="cryptographic_symmetric_key_generation">6.5.1. Cryptographic Symmetric Key Generation</h4>
+<h4 id="cryptographic_symmetric_key_generation">7.5.1. Cryptographic Symmetric Key Generation</h4>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -3802,7 +4047,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="tls_client_protocol_3">6.5.2. TLS Client Protocol</h4>
+<h4 id="tls_client_protocol_3">7.5.2. TLS Client Protocol</h4>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -3818,15 +4063,15 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect1">
-<h2 id="guidelines_for_managing_the_security_of_mobile_devices_in_the_enterprise">7. Guidelines for Managing the Security of Mobile Devices in the Enterprise</h2>
+<h2 id="guidelines_for_managing_the_security_of_mobile_devices_in_the_enterprise">8. Guidelines for Managing the Security of Mobile Devices in the Enterprise</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This is a summary of notes taken from the <a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-124r1.pdf">NIST Guidelines for Managing the Security of Mobile Devices in the Enterprise</a>.</p>
 </div>
 <div class="sect2">
-<h3 id="high_level_threats_and_vulnerabilities_for_mobile_devices">7.1. High-Level Threats and Vulnerabilities for Mobile Devices</h3>
+<h3 id="high_level_threats_and_vulnerabilities_for_mobile_devices">8.1. High-Level Threats and Vulnerabilities for Mobile Devices</h3>
 <div class="sect3">
-<h4 id="lack_of_physical_security_controls">7.1.1. Lack of Physical Security Controls</h4>
+<h4 id="lack_of_physical_security_controls">8.1.1. Lack of Physical Security Controls</h4>
 <div class="sect4">
 <h5 id="mitigations">Mitigations</h5>
 <div class="ulist">
@@ -3845,7 +4090,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="use_of_untrusted_mobile_devices">7.1.2. Use of Untrusted Mobile Devices</h4>
+<h4 id="use_of_untrusted_mobile_devices">8.1.2. Use of Untrusted Mobile Devices</h4>
 <div class="sect4">
 <h5 id="mitigations_2">Mitigations</h5>
 <div class="ulist">
@@ -3864,7 +4109,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="use_of_untrusted_networks">7.1.3. Use of Untrusted Networks</h4>
+<h4 id="use_of_untrusted_networks">8.1.3. Use of Untrusted Networks</h4>
 <div class="sect4">
 <h5 id="mitigations_3">Mitigations</h5>
 <div class="ulist">
@@ -3883,7 +4128,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="use_of_untrusted_applications">7.1.4. Use of Untrusted Applications</h4>
+<h4 id="use_of_untrusted_applications">8.1.4. Use of Untrusted Applications</h4>
 <div class="sect4">
 <h5 id="mitigations_4">Mitigations</h5>
 <div class="ulist">
@@ -3902,7 +4147,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="interaction_with_other_systems">7.1.5. Interaction with Other Systems</h4>
+<h4 id="interaction_with_other_systems">8.1.5. Interaction with Other Systems</h4>
 <div class="sect4">
 <h5 id="mitigations_5">Mitigations</h5>
 <div class="ulist">
@@ -3927,7 +4172,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="use_of_untrusted_content">7.1.6. Use of Untrusted Content</h4>
+<h4 id="use_of_untrusted_content">8.1.6. Use of Untrusted Content</h4>
 <div class="sect4">
 <h5 id="mitigations_6">Mitigations</h5>
 <div class="ulist">
@@ -3949,7 +4194,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="use_of_location_services">7.1.7. Use of Location Services</h4>
+<h4 id="use_of_location_services">8.1.7. Use of Location Services</h4>
 <div class="sect4">
 <h5 id="mitigations_7">Mitigations</h5>
 <div class="ulist">
@@ -3966,7 +4211,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect2">
-<h3 id="technologies_for_mobile_device_management">7.2. Technologies for Mobile Device Management</h3>
+<h3 id="technologies_for_mobile_device_management">8.2. Technologies for Mobile Device Management</h3>
 <div class="paragraph">
 <p>The MDM system should have the following capabilities:</p>
 </div>
@@ -4071,7 +4316,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-08-15 10:18:46 IST
+Last updated 2017-08-15 14:37:50 IST
 </div>
 </div>
 </body>
