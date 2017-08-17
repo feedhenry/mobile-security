@@ -1,0 +1,52 @@
+= OWASP Mobile Development Guidelines
+
+This is a summary of the https://www.owasp.org/index.php/OWASP_Mobile_Security_Project#tab=Secure_M-Development[OWASP Mobile Development Guidelines].
+
+== Authentication and Password Management
+. Instances where the mobile application requires a user to create a password or PIN (eg for offline access), the application should never use a PIN but enforce a password which follows a strong password policy.
+. Mobile devices may offer the possibility of using password patterns which are never to be utilized in place of passwords as sufficient entropy cannot be ensured and they are easily vulnerable to smudge-attacks.
+. Mobile devices may also offer the possibility of using biometric input to perform authentication which should never be used due to issues with false positives/negatives, among others.
+. Wipe/clear memory locations holding passwords directly after their hashes are calculated.
+. Based on risk assessment of the mobile application, consider utilizing two-factor authentication.
+. In scenarios where offline access to data is needed, add an intentional X second delay to the password entry process after each unsuccessful entry attempt (2 is reasonable, also consider a value which doubles after each incorrect attempt).
+. In scenarios where offline access to data is needed, perform an account/application lockout and/or application data wipe after X number of invalid password attempts (10 for example).
+. Based on a risk evaluation, consider adding context information (such as IP location, etc…) during authentication processes in order to perform Login Anomaly Detection.
+
+== Code Obfuscation
+. Obfuscate all sensitive application code where feasible by running an automated code obfuscation program.
+. For applications containing sensitive data, implement anti-debugging techniques (e.g. prevent a debugger from attaching to the process; android:debuggable=”false”).
+. Address Space Layout Randomization (ASLR) should be taken advantage of to hide executable code which could be used to remotely exploit the application and hinder the dumping of application’s memory.
+
+== Communication Security
+. Ensure the application actually and properly validates (by checking the expiration date, issuer, subject, etc…) the server’s SSL certificate.
+. The application should only communicate with and accept data from authorized domain names/systems.
+. To protect against attacks which utilize software such as SSLStrip, implement controls to detect if the connection is not HTTPS with every request using HTTP Strict Transport Security (HSTS).
+. When using SSL/TLS, use certificates signed by trusted Certificate Authority (CA) providers.
+
+== Data Storage and Protection
+. Classify data storage according to sensitivity and apply controls accordingly (e.g. passwords, personal data, location, error logs, etc.). Process, store and use data according to its classification
+. Store sensitive data on the server instead of the client-end device, whenever possible. Assume any data written to device can be recovered.
+. Beyond the time required by the application, don’t store sensitive information on the device (e.g. GPS/tracking).
+. Do not store temp/cached data in a world readable directory. Assume shared storage is untrusted.
+. Use the PBKDF2 function to generate strong keys for encryption algorithms while ensuring high entropy as much as possible. The number of iterations should be set as high as may be tolerated for the environment (with a minimum of 1000 iterations) while maintaining acceptable performance.
+. Sensitive data (such as encryption keys, passwords, credit card #’s, etc…) should stay in RAM for as little time as possible.
+. Encryption keys should not remain in RAM during the instance lifecycle of the app. Instead, keys should be generated real time for encryption/decryption as needed and discarded each time.
+. Address Space Layout Randomization (ASLR) should be taken advantage of to limit the impact of attacks such as buffer overflows.
+. When displaying sensitive information (such as full account numbers), ensure that the sensitive information is cleared from memory (such as from the webView) when no longer needed/displayed.
+. Do not store sensitive data on external storage like SD cards if it can be avoided.
+. Make use of remote wipe and kill switch APIs to remove sensitive information from the device in the event of theft or loss.
+. Use a time based (expiry) type of control which will wipe sensitive data from the mobile device once the application has not communicated with its servers for a given period of time.
+. Automatic application shutdown and/or lockout after X minutes of inactivity (e.g. 5 mins of inactivity).
+. Avoid cached application snapshots in iOS: iOS can capture and store screen captures and store them as images when an application suspends. To avoid any sensitive data getting captured, use one or both of the following options: 1. Use the ‘willEnterBackground’ callback, to hide all the sensitive data. 2. Configure the application in the info.plist file to terminate the app when pushed to background (only use if multitasking is disabled).
+. Prevent applications from being moved and/or run from external storage such as via SD cards.
+
+== Session Management
+. Perform a check at the start of each activity/screen to see if the user is in a logged in state and if not, switch to the login state.
+. When an application’s session is timed out, the application should discard and clear all memory associated with the user data, and any master keys used to decrypt the data.
+. Session tokens should be revocable (particularly on the server side).
+. Use lower timeout values to invalidate expired sessions (in contrast to the typical timeout values on traditional (non-mobile) applications).
+
+== 3rd Party libraries
+. Vet the security/authenticity of any third party code/libraries used in your mobile application (e.g. making sure they come from a reliable source, will continue to be supported, contain no backdoors) and ensure that adequate internal approval is obtained to use the code/library.
+. Track all third party frameworks/API’s used in the mobile application for security patches and perform upgrades as they are released.
+. Pay particular attention to validating all data received from and sent to non-trusted third party apps (e.g. ad network software) before incorporating their use into an application.
