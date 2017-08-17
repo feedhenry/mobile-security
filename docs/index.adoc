@@ -10,6 +10,7 @@ All things mobile security related.
 :toc:
 
 include::owaspTopMobileRisks.adoc[leveloffset=+1]
+include::owaspMobileDevelopmentGuidelines.adoc[leveloffset=+1]
 include::owaspCheatSheetSeries.adoc[leveloffset=+1]
 include::owaspMobileVerificationStandard.adoc[leveloffset=+1]
 include::owaspMobileThreatModelProject.adoc[leveloffset=+1]
