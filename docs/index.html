@@ -438,14 +438,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#m10_extraneous_functionality">1.10. M10 - Extraneous Functionality</a></li>
 </ul>
 </li>
-<li><a href="#owasp_mobile_development_guidelines">2. OWASP Mobile Development Guidelines</a>
+<li><a href="#secure_mobile_development_guidelines">2. Secure Mobile Development Guidelines</a>
 <ul class="sectlevel2">
 <li><a href="#authentication_and_password_management">2.1. Authentication and Password Management</a></li>
-<li><a href="#code_obfuscation">2.2. Code Obfuscation</a></li>
-<li><a href="#communication_security">2.3. Communication Security</a></li>
-<li><a href="#data_storage_and_protection">2.4. Data Storage and Protection</a></li>
-<li><a href="#session_management">2.5. Session Management</a></li>
+<li><a href="#communication_security">2.2. Communication Security</a></li>
+<li><a href="#data_storage_and_protection">2.3. Data Storage and Protection</a></li>
+<li><a href="#session_management">2.4. Session Management</a></li>
+<li><a href="#secure_the_backend_services_and_the_platform_server_and_apis">2.5. Secure the backend services and the platform server and APIs</a></li>
 <li><a href="#3rd_party_libraries">2.6. 3rd Party libraries</a></li>
+<li><a href="#consent_and_privacy_protection">2.7. Consent and privacy protection</a></li>
+<li><a href="#protect_paid_resources">2.8. Protect paid resources</a></li>
+<li><a href="#secure_software_distribution">2.9. Secure software distribution</a></li>
+<li><a href="#handle_runtime_code_interpretation_correctly">2.10. Handle runtime code interpretation correctly</a></li>
+<li><a href="#check_device_and_application_integrity">2.11. Check device and application integrity</a></li>
+<li><a href="#code_obfuscation">2.12. Code Obfuscation</a></li>
+<li><a href="#protect_the_application_from_client_side_injections">2.13. Protect the application from client side injections</a></li>
+<li><a href="#ensure_correct_usage_of_biometric_sensors_and_secure_hardware">2.14. Ensure correct usage of biometric sensors and secure hardware</a></li>
 </ul>
 </li>
 <li><a href="#owasp_cheat_sheet_series">3. OWASP Cheat Sheet Series</a>
@@ -1363,10 +1371,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="owasp_mobile_development_guidelines">2. OWASP Mobile Development Guidelines</h2>
+<h2 id="secure_mobile_development_guidelines">2. Secure Mobile Development Guidelines</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This is a summary of the <a href="https://www.owasp.org/index.php/OWASP_Mobile_Security_Project#tab=Secure_M-Development">OWASP Mobile Development Guidelines</a>.</p>
+<p>This is a summary of how to develop secure mobile applications. It is generated based on the contents form the following sources:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <a href="https://www.owasp.org/index.php/OWASP_Mobile_Security_Project#tab=Secure_M-Development">OWASP Mobile Development Guidelines</a>.</p>
+</li>
+<li>
+<p>The <a href="https://www.enisa.europa.eu/publications/smartphone-secure-development-guidelines-2016">ENISA Smartphone Secure Development Guidelines</a></p>
+</li>
+<li>
+<p>The <a href="https://www.owasp.org/index.php/OWASP_Mobile_Security_Project#tab=Top_10_Mobile_Controls">OWASP Top 10 Mobile Controls</a></p>
+</li>
+</ul>
 </div>
 <div class="sect2">
 <h3 id="authentication_and_password_management">2.1. Authentication and Password Management</h3>
@@ -1396,27 +1417,32 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>Based on a risk evaluation, consider adding context information (such as IP location, etc…) during authentication processes in order to perform Login Anomaly Detection.</p>
 </li>
+<li>
+<p>Instead of passwords consider using longer term authorization tokens that can be securely stored on the device</p>
+</li>
+<li>
+<p>Consider using asymmetric cryptography for authentication and authorization purposes.</p>
+</li>
+<li>
+<p>If a password based authentication mechanism is used, ensure that a strong a password policy is being followed. Consider enforcing restrictions about password length and formation, reuse of old user passwords, use of common passwords, password duration, etc. However, do not maintain any representation of the password strength in application storage or the back-end server as it may expose the password in preimage attacks.</p>
+</li>
+<li>
+<p>Do not reveal registered usernames and remove any fingerprint of their existence from verbose error messages.</p>
+</li>
+<li>
+<p>Use authentication that ties back to the end user identity (rather than only to the device identity).</p>
+</li>
+<li>
+<p>If the credentials or keys appear in the user interface (UI) components, try to release the UI frames immediately after use.</p>
+</li>
+<li>
+<p>Ensure passwords and keys are not visible in cache or logs.</p>
+</li>
 </ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="code_obfuscation">2.2. Code Obfuscation</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Obfuscate all sensitive application code where feasible by running an automated code obfuscation program.</p>
-</li>
-<li>
-<p>For applications containing sensitive data, implement anti-debugging techniques (e.g. prevent a debugger from attaching to the process; android:debuggable=”false”).</p>
-</li>
-<li>
-<p>Address Space Layout Randomization (ASLR) should be taken advantage of to hide executable code which could be used to remotely exploit the application and hinder the dumping of application’s memory.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="communication_security">2.3. Communication Security</h3>
+<h3 id="communication_security">2.2. Communication Security</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1431,11 +1457,29 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>When using SSL/TLS, use certificates signed by trusted Certificate Authority (CA) providers.</p>
 </li>
+<li>
+<p>Enforce secure TLS versions. Safely abort the connection, if this is not possible</p>
+</li>
+<li>
+<p>Introduce certificate pinning.</p>
+</li>
+<li>
+<p>Design the user interface in a way that warns the user if the peer certificate does not match the expected certificate and provide the ability to abort any further interaction.</p>
+</li>
+<li>
+<p>SMS and MMS should not be used to send sensitive data</p>
+</li>
+<li>
+<p>Always use platform supported or vetted frameworks for establishing secure communication channels.</p>
+</li>
+<li>
+<p>Ensure adequate logs on the server are retained about established connections.</p>
+</li>
 </ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="data_storage_and_protection">2.4. Data Storage and Protection</h3>
+<h3 id="data_storage_and_protection">2.3. Data Storage and Protection</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1443,6 +1487,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li>
 <p>Store sensitive data on the server instead of the client-end device, whenever possible. Assume any data written to device can be recovered.</p>
+</li>
+<li>
+<p>When storing sensitive data on the device, use a file encryption API provided by the OS or other trusted source.</p>
+</li>
+<li>
+<p>Use file encryption API’s which use a secret key protected by the device unlock code and deletable on remote wipe if available.</p>
 </li>
 <li>
 <p>Beyond the time required by the application, don’t store sensitive information on the device (e.g. GPS/tracking).</p>
@@ -1483,13 +1533,88 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>Prevent applications from being moved and/or run from external storage such as via SD cards.</p>
 </li>
+<li>
+<p>Verify that OS level storage encryption is enabled and the device is protected by a PIN or passphrase.</p>
+</li>
+<li>
+<p>Consider the security of the whole data lifecycle in writing your application (collection over the wire, temporary storage, caching, backup, deletion, etc.).</p>
+</li>
+<li>
+<p>Ensure that during application removal (uninstall operation), any confidential user data and the corresponding app-specific credentials are deleted from the execution environment, the device, and any other storage medium.</p>
+</li>
+<li>
+<p>Apply the principle of minimal disclosure - only collect and disclose data which is required for business use of the application. Identify in the design phase what data is needed, its sensitivity and whether it is appropriate to collect, store and use each data type.</p>
+</li>
+<li>
+<p>Use non-persistent identifiers which are not shared with other apps wherever possible (e.g., do not use the device unique hardware identifiers such as IMEI or UDID as an identifier).</p>
+</li>
+<li>
+<p>Application developers may want to incorporate an application-specific "data kill switch" into their products, to allow the per-app deletion of their application&#8217;s sensitive data when needed (strong authentication is required to protect misuse of such a feature).</p>
+</li>
+<li>
+<p>Do not leak permission-protected data to other applications. This occurs when specific permissions are required to access the data, however an app that has been granted these permissions makes the data available to all other apps without restrictions (e.g., over IPC)</p>
+</li>
+<li>
+<p>Restrict the data that is shared with other applications (e.g., by implementing an Android Content Provider). This can be accomplished using fine-grained permissions (ensure permissions are protected using signature protection level on Android).</p>
+</li>
+<li>
+<p>Restrict broadcast messages (e.g., Android Broadcast Intents) to authorized applications and audit the application’s broadcast messages for sensitive content.</p>
+</li>
+<li>
+<p>Do not allow third party keyboards to be used for inputs that may contain sensitive data (e.g., credentials, credit card information). Prefer a custom keyboard for such inputs instead</p>
+</li>
+<li>
+<p>Disable Auto Correction and Autosuggestion for inputs that contain sensitive data.</p>
+</li>
+<li>
+<p>Disable cut, copy and paste functionalities for inputs that may contain sensitive data or restrict the pasteboard to be accessible only from this application.</p>
+</li>
+<li>
+<p>Introduce input field masking for inputs that contain sensitive data (e.g., passwords).</p>
+</li>
+<li>
+<p>Leverage the hardware-level encryption support for files at the highest supported security level.</p>
+</li>
+<li>
+<p>If the application while the device is locked needs to write data to a file, use temporary caches instead of weakening the encryption mode. Swap the file content when the device is unlocked and the original file is accessible again.</p>
+</li>
+<li>
+<p>Prefer using framework functionality (e.g., Android Content Provider) for data sharing instead of using file system permissions or a custom access scheme on platforms that support this (e.g., Android).</p>
+</li>
+<li>
+<p>Inspect application-initiated custom notification messages for sensitive content</p>
+</li>
+<li>
+<p>Exclude sensitive application files from device backups and cloud synchronization services.</p>
+</li>
+<li>
+<p>If the application allows the arbitrary selection of files from the device storage, consider the use of a white-list to restrict access only to the intended (absolute) file paths</p>
+</li>
+<li>
+<p>Delete application caches on app termination</p>
+</li>
+<li>
+<p>Database files that contain sensitive data (e.g., iOS WebView caches) must be manually removed from the file system. Deleting records using the database API will not necessary lead to complete data removal from database structure.</p>
+</li>
+<li>
+<p>Disable application logging and debug messages in production releases. All exceptions should be handled securely.</p>
+</li>
+<li>
+<p>In the case that the application includes embedded web browsing capabilities (e.g., WebViews), clear stored cookies on app termination or use in-memory cookie storage</p>
+</li>
 </ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="session_management">2.5. Session Management</h3>
+<h3 id="session_management">2.4. Session Management</h3>
 <div class="olist arabic">
 <ol class="arabic">
+<li>
+<p>Do not rely on client side security controls.  Both authentication and authorization controls should be implemented on the server side.</p>
+</li>
+<li>
+<p>Ensure that the session management is handled securely after the initial authentication, using appropriate secure protocols.</p>
+</li>
 <li>
 <p>Perform a check at the start of each activity/screen to see if the user is in a logged in state and if not, switch to the login state.</p>
 </li>
@@ -1501,6 +1626,40 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li>
 <p>Use lower timeout values to invalidate expired sessions (in contrast to the typical timeout values on traditional (non-mobile) applications).</p>
+</li>
+<li>
+<p>Use unpredictable session identifiers with high entropy.</p>
+</li>
+<li>
+<p>Clear any maintained sensitive data on session termination. Reset the application state and request for user re-authentication.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="secure_the_backend_services_and_the_platform_server_and_apis">2.5. Secure the backend services and the platform server and APIs</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Carry out a specific check of your code for sensitive data unintentionally transferred between the mobile device and web-server back-ends and other external interfaces</p>
+</li>
+<li>
+<p>All back-end services (web services) for mobile apps should be tested for vulnerabilities periodically</p>
+</li>
+<li>
+<p>Disable metadata publishing (e.g., metadata for WSDL documents and for WSDL derived objects), in order to prevent unintentional disclosure of potentially sensitive service metadata</p>
+</li>
+<li>
+<p>Ensure that the back-end platform (server) is running with a hardened configuration with the latest security patches applied to the OS, web server and other application components.</p>
+</li>
+<li>
+<p>Ensure adequate logs are retained on the back-end in order to detect and respond to incidents and perform forensics</p>
+</li>
+<li>
+<p>Protect the back-end from client initiated log injections that may corrupt or forge the history of events2</p>
+</li>
+<li>
+<p>Employ rate limiting and throttling on a per-user/IP basis</p>
 </li>
 </ol>
 </div>
@@ -1517,6 +1676,299 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li>
 <p>Pay particular attention to validating all data received from and sent to non-trusted third party apps (e.g. ad network software) before incorporating their use into an application.</p>
+</li>
+<li>
+<p>Avoid using third-party libraries that contain main processor-only cryptographic implementations. Prefer using cryptographic framework provided by a platform supported secure hardware (e.g. TEE, SE).</p>
+</li>
+<li>
+<p>Software components that are no longer supported by the vendor or developer must not be used</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="consent_and_privacy_protection">2.7. Consent and privacy protection</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Check whether your application is collecting personal data</p>
+</li>
+<li>
+<p>Create a privacy policy covering the usage of personal data and make it available to the user especially prior to making consent choices</p>
+</li>
+<li>
+<p>Prior to using personal data consent should be obtained.</p>
+</li>
+<li>
+<p>Consent may be collected in 3 main ways:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>At install time.</p>
+</li>
+<li>
+<p>At run-time when data is sent.</p>
+</li>
+<li>
+<p>Via “opt-in” mechanisms where a user has to explicitly turn on a setting</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>It should be possible for the user to withdraw consent at any time in the application</p>
+</li>
+<li>
+<p>Audit communication mechanisms to check for unintended leaks</p>
+</li>
+<li>
+<p>Keep a record of user consent for the processing of different types of personal data</p>
+</li>
+<li>
+<p>Check whether data collection (from the user’s device) is not excessive with regard to the consent that has been granted by the user</p>
+</li>
+<li>
+<p>Consider taking advantage of built-in features to require access to device sensors and data</p>
+</li>
+<li>
+<p>Minimize access to sensor data whenever possible</p>
+</li>
+<li>
+<p>Reduce data granularity and anonymize data on the device instead of remotely</p>
+</li>
+<li>
+<p>Require consent prior to providing user data to third parties</p>
+</li>
+<li>
+<p>Reduce retention period on the mobile or remotely to the minimum amount of time needed to provide the service</p>
+</li>
+<li>
+<p>Use privacy enhancing technologies, that support data minimization, anonymization and security of personal data</p>
+</li>
+<li>
+<p>The default settings of the application should provide maximum privacy and security protection for the user</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="protect_paid_resources">2.8. Protect paid resources</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Maintain logs of access to paid-for resources in non-repudiable format</p>
+</li>
+<li>
+<p>Check for anomalous usage patterns in paid-for resources usage and trigger re-authentication</p>
+</li>
+<li>
+<p>Consider a white-list model by default for paid-for resources addressing</p>
+</li>
+<li>
+<p>Warn user and obtain consent for any cost implications for app behaviour</p>
+</li>
+<li>
+<p>Follow the OS/device vendor guidelines for implementing In-App payment:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Implement validation of payment receipts on the backend server not on the device</p>
+</li>
+<li>
+<p>Pay specific attention when integrating payment acceptance from a third party wallet</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="secure_software_distribution">2.9. Secure software distribution</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Applications must be designed and provisioned to allow updates for security patches, taking into account the requirements for approval by app-stores and the extra delay this may imply</p>
+</li>
+<li>
+<p>Distributing apps through official app-stores</p>
+</li>
+<li>
+<p>Provide feedback channels for users to report security problems with apps such as a security email address</p>
+</li>
+<li>
+<p>If an enterprise app store is used, protect the application signing key with the utmost care</p>
+</li>
+<li>
+<p>Out-of-appstore security updates should be shipped using an encrypted connection and their content should be verified before applying the update</p>
+</li>
+<li>
+<p>Resources used by apps that are updated outside of the app-store normal mechanism must be signed. Apps must verify the signature before accepting the updated resource</p>
+</li>
+<li>
+<p>Do not deploy apps with ad-hoc signing certificates used for development and testing</p>
+</li>
+<li>
+<p>Do not generate one application for multiple environments</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="handle_runtime_code_interpretation_correctly">2.10. Handle runtime code interpretation correctly</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Filter user data passed to interpreters.</p>
+</li>
+<li>
+<p>Define comprehensive escape syntax as appropriate.</p>
+</li>
+<li>
+<p>Do not reveal sensitive information such as usernames, personal data and others through error messages.</p>
+</li>
+<li>
+<p>Deny interpreted code direct access to user data and encrypted storage.</p>
+</li>
+<li>
+<p>Strip unused functionalities from interpreters.</p>
+</li>
+<li>
+<p>Limit size of input data passed to interpreters.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="check_device_and_application_integrity">2.11. Check device and application integrity</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Check the device/platform integrity to ensure that the device is not modified.</p>
+</li>
+<li>
+<p>Check the application integrity, check that the application and its resources are not modified</p>
+</li>
+<li>
+<p>Disable developer features</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Disable debugging in the application settings.</p>
+</li>
+<li>
+<p>Check if the device is in developer mode if supported by platform (e.g., Android).</p>
+</li>
+<li>
+<p>Check if debugger is attached and/or if the process is being traced. On platforms with managed code check for managed and native code debuggers</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="code_obfuscation">2.12. Code Obfuscation</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Obfuscate all sensitive application code where feasible by running an automated code obfuscation program.</p>
+</li>
+<li>
+<p>For applications containing sensitive data, implement anti-debugging techniques (e.g. prevent a debugger from attaching to the process; android:debuggable=”false”).</p>
+</li>
+<li>
+<p>Address Space Layout Randomization (ASLR) should be taken advantage of to hide executable code which could be used to remotely exploit the application and hinder the dumping of application’s memory.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="protect_the_application_from_client_side_injections">2.13. Protect the application from client side injections</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the case that the application includes embedded web browsing capabilities (e.g., WebViews), restrict access to third party domains that do not comply with the required security standards, disable any unused platform supported functionalities, such as the plugins, local file accessibility, local content provider (content URL) accessibility and the dynamic code (e.g., JavaScript)execution support. Furthermore, avoid using full screen web interfaces since these can be abused from attackers to create fake application screens</p>
+</li>
+<li>
+<p>Avoid using API calls that provide bridging of dynamic code (e.g., JavaScript) with native code (e.g., Objective-C) since an injection in the dynamic code will lead to native code execution</p>
+</li>
+<li>
+<p>In the case that the application uses JavaScript code running in the context of a file scheme URL, it is recommended to disable any unused platform supported attributes, such as accessing content from other file scheme URL and content from any origin</p>
+</li>
+<li>
+<p>Prevent interaction events when the application is obscured by another interface in the presentation layer in order to mitigate tapjacking attacks</p>
+</li>
+<li>
+<p>In the case that the application requests custom permissions, and older platforms are supported (e.g., earlier than Android 5.0), always verify on the first run of the app that no other application has previously requested the same permissions</p>
+</li>
+<li>
+<p>Always follow the domain name registration infrastructure to declare a custom permission, in order to avoid any collisions with other apps</p>
+</li>
+<li>
+<p>Restrict what apps can cause an application component (e.g., Android Activity) to start or are able to interact with it (e.g., Android Service and Content Provider)</p>
+</li>
+<li>
+<p>Restrict the third party applications whose broadcast messages will be accepted by the application.</p>
+</li>
+<li>
+<p>In the case that the application utilizes a platform provided download manager, always verify that the received manager’s notifications are related to application’s initiated downloads</p>
+</li>
+<li>
+<p>Always verify dynamic code downloads and application updates at the client side.</p>
+</li>
+<li>
+<p>Always validate server responses when using backend APIs.</p>
+</li>
+<li>
+<p>Mitigate SQL injections, local file inclusion, JavaScript injections, XML injections. When dealing with dynamic queries (e.g., SQL queries with untrusted inputs) or Content-Providers ensure you are using parameterized queries. Always validate user provided inputs that will be used for file accessing purposes or as part of a dynamic code execution. Use a vetted framework for XML operations.</p>
+</li>
+<li>
+<p>Protect from memory corruptions in applications that are developed using a programming language which supports explicit memory management (e.g., Objective-C, C, C++).</p>
+</li>
+<li>
+<p>Do not use insecure cached data in HTTP connections and in embedded web browsing capabilities (e.g., WebViews).</p>
+</li>
+<li>
+<p>In platforms that support custom applications with accessibility permissions (e.g., Android), exclude sensitive user interface elements from being accessed by accessibility applications</p>
+</li>
+<li>
+<p>Avoid populating webviews loaded from the file URI scheme with user supplied DOM input</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ensure_correct_usage_of_biometric_sensors_and_secure_hardware">2.14. Ensure correct usage of biometric sensors and secure hardware</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Always verify that there is a biometric sensor (e.g., Fingerprint reader) present and available on the device before using the API for authentication purposes</p>
+</li>
+<li>
+<p>Always verify that the biometric sensor/secure hardware authentication policy of the in-use platform complies with the application’s authentication policy (passcode required after cold boot, biometric sensor authentication expiration, adding a fingerprint requires pin/passcode/biometric authentication, requirement for biometric sensor being individually paired with secure hardware)</p>
+</li>
+<li>
+<p>Ensure that there are enrolled data using the biometric sensor (e.g., user’s fingerprints and/or user’s iris are registered) before using the API for authentication purposes</p>
+</li>
+<li>
+<p>Ensure that the enrolled biometric data has not been changed since the activation of the authentication control using the biometric sensor</p>
+</li>
+<li>
+<p>The application should not use the biometric sensor for just verifying user presence (e.g., iOS LocalAuthentication).  Instead, the application should use the biometric sensor to access keys stored using a hardware backed keystore/keychain and protected with keychain access control lists (ACL).</p>
+</li>
+<li>
+<p>Ensure that the key material is bound to the secure hardware (e.g., TEE, SE) in platforms that this is optional (e.g., Android)</p>
+</li>
+<li>
+<p>For keys whose key material is inside a secure hardware (e.g., TEE, SE), ensure that cryptographic and user authentication authorizations are also enforced by secure hardware, in platforms that this is optional (e.g., Android).</p>
+</li>
+<li>
+<p>The application should avoid using temporal validity interval authorizations, since they are unlikely to be enforced by the secure hardware because it normally does not have an independent secure real-time clock.</p>
+</li>
+<li>
+<p>Verify that the application’s authentication policy complies with the possibility that different people may enroll for biometric authentication in the same device.</p>
 </li>
 </ol>
 </div>
@@ -5746,7 +6198,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-08-18 10:35:36 IST
+Last updated 2017-08-18 11:34:40 IST
 </div>
 </div>
 </body>
