@@ -466,16 +466,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#owasp_mobile_verification_standard">4. OWASP Mobile Verification Standard</a>
 <ul class="sectlevel2">
-<li><a href="#table_keys">4.1. Table Keys</a></li>
-<li><a href="#architecture_design_and_threat_modelling">4.2. Architecture, Design and Threat Modelling</a></li>
-<li><a href="#data_storage_and_privacy">4.3. Data Storage and Privacy</a></li>
-<li><a href="#cryptography">4.4. Cryptography</a></li>
-<li><a href="#authentication_and_session_management">4.5. Authentication and Session Management</a></li>
-<li><a href="#network_communication">4.6. Network Communication</a></li>
-<li><a href="#environmental_interaction">4.7. Environmental Interaction</a></li>
-<li><a href="#code_quality_and_build_settings">4.8. Code Quality and Build Settings</a></li>
-<li><a href="#resiliency_against_reverse_engineering_requirements">4.9. Resiliency Against Reverse Engineering Requirements</a></li>
-<li><a href="#other_mobile_vulnerabilities">4.10. Other Mobile Vulnerabilities</a></li>
+<li><a href="#verification_levels">4.1. Verification Levels</a></li>
+<li><a href="#table_keys">4.2. Table Keys</a></li>
+<li><a href="#architecture_design_and_threat_modelling">4.3. Architecture, Design and Threat Modelling</a></li>
+<li><a href="#data_storage_and_privacy">4.4. Data Storage and Privacy</a></li>
+<li><a href="#cryptography">4.5. Cryptography</a></li>
+<li><a href="#authentication_and_session_management">4.6. Authentication and Session Management</a></li>
+<li><a href="#network_communication">4.7. Network Communication</a></li>
+<li><a href="#environmental_interaction">4.8. Environmental Interaction</a></li>
+<li><a href="#code_quality_and_build_settings">4.9. Code Quality and Build Settings</a></li>
+<li><a href="#resiliency_against_reverse_engineering_requirements">4.10. Resiliency Against Reverse Engineering Requirements</a></li>
+<li><a href="#other_mobile_vulnerabilities">4.11. Other Mobile Vulnerabilities</a></li>
 </ul>
 </li>
 <li><a href="#owasp_threat_model_project">5. OWASP Threat Model Project</a>
@@ -2149,7 +2150,53 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <p>This is a fork of the <a href="https://www.owasp.org/images/f/fe/MASVS_v0.9.3.pdf">OWASP Mobile Verification Standard</a>.</p>
 </div>
 <div class="sect2">
-<h3 id="table_keys">4.1. Table Keys</h3>
+<h3 id="verification_levels">4.1. Verification Levels</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>MASVS-L1: Standard Security</p>
+<div class="ulist">
+<ul>
+<li>
+<p>lists security best practices</p>
+</li>
+<li>
+<p>all mobile apps</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>MASVS-L2: Defense-in-Depth</p>
+<div class="ulist">
+<ul>
+<li>
+<p>introduces advanced security controls</p>
+</li>
+<li>
+<p>should be used by apps that store personally identifiable information, or highly sensitive information, like apps for health-care industry and financial industry</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>MASVS-R: Resiliency Against Reverse Engineering and Tampering</p>
+<div class="ulist">
+<ul>
+<li>
+<p>the app has state-of-the-art security, and is also resillient against specific client side attacks, such as tampering, modding or reverse engineering</p>
+</li>
+<li>
+<p>can be used in combination with the other 2 levels. E.g. MASVS-L1 + R or MASVS-L2 + R</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="table_keys">4.2. Table Keys</h3>
 <div class="paragraph">
 <p><em>Category</em> - The type of work required for each item. Some enhancements have been made.</p>
 </div>
@@ -2177,16 +2224,17 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </div>
 </div>
 <div class="sect2">
-<h3 id="architecture_design_and_threat_modelling">4.2. Architecture, Design and Threat Modelling</h3>
+<h3 id="architecture_design_and_threat_modelling">4.3. Architecture, Design and Threat Modelling</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2858%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
 </colgroup>
 <thead>
 <tr>
@@ -2197,6 +2245,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <th class="tableblock halign-left valign-top">Android</th>
 <th class="tableblock halign-left valign-top">iOS</th>
 <th class="tableblock halign-left valign-top">Cordova</th>
+<th class="tableblock halign-left valign-top">Level</th>
 </tr>
 </thead>
 <tbody>
@@ -2208,6 +2257,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Check the <a href="https://cordova.apache.org/docs/en/latest/config_ref/#plugin">config.xml</a> for unrequired components. This also includes any JS files required from a CDN or elsewhere in the index.html or equivalent of an application.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1.2</p></td>
@@ -2217,6 +2267,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Check the <a href="https://cordova.apache.org/docs/en/latest/config_ref/#plugin">config.xml</a> for vulnerable components manually or using dependency checker.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1.3</p></td>
@@ -2226,6 +2277,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1.4</p></td>
@@ -2235,6 +2287,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L11+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1.5</p></td>
@@ -2244,6 +2297,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1.6</p></td>
@@ -2253,6 +2307,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1.7</p></td>
@@ -2262,6 +2317,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1.8</p></td>
@@ -2271,6 +2327,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">We could also look at using <a href="https://www.w3.org/TR/SRI/">subresource integrity</a> checks for requiring JS libraries from the internet/CDN within an index.html.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1.9</p></td>
@@ -2280,6 +2337,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1.10</p></td>
@@ -2289,6 +2347,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1.11</p></td>
@@ -2298,6 +2357,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1.12</p></td>
@@ -2307,6 +2367,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1.13</p></td>
@@ -2316,21 +2377,23 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L2</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
-<h3 id="data_storage_and_privacy">4.3. Data Storage and Privacy</h3>
+<h3 id="data_storage_and_privacy">4.4. Data Storage and Privacy</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2858%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
 </colgroup>
 <thead>
 <tr>
@@ -2341,6 +2404,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <th class="tableblock halign-left valign-top">Android</th>
 <th class="tableblock halign-left valign-top">iOS</th>
 <th class="tableblock halign-left valign-top">Cordova</th>
+<th class="tableblock halign-left valign-top">Level</th>
 </tr>
 </thead>
 <tbody>
@@ -2352,6 +2416,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"><p class="tableblock">For Android we should use the Android <a href="https://developer.android.com/training/articles/keystore.html">Keystore</a>.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">We could look at using the following <a href="https://www.npmjs.com/package/cordova-plugin-secure-key-store">cordova plugin</a> to provide secure storage.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2.2</p></td>
@@ -2361,6 +2426,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2.3</p></td>
@@ -2370,6 +2436,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2.4</p></td>
@@ -2379,6 +2446,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2.5</p></td>
@@ -2388,6 +2456,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2.6</p></td>
@@ -2397,6 +2466,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2.7</p></td>
@@ -2406,6 +2476,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2.8</p></td>
@@ -2415,6 +2486,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"><p class="tableblock">We should ensure that the the allowBackup setting is disabled to prevent app data recovery via backups.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">We should ensure that the the allowBackup setting is disabled to prevent app data recovery via backups.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2.9</p></td>
@@ -2424,6 +2496,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This could be disabled for iOS using the following <a href="https://www.npmjs.com/package/cordova-plugin-blurred-snapshot">cordova plugin</a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2.10</p></td>
@@ -2433,6 +2506,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2.11</p></td>
@@ -2442,6 +2516,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">We could use the following <a href="https://github.com/ABarak64/Cordova-Screen-Lock-Enabled">cordova plugin</a> to check if a device passcode/lock screen has been set.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2.12</p></td>
@@ -2451,21 +2526,23 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L2</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
-<h3 id="cryptography">4.4. Cryptography</h3>
+<h3 id="cryptography">4.5. Cryptography</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2858%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
 </colgroup>
 <thead>
 <tr>
@@ -2476,6 +2553,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <th class="tableblock halign-left valign-top">Android</th>
 <th class="tableblock halign-left valign-top">iOS</th>
 <th class="tableblock halign-left valign-top">Cordova</th>
+<th class="tableblock halign-left valign-top">Level</th>
 </tr>
 </thead>
 <tbody>
@@ -2487,6 +2565,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">3.2</p></td>
@@ -2496,6 +2575,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">3.3</p></td>
@@ -2505,6 +2585,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">3.4</p></td>
@@ -2514,6 +2595,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">3.5</p></td>
@@ -2523,6 +2605,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">3.6</p></td>
@@ -2532,21 +2615,23 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
-<h3 id="authentication_and_session_management">4.5. Authentication and Session Management</h3>
+<h3 id="authentication_and_session_management">4.6. Authentication and Session Management</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2858%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
 </colgroup>
 <thead>
 <tr>
@@ -2557,6 +2642,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <th class="tableblock halign-left valign-top">Android</th>
 <th class="tableblock halign-left valign-top">iOS</th>
 <th class="tableblock halign-left valign-top">Cordova</th>
+<th class="tableblock halign-left valign-top">Level</th>
 </tr>
 </thead>
 <tbody>
@@ -2568,6 +2654,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4.2</p></td>
@@ -2577,6 +2664,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4.3</p></td>
@@ -2586,6 +2674,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4.4</p></td>
@@ -2595,6 +2684,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4.5</p></td>
@@ -2604,6 +2694,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4.6</p></td>
@@ -2613,6 +2704,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4.7</p></td>
@@ -2622,6 +2714,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4.8</p></td>
@@ -2631,6 +2724,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4.9</p></td>
@@ -2640,6 +2734,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4.10</p></td>
@@ -2649,21 +2744,23 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L2</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
-<h3 id="network_communication">4.6. Network Communication</h3>
+<h3 id="network_communication">4.7. Network Communication</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2858%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
 </colgroup>
 <thead>
 <tr>
@@ -2674,6 +2771,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <th class="tableblock halign-left valign-top">Android</th>
 <th class="tableblock halign-left valign-top">iOS</th>
 <th class="tableblock halign-left valign-top">Cordova</th>
+<th class="tableblock halign-left valign-top">Level</th>
 </tr>
 </thead>
 <tbody>
@@ -2685,6 +2783,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">5.2</p></td>
@@ -2694,6 +2793,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">5.3</p></td>
@@ -2703,6 +2803,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">5.4</p></td>
@@ -2712,6 +2813,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/datatheorem/TrustKit-Android">TrustKit</a> for Android can be used for certificate pinning.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/datatheorem/TrustKit">TrustKit</a> for iOS can be user for certificate pinning.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The Secure HTTP <a href="http://plugins.telerik.com/cordova/plugin/secure-http">cordova plugin</a> will allow certificate pinning.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">5.5</p></td>
@@ -2721,6 +2823,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">5.6</p></td>
@@ -2730,21 +2833,23 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">We should follow the <a href="https://cordova.apache.org/docs/en/7.x/guide/appdev/whitelist/index.html">whitelist guide</a> for controlling external domain access in Cordova.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
-<h3 id="environmental_interaction">4.7. Environmental Interaction</h3>
+<h3 id="environmental_interaction">4.8. Environmental Interaction</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2858%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
 </colgroup>
 <thead>
 <tr>
@@ -2755,6 +2860,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <th class="tableblock halign-left valign-top">Android</th>
 <th class="tableblock halign-left valign-top">iOS</th>
 <th class="tableblock halign-left valign-top">Cordova</th>
+<th class="tableblock halign-left valign-top">Level</th>
 </tr>
 </thead>
 <tbody>
@@ -2766,6 +2872,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"><p class="tableblock">Check the <a href="https://developer.android.com/guide/topics/manifest/manifest-intro.html">AndroidManifest.xml</a> for unrequired permissions..</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Check the <a href="https://cordova.apache.org/docs/en/latest/config_ref/#plugin">config.xml</a> for unrequired permissions.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">6.2</p></td>
@@ -2775,6 +2882,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">We should ensure that we are HTML encoding data that is coming from the server if it’s being rendered as html.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">6.3</p></td>
@@ -2784,6 +2892,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">6.4</p></td>
@@ -2793,6 +2902,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">6.5</p></td>
@@ -2802,6 +2912,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">6.6</p></td>
@@ -2811,6 +2922,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">6.7</p></td>
@@ -2820,6 +2932,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">6.8</p></td>
@@ -2829,6 +2942,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">6.9</p></td>
@@ -2838,6 +2952,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">6.10</p></td>
@@ -2847,21 +2962,23 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">For both iOS and Android we could use the cordova-plugin-iroot.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L2</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
-<h3 id="code_quality_and_build_settings">4.8. Code Quality and Build Settings</h3>
+<h3 id="code_quality_and_build_settings">4.9. Code Quality and Build Settings</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2858%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
 </colgroup>
 <thead>
 <tr>
@@ -2872,6 +2989,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <th class="tableblock halign-left valign-top">Android</th>
 <th class="tableblock halign-left valign-top">iOS</th>
 <th class="tableblock halign-left valign-top">Cordova</th>
+<th class="tableblock halign-left valign-top">Level</th>
 </tr>
 </thead>
 <tbody>
@@ -2883,6 +3001,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">7.2</p></td>
@@ -2892,6 +3011,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">7.3</p></td>
@@ -2901,6 +3021,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">7.4</p></td>
@@ -2910,6 +3031,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">7.5</p></td>
@@ -2919,6 +3041,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">7.6</p></td>
@@ -2928,6 +3051,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">7.7</p></td>
@@ -2937,6 +3061,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">7.8</p></td>
@@ -2946,21 +3071,23 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L1+L2</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
-<h3 id="resiliency_against_reverse_engineering_requirements">4.9. Resiliency Against Reverse Engineering Requirements</h3>
+<h3 id="resiliency_against_reverse_engineering_requirements">4.10. Resiliency Against Reverse Engineering Requirements</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 14.2858%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
 </colgroup>
 <thead>
 <tr>
@@ -2971,6 +3098,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <th class="tableblock halign-left valign-top">Android</th>
 <th class="tableblock halign-left valign-top">iOS</th>
 <th class="tableblock halign-left valign-top">Cordova</th>
+<th class="tableblock halign-left valign-top">Level</th>
 </tr>
 </thead>
 <tbody>
@@ -2982,6 +3110,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8.2</p></td>
@@ -2991,6 +3120,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8.3</p></td>
@@ -3000,6 +3130,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8.4</p></td>
@@ -3009,6 +3140,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8.5</p></td>
@@ -3018,6 +3150,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8.6</p></td>
@@ -3027,6 +3160,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8.7</p></td>
@@ -3036,6 +3170,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8.8</p></td>
@@ -3045,6 +3180,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8.9</p></td>
@@ -3054,6 +3190,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8.10</p></td>
@@ -3063,6 +3200,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8.11</p></td>
@@ -3072,6 +3210,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8.12</p></td>
@@ -3081,6 +3220,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8.13</p></td>
@@ -3090,12 +3230,13 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
-<h3 id="other_mobile_vulnerabilities">4.10. Other Mobile Vulnerabilities</h3>
+<h3 id="other_mobile_vulnerabilities">4.11. Other Mobile Vulnerabilities</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 14.2857%;">
