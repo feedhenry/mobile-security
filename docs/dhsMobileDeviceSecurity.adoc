@@ -1,0 +1,287 @@
+= DHS Study on Mobile Device Security
+
+This is a review of the https://www.dhs.gov/sites/default/files/publications/DHS%20Study%20on%20Mobile%20Device%20Security%20-%20April%202017-FINAL.pdf[DHS Study on Mobile Device Security]
+
+== Mobile Security Threats and Defenses
+
+=== Mobile Security Threats Categories
+
+[%header,format=csv]
+|===
+Threat, Definition, Examples
+Denial of Service, Deny or degrade service to users, "Jamming of wireless communications, overloading networks with bogus traffic, ransomware, theft of mobile device or mobile services."
+Geolocation, Physical tracking of user., "Passively or actively obtaining accurate three-dimensional coordinates of target, possibly including speed and direction."
+Information Disclosure, Unauthorized access to information or services., "Interception of data in transit, leakage or exfiltration of user, app, or enterprise data, tracking of user location, eavesdropping on voice or data communications, surreptitiously activating the phone’s microphone or camera to spy on the user."
+Spoofing, Impersonating something or someone, "Email or SMS message pretending to be from boss or colleague (social engineering); fraudulent Wi-Fi access point or cellular base station mimicking a legitimate one. " 
+Tampering, "Modifying data, software, firmware, or hardware without authorization. ", "Modifying data in transit, inserting tampered hardware or software into supply chain, repackaging legitimate app with malware, modifying network or device configuration (e.g., jailbreaking or rooting a phone)."
+|===
+
+=== Threats in the Mobile Device Technology Stack
+
+==== Mobile Operating System
+
+* Threats
+** Mobile OS vulnerabilities
+** Vendors & Carriers slow to rollout system updates (especially for Android)
+** Jailbroke or rooted devices
+** Vulnerabilities in vendor or carrier-specific additions
+** Vulnerabilities in cloud services provided by the vendors
+** Install application using PC
+* Defenses
+** Ensure devices are patched against publicly known security vulnerabilities and are running the most recent OS
+** Consider blocking access if devices are out of date
+** Enterprises should seek commitment from device vendors that security updates will be provided
+** Advice user not to root or jailbreak devices.
+** Enable strong authentication for cloud services
+
+==== Low-Level Device Components
+
+* Threats
+** Bootloader vulnerabilities
+** Vulnerabilities in the isolated execution environments. e.g  Trusted Execution Environment on Android and Apple's Secure Enclave
+** Vulnerabilities in baseband processors
+** Softwares that below the OS added by Mobile Network Operators
+* Defenses
+** Ensure devices are patched against publicly known security vulnerabilities
+** Enable device integrity checking capabilities
+
+==== Defense Gaps
+
+* The inability of enterprises to gain visibility into indicators of adversary activity such as indications of exploitation of previously unknown (zero-day) vulnerabilities.
+* Variations in security update speed and availability depending on the device vendor or network carrier.
+* The inattention to software assurance best practices during the development of some mobile device components.
+* The failure to use strong authentication mechanisms—even when available—for cloud services on which the device depends for secure functionality.
+* Much effort has gone into increasing the resilience of mobile device components against exploitation, but continued effort is required in this area and should focus not only on the mobile operating system but also on lower-level components such as TEEs and baseband processors and the software/firmware used to operate them.
+* Software or firmware installed by the MNO or OEM is typically outside the purview of the mobile operating system provider, making it difficult to detect. 
+
+=== Threats in Mobile Applications
+
+==== Threats against Vulnerable Applications
+
+* Threats
+** Insecure Network Communication
+** Files Stored with Insecure File Permissions or in an Unprotected Location
+** Sensitive Information Written to System Log
+** Web Browser Vulnerabilities
+** Vulnerabilities in Third-Party Libraries
+** Cryptographic Vulnerabilities
+* Defenses
+** Best practices in development
+*** Follow security best practices such as those published by Google for Android and Apple for iOS.
+*** Use of free capabilities bundled into the application development environment to assess the security of their applications,
+*** Make use of the Network Security Configuration feature recently introduced into Android and the Application Transport Security feature recently introduced into iOS
+*** Consider using commercial mobile application vetting tools that can assess applications for many common vulnerabilities
+*** Ensure appropriate data encryption, strong access control, separation between applications (e.g., restricting copy-paste ability), and provide the ability to perform local or remote data wipes of individual application data
+*** Deploy and maintain EMM/MDM tools
+*** Threat intelligence should be used to understand the potential risks associated with apps installed on devices
+*** Ensure devices are running the latest version of iOS or Android because each OS version has brought security architecture improvements and ensure applications receive security patches
+** Test cases prior to distribution
+*** Static Analysis
+*** Static Source Code Analysis
+*** Static Byte Code Analysis
+*** Static Binary Code Analysis
+*** Dynamic Binary Analysis.
+** Maintenance following implementation
+*** Using threat intelligence as well as monitoring and mitigation when vulnerabilities are discovered
+
+==== Threats from Potentially Harmful Applications
+
+* Threats
+** Gather Privacy-Sensitive Information
+** Surreptitious Eavesdropping
+** Exploiting Vulnerabilities
+** Exploiting Access to Sensitive Enterprise Networks or Data
+** Ransomware
+** Enabling Other Types of Fraud or Malicious Practices
+** Exploiting Public Mobile Application Stores
+** Attempting to Root/Jailbreak a Mobile Device
+** Manipulation of Trusted Apps.
+** Sharing of Data Between Trusted Apps. 
+* Defenses
+** Best Practices
+** App Vetting
+** Isolation Technologies
+** Out-of-Band Authentication
+** Continuous Authentication
+** Mobile Device Management/Enterprise Mobility Management
+** On-Device, Third-Party Security Applications.
+** Network Monitoring.
+** App Store Mitigations.
+
+==== Defense Gaps
+* Fragmented toolsets
+* Poorly defined set of best practices and security Systems Development Life Cycle for developers—especially for Government use.
+* Lack of focus on mobile application vulnerabilities within the CVE process
+* Lack of robust information sharing of threat intelligence and integration with security tools and techniques
+* Timely notification to organizations and developers of apps affected by a vulnerability
+* Limited visibility and adoption of application-vetting criteria
+* Lack of formalized standards relating security controls to data security categorization
+* Limited knowledge of the comparison between various app vetting tools
+* Lack of enterprise view into the user community and mobile landscape baseline
+
+=== Threats in Mobile Networks
+
+==== Key Components in Mobile Networks
+
+* the Radio Access Network (RAN)
+** Part of the mobile network that connects mobile subscribers to their service provider network using Radio Frequency (RF) signaling over an “air interface,” i.e., wirelessly. 
+** Includes tower antennas, RF transceivers and RF controllers.
+** Part of the service is typically encrypted, although the level of encryption varies from network type to network type and by decisions the carrier makes in implementing this capability.
+* the Core Network (CN)
+** Is always out of band; the cellular mobile device has no access to it and it runs on different channels.
+** The data between the RAN and the operator’s core network is handled by the backhaul network
+** Holds network logic and is responsible for creating and maintaining the connection between cellular mobile devices and external service networks (e.g., Internet, wireline phones, other carriers and private enterprises) as well as physically tracking all user equipment at all times to enable routing of calls and data streams as users and their devices move throughout the landscape. 
+* External Services
+** Contain additional end-user services
+** May or may not be provided by the mobile network operator
+
+==== SIM Card
+
+Communicates directly with the carrier’s core network to authenticate itself, the user, and the user’s services and service level.
+
+* Threats
+** Obtaining Cryptographic Keys
+** SIM Theft
+** SIM Cloning
+* Defenses
+** anti-fraud systems deployed by the carrier
+
+==== Radio Access Networks
+
+* Threats
+** Denial of Service/Jamming
+** Physical Attacks on Base Station Infrastructure.
+** Long Term Evolution (LTE)
+*** Downgrade Attacks
+*** Eavesdropping.
+*** Device and Identity Tracking
+*** Preventing Emergency Phone Calls
+*** Network Level Denial of Service (DoS) Attacks
+
+==== Backhaul Networks
+
+* Threats
+** Backhaul Eavesdropping
+
+==== Core Networks
+
+* Threats
+** Signaling System 7 (SS7)
+*** Is the historic control plane for mobile networks
+*** Significant weaknesses in SS7 have been known for more than a decade: The problem with the current SS7 system is that messages can be altered, injected or deleted into the global SS7 networks in an uncontrolled manner
+*** It has been supplanted by the Diameter Protocol. Most networks use both protocols and it is common for SS7 messages to be “translated” into their Diameter equivalent
+
+==== Defenses
+
+* Are complex and must be implemented at many layers
+* Threats of illegal eavesdropping, data manipulation, and data theft can be mitigated to a degree with secure storage on endpoints and use of encryption for communications in transit
+* Mobile application developers should be encouraged to use the network security features provided by the Android and iOS operating systems to protect the network traffic of their applications against interception or manipulation
+* VPNs can be used to route all network traffic through an encrypted tunnel between the cellular mobile device and an enterprise-controlled network
+
+==== Gaps
+
+* Each network component of carrier infrastructure needs specific protection mechanisms
+* Limited or no ability to protect against geolocation of mobile devices and their users
+* The only reliable mitigation against DoS attacks on cellular towers, regions or service providers is alternate communication methods for emergencies
+* Inability to determine whether U.S. carriers have implemented GSMA Interconnect Security Monitoring Guidelines for protection against SS7 attacks.
+* SS7 attack types can be used to target key U.S. Federal Government personnel both in the United States and traveling or working overseas.
+
+=== Device Physical Access
+
+==== Threats
+
+* Stolen or lost devices
+* PC or charging station could potentially abuse USB to attempt to exploit vulnerabilities on the mobile device or to steal sensitive data
+* The USB communication channel could potentially be abused in the reverse direction, enabling a compromised mobile device to launch attacks against the host device to which it is connected
+
+==== Defenses
+
+* Ensure that mobile devices always have a screen lock PIN or password.
+* Enterprise capabilities should be put in place to remotely track and—when necessary—remotely wipe mobile devices.
+* Users should be advised not to plug mobile devices directly into public USB charging ports unless a charge-only adapter or cable is used.
+
+==== Gaps
+
+* There is still more work to be done to encourage users to use screen lock on their devices
+* More work is needed to defend against attacks in the opposite direction: from a mobile device to a PC
+* Existing strong authentication solutions are not designed to complement the mobile form factor
+
+
+=== Mobile Enterprise
+
+The mobile enterprise consists of systems, applications, processes, and people that work together to control, manage, and integrate the use of mobile devices and related technologies into business and mission operations. 
+
+==== Enterprise Mobility Management
+
+* Threats
+** Unauthorized access to EMM administrative console
+** Impersonation of EMM server
+** Bypass or subvert EMM agent on mobile device 
+* Defenses
+** Enterprise security audit
+** Mobile device security audit
+** Threat intelligence
+** Granular authorization
+** Identification and Authentication
+** Secure network connections
+** Trusted Execution Environment
+
+==== Enterprise Mobile Application Stores
+* Threats
+** Impersonation or unauthorized use of administrator credentials, app developer credentials, or distribution certificates. 
+** Bypass or subvert application security analysis or vetting techniques.
+* Defenses
+** Enterprise security audit
+** Mobile device security audit
+** Threat intelligence
+** Granular authorization
+** Identification and Authentication
+
+==== Gaps
+* Limited ability of enterprise mobility products to detect sophisticated attacks against mobile devices
+* Limited ability of EMM solutions to identify vulnerable mobile devices.
+* Most EMMs lack the ability to directly update the mobile OS
+* More work is needed to encourage enterprise adoption of capabilities to ensure enterprise-owned mobile devices are kept under enterprise management control
+* Lack of guidance on how to integrate EMM solutions with other enterprise security systems to enable effective response and recovery capabilities to compromised or out-ofcompliance mobile devices
+* Improvements in integration of EMM solutions with mobile threat intelligence services
+* Immature vulnerability management processes for mobile OS and mobile apps
+* Stronger mechanisms for data security and data authorization decisions need to be developed
+* The lack of standards for interfacing with TEE has limited use of the technology
+
+=== Emerging Threats 
+
+* Open Source Signals Intelligence
+** Unfortunately, much of the software and protocols used in RF devices are insecure
+** Now an increasing number of people who have the skills, time, tools and techniques to attack mobile devices and the underlying networks on which they depend
+* Decryption of 3G/UMTS Cellular Network Traffic
+** Although 3GPP and GSMA have deprecated some security authentication and encryption standards in the past,advances in deploying replacement systems may not be keeping pace with attacks on the systems currently in use and currently no deprecation schedule is in place if the UMTS (3G) UEA1/UIA1 security algorithms fall.
+** The rise of crypto currencies has fueled a market in high-speed encryption systems. These are now widely available and pose a considerable risk to mobile device privacy and security
+* “IMSI Catchers” and Passive Cellular Interceptors.
+** They allow hackers, criminals, and spies to track cell phone users and monitor or record conversations and text messages.
+** Passive cellular interceptors are difficult to detect since they only listen
+* Cybercrime and Fraud
+** Because the global mobile ecosystem is so large and so much money exchanges hands, criminals will continue to target it
+* Jamming
+** Cell phone jammers are widely available for purchase on the Internet including plans and kits and are even listed by range to show how jammers can deny service across large service areas
+** Can be used to cause cell phones to move off 3G and 4G networks and on to 2G networks where interception and decryption is much easier
+
+=== A Framework for Modeling Mobile Threats
+
+==== Seven-stage Cyber Attack Lifecycle
+
+* Recon
+* Weaponize
+* Deliver
+* Exploit
+* Control
+* Execute
+* Maintain
+
+=== New or Updated Policy, Standards, and Best Practices 
+
+==== Mobile Applications
+
+* There is a need to create security guidelines for mobile application development.
+* Developer-focused guidance that communicates best practices on how to securely code, package and release applications is still lacking.
+
+
