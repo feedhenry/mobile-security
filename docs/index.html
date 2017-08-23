@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.6.1">
+<meta name="generator" content="Asciidoctor 1.5.5">
 <title>Mobile Security</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -89,12 +89,13 @@ strong,b{font-weight:bold;line-height:inherit}
 small{font-size:60%;line-height:inherit}
 code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
 ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
-ul,ol{margin-left:1.5em}
+ul,ol,ul.no-bullet,ol.no-bullet{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
 ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
 ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
+ul.no-bullet{list-style:none}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -130,11 +131,7 @@ strong strong{font-weight:400}
 kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background-color:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
 .keyseq kbd:first-child{margin-left:0}
 .keyseq kbd:last-child{margin-right:0}
-.menuseq,.menuref{color:#000}
-.menuseq b:not(.caret),.menuref{font-weight:inherit}
-.menuseq{word-spacing:-.02em}
-.menuseq b.caret{font-size:1.25em;line-height:.8}
-.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+.menuseq,.menu{color:rgba(0,0,0,.8)}
 b.button:before,b.button:after{position:relative;top:-1px;font-weight:400}
 b.button:before{content:"[";padding:0 3px 0 2px}
 b.button:after{content:"]";padding:0 2px 0 3px}
@@ -201,7 +198,7 @@ table.tableblock>caption.title{white-space:nowrap;overflow:visible;max-width:0}
 table.tableblock #preamble>.sectionbody>.paragraph:first-of-type p{font-size:inherit}
 .admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
 .admonitionblock>table td.icon{text-align:center;width:80px}
-.admonitionblock>table td.icon img{max-width:initial}
+.admonitionblock>table td.icon img{max-width:none}
 .admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #ddddd8;color:rgba(0,0,0,.6)}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
@@ -257,13 +254,13 @@ table.pyhltable .linenodiv{background:none!important;padding-right:0!important}
 table.tableblock{max-width:100%;border-collapse:separate}
 table.tableblock td>.paragraph:last-child p>p:last-child,table.tableblock th>p:last-child,table.tableblock td>p:last-child{margin-bottom:0}
 table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
-table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
-table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
-table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
-table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px 0}
-table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0 0}
-table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
-table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
+table.grid-all th.tableblock,table.grid-all td.tableblock{border-width:0 1px 1px 0}
+table.grid-all tfoot>tr>th.tableblock,table.grid-all tfoot>tr>td.tableblock{border-width:1px 1px 0 0}
+table.grid-cols th.tableblock,table.grid-cols td.tableblock{border-width:0 1px 0 0}
+table.grid-all *>tr>.tableblock:last-child,table.grid-cols *>tr>.tableblock:last-child{border-right-width:0}
+table.grid-rows th.tableblock,table.grid-rows td.tableblock{border-width:0 0 1px 0}
+table.grid-all tbody>tr:last-child>th.tableblock,table.grid-all tbody>tr:last-child>td.tableblock,table.grid-all thead:last-child>tr>th.tableblock,table.grid-rows tbody>tr:last-child>th.tableblock,table.grid-rows tbody>tr:last-child>td.tableblock,table.grid-rows thead:last-child>tr>th.tableblock{border-bottom-width:0}
+table.grid-rows tfoot>tr>th.tableblock,table.grid-rows tfoot>tr>td.tableblock{border-width:1px 0 0 0}
 table.frame-all{border-width:1px}
 table.frame-sides{border-width:0 1px}
 table.frame-topbot{border-width:1px 0}
@@ -284,12 +281,10 @@ ul li ol{margin-left:1.5em}
 dl dd{margin-left:1.125em}
 dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
 ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
-ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
-ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
-ul.unstyled,ol.unstyled{margin-left:0}
-ul.checklist{margin-left:.625em}
-ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
-ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
+ul.unstyled,ol.unnumbered,ul.checklist,ul.none{list-style-type:none}
+ul.unstyled,ol.unnumbered,ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1em;font-size:.85em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{width:1em;position:relative;top:1px}
 ul.inline{margin:0 auto .625em auto;margin-left:-1.375em;margin-right:0;padding:0;list-style:none;overflow:hidden}
 ul.inline>li{list-style:none;float:left;margin-left:1.375em;display:block}
 ul.inline>li>*{display:block}
@@ -306,8 +301,7 @@ ol.lowergreek{list-style-type:lower-greek}
 td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
 td.hdlist1{font-weight:bold;padding-bottom:1.25em}
 .literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
-.colist>table tr>td:first-of-type{padding:.4em .75em 0 .75em;line-height:1;vertical-align:top}
-.colist>table tr>td:first-of-type img{max-width:initial}
+.colist>table tr>td:first-of-type{padding:0 .75em;line-height:1}
 .colist>table tr>td:last-of-type{padding:.25em 0}
 .thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
 .imageblock.left,.imageblock[style*="float: left"]{margin:.25em .625em 1.25em 0}
@@ -370,7 +364,6 @@ div.unbreakable{page-break-inside:avoid}
 .yellow{color:#bfbf00}
 .yellow-background{background-color:#fafa00}
 span.icon>.fa{cursor:default}
-a span.icon>.fa{cursor:inherit}
 .admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
 .admonitionblock td.icon .icon-note:before{content:"\f05a";color:#19407c}
 .admonitionblock td.icon .icon-tip:before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
@@ -567,10 +560,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#optional_security_functional_requirements">12.5. Optional Security Functional Requirements</a></li>
 </ul>
 </li>
-<li><a href="#guidelines_for_managing_the_security_of_mobile_devices_in_the_enterprise">13. Guidelines for Managing the Security of Mobile Devices in the Enterprise</a>
+<li><a href="#dhs_study_on_mobile_device_security">13. DHS Study on Mobile Device Security</a>
 <ul class="sectlevel2">
-<li><a href="#high_level_threats_and_vulnerabilities_for_mobile_devices">13.1. High-Level Threats and Vulnerabilities for Mobile Devices</a></li>
-<li><a href="#technologies_for_mobile_device_management">13.2. Technologies for Mobile Device Management</a></li>
+<li><a href="#mobile_security_threats_and_defenses">13.1. Mobile Security Threats and Defenses</a></li>
+</ul>
+</li>
+<li><a href="#guidelines_for_managing_the_security_of_mobile_devices_in_the_enterprise">14. Guidelines for Managing the Security of Mobile Devices in the Enterprise</a>
+<ul class="sectlevel2">
+<li><a href="#high_level_threats_and_vulnerabilities_for_mobile_devices">14.1. High-Level Threats and Vulnerabilities for Mobile Devices</a></li>
+<li><a href="#technologies_for_mobile_device_management">14.2. Technologies for Mobile Device Management</a></li>
 </ul>
 </li>
 </ul>
@@ -6672,15 +6670,929 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect1">
-<h2 id="guidelines_for_managing_the_security_of_mobile_devices_in_the_enterprise">13. Guidelines for Managing the Security of Mobile Devices in the Enterprise</h2>
+<h2 id="dhs_study_on_mobile_device_security">13. DHS Study on Mobile Device Security</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is a review of the <a href="https://www.dhs.gov/sites/default/files/publications/DHS%20Study%20on%20Mobile%20Device%20Security%20-%20April%202017-FINAL.pdf">DHS Study on Mobile Device Security</a></p>
+</div>
+<div class="sect2">
+<h3 id="mobile_security_threats_and_defenses">13.1. Mobile Security Threats and Defenses</h3>
+<div class="sect3">
+<h4 id="mobile_security_threats_categories">13.1.1. Mobile Security Threats Categories</h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Threat</th>
+<th class="tableblock halign-left valign-top">Definition</th>
+<th class="tableblock halign-left valign-top">Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Denial of Service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deny or degrade service to users</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Jamming of wireless communications, overloading networks with bogus traffic, ransomware, theft of mobile device or mobile services.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Geolocation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Physical tracking of user.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Passively or actively obtaining accurate three-dimensional coordinates of target, possibly including speed and direction.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Information Disclosure</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized access to information or services.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Interception of data in transit, leakage or exfiltration of user, app, or enterprise data, tracking of user location, eavesdropping on voice or data communications, surreptitiously activating the phone’s microphone or camera to spy on the user.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Spoofing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Impersonating something or someone</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Email or SMS message pretending to be from boss or colleague (social engineering); fraudulent Wi-Fi access point or cellular base station mimicking a legitimate one.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tampering</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Modifying data, software, firmware, or hardware without authorization.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Modifying data in transit, inserting tampered hardware or software into supply chain, repackaging legitimate app with malware, modifying network or device configuration (e.g., jailbreaking or rooting a phone).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="threats_in_the_mobile_device_technology_stack">13.1.2. Threats in the Mobile Device Technology Stack</h4>
+<div class="sect4">
+<h5 id="mobile_operating_system">Mobile Operating System</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Threats</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Mobile OS vulnerabilities</p>
+</li>
+<li>
+<p>Vendors &amp; Carriers slow to rollout system updates (especially for Android)</p>
+</li>
+<li>
+<p>Jailbroke or rooted devices</p>
+</li>
+<li>
+<p>Vulnerabilities in vendor or carrier-specific additions</p>
+</li>
+<li>
+<p>Vulnerabilities in cloud services provided by the vendors</p>
+</li>
+<li>
+<p>Install application using PC</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Defenses</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Ensure devices are patched against publicly known security vulnerabilities and are running the most recent OS</p>
+</li>
+<li>
+<p>Consider blocking access if devices are out of date</p>
+</li>
+<li>
+<p>Enterprises should seek commitment from device vendors that security updates will be provided</p>
+</li>
+<li>
+<p>Advice user not to root or jailbreak devices.</p>
+</li>
+<li>
+<p>Enable strong authentication for cloud services</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="low_level_device_components">Low-Level Device Components</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Threats</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Bootloader vulnerabilities</p>
+</li>
+<li>
+<p>Vulnerabilities in the isolated execution environments. e.g  Trusted Execution Environment on Android and Apple&#8217;s Secure Enclave</p>
+</li>
+<li>
+<p>Vulnerabilities in baseband processors</p>
+</li>
+<li>
+<p>Softwares that below the OS added by Mobile Network Operators</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Defenses</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Ensure devices are patched against publicly known security vulnerabilities</p>
+</li>
+<li>
+<p>Enable device integrity checking capabilities</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="defense_gaps">Defense Gaps</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>The inability of enterprises to gain visibility into indicators of adversary activity such as indications of exploitation of previously unknown (zero-day) vulnerabilities.</p>
+</li>
+<li>
+<p>Variations in security update speed and availability depending on the device vendor or network carrier.</p>
+</li>
+<li>
+<p>The inattention to software assurance best practices during the development of some mobile device components.</p>
+</li>
+<li>
+<p>The failure to use strong authentication mechanisms—even when available—for cloud services on which the device depends for secure functionality.</p>
+</li>
+<li>
+<p>Much effort has gone into increasing the resilience of mobile device components against exploitation, but continued effort is required in this area and should focus not only on the mobile operating system but also on lower-level components such as TEEs and baseband processors and the software/firmware used to operate them.</p>
+</li>
+<li>
+<p>Software or firmware installed by the MNO or OEM is typically outside the purview of the mobile operating system provider, making it difficult to detect.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="threats_in_mobile_applications">13.1.3. Threats in Mobile Applications</h4>
+<div class="sect4">
+<h5 id="threats_against_vulnerable_applications">Threats against Vulnerable Applications</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Threats</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Insecure Network Communication</p>
+</li>
+<li>
+<p>Files Stored with Insecure File Permissions or in an Unprotected Location</p>
+</li>
+<li>
+<p>Sensitive Information Written to System Log</p>
+</li>
+<li>
+<p>Web Browser Vulnerabilities</p>
+</li>
+<li>
+<p>Vulnerabilities in Third-Party Libraries</p>
+</li>
+<li>
+<p>Cryptographic Vulnerabilities</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Defenses</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Best practices in development</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Follow security best practices such as those published by Google for Android and Apple for iOS.</p>
+</li>
+<li>
+<p>Use of free capabilities bundled into the application development environment to assess the security of their applications,</p>
+</li>
+<li>
+<p>Make use of the Network Security Configuration feature recently introduced into Android and the Application Transport Security feature recently introduced into iOS</p>
+</li>
+<li>
+<p>Consider using commercial mobile application vetting tools that can assess applications for many common vulnerabilities</p>
+</li>
+<li>
+<p>Ensure appropriate data encryption, strong access control, separation between applications (e.g., restricting copy-paste ability), and provide the ability to perform local or remote data wipes of individual application data</p>
+</li>
+<li>
+<p>Deploy and maintain EMM/MDM tools</p>
+</li>
+<li>
+<p>Threat intelligence should be used to understand the potential risks associated with apps installed on devices</p>
+</li>
+<li>
+<p>Ensure devices are running the latest version of iOS or Android because each OS version has brought security architecture improvements and ensure applications receive security patches</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Test cases prior to distribution</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Static Analysis</p>
+</li>
+<li>
+<p>Static Source Code Analysis</p>
+</li>
+<li>
+<p>Static Byte Code Analysis</p>
+</li>
+<li>
+<p>Static Binary Code Analysis</p>
+</li>
+<li>
+<p>Dynamic Binary Analysis.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Maintenance following implementation</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Using threat intelligence as well as monitoring and mitigation when vulnerabilities are discovered</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="threats_from_potentially_harmful_applications">Threats from Potentially Harmful Applications</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Threats</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Gather Privacy-Sensitive Information</p>
+</li>
+<li>
+<p>Surreptitious Eavesdropping</p>
+</li>
+<li>
+<p>Exploiting Vulnerabilities</p>
+</li>
+<li>
+<p>Exploiting Access to Sensitive Enterprise Networks or Data</p>
+</li>
+<li>
+<p>Ransomware</p>
+</li>
+<li>
+<p>Enabling Other Types of Fraud or Malicious Practices</p>
+</li>
+<li>
+<p>Exploiting Public Mobile Application Stores</p>
+</li>
+<li>
+<p>Attempting to Root/Jailbreak a Mobile Device</p>
+</li>
+<li>
+<p>Manipulation of Trusted Apps.</p>
+</li>
+<li>
+<p>Sharing of Data Between Trusted Apps.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Defenses</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Best Practices</p>
+</li>
+<li>
+<p>App Vetting</p>
+</li>
+<li>
+<p>Isolation Technologies</p>
+</li>
+<li>
+<p>Out-of-Band Authentication</p>
+</li>
+<li>
+<p>Continuous Authentication</p>
+</li>
+<li>
+<p>Mobile Device Management/Enterprise Mobility Management</p>
+</li>
+<li>
+<p>On-Device, Third-Party Security Applications.</p>
+</li>
+<li>
+<p>Network Monitoring.</p>
+</li>
+<li>
+<p>App Store Mitigations.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="defense_gaps_2">Defense Gaps</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Fragmented toolsets</p>
+</li>
+<li>
+<p>Poorly defined set of best practices and security Systems Development Life Cycle for developers—especially for Government use.</p>
+</li>
+<li>
+<p>Lack of focus on mobile application vulnerabilities within the CVE process</p>
+</li>
+<li>
+<p>Lack of robust information sharing of threat intelligence and integration with security tools and techniques</p>
+</li>
+<li>
+<p>Timely notification to organizations and developers of apps affected by a vulnerability</p>
+</li>
+<li>
+<p>Limited visibility and adoption of application-vetting criteria</p>
+</li>
+<li>
+<p>Lack of formalized standards relating security controls to data security categorization</p>
+</li>
+<li>
+<p>Limited knowledge of the comparison between various app vetting tools</p>
+</li>
+<li>
+<p>Lack of enterprise view into the user community and mobile landscape baseline</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="threats_in_mobile_networks">13.1.4. Threats in Mobile Networks</h4>
+<div class="sect4">
+<h5 id="key_components_in_mobile_networks">Key Components in Mobile Networks</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>the Radio Access Network (RAN)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Part of the mobile network that connects mobile subscribers to their service provider network using Radio Frequency (RF) signaling over an “air interface,” i.e., wirelessly.</p>
+</li>
+<li>
+<p>Includes tower antennas, RF transceivers and RF controllers.</p>
+</li>
+<li>
+<p>Part of the service is typically encrypted, although the level of encryption varies from network type to network type and by decisions the carrier makes in implementing this capability.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>the Core Network (CN)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Is always out of band; the cellular mobile device has no access to it and it runs on different channels.</p>
+</li>
+<li>
+<p>The data between the RAN and the operator’s core network is handled by the backhaul network</p>
+</li>
+<li>
+<p>Holds network logic and is responsible for creating and maintaining the connection between cellular mobile devices and external service networks (e.g., Internet, wireline phones, other carriers and private enterprises) as well as physically tracking all user equipment at all times to enable routing of calls and data streams as users and their devices move throughout the landscape.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>External Services</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Contain additional end-user services</p>
+</li>
+<li>
+<p>May or may not be provided by the mobile network operator</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="sim_card">SIM Card</h5>
+<div class="paragraph">
+<p>Communicates directly with the carrier’s core network to authenticate itself, the user, and the user’s services and service level.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Threats</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Obtaining Cryptographic Keys</p>
+</li>
+<li>
+<p>SIM Theft</p>
+</li>
+<li>
+<p>SIM Cloning</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Defenses</p>
+<div class="ulist">
+<ul>
+<li>
+<p>anti-fraud systems deployed by the carrier</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="radio_access_networks">Radio Access Networks</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Threats</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Denial of Service/Jamming</p>
+</li>
+<li>
+<p>Physical Attacks on Base Station Infrastructure.</p>
+</li>
+<li>
+<p>Long Term Evolution (LTE)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Downgrade Attacks</p>
+</li>
+<li>
+<p>Eavesdropping.</p>
+</li>
+<li>
+<p>Device and Identity Tracking</p>
+</li>
+<li>
+<p>Preventing Emergency Phone Calls</p>
+</li>
+<li>
+<p>Network Level Denial of Service (DoS) Attacks</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="backhaul_networks">Backhaul Networks</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Threats</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Backhaul Eavesdropping</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="core_networks">Core Networks</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Threats</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Signaling System 7 (SS7)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Is the historic control plane for mobile networks</p>
+</li>
+<li>
+<p>Significant weaknesses in SS7 have been known for more than a decade: The problem with the current SS7 system is that messages can be altered, injected or deleted into the global SS7 networks in an uncontrolled manner</p>
+</li>
+<li>
+<p>It has been supplanted by the Diameter Protocol. Most networks use both protocols and it is common for SS7 messages to be “translated” into their Diameter equivalent</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="defenses">Defenses</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Are complex and must be implemented at many layers</p>
+</li>
+<li>
+<p>Threats of illegal eavesdropping, data manipulation, and data theft can be mitigated to a degree with secure storage on endpoints and use of encryption for communications in transit</p>
+</li>
+<li>
+<p>Mobile application developers should be encouraged to use the network security features provided by the Android and iOS operating systems to protect the network traffic of their applications against interception or manipulation</p>
+</li>
+<li>
+<p>VPNs can be used to route all network traffic through an encrypted tunnel between the cellular mobile device and an enterprise-controlled network</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="gaps">Gaps</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Each network component of carrier infrastructure needs specific protection mechanisms</p>
+</li>
+<li>
+<p>Limited or no ability to protect against geolocation of mobile devices and their users</p>
+</li>
+<li>
+<p>The only reliable mitigation against DoS attacks on cellular towers, regions or service providers is alternate communication methods for emergencies</p>
+</li>
+<li>
+<p>Inability to determine whether U.S. carriers have implemented GSMA Interconnect Security Monitoring Guidelines for protection against SS7 attacks.</p>
+</li>
+<li>
+<p>SS7 attack types can be used to target key U.S. Federal Government personnel both in the United States and traveling or working overseas.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="device_physical_access">13.1.5. Device Physical Access</h4>
+<div class="sect4">
+<h5 id="threats">Threats</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Stolen or lost devices</p>
+</li>
+<li>
+<p>PC or charging station could potentially abuse USB to attempt to exploit vulnerabilities on the mobile device or to steal sensitive data</p>
+</li>
+<li>
+<p>The USB communication channel could potentially be abused in the reverse direction, enabling a compromised mobile device to launch attacks against the host device to which it is connected</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="defenses_2">Defenses</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Ensure that mobile devices always have a screen lock PIN or password.</p>
+</li>
+<li>
+<p>Enterprise capabilities should be put in place to remotely track and—when necessary—remotely wipe mobile devices.</p>
+</li>
+<li>
+<p>Users should be advised not to plug mobile devices directly into public USB charging ports unless a charge-only adapter or cable is used.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="gaps_2">Gaps</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>There is still more work to be done to encourage users to use screen lock on their devices</p>
+</li>
+<li>
+<p>More work is needed to defend against attacks in the opposite direction: from a mobile device to a PC</p>
+</li>
+<li>
+<p>Existing strong authentication solutions are not designed to complement the mobile form factor</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mobile_enterprise">13.1.6. Mobile Enterprise</h4>
+<div class="paragraph">
+<p>The mobile enterprise consists of systems, applications, processes, and people that work together to control, manage, and integrate the use of mobile devices and related technologies into business and mission operations.</p>
+</div>
+<div class="sect4">
+<h5 id="enterprise_mobility_management">Enterprise Mobility Management</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Threats</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Unauthorized access to EMM administrative console</p>
+</li>
+<li>
+<p>Impersonation of EMM server</p>
+</li>
+<li>
+<p>Bypass or subvert EMM agent on mobile device</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Defenses</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Enterprise security audit</p>
+</li>
+<li>
+<p>Mobile device security audit</p>
+</li>
+<li>
+<p>Threat intelligence</p>
+</li>
+<li>
+<p>Granular authorization</p>
+</li>
+<li>
+<p>Identification and Authentication</p>
+</li>
+<li>
+<p>Secure network connections</p>
+</li>
+<li>
+<p>Trusted Execution Environment</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="enterprise_mobile_application_stores">Enterprise Mobile Application Stores</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Threats</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Impersonation or unauthorized use of administrator credentials, app developer credentials, or distribution certificates.</p>
+</li>
+<li>
+<p>Bypass or subvert application security analysis or vetting techniques.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Defenses</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Enterprise security audit</p>
+</li>
+<li>
+<p>Mobile device security audit</p>
+</li>
+<li>
+<p>Threat intelligence</p>
+</li>
+<li>
+<p>Granular authorization</p>
+</li>
+<li>
+<p>Identification and Authentication</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="gaps_3">Gaps</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Limited ability of enterprise mobility products to detect sophisticated attacks against mobile devices</p>
+</li>
+<li>
+<p>Limited ability of EMM solutions to identify vulnerable mobile devices.</p>
+</li>
+<li>
+<p>Most EMMs lack the ability to directly update the mobile OS</p>
+</li>
+<li>
+<p>More work is needed to encourage enterprise adoption of capabilities to ensure enterprise-owned mobile devices are kept under enterprise management control</p>
+</li>
+<li>
+<p>Lack of guidance on how to integrate EMM solutions with other enterprise security systems to enable effective response and recovery capabilities to compromised or out-ofcompliance mobile devices</p>
+</li>
+<li>
+<p>Improvements in integration of EMM solutions with mobile threat intelligence services</p>
+</li>
+<li>
+<p>Immature vulnerability management processes for mobile OS and mobile apps</p>
+</li>
+<li>
+<p>Stronger mechanisms for data security and data authorization decisions need to be developed</p>
+</li>
+<li>
+<p>The lack of standards for interfacing with TEE has limited use of the technology</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="emerging_threats">13.1.7. Emerging Threats</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Open Source Signals Intelligence</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Unfortunately, much of the software and protocols used in RF devices are insecure</p>
+</li>
+<li>
+<p>Now an increasing number of people who have the skills, time, tools and techniques to attack mobile devices and the underlying networks on which they depend</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Decryption of 3G/UMTS Cellular Network Traffic</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Although 3GPP and GSMA have deprecated some security authentication and encryption standards in the past,advances in deploying replacement systems may not be keeping pace with attacks on the systems currently in use and currently no deprecation schedule is in place if the UMTS (3G) UEA1/UIA1 security algorithms fall.</p>
+</li>
+<li>
+<p>The rise of crypto currencies has fueled a market in high-speed encryption systems. These are now widely available and pose a considerable risk to mobile device privacy and security</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>“IMSI Catchers” and Passive Cellular Interceptors.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>They allow hackers, criminals, and spies to track cell phone users and monitor or record conversations and text messages.</p>
+</li>
+<li>
+<p>Passive cellular interceptors are difficult to detect since they only listen</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cybercrime and Fraud</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Because the global mobile ecosystem is so large and so much money exchanges hands, criminals will continue to target it</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Jamming</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Cell phone jammers are widely available for purchase on the Internet including plans and kits and are even listed by range to show how jammers can deny service across large service areas</p>
+</li>
+<li>
+<p>Can be used to cause cell phones to move off 3G and 4G networks and on to 2G networks where interception and decryption is much easier</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="a_framework_for_modeling_mobile_threats">13.1.8. A Framework for Modeling Mobile Threats</h4>
+<div class="sect4">
+<h5 id="seven_stage_cyber_attack_lifecycle">Seven-stage Cyber Attack Lifecycle</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Recon</p>
+</li>
+<li>
+<p>Weaponize</p>
+</li>
+<li>
+<p>Deliver</p>
+</li>
+<li>
+<p>Exploit</p>
+</li>
+<li>
+<p>Control</p>
+</li>
+<li>
+<p>Execute</p>
+</li>
+<li>
+<p>Maintain</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="new_or_updated_policy_standards_and_best_practices">13.1.9. New or Updated Policy, Standards, and Best Practices</h4>
+<div class="sect4">
+<h5 id="mobile_applications">Mobile Applications</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>There is a need to create security guidelines for mobile application development.</p>
+</li>
+<li>
+<p>Developer-focused guidance that communicates best practices on how to securely code, package and release applications is still lacking.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="guidelines_for_managing_the_security_of_mobile_devices_in_the_enterprise">14. Guidelines for Managing the Security of Mobile Devices in the Enterprise</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This is a summary of notes taken from the <a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-124r1.pdf">NIST Guidelines for Managing the Security of Mobile Devices in the Enterprise</a>.</p>
 </div>
 <div class="sect2">
-<h3 id="high_level_threats_and_vulnerabilities_for_mobile_devices">13.1. High-Level Threats and Vulnerabilities for Mobile Devices</h3>
+<h3 id="high_level_threats_and_vulnerabilities_for_mobile_devices">14.1. High-Level Threats and Vulnerabilities for Mobile Devices</h3>
 <div class="sect3">
-<h4 id="lack_of_physical_security_controls">13.1.1. Lack of Physical Security Controls</h4>
+<h4 id="lack_of_physical_security_controls">14.1.1. Lack of Physical Security Controls</h4>
 <div class="sect4">
 <h5 id="mitigations">Mitigations</h5>
 <div class="ulist">
@@ -6699,7 +7611,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="use_of_untrusted_mobile_devices">13.1.2. Use of Untrusted Mobile Devices</h4>
+<h4 id="use_of_untrusted_mobile_devices">14.1.2. Use of Untrusted Mobile Devices</h4>
 <div class="sect4">
 <h5 id="mitigations_2">Mitigations</h5>
 <div class="ulist">
@@ -6718,7 +7630,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="use_of_untrusted_networks">13.1.3. Use of Untrusted Networks</h4>
+<h4 id="use_of_untrusted_networks">14.1.3. Use of Untrusted Networks</h4>
 <div class="sect4">
 <h5 id="mitigations_3">Mitigations</h5>
 <div class="ulist">
@@ -6737,7 +7649,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="use_of_untrusted_applications">13.1.4. Use of Untrusted Applications</h4>
+<h4 id="use_of_untrusted_applications">14.1.4. Use of Untrusted Applications</h4>
 <div class="sect4">
 <h5 id="mitigations_4">Mitigations</h5>
 <div class="ulist">
@@ -6756,7 +7668,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="interaction_with_other_systems">13.1.5. Interaction with Other Systems</h4>
+<h4 id="interaction_with_other_systems">14.1.5. Interaction with Other Systems</h4>
 <div class="sect4">
 <h5 id="mitigations_5">Mitigations</h5>
 <div class="ulist">
@@ -6781,7 +7693,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="use_of_untrusted_content">13.1.6. Use of Untrusted Content</h4>
+<h4 id="use_of_untrusted_content">14.1.6. Use of Untrusted Content</h4>
 <div class="sect4">
 <h5 id="mitigations_6">Mitigations</h5>
 <div class="ulist">
@@ -6803,7 +7715,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="use_of_location_services">13.1.7. Use of Location Services</h4>
+<h4 id="use_of_location_services">14.1.7. Use of Location Services</h4>
 <div class="sect4">
 <h5 id="mitigations_7">Mitigations</h5>
 <div class="ulist">
@@ -6820,7 +7732,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect2">
-<h3 id="technologies_for_mobile_device_management">13.2. Technologies for Mobile Device Management</h3>
+<h3 id="technologies_for_mobile_device_management">14.2. Technologies for Mobile Device Management</h3>
 <div class="paragraph">
 <p>The MDM system should have the following capabilities:</p>
 </div>
@@ -6925,7 +7837,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-08-22 17:02:38 IST
+Last updated 2017-08-23 14:09:36 IST
 </div>
 </div>
 </body>
