@@ -166,10 +166,13 @@ This prevents applications without appropriate permissions from sending an inten
 . Dalvik is Android's runtime virtual machine (VM). Your application runs in a secure sandbox environment, so other processes on the system can't access your code or private data.
 
 == Security with HTTPS and SSL
-. The Secure Sockets Layer (SSL)—now technically known as Transport Layer Security (TLS)—is a common building block for encrypted communications between clients and servers.
+
+This is a summary of the https://developer.android.com/training/articles/security-ssl.html[Android Developer Security with HTTPS and SSL Guide].
+
+The Secure Sockets Layer (SSL)—now technically known as Transport Layer Security (TLS)—is a common building block for encrypted communications between clients and servers.
 It's possible that an application might use SSL incorrectly such that malicious entities may be able to intercept an app's data over the network.
 
-. As of Android 4.2 (Jelly Bean), Android currently contains over 100 CAs that are updated in each release. Similar to a server, a CA has a certificate and a private key. When issuing a certificate for a server, the CA signs the server certificate using its private key. The client can then verify that the server has a certificate issued by a CA known to the platform.
+As of Android 4.2 (Jelly Bean), Android currently contains over 100 CAs that are updated in each release. Similar to a server, a CA has a certificate and a private key. When issuing a certificate for a server, the CA signs the server certificate using its private key. The client can then verify that the server has a certificate issued by a CA known to the platform.
 
 === HTTPS Example
 Assuming you have a web server with a certificate issued by a well known CA, you can make a secure request with code as simple this:
@@ -231,7 +234,7 @@ The server is configured with a certificate that does not have a subject or subj
 . SSL also supports the notion of client certificates that allow the server to validate the identity of a client.
 
 == Nogotofail: A Network Traffic Security Testing Tool
-. https://github.com/google/nogotofail[Nogotofail] is a tool gives you an easy way to confirm that your apps are safe against known TLS/SSL vulnerabilities and misconfigurations. 
+. https://github.com/google/nogotofail[Nogotofail] is a tool gives you an easy way to confirm that your apps are safe against known TLS/SSL vulnerabilities and misconfigurations.
 It's an automated, powerful, and scalable tool for testing network security issues on any device whose network traffic could be made to go through it.
 
 Nogotofail is useful for three main use cases:
