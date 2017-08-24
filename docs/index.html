@@ -5571,9 +5571,8 @@ copyInputStreamToOutputStream(in, System.out);</code></pre>
 </ul>
 </div>
 </div>
-</div>
-<div class="sect3">
-<h4 id="hostname_verification">2.10.3. Hostname verification</h4>
+<div class="sect4">
+<h5 id="hostname_verification">Hostname verification</h5>
 <div class="paragraph">
 <p>There are two key parts to verifying an SSL connection:</p>
 </div>
@@ -5603,51 +5602,35 @@ The server is configured with a certificate that does not have a subject or subj
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="warnings_about_using_sslsocket_directly">2.10.4. Warnings About Using SSLSocket Directly</h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
+<div class="sect4">
+<h5 id="warnings_about_using_sslsocket_directly">Warnings About Using SSLSocket Directly</h5>
+<div class="paragraph">
 <p><a href="https://developer.android.com/reference/javax/net/ssl/SSLSocket.html">SSLSocket</a> does not perform hostname verification. It is up the your app to do its own hostname verification, preferably by calling <code>getDefaultHostnameVerifier()</code> with the expected hostname. Further beware that <code>HostnameVerifier.verify()</code> doesn&#8217;t throw an exception on error but instead returns a boolean result that you must explicitly check.</p>
-</li>
-</ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="blacklisting">2.10.5. Blacklisting</h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
+<div class="sect4">
+<h5 id="blacklisting">Blacklisting</h5>
+<div class="paragraph">
 <p>SSL relies heavily on CAs to issue certificates to only the properly verified owners of servers and domains. In rare cases, CAs are either tricked or breached, resulting in the certificates for a hostname to be issued to someone other than the owner of the server or domain.</p>
-</li>
-<li>
+</div>
+<div class="paragraph">
 <p>In order to mitigate this risk, Android has the ability to blacklist certain certificates or even whole CAs. While this list was historically built into the operating system, starting in Android 4.2 this list can be remotely updated to deal with future compromises.</p>
-</li>
-</ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="pinning">2.10.6. Pinning</h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
+<div class="sect4">
+<h5 id="pinning">Pinning</h5>
+<div class="paragraph">
 <p>An app can further protect itself from fraudulently issued certificates by a technique known as pinning. This prevents the compromise of one of the other 100+ CAs in the system from resulting in a breach of the apps secure channel.</p>
-</li>
-</ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="client_certificates">2.10.7. Client Certificates</h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
+<div class="sect4">
+<h5 id="client_certificates">Client Certificates</h5>
+<div class="paragraph">
 <p>SSL also supports the notion of client certificates that allow the server to validate the identity of a client.</p>
-</li>
-</ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="nogotofail_a_network_traffic_security_testing_tool">2.10.8. Nogotofail: A Network Traffic Security Testing Tool</h4>
+<div class="sect4">
+<h5 id="nogotofail_a_network_traffic_security_testing_tool">Nogotofail: A Network Traffic Security Testing Tool</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -5671,6 +5654,199 @@ It&#8217;s an automated, powerful, and scalable tool for testing network securit
 <p>Understanding what applications and devices are generating what traffic.</p>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="network_security_configuration">2.10.3. Network Security Configuration</h4>
+<div class="paragraph">
+<p>This is a summary of the <a href="https://developer.android.com/training/articles/security-ssl.html">Android Developer Network Security Configuration Guide</a>.</p>
+</div>
+<div class="sect4">
+<h5 id="configuration">Configuration</h5>
+<div class="paragraph">
+<p>The Network Security Configuration feature lets apps customize their network security settings in a safe, declarative configuration file without modifying app code. These settings can be configured for specific domains and for a specific app. The key capabilities of this feature are as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Custom trust anchors</strong>: Customize which Certificate Authorities (CA) are trusted for an app&#8217;s secure connections. For example, trusting particular self-signed certificates or restricting the set of public CAs that the app trusts.</p>
+</li>
+<li>
+<p><strong>Debug-only overrides</strong>: Safely debug secure connections in an app without added risk to the installed base.</p>
+</li>
+<li>
+<p><strong>Cleartext traffic opt-out</strong>: Protect apps from accidental usage of cleartext traffic.</p>
+</li>
+<li>
+<p><strong>Certificate pinning</strong>: Restrict an app&#8217;s secure connection to particular certificates.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The Network Security Configuration feature uses an XML file where you specify the settings for your app. You must include an entry in the manifest of your app to point to this file.</p>
+</div>
+<div class="paragraph">
+<p>Example reference of the network security settings from the applications manifest xml:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;manifest ... &gt;
+    &lt;application android:networkSecurityConfig="@xml/network_security_config"
+                    ... &gt;
+        ...
+    &lt;/application&gt;
+&lt;/manifest&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="customizing_trusted_cas">Customizing Trusted CAs</h5>
+<div class="paragraph">
+<p>An app may want to trust a custom set of CAs instead of the platform default. The most common reasons of this are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Connecting to a host with a custom certificate authority, such as a CA that is self-signed or is issued internally within a company.</p>
+</li>
+<li>
+<p>Limiting the set of CAs to only the CAs you trust instead of every pre-installed CA.</p>
+</li>
+<li>
+<p>Trusting additional CAs not included in the system.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>An app can customize its own connections using <code>base-config</code> (for app-wide customization) or <code>domain-config</code> (for per-domain customization).</p>
+</div>
+<div class="paragraph">
+<p>For Configuring CA&#8217;s, configuration examples are available in the Andoird Documentation.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://developer.android.com/training/articles/security-config.html#ConfigCustom">Configuring a Custom CA</a></p>
+</li>
+<li>
+<p><a href="https://developer.android.com/training/articles/security-config.html#LimitingCas">Limiting the Set of Trusted CAs</a></p>
+</li>
+<li>
+<p><a href="https://developer.android.com/training/articles/security-config.html#TrustingAdditionalCas">Trusting Additional CAs</a></p>
+</li>
+<li>
+<p><a href="http://developer.android.com/training/articles/security-config.html#TrustingDebugCa">Configuring CAs for Debugging</a></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="opting_out_of_cleartext_traffic">Opting Out of Cleartext Traffic</h5>
+<div class="paragraph">
+<p>Applications intending to connect to destinations using only secure connections can opt-out of supporting cleartext (using the unencrypted HTTP protocol instead of HTTPS) to those destinations. This option helps prevent accidental regressions in apps due to changes in URLs provided by external sources such as backend servers.</p>
+</div>
+<div class="paragraph">
+<p>For example, an app may want to ensure that all connections to secure.example.com are always done over HTTPS to protect sensitive traffic from hostile networks.</p>
+</div>
+<div class="paragraph">
+<p><strong>res/xml/network_security_config.xml</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;network-security-config&gt;
+    &lt;domain-config cleartextTrafficPermitted="false"&gt;
+        &lt;domain includeSubdomains="true"&gt;secure.example.com&lt;/domain&gt;
+    &lt;/domain-config&gt;
+&lt;/network-security-config&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="pinning_certificates">Pinning Certificates</h5>
+<div class="paragraph">
+<p>Normally, an app trusts all pre-installed CAs. If any of these CAs were to issue a fradulent certificate, the app would be at risk from a man-in-the-middle attack. Some apps choose to limit the set of certificates they accept by either limiting the set of CAs they trust or by certificate pinning.</p>
+</div>
+<div class="paragraph">
+<p>Certificate pinning is done by providing a set of certificates by hash of the public key (SubjectPublicKeyInfo of the X.509 certificate). A certificate chain is then valid only if the certificate chain contains at least one of the pinned public keys.</p>
+</div>
+<div class="paragraph">
+<p>Note that, when using certificate pinning, you should always include a backup key so that if you are forced to switch to new keys or change CAs (when pinning to a CA certificate or an intermediate of that CA), your app&#8217;s connectivity is unaffected. Otherwise, you must push out an update to the app to restore connectivity.</p>
+</div>
+<div class="paragraph">
+<p><strong>res/xml/network_security_config.xml:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;network-security-config&gt;
+    &lt;domain-config&gt;
+        &lt;domain includeSubdomains="true"&gt;example.com&lt;/domain&gt;
+        &lt;pin-set expiration="2018-01-01"&gt;
+            &lt;pin digest="SHA-256"&gt;7HIpactkIAq2Y49orFOOQKurWxmmSFZhBCoQYcRhJ3Y=&lt;/pin&gt;
+            &lt;!-- backup pin --&gt;
+            &lt;pin digest="SHA-256"&gt;fwza0LRMXouZHRC8Ei+4PyuldPDcf3UKgO/04cDM1oE=&lt;/pin&gt;
+        &lt;/pin-set&gt;
+    &lt;/domain-config&gt;
+&lt;/network-security-config&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="configuration_inheritance_behavior">Configuration Inheritance Behavior</h5>
+<div class="paragraph">
+<p>Values not set in a specific configuration are inherited. This behavior allows more complex configurations while keeping the configuration file readable.</p>
+</div>
+<div class="paragraph">
+<p>If a value is not set in a specific entry, then the value from the more general entry is used. For example, values not set in a domain-config are taken from the parent domain-config, if nested, or from the base-config if not. Values not set in the base-config use the platform default values.</p>
+</div>
+<div class="paragraph">
+<p>For example, consider where all connections to subdomains of example.com must use a custom set of CAs. Additonally, cleartext traffic to these domains is permitted except when connecting to secure.example.com. By nesting the configuration for secure.example.com inside the configuration for example.com, the trust-anchors does not need to be duplicated.</p>
+</div>
+<div class="sect5">
+<h6 id="configuration_file_format">Configuration File Format</h6>
+<div class="paragraph">
+<p>The Network Security Configuration feature uses an XML file format. The overall structure of the file is shown in the following code sample:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;network-security-config&gt;
+    &lt;base-config&gt;
+        &lt;trust-anchors&gt;
+            &lt;certificates src="..."/&gt;
+            ...
+        &lt;/trust-anchors&gt;
+    &lt;/base-config&gt;
+
+    &lt;domain-config&gt;
+        &lt;domain&gt;android.com&lt;/domain&gt;
+        ...
+        &lt;trust-anchors&gt;
+            &lt;certificates src="..."/&gt;
+            ...
+        &lt;/trust-anchors&gt;
+        &lt;pin-set&gt;
+            &lt;pin digest="..."&gt;...&lt;/pin&gt;
+            ...
+        &lt;/pin-set&gt;
+    &lt;/domain-config&gt;
+    ...
+    &lt;debug-overrides&gt;
+        &lt;trust-anchors&gt;
+            &lt;certificates src="..."/&gt;
+            ...
+        &lt;/trust-anchors&gt;
+    &lt;/debug-overrides&gt;
+&lt;/network-security-config&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The full network security configuration options can be seen <a href="https://developer.android.com/training/articles/security-config.html#network-security-config">here</a>.</p>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -9809,7 +9985,7 @@ This method should be overridden and all the sensitive information in the user i
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-08-30 09:08:35 IST
+Last updated 2017-08-30 09:59:17 IST
 </div>
 </div>
 </body>
