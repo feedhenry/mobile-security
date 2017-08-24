@@ -1,0 +1,174 @@
+= iOS Security Whitepaper
+
+This is a summary of the https://www.apple.com/business/docs/iOS_Security_Guide.pdf[iOS security whitepaper].
+
+== System Security
+
+=== Secure boot chain
+
+Each step of the startup process contains components that are cryptographically signed by Apple to ensure integrity and that proceed only after verifying the chain of trust. 
+
+=== System Software Authorization
+
+* To prevent devices from being downgraded to older versions that lack the latest security updates, iOS uses a process called System Software Authorization.
+* During an iOS upgrade, iTunes (or the device itself, in the case of OTA software updates) connects to the Apple installation authorization server and sends it a list of cryptographic measurements for each part of the installation bundle to be installed (for example, iBoot, the kernel, and OS image), a random anti-replay value (nonce), and the device’s unique ID (ECID).
+* The authorization server checks the presented list of measurements against versions for which installation is permitted and, if it finds a match, adds the ECID to the measurement and signs the result. 
+The server passes a complete set of signed data to the device as part of the upgrade process. 
+Adding the ECID “personalizes” the authorization for the requesting device. 
+By authorizing and signing only for known measurements, the server ensures that the update takes place exactly as provided by Apple
+
+
+=== Secure Enclave
+
+* The Secure Enclave is a coprocessor fabricated in the Apple S2, Apple A7, and later A-series processors
+* Provides all cryptographic operations for Data Protection key management and maintains the integrity of Data Protection even if the kernel has been compromised
+* Additionally, data that is saved to the file system by the Secure Enclave is encrypted with a key entangled with the UID and an anti-replay counter
+* The Secure Enclave is responsible for processing fingerprint data from the Touch ID sensor, determining if there is a match against registered fingerprints, and then enabling access or purchases on behalf of the user
+
+=== TouchId
+
+* The fingerprint sensor is active only when the capacitive steel ring that surrounds the Home button detects the touch of a finger, which triggers the advanced imaging array to scan the finger and send the scan to the Secure Enclave.
+* The resulting map of nodes is stored without any identity information in an encrypted format that can only be read by the Secure Enclave, and is never sent to Apple or backed up to iCloud or iTunes
+
+== File Data Protection
+
+=== Overview
+
+* Every time a file on the data partition is created, Data Protection creates a new 256-bit key (the “per-file” key) and gives it to the hardware AES engine, which uses the key to encrypt the file as it is written to flash memory using AES CBC mode. 
+* The content of a file is encrypted with a per-file key, which is wrapped with a class key and stored in a file’s metadata, which is in turn encrypted with the file system key.
+
+=== Passcode
+
+* By setting up a device passcode, the user automatically enables Data Protection. 
+* The passcode is entangled with the device’s UID, so brute-force attempts must be performed on the device under attack.
+* A large iteration count is used to make each attempt slower. 
+
+=== Data Protection classes
+
+* Complete Protection - NSFileProtectionComplete
+** Shortly after the user locks a device (10 seconds, if the Require Password setting is Immediately), the decrypted class key is discarded, rendering all data in this class inaccessible until the user enters the passcode again or unlocks the device using Touch ID
+* Protected Unless Open - NSFileProtectionCompleteUnlessOpen
+** To protect files that need to be written while the device is locked
+* Protected Until First User Authentication - NSFileProtectionCompleteUntilFirstUserAuthentication
+** This class behaves in the same way as Complete Protection, except that the decrypted class key isn’t removed from memory when the device is locked
+**  This is the default class for all third-party app data not otherwise assigned to a Data Protection class
+* No Protection - NSFileProtectionNone
+
+=== Keychain Data Protection
+
+* The Keychain is implemented as a SQLite database stored on the file system.
+* Keychain items can only be shared between apps from the same developer.
+* Keychain data is protected using a class structure similar to the one used in file Data Protection.
+** When unlocked - kSecAttrAccessibleWhenUnlocked 
+** While locked - N/A
+** After first unlock - kSecAttrAccessibleAfterFirstUnlock
+** Always - kSecAttrAccessibleAlways
+** Passcode Enabled - kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly
+* Keychain classes have a “This device only” counterpart, which is always protected with the UID when being copied from the device during a backup, rendering it useless if restored to a different device
+* Keychains can use access control lists (ACLs) to set policies for accessibility and authentication requirements
+
+=== Access to Safari saved passwords
+
+* iOS apps can interact with Keychain items saved by Safari for password autofill using the following two APIs:
+** SecRequestSharedWebCredential
+** SecAddSharedWebCredential
+* Access will be granted only if both the app developer and website administrator have given their approval, and the user has given consent.
+
+=== Keybags
+
+* The keys for both file and Keychain Data Protection classes are collected and managed in keybags.
+* iOS uses the following keybags: 
+** user
+*** Is where the wrapped class keys used in normal operation of the device are stored.
+** device
+*** Is used to store the wrapped class keys used for operations involving device-specific data
+*** On iOS devices configured for use by a single user (the default configuration), the device keybag and the user keybag are one and the same, and are protected by the user’s passcode
+** backup
+*** Is created when an encrypted backup is made by iTunes and stored on the computer to which the device is backed up
+*** If a user chooses not to encrypt an iTunes backup, the backup files aren’t encrypted regardless of their Data Protection class, but the Keychain remains protected with a UID-derived key. 
+** escrow
+*** Is used for iTunes syncing and MDM, allows iTunes to back up and sync without requiring the user to enter a passcode, and it allows an MDM server to remotely clear a user’s passcode.
+** iCloud Backup
+*** Is similar to the backup keybag
+
+== App Security
+
+=== App code signing
+
+* To ensure that all apps come from a known and approved source and haven’t been tampered with, iOS requires that all executable code be signed using an Apple-issued certificate
+* To protect the system and other apps from loading third-party code inside of their address space, the system will perform a code signature validation of all the dynamic libraries that a process links against at launch time. 
+* At runtime, code signature checks of all executable memory pages are made as they are loaded to ensure that an app has not been modified since it was installed or last updated
+
+=== Runtime process security
+
+* All third-party apps are “sandboxed,” so they are restricted from accessing files stored by other apps or from making changes to the device.
+* System files and resources are also shielded from the user’s apps. The majority of iOS runs as the non-privileged user “mobile,” as do all third-party apps. 
+* Access by third-party apps to user information and features such as iCloud and extensibility is controlled using declared entitlements.
+* Address space layout randomization (ASLR) protects against the exploitation of memory corruption bugs.
+* Further protection is provided by iOS using ARM’s Execute Never (XN) feature, which marks memory pages as non-executable.
+
+=== Extensions
+
+* Extensions are special-purpose signed executable binaries, packaged within an app. 
+* The system automatically launches extension processes as needed and manages their lifetime. 
+* Extensions run in their own address space. Communication between the extension and the app from which it was activated uses interprocess communications mediated by the system framework. They don’t have access to each other’s files or memory spaces. 
+* Extensions are designed to be isolated from each other, from their containing apps, and from the apps that use them.
+* Custom keyboards are a special type of extension
+** A keyboard extension will be used for any text field except the passcode input and any secure text view
+**  To restrict the transfer of user data, custom keyboards run by default in a very restrictive sandbox that blocks access to the network, to services that perform network operations on behalf of a process, and to APIs that would allow the extension to exfiltrate typing data. 
+
+=== App Groups
+
+* Apps and extensions owned by a given developer account can share content when configured to be part of an App Group.
+* Once configured to be part of an App Group, apps have access to the following:
+** A shared on-disk container for storage, which will stay on the device as long as at least one app from the group is installed
+** Shared preferences
+** Shared Keychain items 
+
+=== Data Protection in apps
+
+* Data Protection is available for file and database APIs, including NSFileManager, CoreData, NSData, and SQLite
+* User-installed apps that don’t opt-in to a specific Data Protection class receive Protected Until First User Authentication by default. 
+
+=== Accessories
+
+* When an MFi accessory communicates with an iOS device using a Lightning connector or via Bluetooth, the device asks the accessory to prove it has been authorized by Apple by responding with an Apple-provided certificate, which is verified by the device. 
+* The device then sends a challenge, which the accessory must answer with a signed response.
+* This process is entirely handled by a custom integrated circuit that Apple provides to approved accessory manufacturers and is transparent to the accessory itself
+
+=== Homekit
+
+* This stored data is encrypted using keys derived from the user’s HomeKit identity keys, plus a random nonce. 
+* Additionally, HomeKit data is stored using Data Protection class Protected Until First User Authentication.
+* Is only backed up in encrypted backups, so, for example, unencrypted iTunes backups don’t contain HomeKit data
+* Data synchronization 
+** The HomeKit data is encrypted during the synchronization using keys derived from the user’s HomeKit identity and random nonce.
+
+=== HealthKit
+
+* User’s health data is stored in Data Protection class Complete Protection, which means it is accessible only after a user enters their passcode or uses Touch ID to unlock the device
+* Management data is stored in Data Protection class Protected Until First User Authentication
+* Temporary journal files store health records are stored in Data Protection class Protected Unless Open. 
+* Isn’t synced between devices,  is included in device backups to iCloud and encrypted iTunes backups
+
+== Network Security
+
+=== TLS
+
+* iOS supports Transport Layer Security (TLS v1.0, TLS v1.1, and TLS v1.2, which supports both AES 128 and SHA-2) and DTLS
+* CFNetwork disallows SSLv3, and apps that use WebKit (such as Safari) are prohibited from making an SSLv3 connection
+* The RC4 symmetric cipher suite is deprecated in iOS 10 and macOS Sierra
+* App Transport Security
+** provides default connection requirements so that apps adhere to best practices for secure connections when using NSURLConnection, CFURL, or NSURLSession APIs
+
+=== VPN 
+
+* iOS supports VPN On Demand for networks that use certificate-based authentication. 
+* iOS also supports Per App VPN support, facilitating VPN connections on a much more granular basis.
+* iOS supports Always-on VPN, which can be configured for devices managed via MDM and supervised using Apple Configurator or the Device Enrollment Program. 
+
+=== Single Sign-on
+
+* iOS supports authentication to enterprise networks through Single Sign-on (SSO).
+* SSO works with Kerberos-based networks to authenticate users to services they are authorized to access. 
+* To configure SSO, iOS supports a configuration profile payload that allows MDM servers to push down the necessary settings.
