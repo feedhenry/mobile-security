@@ -516,22 +516,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#android_developer_security_guide">9. Android Developer Security Guide</a>
 <ul class="sectlevel2">
 <li><a href="#overview">9.1. Overview</a></li>
-<li><a href="#data_storage">9.2. Data Storage</a></li>
-<li><a href="#permissions">9.3. Permissions</a></li>
-<li><a href="#ip_networking">9.4. IP Networking</a></li>
-<li><a href="#telephony_networking">9.5. Telephony Networking</a></li>
-<li><a href="#input_validation">9.6. Input Validation</a></li>
-<li><a href="#handling_user_data">9.7. Handling User Data</a></li>
-<li><a href="#using_webviews">9.8. Using Webviews</a></li>
-<li><a href="#handling_credentials">9.9. Handling Credentials</a></li>
-<li><a href="#cryptography_2">9.10. Cryptography</a></li>
-<li><a href="#ipc">9.11. IPC</a></li>
-<li><a href="#intents">9.12. Intents</a></li>
-<li><a href="#services">9.13. Services</a></li>
-<li><a href="#binder_and_messenger_interfaces">9.14. Binder and Messenger Interfaces</a></li>
-<li><a href="#broadcast_receivers">9.15. Broadcast Receivers</a></li>
-<li><a href="#dynamically_loading_code">9.16. Dynamically Loading Code</a></li>
-<li><a href="#virtual_machine_security">9.17. Virtual Machine Security</a></li>
+<li><a href="#security_with_https_and_ssl">9.2. Security with HTTPS and SSL</a></li>
+<li><a href="#hostname_verification">9.3. Hostname verification</a></li>
+<li><a href="#warnings_about_using_sslsocket_directly">9.4. Warnings About Using SSLSocket Directly</a></li>
+<li><a href="#blacklisting">9.5. Blacklisting</a></li>
+<li><a href="#pinning">9.6. Pinning</a></li>
+<li><a href="#client_certificates">9.7. Client Certificates</a></li>
+<li><a href="#nogotofail_a_network_traffic_security_testing_tool">9.8. Nogotofail: A Network Traffic Security Testing Tool</a></li>
 </ul>
 </li>
 <li><a href="#cordova_security_guide">10. Cordova Security Guide</a>
@@ -4418,9 +4409,8 @@ Applications running on the main processor will therefore delegate any operation
 </li>
 </ul>
 </div>
-</div>
-<div class="sect2">
-<h3 id="data_storage">9.2. Data Storage</h3>
+<div class="sect3">
+<h4 id="data_storage">9.1.1. Data Storage</h4>
 <div class="paragraph">
 <p>The most common security concern for an application on Android is whether the data that you save on the device is accessible to other apps.</p>
 </div>
@@ -4474,8 +4464,8 @@ Signature permissions do not require user confirmation, so they provide a better
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="permissions">9.3. Permissions</h3>
+<div class="sect3">
+<h4 id="permissions">9.1.2. Permissions</h4>
 <div class="paragraph">
 <p>Android permissions are ranked in four different categories based on the protection level they offer:</p>
 </div>
@@ -4496,8 +4486,8 @@ Signature permissions do not require user confirmation, so they provide a better
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="ip_networking">9.4. IP Networking</h3>
+<div class="sect3">
+<h4 id="ip_networking">9.1.3. IP Networking</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4516,8 +4506,8 @@ Binding to <code>INADDR_ANY</code> is worse than using loopback because then you
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="telephony_networking">9.5. Telephony Networking</h3>
+<div class="sect3">
+<h4 id="telephony_networking">9.1.4. Telephony Networking</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4530,8 +4520,8 @@ Don&#8217;t rely on unauthenticated SMS data to perform sensitive commands.</p>
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="input_validation">9.6. Input Validation</h3>
+<div class="sect3">
+<h4 id="input_validation">9.1.5. Input Validation</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4551,8 +4541,8 @@ Android provides a number of technologies like ASLR and DEP that reduce the expl
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="handling_user_data">9.7. Handling User Data</h3>
+<div class="sect3">
+<h4 id="handling_user_data">9.1.6. Handling User Data</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4579,8 +4569,8 @@ Android provides a number of technologies like ASLR and DEP that reduce the expl
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="using_webviews">9.8. Using Webviews</h3>
+<div class="sect3">
+<h4 id="using_webviews">9.1.7. Using Webviews</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4600,8 +4590,8 @@ In general, the Android documentation recommends exposing <code>addJavaScriptInt
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="handling_credentials">9.9. Handling Credentials</h3>
+<div class="sect3">
+<h4 id="handling_credentials">9.1.8. Handling Credentials</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4622,8 +4612,8 @@ In general, the Android documentation recommends exposing <code>addJavaScriptInt
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="cryptography_2">9.10. Cryptography</h3>
+<div class="sect3">
+<h4 id="cryptography_2">9.1.9. Cryptography</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4635,8 +4625,8 @@ In general, the Android documentation recommends exposing <code>addJavaScriptInt
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="ipc">9.11. IPC</h3>
+<div class="sect3">
+<h4 id="ipc">9.1.10. IPC</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4654,8 +4644,8 @@ If IPC is between your own separate apps that are signed with the same key, it i
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="intents">9.12. Intents</h3>
+<div class="sect3">
+<h4 id="intents">9.1.11. Intents</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4670,8 +4660,8 @@ If IPC is between your own separate apps that are signed with the same key, it i
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="services">9.13. Services</h3>
+<div class="sect3">
+<h4 id="services">9.1.12. Services</h4>
 <div class="paragraph">
 <p>A Service is often used to supply functionality for other applications to use. Each service class must have a corresponding <code>&lt;service&gt;</code> declaration in its manifest file.</p>
 </div>
@@ -4692,8 +4682,8 @@ You should use the declarative permissions in the manifest, since those are less
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="binder_and_messenger_interfaces">9.14. Binder and Messenger Interfaces</h3>
+<div class="sect3">
+<h4 id="binder_and_messenger_interfaces">9.1.13. Binder and Messenger Interfaces</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4707,8 +4697,8 @@ This is especially important before accessing a service on behalf of the caller,
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="broadcast_receivers">9.15. Broadcast Receivers</h3>
+<div class="sect3">
+<h4 id="broadcast_receivers">9.1.14. Broadcast Receivers</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4721,8 +4711,8 @@ This prevents applications without appropriate permissions from sending an inten
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="dynamically_loading_code">9.16. Dynamically Loading Code</h3>
+<div class="sect3">
+<h4 id="dynamically_loading_code">9.1.15. Dynamically Loading Code</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4737,14 +4727,207 @@ This prevents applications without appropriate permissions from sending an inten
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="virtual_machine_security">9.17. Virtual Machine Security</h3>
+<div class="sect3">
+<h4 id="virtual_machine_security">9.1.16. Virtual Machine Security</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
 <p>Dalvik is Android&#8217;s runtime virtual machine (VM). Your application runs in a secure sandbox environment, so other processes on the system can&#8217;t access your code or private data.</p>
 </li>
 </ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="security_with_https_and_ssl">9.2. Security with HTTPS and SSL</h3>
+<div class="paragraph">
+<p>This is a summary of the <a href="https://developer.android.com/training/articles/security-ssl.html">Android Developer Security with HTTPS and SSL Guide</a>.</p>
+</div>
+<div class="paragraph">
+<p>The Secure Sockets Layer (SSL)—now technically known as Transport Layer Security (TLS)—is a common building block for encrypted communications between clients and servers.
+It&#8217;s possible that an application might use SSL incorrectly such that malicious entities may be able to intercept an app&#8217;s data over the network.</p>
+</div>
+<div class="paragraph">
+<p>As of Android 4.2 (Jelly Bean), Android currently contains over 100 CAs that are updated in each release. Similar to a server, a CA has a certificate and a private key. When issuing a certificate for a server, the CA signs the server certificate using its private key. The client can then verify that the server has a certificate issued by a CA known to the platform.</p>
+</div>
+<div class="sect3">
+<h4 id="https_example">9.2.1. HTTPS Example</h4>
+<div class="paragraph">
+<p>Assuming you have a web server with a certificate issued by a well known CA, you can make a secure request with code as simple this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>URL url = new URL("https://wikipedia.org");
+URLConnection urlConnection = url.openConnection();
+InputStream in = urlConnection.getInputStream();
+copyInputStreamToOutputStream(in, System.out);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Suppose instead of receiving the content from <code>getInputStream()</code>, it throws an exception:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This can happen for several reasons, including:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Unknown CA</strong> - The CA that issued the server certificate was unknown.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>In this case, the <code>SSLHandshakeException</code> occurs because you have a CA that isn&#8217;t trusted by the system. It could be because you have a certificate from a new CA that isn&#8217;t yet trusted by Android or your app is running on an older version without the CA. More often a CA is unknown because it isn&#8217;t a public CA, but a private one issued by an organization such as a government, corporation, or education institution for their own use. With a custom TrustManager that knows about your CAs, the system is able to validate that your server certificate come from a trusted issuer.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Self-Signed Server Certificate</strong> - The server certificate wasn&#8217;t signed by a CA, but was self signed.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The second case of <code>SSLHandshakeException</code> is due to a self-signed certificate, which means the server is behaving as its own CA. As before, you can create your own TrustManager, this time trusting the server certificate directly.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Missing Intermediate CA</strong> - The server configuration is missing an intermediate CA.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The third case of <code>SSLHandshakeException</code> occurs due to a missing intermediate CA. Most public CAs don&#8217;t sign server certificates directly. Instead, they use their main CA certificate, referred to as the root CA, to sign intermediate CAs. They do this so the root CA can be stored offline to reduce risk of compromise.</p>
+</li>
+<li>
+<p>However, operating systems like Android typically trust only root CAs directly, which leaves a short gap of trust between the server certificate—signed by the intermediate CA—and the certificate verifier, which knows the root CA.</p>
+</li>
+<li>
+<p>To solve this, the server doesn&#8217;t send the client only it&#8217;s certificate during the SSL handshake, but a chain of certificates from the server CA through any intermediates necessary to reach a trusted root CA.</p>
+</li>
+<li>
+<p>There are two approaches to solve this issue:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Configure the server to include the intermediate CA in the server chain. Most CAs provide documentation on how to do this for all common web servers. This is the only approach if you need the site to work with default Android browsers at least through Android 4.2.</p>
+</li>
+<li>
+<p>Or, treat the intermediate CA like any other unknown CA, and create a TrustManager to trust it directly, as done in the previous two sections.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="hostname_verification">9.3. Hostname verification</h3>
+<div class="paragraph">
+<p>There are two key parts to verifying an SSL connection:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The first is to verify the certificate is from a trusted source, which was the focus of the previous section.</p>
+</li>
+<li>
+<p>The second part is making sure the server you are talking to presents the right certificate. When it doesn&#8217;t, you&#8217;ll typically see an error like this:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>java.io.IOException: Hostname 'example.com' was not verified
+at libcore.net.http.HttpConnection.verifySecureSocketHostname(HttpConnection.java:223)
+at libcore.net.http.HttpsURLConnectionImpl$HttpsEngine.connect(HttpsURLConnectionImpl.java:446)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>One reason this can happen is due to a server configuration error.
+The server is configured with a certificate that does not have a subject or subject alternative name fields that match the server you are trying to reach. It is possible to have one certificate be used with many different servers.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="warnings_about_using_sslsocket_directly">9.4. Warnings About Using SSLSocket Directly</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://developer.android.com/reference/javax/net/ssl/SSLSocket.html">SSLSocket</a> does not perform hostname verification. It is up the your app to do its own hostname verification, preferably by calling <code>getDefaultHostnameVerifier()</code> with the expected hostname. Further beware that <code>HostnameVerifier.verify()</code> doesn&#8217;t throw an exception on error but instead returns a boolean result that you must explicitly check.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="blacklisting">9.5. Blacklisting</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>SSL relies heavily on CAs to issue certificates to only the properly verified owners of servers and domains. In rare cases, CAs are either tricked or breached, resulting in the certificates for a hostname to be issued to someone other than the owner of the server or domain.</p>
+</li>
+<li>
+<p>In order to mitigate this risk, Android has the ability to blacklist certain certificates or even whole CAs. While this list was historically built into the operating system, starting in Android 4.2 this list can be remotely updated to deal with future compromises.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pinning">9.6. Pinning</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>An app can further protect itself from fraudulently issued certificates by a technique known as pinning. This prevents the compromise of one of the other 100+ CAs in the system from resulting in a breach of the apps secure channel.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="client_certificates">9.7. Client Certificates</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>SSL also supports the notion of client certificates that allow the server to validate the identity of a client.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="nogotofail_a_network_traffic_security_testing_tool">9.8. Nogotofail: A Network Traffic Security Testing Tool</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://github.com/google/nogotofail">Nogotofail</a> is a tool gives you an easy way to confirm that your apps are safe against known TLS/SSL vulnerabilities and misconfigurations.
+It&#8217;s an automated, powerful, and scalable tool for testing network security issues on any device whose network traffic could be made to go through it.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Nogotofail is useful for three main use cases:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Finding bugs and vulnerabilities.</p>
+</li>
+<li>
+<p>Verifying fixes and watching for regressions.</p>
+</li>
+<li>
+<p>Understanding what applications and devices are generating what traffic.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
