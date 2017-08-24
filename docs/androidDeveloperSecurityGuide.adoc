@@ -166,7 +166,6 @@ This prevents applications without appropriate permissions from sending an inten
 . Dalvik is Android's runtime virtual machine (VM). Your application runs in a secure sandbox environment, so other processes on the system can't access your code or private data.
 
 == Security with HTTPS and SSL
-
 This is a summary of the https://developer.android.com/training/articles/security-ssl.html[Android Developer Security with HTTPS and SSL Guide].
 
 The Secure Sockets Layer (SSL)—now technically known as Transport Layer Security (TLS)—is a common building block for encrypted communications between clients and servers.
@@ -204,7 +203,7 @@ This can happen for several reasons, including:
 *** Configure the server to include the intermediate CA in the server chain. Most CAs provide documentation on how to do this for all common web servers. This is the only approach if you need the site to work with default Android browsers at least through Android 4.2.
 *** Or, treat the intermediate CA like any other unknown CA, and create a TrustManager to trust it directly, as done in the previous two sections.
 
-== Hostname verification
+=== Hostname verification
 There are two key parts to verifying an SSL connection:
 
 . The first is to verify the certificate is from a trusted source, which was the focus of the previous section.
@@ -219,21 +218,21 @@ at libcore.net.http.HttpsURLConnectionImpl$HttpsEngine.connect(HttpsURLConnectio
 * One reason this can happen is due to a server configuration error.
 The server is configured with a certificate that does not have a subject or subject alternative name fields that match the server you are trying to reach. It is possible to have one certificate be used with many different servers.
 
-== Warnings About Using SSLSocket Directly
-. https://developer.android.com/reference/javax/net/ssl/SSLSocket.html[SSLSocket] does not perform hostname verification. It is up the your app to do its own hostname verification, preferably by calling `getDefaultHostnameVerifier()` with the expected hostname. Further beware that `HostnameVerifier.verify()` doesn't throw an exception on error but instead returns a boolean result that you must explicitly check.
+=== Warnings About Using SSLSocket Directly
+https://developer.android.com/reference/javax/net/ssl/SSLSocket.html[SSLSocket] does not perform hostname verification. It is up the your app to do its own hostname verification, preferably by calling `getDefaultHostnameVerifier()` with the expected hostname. Further beware that `HostnameVerifier.verify()` doesn't throw an exception on error but instead returns a boolean result that you must explicitly check.
 
-== Blacklisting
-. SSL relies heavily on CAs to issue certificates to only the properly verified owners of servers and domains. In rare cases, CAs are either tricked or breached, resulting in the certificates for a hostname to be issued to someone other than the owner of the server or domain.
+=== Blacklisting
+SSL relies heavily on CAs to issue certificates to only the properly verified owners of servers and domains. In rare cases, CAs are either tricked or breached, resulting in the certificates for a hostname to be issued to someone other than the owner of the server or domain.
 
-. In order to mitigate this risk, Android has the ability to blacklist certain certificates or even whole CAs. While this list was historically built into the operating system, starting in Android 4.2 this list can be remotely updated to deal with future compromises.
+In order to mitigate this risk, Android has the ability to blacklist certain certificates or even whole CAs. While this list was historically built into the operating system, starting in Android 4.2 this list can be remotely updated to deal with future compromises.
 
-== Pinning
-. An app can further protect itself from fraudulently issued certificates by a technique known as pinning. This prevents the compromise of one of the other 100+ CAs in the system from resulting in a breach of the apps secure channel.
+=== Pinning
+An app can further protect itself from fraudulently issued certificates by a technique known as pinning. This prevents the compromise of one of the other 100+ CAs in the system from resulting in a breach of the apps secure channel.
 
-== Client Certificates
-. SSL also supports the notion of client certificates that allow the server to validate the identity of a client.
+=== Client Certificates
+SSL also supports the notion of client certificates that allow the server to validate the identity of a client.
 
-== Nogotofail: A Network Traffic Security Testing Tool
+=== Nogotofail: A Network Traffic Security Testing Tool
 . https://github.com/google/nogotofail[Nogotofail] is a tool gives you an easy way to confirm that your apps are safe against known TLS/SSL vulnerabilities and misconfigurations.
 It's an automated, powerful, and scalable tool for testing network security issues on any device whose network traffic could be made to go through it.
 
@@ -242,3 +241,132 @@ Nogotofail is useful for three main use cases:
 * Finding bugs and vulnerabilities.
 * Verifying fixes and watching for regressions.
 * Understanding what applications and devices are generating what traffic.
+
+== Network Security Configuration
+This is a summary of the https://developer.android.com/training/articles/security-ssl.html[Android Developer Network Security Configuration Guide].
+
+=== Configuration
+The Network Security Configuration feature lets apps customize their network security settings in a safe, declarative configuration file without modifying app code. These settings can be configured for specific domains and for a specific app. The key capabilities of this feature are as follows:
+
+. **Custom trust anchors**: Customize which Certificate Authorities (CA) are trusted for an app's secure connections. For example, trusting particular self-signed certificates or restricting the set of public CAs that the app trusts.
+
+. **Debug-only overrides**: Safely debug secure connections in an app without added risk to the installed base.
+
+. **Cleartext traffic opt-out**: Protect apps from accidental usage of cleartext traffic.
+
+. **Certificate pinning**: Restrict an app's secure connection to particular certificates.
+
+The Network Security Configuration feature uses an XML file where you specify the settings for your app. You must include an entry in the manifest of your app to point to this file.
+
+Example reference of the network security settings from the applications manifest xml:
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<manifest ... >
+    <application android:networkSecurityConfig="@xml/network_security_config"
+                    ... >
+        ...
+    </application>
+</manifest>
+```
+
+=== Customizing Trusted CAs
+An app may want to trust a custom set of CAs instead of the platform default. The most common reasons of this are:
+
+* Connecting to a host with a custom certificate authority, such as a CA that is self-signed or is issued internally within a company.
+* Limiting the set of CAs to only the CAs you trust instead of every pre-installed CA.
+* Trusting additional CAs not included in the system.
+
+An app can customize its own connections using `base-config` (for app-wide customization) or `domain-config` (for per-domain customization).
+
+
+For Configuring CA's, configuration examples are available in the Andoird Documentation.
+
+. https://developer.android.com/training/articles/security-config.html#ConfigCustom[Configuring a Custom CA]
+. https://developer.android.com/training/articles/security-config.html#LimitingCas[Limiting the Set of Trusted CAs]
+. https://developer.android.com/training/articles/security-config.html#TrustingAdditionalCas[Trusting Additional CAs]
+. http://developer.android.com/training/articles/security-config.html#TrustingDebugCa[Configuring CAs for Debugging]
+
+=== Opting Out of Cleartext Traffic
+Applications intending to connect to destinations using only secure connections can opt-out of supporting cleartext (using the unencrypted HTTP protocol instead of HTTPS) to those destinations. This option helps prevent accidental regressions in apps due to changes in URLs provided by external sources such as backend servers.
+
+For example, an app may want to ensure that all connections to secure.example.com are always done over HTTPS to protect sensitive traffic from hostile networks.
+
+*res/xml/network_security_config.xml*:
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">secure.example.com</domain>
+    </domain-config>
+</network-security-config>
+```
+
+=== Pinning Certificates
+Normally, an app trusts all pre-installed CAs. If any of these CAs were to issue a fradulent certificate, the app would be at risk from a man-in-the-middle attack. Some apps choose to limit the set of certificates they accept by either limiting the set of CAs they trust or by certificate pinning.
+
+Certificate pinning is done by providing a set of certificates by hash of the public key (SubjectPublicKeyInfo of the X.509 certificate). A certificate chain is then valid only if the certificate chain contains at least one of the pinned public keys.
+
+Note that, when using certificate pinning, you should always include a backup key so that if you are forced to switch to new keys or change CAs (when pinning to a CA certificate or an intermediate of that CA), your app's connectivity is unaffected. Otherwise, you must push out an update to the app to restore connectivity.
+
+*res/xml/network_security_config.xml:*
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config>
+        <domain includeSubdomains="true">example.com</domain>
+        <pin-set expiration="2018-01-01">
+            <pin digest="SHA-256">7HIpactkIAq2Y49orFOOQKurWxmmSFZhBCoQYcRhJ3Y=</pin>
+            <!-- backup pin -->
+            <pin digest="SHA-256">fwza0LRMXouZHRC8Ei+4PyuldPDcf3UKgO/04cDM1oE=</pin>
+        </pin-set>
+    </domain-config>
+</network-security-config>
+```
+
+=== Configuration Inheritance Behavior
+Values not set in a specific configuration are inherited. This behavior allows more complex configurations while keeping the configuration file readable.
+
+If a value is not set in a specific entry, then the value from the more general entry is used. For example, values not set in a domain-config are taken from the parent domain-config, if nested, or from the base-config if not. Values not set in the base-config use the platform default values.
+
+For example, consider where all connections to subdomains of example.com must use a custom set of CAs. Additonally, cleartext traffic to these domains is permitted except when connecting to secure.example.com. By nesting the configuration for secure.example.com inside the configuration for example.com, the trust-anchors does not need to be duplicated.
+
+==== Configuration File Format
+
+The Network Security Configuration feature uses an XML file format. The overall structure of the file is shown in the following code sample:
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config>
+        <trust-anchors>
+            <certificates src="..."/>
+            ...
+        </trust-anchors>
+    </base-config>
+
+    <domain-config>
+        <domain>android.com</domain>
+        ...
+        <trust-anchors>
+            <certificates src="..."/>
+            ...
+        </trust-anchors>
+        <pin-set>
+            <pin digest="...">...</pin>
+            ...
+        </pin-set>
+    </domain-config>
+    ...
+    <debug-overrides>
+        <trust-anchors>
+            <certificates src="..."/>
+            ...
+        </trust-anchors>
+    </debug-overrides>
+</network-security-config>
+```
+
+The full network security configuration options can be seen https://developer.android.com/training/articles/security-config.html#network-security-config[here].
