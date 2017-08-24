@@ -1,0 +1,27 @@
+= Mobile Banking Applications Security Challenges
+
+This is a summary of the http://info.nowsecure.com/rs/201-XEW-873/images/NowSecure-Accenture-Mobile-Banking-Apps-Security-Challenges.pdf?utm_source=mkto&utm_medium=email&utm_campaign=Mobile+Bank+Apps+Security+Challenges&utm_content=Delivery+Email&mkt_tok=eyJpIjoiWmpRMk16UTNNRGhoTjJJMiIsInQiOiJBcmZGXC9TXC8rTUJya0tZNlNxd21TdDk2K3pSK1JHelg2M1ZcL09vUm9cL2NvZmMrK01hQktMeDl4K21LV3NSWnEyZXM3YU0wUFYyTjd1Rng4dVZcL0NWQU5laWNqTlZ6eGlSU3NzVjZJZDM1WmhzN2RvVTdadE9HT082c2ZLSkxQckxhIn0%3D[Mobile Banking Applications Security Challenges] report.
+
+== Vulnerabilities
+
+. World-Writable Files
+.. Creating worldwritable files is a security risk as it could allow other apps to have write access to files, leading to potential security gaps
+. Broken SSL Check / Sensitive Data in Transit
+.. Lack of proper certificate validation could result in sensitive data being intercepted via a man-in-the-middle attack. Especially on Android.
+. Writable Executables
+.. A writable executable file is not a vulnerability all by itself, but in combination with another issue could lead to additional app vulnerabilities and make the app susceptible to remote code execution. Android only. 
+. Obfuscation
+.. Intellectual property could be at risk because these apps can easily be reverse-engineered
+. SecureRandom
+.. Apps which use the Oracle® Java Cryptography Architecture (JCA) for key generation, signing, or random number generation may not receive cryptographically strong values on Android™ devices due to improper initialization of the pseudo-random number generator (PRNG). 
+.. Apps that directly invoke the system-provided OpenSSL PRNG without explicit initialization on Android™ are also affected. 
+. Dynamic Code Loading
+.. Typically, core components and additional dependencies are loaded natively at runtime, however, dynamically loaded components are only loaded as requested
+. Cookie "HttpOnly"
+.. When a cookie is set with the HTTPOnly flag, it instructs the browser that the cookie can only be accessed by the server and not by client-side scripts. 
+. Cookie "Secure" Tag
+.. When set to true, the "secure" flag tells the browser to only send the cookie if the request is sent using a secure channel. 
+. Transport Layer Security Traffic with Sensitive Data
+.. Sending sensitive data without certificate pinning creates higher risk as an attacker with network privileges, or who has compromised TLS, is better positioned to intercept data
+. App Transport Security
+.. It is on by default when an app is linked to iOS® 9.0 SDK (Software Development Kit) or later.
