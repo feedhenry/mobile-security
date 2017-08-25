@@ -575,6 +575,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#vulnerabilities_11">16.1. Vulnerabilities</a></li>
 </ul>
 </li>
+<li><a href="#secure_mobile_development_guide">17. Secure Mobile Development Guide</a>
+<ul class="sectlevel2">
+<li><a href="#coding_practices">17.1. CODING PRACTICES</a></li>
+<li><a href="#handling_sensitive_data">17.2. HANDLING SENSITIVE DATA</a></li>
+<li><a href="#caching_and_logging">17.3. CACHING AND LOGGING</a></li>
+<li><a href="#webviews">17.4. WEBVIEWS</a></li>
+<li><a href="#ios">17.5. IOS</a></li>
+<li><a href="#android">17.6. Android</a></li>
+<li><a href="#servers">17.7. Servers</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -8662,10 +8673,951 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="secure_mobile_development_guide">17. Secure Mobile Development Guide</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is a summary of <a href="https://books.nowsecure.com/secure-mobile-development/en/">Secure Mobile Development Guide</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="coding_practices">17.1. CODING PRACTICES</h3>
+<div class="sect3">
+<h4 id="increase_code_complexity_and_use_obfuscation">17.1.1. Increase Code Complexity and Use Obfuscation</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Restricting debuggers</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Android applications should have <code>android:debuggable=”false”</code> set in the application manifest to prevent easy runtime manipulation by an attacker or malware.</p>
+</li>
+<li>
+<p>On iOS you can make use of the <code>PT_DENY_ATTACH</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Trace Checking</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Debugger tracing can be detected by checking the process status flags or using other techniques like comparing the return value of <code>ptrace attach</code>, checking the parent process, blacklisting debuggers in the process list or comparing timestamps on different parts of the program</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Optimizations</p>
+<div class="ulist">
+<ul>
+<li>
+<p>In Android this can be achieved more easily by utilizing natively compiled libraries with the native development kit (NDK). In addition, using an LLVM Obfuscator or any protector SDK will provide better machine code obfuscation</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Stripping binaries</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Stripping binaries does not discard the Objective-C class or object-mapping data on iOS.</p>
+</li>
+<li>
+<p>On Android you can reuse techniques used on GNU/Linux systems like sstriping or using UPX</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="avoid_simple_logic">17.1.2. Avoid Simple Logic</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Consider a better programming paradigm, where privileges are enforced by the server when the session is not trusted, or by preventing certain data from being decrypted or otherwise available until the application can determine that the session is trusted using challenge/response, OTP, or other forms of authentication</p>
+</li>
+<li>
+<p>it is recommended to declare all sanity check functions static inline.</p>
+</li>
+<li>
+<p>more sophisticated approaches founded in secure coding principles may be worth further investigation.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="test_third_party_libraries">17.1.3. Test Third-Party Libraries</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Security auditing must thoroughly test third-party libraries and functionality as well</p>
+</li>
+<li>
+<p>Upgrading to a new version of a third-party library (or OS version) should be treated as version of your app</p>
+</li>
+<li>
+<p>On iOS, statically compile third-party libraries to avoid LD_PRELOAD attacks</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implement_anti_tamper_techniques">17.1.4. Implement Anti-tamper Techniques</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Use checksums, digital signatures and other validation mechanisms to help detect file tampering.</p>
+</li>
+<li>
+<p><a href="https://gist.github.com/scottyab/b849701972d57cf9562e">Android Sample</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="securely_store_sensitive_data_in_ram">17.1.5. Securely Store Sensitive Data in RAM</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Nullify any variables that hold keys after use</p>
+</li>
+<li>
+<p>Avoid using immutable objects for sensitive keys or passwords such as in Android java.lang.String and use char array instead.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="understand_secure_deletion_of_data">17.1.6. Understand Secure Deletion of Data</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Operate under the assumption that any data written to a device can be recovered</p>
+</li>
+<li>
+<p>Wherever possible, avoid storing sensitive data on the device</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="avoid_query_string_for_sensitive_data">17.1.7. Avoid Query String for Sensitive Data</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Use secure POST to send user data, with XSRF token protection.</p>
+</li>
+<li>
+<p>Encrypting data using a non-zero initialization vector and temporary session keys can also help prevent a replay attack.</p>
+</li>
+<li>
+<p>query string data can be encrypted using a temporary session key negotiated between hosts using secure algorithms, such as Diffie-Hellman</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="handling_sensitive_data">17.2. HANDLING SENSITIVE DATA</h3>
+<div class="sect3">
+<h4 id="implement_secure_data_storage">17.2.1. Implement Secure Data Storage</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Add an additional layer of verified, third-party encryption (e.g., SQLCipher) to the data as device encryption is not sufficient</p>
+</li>
+<li>
+<p>Android</p>
+<div class="ulist">
+<ul>
+<li>
+<p>using the standard cryptographic provider “AES” will often default to the less secure AES-ECB. Best practice is to specify AES-CBC or AES-GCM with a 256-bit key and a random IV generated by SecureRandom.</p>
+</li>
+<li>
+<p>You should also derive the key from a passphrase using the well tested PBKDF2 (Password-Based Key Derivation Function)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="use_secure_setting_for_cookies">17.2.2. Use SECURE Setting For Cookies</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>The Set-Cookie headers should use the “Secure” and “HTTPOnly” settings.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="fully_validate_ssl_tls">17.2.3. Fully Validate SSL/TLS</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>use certificate pinning to protect against MITM attacks</p>
+</li>
+<li>
+<p>If certificate pinning cannot be implemented for any app functionality that handles highly sensitive data, implement proper certificate validation</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Certificate validation: Certificates presented to the app must be fully validated by the app and be signed by a trusted root CA</p>
+</li>
+<li>
+<p>Hostname validation: The app must check and verify that the hostname (Common Name or CN) extracted from the certificate matches that of the host with which the app intends to communicate</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Android</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Android 7.0 will only trust a preselected list of certificate authorities (CAs) maintained by the Android Open Source Project and will not trust custom CAs or CAs added by a user</p>
+</li>
+<li>
+<p>Developers can also use the <a href="https://developer.android.com/training/articles/security-config.html">Network Security Configuration file</a> for certificate pinning</p>
+</li>
+<li>
+<p><a href="https://github.com/commonsguy/cwac-netsecurity">CWAC-NetSecurity</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>iOS</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/datatheorem/TrustKit">TrustKit</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="protect_against_ssl_downgrade_attacks">17.2.4. Protect Against SSL Downgrade Attacks</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Serve all traffic, even non-sensitive traffic,over TLS</p>
+</li>
+<li>
+<p>Validate that SSL/TLS is active</p>
+</li>
+<li>
+<p>Android recently added <code>android:usesCleartextTraffic</code></p>
+</li>
+<li>
+<p>iOS 9 and above require that you manually add exceptions for plaintext traffic.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="limit_use_of_uuid">17.2.5. Limit Use of UUID</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>avoid using any device-provided identifier to identify the device, especially if it&#8217;s integral to an implementation of device authentication.</p>
+</li>
+<li>
+<p>recommend the creation of an app-unique "device factor" at the time of registration, installation, or first execution.</p>
+</li>
+<li>
+<p>Apple recommends using the advertisingIdentifier - a unique identifier shared across all apps in the system.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="treat_geolocation_data_carefully">17.2.6. Treat Geolocation Data Carefully</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>avoid storing GPS data</p>
+</li>
+<li>
+<p>Unless required, do not log or store GPS information.</p>
+</li>
+<li>
+<p>Cameras often geo-tags images. If this is a concern, make sure to strip the EXIF data from the image</p>
+</li>
+<li>
+<p>Do not activate GPS in applications that will run at or near secure locations, whose coordinates or wireless network topology should not be reported back to vendors.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="institute_local_session_timeout">17.2.7. Institute Local Session Timeout</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Any time the app is not used for more than 5 minutes, terminate the active session, redirect the user to the log-in screen, ensure that no app data is visible, and require the user to re-enter log-in credentials to access the app</p>
+</li>
+<li>
+<p>After timeout, also discard and clear all memory associated with user data including any master keys use to decrypt that data</p>
+</li>
+<li>
+<p>Also, make sure the session timeout occurs on both the client side and the server side</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implement_enhanced_two_factor_authentication">17.2.8. Implement Enhanced / Two-Factor Authentication</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>When sensitive data or transactions are involved, implement two-factor authentication</p>
+</li>
+<li>
+<p>may not be feasible every time a user logs in but can be used at intervals or when accessing selected functions</p>
+</li>
+<li>
+<p>Consider step-up authentication methods to provide normal access to non-transactional areas but require a second layer of authentication for sensitive functions</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="protect_application_settings">17.2.9. Protect Application Settings</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Compile settings into the code when possible</p>
+</li>
+<li>
+<p>Don’t store any critical settings in dictionaries or other files unless encrypted first</p>
+</li>
+<li>
+<p>Ideally, encrypt all configuration files using a master key encrypted with a passphrase that is supplied by the user, or with a key provided remotely when a user logs into a system</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="hide_account_numbers_and_use_tokens">17.2.10. Hide Account Numbers and Use Tokens</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>displaying partial numbers</p>
+</li>
+<li>
+<p>store the partially hidden numbers</p>
+</li>
+<li>
+<p>instead of account numbers, tokens be assigned to each account and provided to the client</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implement_secure_network_transmission_of_sensitive_data">17.2.11. Implement Secure Network Transmission Of Sensitive Data</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Use SSL/TLS either with standard trust validation, or, for increased security, implement certificate pinning</p>
+</li>
+<li>
+<p>For highly sensitive values, implement additional encryption in transit</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="validate_input_from_client">17.2.12. Validate Input From Client</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>all input from the client should be must be treated as untrusted.</p>
+</li>
+<li>
+<p>Services must thoroughly filter and validate input from the app and user.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="avoid_storing_app_data_in_backups">17.2.13. Avoid Storing App Data in Backups</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Android</p>
+<div class="ulist">
+<ul>
+<li>
+<p>By default, the <code>allowBackup</code> flag within an Android app’s Manifest file is set as <code>true</code>. Therefore, explicitly declare the <code>allowBackup</code> flag as <code>false</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>iOS</p>
+<div class="ulist">
+<ul>
+<li>
+<p>avoid storing any sensitive data in plaintext within any of the files or folders within the app’s private directory or subdirectories</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="caching_and_logging">17.3. CACHING AND LOGGING</h3>
+<div class="sect3">
+<h4 id="avoid_caching_app_data">17.3.1. Avoid Caching App Data</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Prevent HTTP caching</p>
+</li>
+<li>
+<p>avoid caching of URL history and page data for any Web process such as registration.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="avoid_crash_logs">17.3.2. Avoid Crash Logs</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Ensure released apps are built without warnings and are thoroughly tested to avoid crashes.</p>
+</li>
+<li>
+<p>Consider disabling NSAssert for iOS</p>
+</li>
+<li>
+<p>avoid sending crash logs over the network in plaintext</p>
+</li>
+<li>
+<p>Use secure development tools like clang-analyzer, coverity, ASAN and other linting utilities in order to identify all possible operations that can make the app crash</p>
+</li>
+<li>
+<p>If the app is obfuscated and stripped, the developer will need keep an address-to-symbol database in order to recover meaningful backtraces in crashlogs</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="limit_caching_of_username">17.3.3. Limit Caching of Username</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>store a masked username instead of the actual username, and replace the username value in authentication with a hash value</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="carefully_manage_debug_logs">17.3.4. Carefully Manage Debug Logs</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>REMOVE METHOD CALLS TO THE LOG CLASS IN RELEASE BUILDS</p>
+</li>
+<li>
+<p>SET THE “ANDROID:DEBUGGABLE” FLAG TO “FALSE” IN PRODUCTION BUILDS</p>
+</li>
+<li>
+<p>On iOS disabling the NSLog statements on will remove potentially sensitive information which can be intercepted and as an added benefit may slightly increase the performance of the app.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="be_aware_of_the_keyboard_cache">17.3.5. Be Aware of the Keyboard Cache</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Disable the auto-correct feature for any sensitive information, not just for password fields.</p>
+</li>
+<li>
+<p>Add an enterprise policy to clear the keyboard dictionary at regular intervals.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="be_aware_of_copy_and_paste">17.3.6. Be Aware of Copy and Paste</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Where appropriate, disable copy/paste for areas handling sensitive data</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="webviews">17.4. WEBVIEWS</h3>
+<div class="sect3">
+<h4 id="prevent_framing_and_clickjacking">17.4.1. Prevent Framing and Clickjacking</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Use <code>X-FRAME-OPTIONS</code> HEADER</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>Header add X-FRAME-OPTIONS "DENY"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Basic frame busting javascript</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>if( self != top ) {
+  top.location = self.location ;
+}</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="protect_against_csrf_with_form_tokens">17.4.2. Protect Against CSRF with Form Tokens</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Each form submission should contain a token which was loaded with the form or at the beginning of a user session. Check this token on the server when receiving POST requests to ensure the user originated it.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ios">17.5. IOS</h3>
+<div class="sect3">
+<h4 id="use_the_keychain_carefully">17.5.1. Use the Keychain Carefully</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>When storing data in the keychain, use the most restrictive protection class (as defined by the kSecAttrAccessible attribute) that still allows your application to function properly</p>
+</li>
+<li>
+<p>To prevent the exposure of keychain items via iTunes backup, use the ThisDeviceOnly protection class where practical</p>
+</li>
+<li>
+<p>Finally, for highly sensitive data, consider augmenting protections offered by the keychain with application-level encryption.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="avoid_cached_application_snapshots">17.5.2. Avoid Cached Application Snapshots</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>To protect sensitive data, block caching of application snapshots using API configuration or code</p>
+</li>
+<li>
+<p>When applicationDidEnterBackground: method returns, the snapshot of the application user interface is taken, and it’s used for transition animations and stored in the filesystem.
+This method should be overridden and all the sensitive information in the user interface should be removed before it returns.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implement_protections_against_buffer_overflow_attacks">17.5.3. Implement Protections Against Buffer Overflow Attacks</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Enable ARC</p>
+</li>
+<li>
+<p>Implement full ASLR protection</p>
+<div class="ulist">
+<ul>
+<li>
+<p>can be enabled when compiling by command line with option <code>-PIE</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Implement stack-smashing protection</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Compile the application with the <code>-fstack-protector-all</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="avoid_caching_http_s_requests_responses">17.5.4. Avoid Caching HTTP(S) Requests/Responses</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>set the <code>cachePolicy</code> property of the NSURLRequest to disable the caching of HTTP(S) requests and responses</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implement_app_transport_security_ats">17.5.5. Implement App Transport Security (ATS)</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Enable ATS globally by linking to the iOS 9.0 or later SDK and NOT setting the NSAllowsArbitraryLoads key to Yes or True</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implement_touch_id_properly">17.5.6. Implement Touch ID Properly</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>When using Touch ID for authentication, store the app’s secret in the Keychain with an ACL assigned to that item.</p>
+</li>
+<li>
+<p>Developers can use Touch ID enrollment changes to detect and prevent a physically proximate attacker from enrolling their own fingerprint in order to gain access to protected Keychain items.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>read <code>LAContext.evaluatedPolicyDomainState</code> to check whether the <code>evaluatedPolicyDomainState</code> value has changed.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="android">17.6. Android</h3>
+<div class="sect3">
+<h4 id="implement_file_permissions_carefully">17.6.1. Implement File Permissions Carefully</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Do not create files with permissions of MODEWORLD_READABLE or MODE_WORLD_WRITABLE unless it is required as any app would be able to read or write the file even though it may be stored in the app’s private data directory</p>
+</li>
+<li>
+<p>Do not use modes such as 0666, 0777, and 0664 with the chmod binary or syscalls accepting a file mode</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implement_intents_carefully">17.6.2. Implement Intents Carefully</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Components accessed via Intents can be public or private. it is easy to mistakenly allow the component to be or become public.</p>
+</li>
+<li>
+<p>If a component does not need to be accessed by all other apps, consider setting a permission on the component declared in the Manifest</p>
+</li>
+<li>
+<p>Data received by public components cannot be trusted and must be scrutinized</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="check_activities">17.6.3. Check Activities</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Activities can ensure proper behavior by checking internal app state to verify they are ready to load</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For example, first see if the app is in the "unlocked" state and if not jump back to the lock screen.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>input validation is recommended when operating on data provided by an untrusted source</p>
+</li>
+<li>
+<p>Avoid intent filters on Activities if they are private, instead use explicit intent</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="use_broadcasts_carefully">17.6.4. Use Broadcasts Carefully</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Use permissions to protect Intents in your application</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implement_pendingintents_carefully">17.6.5. Implement PendingIntents Carefully</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Use PendingIntents as delayed callbacks to private BroadcastReceivers or broadcast activities, and explicitly specify the component name in the base Intent</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="protect_application_services">17.6.6. Protect Application Services</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>When calling a service with sensitive data, validate that the correct service is being called and not a malicious service</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="avoid_intent_sniffing">17.6.7. Avoid Intent Sniffing</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Do not pass sensitive data between apps using broadcast intents. Instead, use explicit intents</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implement_content_providers_carefully">17.6.8. Implement Content Providers Carefully</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Do not give a content provider write access unless it&#8217;s absolutely necessary</p>
+</li>
+<li>
+<p>Limit access to the minimum required for an operation</p>
+</li>
+<li>
+<p>Treat parameters passed to content providers as untrusted input and don&#8217;t use them directly in SQL queries without sanitation</p>
+</li>
+<li>
+<p>Content providers that serve files based on a file name being passed to the provider should ensure path traversals are filtered out.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="follow_webview_best_practices">17.6.9. Follow WebView Best Practices</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Disable JavaScript and Plugin support if they are not needed.</p>
+</li>
+<li>
+<p>Disable local file access.</p>
+</li>
+<li>
+<p>Disallow the loading of content from third-party hosts.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="avoid_storing_cached_camera_images">17.6.10. Avoid Storing Cached Camera Images</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Do not transmit a check image using non-volatile storage on the device where check image artifacts may be left behind.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Create a SurfaceView that displays a camera preview or live preview of what the camera sensor is seeing</p>
+</li>
+<li>
+<p>Insert and program a button that when pressed returns the camera preview as a pixel array</p>
+</li>
+<li>
+<p>Finally, convert the pixel array to bitmap, compress it to a .jpg, encode it to Base64, and submit it to the remote location</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="avoid_gui_objects_caching">17.6.11. Avoid GUI Objects Caching</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Quit the app entirely when the user logs out.</p>
+</li>
+<li>
+<p>Any time an activity is initiated or a screen is accessed, execute a check to determine whether the user is in a logged-in state</p>
+</li>
+<li>
+<p>Nullify the data on a GUI screen before leaving the screen or logging out</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="sign_android_apks">17.6.12. Sign Android APKs</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Sign a production app with a production certificate, not a debug certificate</p>
+</li>
+<li>
+<p>Make sure the certificate includes a sufficient validity period (i.e., won&#8217;t expire during the expected lifespan of the app)</p>
+</li>
+<li>
+<p>Google recommends that your certificate use at least 2048-bit encryption</p>
+</li>
+<li>
+<p>Make sure the keystore containing the signing key is properly protected</p>
+</li>
+<li>
+<p>Also, restrict access to the keystore to only those people that absolutely require it</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="servers">17.7. Servers</h3>
+<div class="sect3">
+<h4 id="implement_proper_web_server_configuration">17.7.1. Implement Proper Web Server Configuration</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>disable verbose errors</p>
+</li>
+<li>
+<p>return the minimum amount of information in server responses.</p>
+</li>
+<li>
+<p>change any default directories.</p>
+</li>
+<li>
+<p>Administration or other restricted areas should not be publicly web-accessible unless absolutely necessary, and must be resistant to brute force attacks.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="properly_configure_server_side_ssl">17.7.2. Properly Configure Server-side SSL</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Ensure SSL certificates are properly installed and configured for the highest encryption possible.</p>
+</li>
+<li>
+<p>TLSv1 is more than 10 years old and was found vulnerable to a “renegotiation attack” in 2009</p>
+</li>
+<li>
+<p>Avoid weak ciphers, such as:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>NULL cipher suite</p>
+</li>
+<li>
+<p>Anonymous Diffie-Hellmann</p>
+</li>
+<li>
+<p>DES and RC4 because of their vulnerability to crypto-analytical attacks (NOTE: iOS 10 disables RC4 by default)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Avoid weak protocols, such as:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>SSLv2</p>
+</li>
+<li>
+<p>SSLv3 because of its vulnerability to the POODLE attack - CVE-2014-3566 (NOTE: In iOS 10, the Apple Secure Transport API no longer supports SSLv3)</p>
+</li>
+<li>
+<p>TLS 1.0 and earlier because the protocols are vulnerable to the CRIME</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="use_proper_session_management">17.7.3. Use Proper Session Management</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Web languages (e.g. Java, .NET) offer session management, which is well-developed and security tested</p>
+</li>
+<li>
+<p>Keep server software up-to-date with security patches</p>
+</li>
+<li>
+<p>Ensure the size of the session cookie is sufficient</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="protect_and_pen_test_web_services">17.7.4. Protect and Pen Test Web Services</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>web server must be thoroughly tested and hardened against malicious attack</p>
+</li>
+<li>
+<p>Production server software should be updated to the latest versions, and hardened to prevent information disclosures regarding server software and interfaces</p>
+</li>
+<li>
+<p>Authentication forms should not reflect whether a username exists</p>
+</li>
+<li>
+<p>All login forms and forms/pages exchanging sensitive data should implement and require HTTPS</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="protect_internal_resources">17.7.5. Protect Internal Resources</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>should be blocked from external access.</p>
+</li>
+<li>
+<p>Any resource that does not require public Internet access should be restricted using firewall rules and network segmentation.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-08-24 16:13:15 IST
+Last updated 2017-08-25 17:49:53 IST
 </div>
 </div>
 </body>
