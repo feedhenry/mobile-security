@@ -5849,6 +5849,39 @@ It&#8217;s an automated, powerful, and scalable tool for testing network securit
 </div>
 </div>
 </div>
+<div class="sect3">
+<h4 id="safetynet">2.10.4. SafetyNet</h4>
+<div class="paragraph">
+<p>SafetyNet provides a set of services and APIs that help protect your app against security threats, including device tampering, bad URLs, potentially harmful apps, and fake users.</p>
+</div>
+<div class="sect4">
+<h5 id="safetynet_attestation_api">SafetyNet Attestation API</h5>
+<div class="paragraph">
+<p>The <a href="https://developer.android.com/training/safetynet/attestation.html">SafetyNet Attestation API</a> provides services for determining whether a device running your app satisfies Android compatibility tests.</p>
+</div>
+<div class="paragraph">
+<p>SafetyNet examines software and hardware information on the device where your app is installed to create a profile of that device. The service then attempts to find this same profile within a list of device models that have passed Android compatibility testing. The API also uses this software and hardware information to help you assess the basic integrity of the device, as well as the APK information of the calling app. This attestation helps you to determine whether or not the particular device has been tampered with or otherwise modified.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="safetynet_safe_browsing_api">SafetyNet Safe Browsing API</h5>
+<div class="paragraph">
+<p>The <a href="https://developer.android.com/training/safetynet/safebrowsing.html">SafetyNet Safe Browsing API</a> provides services for determining whether a URL has been marked as a known threat by Google. Your app can use a URL check to determine whether a URL poses a known threat.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="safetynet_recaptcha_api">SafetyNet reCAPTCHA API</h5>
+<div class="paragraph">
+<p>The <a href="https://developer.android.com/training/safetynet/recaptcha.html">SafetyNet reCAPTCHA API</a> service includes a reCAPTCHA API that you can use to protect your app from malicious traffic. reCAPTCHA is a free service that uses an advanced risk analysis engine to protect your app from spam and other abusive actions. If the service suspects that the user interacting with your app might be a bot instead of a human, it serves a CAPTCHA that a human must solve before your app can continue executing.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="safetynet_verify_apps_api">SafetyNet Verify Apps API</h5>
+<div class="paragraph">
+<p>The <a href="https://developer.android.com/training/safetynet/verify-apps.html">SafetyNet Verify Apps API</a> allows your app to interact programmatically with the Verify Apps feature on a device, protecting the device against potentially harmful apps. The SafetyNet Verify Apps API allows you to leverage this feature to protect your app&#8217;s data. By using this API, you can determine whether a user&#8217;s device is protected by the Verify Apps feature, encourage users not already using the feature to opt in to its protection, and identify any known potentially harmful apps that are installed on the device.</p>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="cordova_security_guide">2.11. Cordova Security Guide</h3>

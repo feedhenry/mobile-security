@@ -370,3 +370,20 @@ The Network Security Configuration feature uses an XML file format. The overall 
 ```
 
 The full network security configuration options can be seen https://developer.android.com/training/articles/security-config.html#network-security-config[here].
+
+== SafetyNet
+SafetyNet provides a set of services and APIs that help protect your app against security threats, including device tampering, bad URLs, potentially harmful apps, and fake users.
+
+=== SafetyNet Attestation API
+The https://developer.android.com/training/safetynet/attestation.html[SafetyNet Attestation API] provides services for determining whether a device running your app satisfies Android compatibility tests.
+
+SafetyNet examines software and hardware information on the device where your app is installed to create a profile of that device. The service then attempts to find this same profile within a list of device models that have passed Android compatibility testing. The API also uses this software and hardware information to help you assess the basic integrity of the device, as well as the APK information of the calling app. This attestation helps you to determine whether or not the particular device has been tampered with or otherwise modified.
+
+=== SafetyNet Safe Browsing API
+The https://developer.android.com/training/safetynet/safebrowsing.html[SafetyNet Safe Browsing API] provides services for determining whether a URL has been marked as a known threat by Google. Your app can use a URL check to determine whether a URL poses a known threat.
+
+=== SafetyNet reCAPTCHA API
+The https://developer.android.com/training/safetynet/recaptcha.html[SafetyNet reCAPTCHA API] service includes a reCAPTCHA API that you can use to protect your app from malicious traffic. reCAPTCHA is a free service that uses an advanced risk analysis engine to protect your app from spam and other abusive actions. If the service suspects that the user interacting with your app might be a bot instead of a human, it serves a CAPTCHA that a human must solve before your app can continue executing.
+
+=== SafetyNet Verify Apps API
+The https://developer.android.com/training/safetynet/verify-apps.html[SafetyNet Verify Apps API] allows your app to interact programmatically with the Verify Apps feature on a device, protecting the device against potentially harmful apps. The SafetyNet Verify Apps API allows you to leverage this feature to protect your app's data. By using this API, you can determine whether a user's device is protected by the Verify Apps feature, encourage users not already using the feature to opt in to its protection, and identify any known potentially harmful apps that are installed on the device.
