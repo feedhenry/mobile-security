@@ -387,3 +387,30 @@ The https://developer.android.com/training/safetynet/recaptcha.html[SafetyNet re
 
 === SafetyNet Verify Apps API
 The https://developer.android.com/training/safetynet/verify-apps.html[SafetyNet Verify Apps API] allows your app to interact programmatically with the Verify Apps feature on a device, protecting the device against potentially harmful apps. The SafetyNet Verify Apps API allows you to leverage this feature to protect your app's data. By using this API, you can determine whether a user's device is protected by the Verify Apps feature, encourage users not already using the feature to opt in to its protection, and identify any known potentially harmful apps that are installed on the device.
+
+== Key Attestation
+This is a summary of the https://developer.android.com/training/articles/security-key-attestation.html[Android Developer Key Attestation Security Guide] and the https://www.androidcentral.com/how-android-n-addresses-security[Android 7.0: "Security Benefits that Truly Matter"] post.
+
+=== Verifying Hardware Backed Keypairs
+Key Attestation will allow developers to make sure the keys they may be using in their apps are valid and stored in the phone's hardware-backed keystore and not in software. When the attestation tool is given a generated alias for a key (the actual key should never be shared) it then generates a certificate chain that can be used to verify the key. Developers can verify both the key as well as the verified boot state to make sure everything is valid.
+
+Phones that ship with Android N and use Google services will have a certificate that's issued by Google as the root (or primary) authority while other phones that have been upgraded will need a certificate issued by the company who made them.
+
+Not all phones that can run Android N have a trusted hardware environment to store encryption keys, and in those cases, software-level key attestation is used instead. The verified boot state can still be checked to make sure the system software hasn't been tampered with.
+
+=== Retrieving and Verifying a Hardware-backed Key Pair
+During key attestation, you specify the alias of a key pair. The attestation tool, in return, provides a certificate chain, which you can use to verify the properties of that key pair.
+
+If the device supports hardware-level key attestation, the root certificate within this chain is signed using an attestation root key, which the device manufacturer injects into the device's hardware-backed keystore at the factory.
+
+On devices that ship with hardware-level key attestation, Android 7.0 (API level 24), and Google Play services, the root certificate is signed with the Google attestation root key. You should verify that this root certificate appears within Google's list of root certificates.
+
+=== Implementing Key Attestation
+. Use a KeyStore object's `getCertificateChain()` method to get a reference to the chain of X.509 certificates associated with the hardware-backed keystore.
+. Check each certificate's validity using a X509Certificate object's `checkValidity()` method. *Caution*: Although you can complete this process within your app directly, it's safer to check the certificates' revocation lists on a separate server that you trust.
+
+. On a separate server that you trust, obtain a reference to the ASN.1 parser library that is most appropriate for your toolset. Use this parser to extract the attestation certificate extension data, which appears within the first element of the certificate chain.
+.. The https://github.com/googlesamples/android-key-attestation[Key Attestation sample] uses the ASN.1 parser from Bouncy Castle to extract an attestation certificate's extension data. You can use this sample as a reference for creating your own parser.
+. Compare the extension data that you've retrieved from your ASN.1 parser with the set of values that you expect the hardware-backed key to contain.
+*Caution*: Although you can complete this process within your app directly, it's safer to check the certificate's extension data on a separate server that you trust.
+

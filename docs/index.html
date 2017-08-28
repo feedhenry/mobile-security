@@ -5882,6 +5882,63 @@ It&#8217;s an automated, powerful, and scalable tool for testing network securit
 </div>
 </div>
 </div>
+<div class="sect3">
+<h4 id="key_attestation">2.10.5. Key Attestation</h4>
+<div class="paragraph">
+<p>This is a summary of the <a href="https://developer.android.com/training/articles/security-key-attestation.html">Android Developer Key Attestation Security Guide</a> and the <a href="https://www.androidcentral.com/how-android-n-addresses-security">Android 7.0: "Security Benefits that Truly Matter"</a> post.</p>
+</div>
+<div class="sect4">
+<h5 id="verifying_hardware_backed_keypairs">Verifying Hardware Backed Keypairs</h5>
+<div class="paragraph">
+<p>Key Attestation will allow developers to make sure the keys they may be using in their apps are valid and stored in the phone&#8217;s hardware-backed keystore and not in software. When the attestation tool is given a generated alias for a key (the actual key should never be shared) it then generates a certificate chain that can be used to verify the key. Developers can verify both the key as well as the verified boot state to make sure everything is valid.</p>
+</div>
+<div class="paragraph">
+<p>Phones that ship with Android N and use Google services will have a certificate that&#8217;s issued by Google as the root (or primary) authority while other phones that have been upgraded will need a certificate issued by the company who made them.</p>
+</div>
+<div class="paragraph">
+<p>Not all phones that can run Android N have a trusted hardware environment to store encryption keys, and in those cases, software-level key attestation is used instead. The verified boot state can still be checked to make sure the system software hasn&#8217;t been tampered with.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="retrieving_and_verifying_a_hardware_backed_key_pair">Retrieving and Verifying a Hardware-backed Key Pair</h5>
+<div class="paragraph">
+<p>During key attestation, you specify the alias of a key pair. The attestation tool, in return, provides a certificate chain, which you can use to verify the properties of that key pair.</p>
+</div>
+<div class="paragraph">
+<p>If the device supports hardware-level key attestation, the root certificate within this chain is signed using an attestation root key, which the device manufacturer injects into the device&#8217;s hardware-backed keystore at the factory.</p>
+</div>
+<div class="paragraph">
+<p>On devices that ship with hardware-level key attestation, Android 7.0 (API level 24), and Google Play services, the root certificate is signed with the Google attestation root key. You should verify that this root certificate appears within Google&#8217;s list of root certificates.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="implementing_key_attestation">Implementing Key Attestation</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Use a KeyStore object&#8217;s <code>getCertificateChain()</code> method to get a reference to the chain of X.509 certificates associated with the hardware-backed keystore.</p>
+</li>
+<li>
+<p>Check each certificate&#8217;s validity using a X509Certificate object&#8217;s <code>checkValidity()</code> method. <strong>Caution</strong>: Although you can complete this process within your app directly, it&#8217;s safer to check the certificates' revocation lists on a separate server that you trust.</p>
+</li>
+<li>
+<p>On a separate server that you trust, obtain a reference to the ASN.1 parser library that is most appropriate for your toolset. Use this parser to extract the attestation certificate extension data, which appears within the first element of the certificate chain.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>The <a href="https://github.com/googlesamples/android-key-attestation">Key Attestation sample</a> uses the ASN.1 parser from Bouncy Castle to extract an attestation certificate&#8217;s extension data. You can use this sample as a reference for creating your own parser.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Compare the extension data that you&#8217;ve retrieved from your ASN.1 parser with the set of values that you expect the hardware-backed key to contain.
+<strong>Caution</strong>: Although you can complete this process within your app directly, it&#8217;s safer to check the certificate&#8217;s extension data on a separate server that you trust.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="cordova_security_guide">2.11. Cordova Security Guide</h3>
