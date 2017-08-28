@@ -627,63 +627,63 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Perform Authentication on the Server Side <em>(The client side should never be trusted)</em>.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Use Fingerprint Scanner for Authentication <em>(Possible False Positives)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Perform Authentication on the Server Side.</strong> <em>(The client side should never be trusted)</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use Fingerprint Scanner for Authentication.</strong> <em>(Possible False Positives)</em>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Use Randomly Generated access tokens instead of sending user credentials in requests. <em>(At worst, a temporary session token can therefore only be stolen)</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Use Pattern Locks for Authentication <em>(Lack of Entropy, Smudge Attacks)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use Randomly Generated access tokens instead of sending user credentials in requests.</strong> <em>(At worst, a temporary session token can therefore only be stolen)</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use Pattern Locks for Authentication.</strong> <em>(Lack of Entropy, Smudge Attacks)</em>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A password policy is enforced at the remote endpoint. <em>(Prevent easily guessable passwords from being used)</em>.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Use Pin code authentication <em>(Easily brute forced and the end user may resuse the device security pin)</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>A password policy is enforced at the remote endpoint.</strong> <em>(Prevent easily guessable passwords from being used)</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use Pin code authentication.</strong> <em>(Easily brute forced and the end user may resuse the device security pin)</em>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Sessions are terminated at the remote endpoint after a predefined time. <em>(Sessions token lifetimes should be kept short to limit the attack window if an valid session token is stolen)</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Do not use any values for authenticating a user like device identifiers or geo-location <em>(These can be spoofed easily)</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Sessions are terminated at the remote endpoint after a predefined time.</strong> <em>(Sessions token lifetimes should be kept short to limit the attack window if an valid session token is stolen)</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Do not use any values for authenticating a user like device identifiers or geo-location.</strong> <em>(These can be spoofed easily)</em>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Temporarily lock out a user after a number of failed login attempts. <em>(Prevent an endless brute force attack)</em>.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Avoid relying on any roles or permission information that comes from the mobile device itself <em>(The client side and user input should not be trusted)</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Temporarily lock out a user after a number of failed login attempts.</strong> <em>(Prevent an endless brute force attack)</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Avoid relying on any roles or permission information that comes from the mobile device itself.</strong> <em>(The client side and user input should not be trusted)</em>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Use contextual anomaly based detection to take into account the users IP, geographic location, time of day as part of the authentication phase. <em>(Helps detect unusual login activity)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use contextual anomaly based detection to take into account the users IP, geographic location, time of day as part of the authentication phase.</strong> <em>(Helps detect unusual login activity)</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Log user releated information.</strong> <em>(Personal information data leak)</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>A second factor of authentication exists and is enforced.</strong> <em>(Extra layer of protection in case another authentication factor has been compromised)</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Fail authentication with a Generic Error.</strong> <em>(The login screen should not show hints on the existence of a username/email address etc)</em>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Step-up authentication is used for carrying out sensitive actions in an application.</strong> <em>(Useful when a user&#8217;s device is stolen and they have already authenticated through the app)</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use OAuth1.0</strong>. <em>(OAuth1.0 has been found to be vulnerable to session fixation. Use OAuth 1.0a or OAuth 2.0 instead)</em>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Allow the user to see their current login sessions and allow them to logout of other sessions via the app.</strong> <em>(The end user will be able to detect rogue sessions with the most accuracy instead of using anomaly detection)</em>.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A second factor of authentication exists and is enforced. <em>(Extra layer of protection in case another authentication factor has been compromised)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Perform local integrity checks within the code to detect any unauthorized code changes before doing offline authentication.</strong> <em>(Tampering may allow authentication bypasses)</em>.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Step-up authentication is used for carrying out sensitive actions in an application. <em>(Useful when a user&#8217;s device is stolen and they have already authenticated through the app)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Where offline access to data is needed, perform an account/application lockout and/or application data wipe after X number of invalid password attempts.</strong> <em>(Wipe application data when a threat is imminent)</em>.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Allow the user to see their current login sessions and allow them to logout of other sessions via the app. <em>(The end user will be able to detect rogue sessions with the most accuracy instead of using anomaly detection)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Perform a check at the start of each activity/screen to see if the user is in a logged in state and if not, switch to the login state.</strong> <em>(A session could expire during use or over time. Also check that the user has a role that allows them to access to certain app view).</em></p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Perform local integrity checks within the code to detect any unauthorized code changes before doing offline authentication <em>(Tampering may allow authentication bypasses)</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>When an application’s session is timed out, the application should discard and clear all memory associated with the user data, and any master keys used to decrypt the data.</strong> <em>(Prevent data leakage after the user is no longer in an active session with the server).</em></p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Store a masked user identifier instead of the actual username, and replace the user identifier value in authentication with a hash value.</strong> <em>(If a username/id is being used in the mobile app for identification purposes only (not for display in the UI), then consider sending a related mapped token to the mobile device instead.)</em>.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Implement Secure Password Recovery Mechanism</strong>. <em>(To allow a user to recover their account using security questions only they should know the answers too and sending a recovery code using a side channel such as SMS)</em>.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>

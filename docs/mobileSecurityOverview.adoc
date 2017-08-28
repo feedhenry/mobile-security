@@ -4,52 +4,48 @@
 |===
 |Do's |Dont's
 
-|*Perform Authentication on the Server Side* _(The client side should never be trusted)_.
-|*Use Fingerprint Scanner for Authentication* _(Possible False Positives)_
+|*Perform Authentication on the Server Side.* _(The client side should never be trusted)_.
+|*Use Fingerprint Scanner for Authentication.* _(Possible False Positives)_.
 
-|*Use Randomly Generated access tokens instead of sending user credentials in requests.* _(At worst, a temporary session token can therefore only be stolen)_
-|*Use Pattern Locks for Authentication* _(Lack of Entropy, Smudge Attacks)_
+|*Use Randomly Generated access tokens instead of sending user credentials in requests.* _(At worst, a temporary session token can therefore only be stolen)_.
+|*Use Pattern Locks for Authentication.* _(Lack of Entropy, Smudge Attacks)_.
 
 |*A password policy is enforced at the remote endpoint.* _(Prevent easily guessable passwords from being used)_.
-|*Use Pin code authentication* _(Easily brute forced and the end user may resuse the device security pin)_.
+|*Use Pin code authentication.* _(Easily brute forced and the end user may resuse the device security pin)_.
 
-|*Sessions are terminated at the remote endpoint after a predefined time.* _(Sessions token lifetimes should be kept short to limit the attack window if an valid session token is stolen)_
-|*Do not use any values for authenticating a user like device identifiers or geo-location* _(These can be spoofed easily)_.
+|*Sessions are terminated at the remote endpoint after a predefined time.* _(Sessions token lifetimes should be kept short to limit the attack window if an valid session token is stolen)_.
+|*Do not use any values for authenticating a user like device identifiers or geo-location.* _(These can be spoofed easily)_.
 
 |*Temporarily lock out a user after a number of failed login attempts.* _(Prevent an endless brute force attack)_.
-|*Avoid relying on any roles or permission information that comes from the mobile device itself* _(The client side and user input should not be trusted)_.
+|*Avoid relying on any roles or permission information that comes from the mobile device itself.* _(The client side and user input should not be trusted)_.
 
-|*Use contextual anomaly based detection to take into account the users IP, geographic location, time of day as part of the authentication phase.* _(Helps detect unusual login activity)_
-|
+|*Use contextual anomaly based detection to take into account the users IP, geographic location, time of day as part of the authentication phase.* _(Helps detect unusual login activity)_.
+|*Log user releated information.* _(Personal information data leak)_
 
-|*A second factor of authentication exists and is enforced.* _(Extra layer of protection in case another authentication factor has been compromised)_
-|
+|*A second factor of authentication exists and is enforced.* _(Extra layer of protection in case another authentication factor has been compromised)_.
+|*Fail authentication with a Generic Error.* _(The login screen should not show hints on the existence of a username/email address etc)_.
 
-|*Step-up authentication is used for carrying out sensitive actions in an application.* _(Useful when a user's device is stolen and they have already authenticated through the app)_
-|
+|*Step-up authentication is used for carrying out sensitive actions in an application.* _(Useful when a user's device is stolen and they have already authenticated through the app)_.
+|*Use OAuth1.0*. _(OAuth1.0 has been found to be vulnerable to session fixation. Use OAuth 1.0a or OAuth 2.0 instead)_.
 
-|*Allow the user to see their current login sessions and allow them to logout of other sessions via the app.* _(The end user will be able to detect rogue sessions with the most accuracy instead of using anomaly detection)_
-|
-
-|*Perform local integrity checks within the code to detect any unauthorized code changes before doing offline authentication* _(Tampering may allow authentication bypasses)_.
+|*Allow the user to see their current login sessions and allow them to logout of other sessions via the app.* _(The end user will be able to detect rogue sessions with the most accuracy instead of using anomaly detection)_.
 |
 
-|
-|
-
-|
+|*Perform local integrity checks within the code to detect any unauthorized code changes before doing offline authentication.* _(Tampering may allow authentication bypasses)_.
 |
 
-|
-|
-
-|
+|*Where offline access to data is needed, perform an account/application lockout and/or application data wipe after X number of invalid password attempts.* _(Wipe application data when a threat is imminent)_.
 |
 
-|
-|
-
-|
+|*Perform a check at the start of each activity/screen to see if the user is in a logged in state and if not, switch to the login state.* _(A session could expire during use or over time. Also check that the user has a role that allows them to access to certain app view)._
 |
 
+|*When an application’s session is timed out, the application should discard and clear all memory associated with the user data, and any master keys used to decrypt the data.* _(Prevent data leakage after the user is no longer in an active session with the server)._
+|
+
+|*Store a masked user identifier instead of the actual username, and replace the user identifier value in authentication with a hash value.* _(If a username/id is being used in the mobile app for identification purposes only (not for display in the UI), then consider sending a related mapped token to the mobile device instead.)_.
+|
+
+|*Implement Secure Password Recovery Mechanism*. _(To allow a user to recover their account using security questions only they should know the answers too and sending a recovery code using a side channel such as SMS)_.
+|
 |===
