@@ -1,0 +1,52 @@
+== Mobile App Self-Defence
+|===
+|Do's |Dont's
+
+|*Detect compromised environments (rooted/jaibreak) at runtime and react accordingly* _(Ensure the environment is not tampered with)_
+|*Obfuscation is not protection, assume everything in the code is public.* _(Application code *can* be deobfuscated)_
+
+|*Integrity check of the binary* _(Ensure the app itself is not tampered with)_
+|
+
+|*Verify and check the integrity of dynamic resources* _(Ensure those resources are not tampered with)_
+|
+
+|*Disable debugging in the application settings* _(Make sure the app is not debuggable)_
+|
+
+|*Check if the device is in developer mode if supported by platform* _(Prevent app debugging)_
+|
+
+|*Check if debugger is attached and/or if the process is being traced* _(Prevent app debugging)_
+|
+
+|*Check lockscreen/passcode is enabled on the device* _(Make sure device is secure)_
+|
+
+|*Consider blocking access if devices are out of date* _(Ensure device has no known vulnerabilities)_
+|
+
+|*Verify that the app implements two or more functionally independent methods of root detection.* _(Use a dual verification approach)_.
+|
+
+|*Verify that the app implements multiple functionally independent debugging defenses.* _(Prevent a debugger from being attached that can view app data)._
+|
+
+|*Verify that the app detects, and response to, being run in an emulator using any method.* _(An emulator can be tampered with more easily than a hardware device)_.
+|
+
+|*Verify that the app detects, and responds to, modifications of process memory, including relocation table patches and injected code.* _(Ensure that the operating environment of the App is safe before running it.)_
+|
+
+|*Verify all executable files and libraries belonging to the app are either encrypted on the file level and/or important code and data segments inside the executables are encrypted or packed.* _(Sensitive or secret code/resources should be protected.)_
+|
+
+|*Verify that the app implements a 'device binding' functionality when a mobile device is treated as being trusted. Verify that the device fingerprint is derived from multiple device properties.* _(Improve device identity/integrity)._
+|
+
+|*Verify that if the architecture requires sensitive computations be performed on the client-side, these computations are isolated from the operating system by using a hardware-based SE or TEE.* _(Sensitive operations should be carried out away from the main processor in a Trusted Execution Environment)._
+|
+
+|*Perform user interaction anomaly detection.* _(Allows the identificiation of abnormal app usage by a user that may be malicous)._
+|
+|===

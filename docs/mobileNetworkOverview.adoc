@@ -1,5 +1,3 @@
-= Mobile Security Recomendations Overview
-
 == Network Security
 |===
 |Do's |Dont's
