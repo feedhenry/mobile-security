@@ -1,0 +1,30 @@
+= Device Security Overview
+
+|===
+| Do's | Dont's
+
+| *Detect compromised environments (rooted/jaibreak) at runtime and react accordingly* _(Ensure the environment is not tampered with)_
+| 
+
+| *Integrity check of the binary* _(Ensure the app itself is not tampered with)_
+|
+
+| *Verify and check the integrity of dynamic resources* _(Ensure those resources are not tampered with)_
+|
+
+| *Disable debugging in the application settings* _(Make sure the app is not debuggable)_
+|
+
+| *Check if the device is in developer mode if supported by platform* _(Prevent app debugging)_
+|
+
+| *Check if debugger is attached and/or if the process is being traced* _(Prevent app debugging)_
+|
+
+| *Check lockscreen/passcode is enabled on the device* _(Make sure device is secure)_
+|
+
+| *Consider blocking access if devices are out of date* _(Ensure device has no known vulnerabilities)_
+|
+
+|===
