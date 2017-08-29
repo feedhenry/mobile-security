@@ -1,6 +1,5 @@
-= Mobile Security Recomendations Overview
+= Authentication & Session Management
 
-== Authentication & Session Management
 |===
 |Do's |Dont's
 
