@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.6.1">
+<meta name="generator" content="Asciidoctor 1.5.5">
 <title>Mobile Security</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -89,12 +89,13 @@ strong,b{font-weight:bold;line-height:inherit}
 small{font-size:60%;line-height:inherit}
 code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
 ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
-ul,ol{margin-left:1.5em}
+ul,ol,ul.no-bullet,ol.no-bullet{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
 ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
 ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
+ul.no-bullet{list-style:none}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -130,11 +131,7 @@ strong strong{font-weight:400}
 kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background-color:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
 .keyseq kbd:first-child{margin-left:0}
 .keyseq kbd:last-child{margin-right:0}
-.menuseq,.menuref{color:#000}
-.menuseq b:not(.caret),.menuref{font-weight:inherit}
-.menuseq{word-spacing:-.02em}
-.menuseq b.caret{font-size:1.25em;line-height:.8}
-.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+.menuseq,.menu{color:rgba(0,0,0,.8)}
 b.button:before,b.button:after{position:relative;top:-1px;font-weight:400}
 b.button:before{content:"[";padding:0 3px 0 2px}
 b.button:after{content:"]";padding:0 2px 0 3px}
@@ -201,7 +198,7 @@ table.tableblock>caption.title{white-space:nowrap;overflow:visible;max-width:0}
 table.tableblock #preamble>.sectionbody>.paragraph:first-of-type p{font-size:inherit}
 .admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
 .admonitionblock>table td.icon{text-align:center;width:80px}
-.admonitionblock>table td.icon img{max-width:initial}
+.admonitionblock>table td.icon img{max-width:none}
 .admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #ddddd8;color:rgba(0,0,0,.6)}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
@@ -257,13 +254,13 @@ table.pyhltable .linenodiv{background:none!important;padding-right:0!important}
 table.tableblock{max-width:100%;border-collapse:separate}
 table.tableblock td>.paragraph:last-child p>p:last-child,table.tableblock th>p:last-child,table.tableblock td>p:last-child{margin-bottom:0}
 table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
-table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
-table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
-table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
-table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px 0}
-table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0 0}
-table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
-table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
+table.grid-all th.tableblock,table.grid-all td.tableblock{border-width:0 1px 1px 0}
+table.grid-all tfoot>tr>th.tableblock,table.grid-all tfoot>tr>td.tableblock{border-width:1px 1px 0 0}
+table.grid-cols th.tableblock,table.grid-cols td.tableblock{border-width:0 1px 0 0}
+table.grid-all *>tr>.tableblock:last-child,table.grid-cols *>tr>.tableblock:last-child{border-right-width:0}
+table.grid-rows th.tableblock,table.grid-rows td.tableblock{border-width:0 0 1px 0}
+table.grid-all tbody>tr:last-child>th.tableblock,table.grid-all tbody>tr:last-child>td.tableblock,table.grid-all thead:last-child>tr>th.tableblock,table.grid-rows tbody>tr:last-child>th.tableblock,table.grid-rows tbody>tr:last-child>td.tableblock,table.grid-rows thead:last-child>tr>th.tableblock{border-bottom-width:0}
+table.grid-rows tfoot>tr>th.tableblock,table.grid-rows tfoot>tr>td.tableblock{border-width:1px 0 0 0}
 table.frame-all{border-width:1px}
 table.frame-sides{border-width:0 1px}
 table.frame-topbot{border-width:1px 0}
@@ -284,12 +281,10 @@ ul li ol{margin-left:1.5em}
 dl dd{margin-left:1.125em}
 dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
 ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
-ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
-ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
-ul.unstyled,ol.unstyled{margin-left:0}
-ul.checklist{margin-left:.625em}
-ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
-ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
+ul.unstyled,ol.unnumbered,ul.checklist,ul.none{list-style-type:none}
+ul.unstyled,ol.unnumbered,ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1em;font-size:.85em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{width:1em;position:relative;top:1px}
 ul.inline{margin:0 auto .625em auto;margin-left:-1.375em;margin-right:0;padding:0;list-style:none;overflow:hidden}
 ul.inline>li{list-style:none;float:left;margin-left:1.375em;display:block}
 ul.inline>li>*{display:block}
@@ -306,8 +301,7 @@ ol.lowergreek{list-style-type:lower-greek}
 td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
 td.hdlist1{font-weight:bold;padding-bottom:1.25em}
 .literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
-.colist>table tr>td:first-of-type{padding:.4em .75em 0 .75em;line-height:1;vertical-align:top}
-.colist>table tr>td:first-of-type img{max-width:initial}
+.colist>table tr>td:first-of-type{padding:0 .75em;line-height:1}
 .colist>table tr>td:last-of-type{padding:.25em 0}
 .thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
 .imageblock.left,.imageblock[style*="float: left"]{margin:.25em .625em 1.25em 0}
@@ -370,7 +364,6 @@ div.unbreakable{page-break-inside:avoid}
 .yellow{color:#bfbf00}
 .yellow-background{background-color:#fafa00}
 span.icon>.fa{cursor:default}
-a span.icon>.fa{cursor:inherit}
 .admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
 .admonitionblock td.icon .icon-note:before{content:"\f05a";color:#19407c}
 .admonitionblock td.icon .icon-tip:before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
@@ -434,168 +427,28 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#mobile_security_recomendations_overview">1. Mobile Security Recomendations Overview</a>
 <ul class="sectlevel2">
 <li><a href="#authentication_session_management">1.1. Authentication &amp; Session Management</a></li>
+<li><a href="#data_storage_summary">1.2. Data Storage Summary</a></li>
 </ul>
 </li>
-<li><a href="#owasp_top_10_mobile_risks">2. OWASP Top 10 Mobile Risks</a>
+<li><a href="#references">2. References</a>
 <ul class="sectlevel2">
-<li><a href="#m1_improper_platform_usage">2.1. M1 - Improper Platform Usage</a></li>
-<li><a href="#m2_insecure_data_storage">2.2. M2 - Insecure Data Storage</a></li>
-<li><a href="#m3_insecure_communication">2.3. M3 - Insecure Communication</a></li>
-<li><a href="#m4_insecure_authentication">2.4. M4 - Insecure Authentication</a></li>
-<li><a href="#m5_insufficient_cryptography">2.5. M5 - Insufficient Cryptography</a></li>
-<li><a href="#m6_insecure_authorization">2.6. M6 - Insecure Authorization</a></li>
-<li><a href="#m7_poor_code_quality">2.7. M7 - Poor Code Quality</a></li>
-<li><a href="#m8_code_tampering">2.8. M8 - Code Tampering</a></li>
-<li><a href="#m9_reverse_engineering">2.9. M9 - Reverse Engineering</a></li>
-<li><a href="#m10_extraneous_functionality">2.10. M10 - Extraneous Functionality</a></li>
-</ul>
-</li>
-<li><a href="#mobile_application_security_requirements">3. Mobile Application Security Requirements</a>
-<ul class="sectlevel2">
-<li><a href="#requirements_in_categories">3.1. Requirements in Categories</a></li>
-</ul>
-</li>
-<li><a href="#secure_mobile_development_guidelines">4. Secure Mobile Development Guidelines</a>
-<ul class="sectlevel2">
-<li><a href="#authentication_and_password_management">4.1. Authentication and Password Management</a></li>
-<li><a href="#communication_security">4.2. Communication Security</a></li>
-<li><a href="#data_storage_and_protection">4.3. Data Storage and Protection</a></li>
-<li><a href="#session_management">4.4. Session Management</a></li>
-<li><a href="#secure_the_backend_services_and_the_platform_server_and_apis">4.5. Secure the backend services and the platform server and APIs</a></li>
-<li><a href="#3rd_party_libraries">4.6. 3rd Party libraries</a></li>
-<li><a href="#consent_and_privacy_protection">4.7. Consent and privacy protection</a></li>
-<li><a href="#protect_paid_resources">4.8. Protect paid resources</a></li>
-<li><a href="#secure_software_distribution">4.9. Secure software distribution</a></li>
-<li><a href="#handle_runtime_code_interpretation_correctly">4.10. Handle runtime code interpretation correctly</a></li>
-<li><a href="#check_device_and_application_integrity">4.11. Check device and application integrity</a></li>
-<li><a href="#code_obfuscation">4.12. Code Obfuscation</a></li>
-<li><a href="#protect_the_application_from_client_side_injections">4.13. Protect the application from client side injections</a></li>
-<li><a href="#ensure_correct_usage_of_biometric_sensors_and_secure_hardware">4.14. Ensure correct usage of biometric sensors and secure hardware</a></li>
-</ul>
-</li>
-<li><a href="#owasp_cheat_sheet_series">5. OWASP Cheat Sheet Series</a>
-<ul class="sectlevel2">
-<li><a href="#cryptographic_requirements">5.1. Cryptographic Requirements</a></li>
-<li><a href="#certificate_pinning">5.2. Certificate Pinning</a></li>
-<li><a href="#jailbreaking">5.3. Jailbreaking</a></li>
-<li><a href="#mobile_testing">5.4. Mobile Testing</a></li>
-</ul>
-</li>
-<li><a href="#owasp_mobile_verification_standard">6. OWASP Mobile Verification Standard</a>
-<ul class="sectlevel2">
-<li><a href="#verification_levels">6.1. Verification Levels</a></li>
-<li><a href="#table_keys">6.2. Table Keys</a></li>
-<li><a href="#architecture_design_and_threat_modelling">6.3. Architecture, Design and Threat Modelling</a></li>
-<li><a href="#data_storage_and_privacy">6.4. Data Storage and Privacy</a></li>
-<li><a href="#cryptography">6.5. Cryptography</a></li>
-<li><a href="#authentication_and_session_management">6.6. Authentication and Session Management</a></li>
-<li><a href="#network_communication">6.7. Network Communication</a></li>
-<li><a href="#environmental_interaction">6.8. Environmental Interaction</a></li>
-<li><a href="#code_quality_and_build_settings">6.9. Code Quality and Build Settings</a></li>
-<li><a href="#resiliency_against_reverse_engineering_requirements">6.10. Resiliency Against Reverse Engineering Requirements</a></li>
-<li><a href="#other_mobile_vulnerabilities">6.11. Other Mobile Vulnerabilities</a></li>
-</ul>
-</li>
-<li><a href="#owasp_threat_model_project">7. OWASP Threat Model Project</a>
-<ul class="sectlevel2">
-<li><a href="#mobile_threat_model_overview">7.1. Mobile Threat Model Overview</a></li>
-<li><a href="#mobile_architecture">7.2. Mobile Architecture</a></li>
-<li><a href="#mobile_data">7.3. Mobile Data</a></li>
-<li><a href="#threat_agent_identification">7.4. Threat Agent Identification</a></li>
-</ul>
-</li>
-<li><a href="#owasp_m_tools">8. OWASP M-Tools</a>
-<ul class="sectlevel2">
-<li><a href="#imas">8.1. iMAS</a></li>
-<li><a href="#goatdroid">8.2. GoatDroid</a></li>
-<li><a href="#igoat">8.3. iGoat</a></li>
-<li><a href="#damn_vulnerable_ios_application">8.4. Damn Vulnerable iOS Application</a></li>
-<li><a href="#mobisec">8.5. MobiSec</a></li>
-<li><a href="#androick">8.6. Androick</a></li>
-<li><a href="#nowsecure_app_testing_community_edition">8.7. NowSecure App Testing Community Edition</a></li>
-<li><a href="#conclusion">8.8. Conclusion</a></li>
-</ul>
-</li>
-<li><a href="#ios_security_whitepaper">9. iOS Security Whitepaper</a>
-<ul class="sectlevel2">
-<li><a href="#system_security">9.1. System Security</a></li>
-<li><a href="#file_data_protection">9.2. File Data Protection</a></li>
-<li><a href="#app_security">9.3. App Security</a></li>
-<li><a href="#network_security">9.4. Network Security</a></li>
-</ul>
-</li>
-<li><a href="#android_security_guide">10. Android Security Guide</a>
-<ul class="sectlevel2">
-<li><a href="#kernel_security">10.1. Kernel Security</a></li>
-<li><a href="#application_security">10.2. Application Security</a></li>
-<li><a href="#authentication">10.3. Authentication</a></li>
-<li><a href="#keystore">10.4. Keystore</a></li>
-<li><a href="#trusted_execution_environment">10.5. Trusted Execution Environment</a></li>
-</ul>
-</li>
-<li><a href="#android_developer_security_guide">11. Android Developer Security Guide</a>
-<ul class="sectlevel2">
-<li><a href="#overview_2">11.1. Overview</a></li>
-<li><a href="#security_with_https_and_ssl">11.2. Security with HTTPS and SSL</a></li>
-<li><a href="#hostname_verification">11.3. Hostname verification</a></li>
-<li><a href="#warnings_about_using_sslsocket_directly">11.4. Warnings About Using SSLSocket Directly</a></li>
-<li><a href="#blacklisting">11.5. Blacklisting</a></li>
-<li><a href="#pinning">11.6. Pinning</a></li>
-<li><a href="#client_certificates">11.7. Client Certificates</a></li>
-<li><a href="#nogotofail_a_network_traffic_security_testing_tool">11.8. Nogotofail: A Network Traffic Security Testing Tool</a></li>
-</ul>
-</li>
-<li><a href="#cordova_security_guide">12. Cordova Security Guide</a>
-<ul class="sectlevel2">
-<li><a href="#whitelist">12.1. Whitelist</a></li>
-<li><a href="#iframes_calback_id_mechanism">12.2. Iframes &amp; Calback ID Mechanism</a></li>
-<li><a href="#certificate_pinning_2">12.3. Certificate Pinning</a></li>
-<li><a href="#self_signed_certificates">12.4. Self-signed Certificates</a></li>
-<li><a href="#encrypted_storage">12.5. Encrypted storage</a></li>
-<li><a href="#general_tips">12.6. General Tips</a></li>
-</ul>
-</li>
-<li><a href="#vetting_the_security_of_mobile_applications">13. Vetting the Security of Mobile Applications</a>
-<ul class="sectlevel2">
-<li><a href="#app_vetting_process">13.1. App Vetting Process</a></li>
-<li><a href="#app_testing">13.2. App Testing</a></li>
-<li><a href="#app_approval_rejection">13.3. App Approval/Rejection</a></li>
-</ul>
-</li>
-<li><a href="#niap_mobile_app_vetting">14. NIAP Mobile App Vetting</a>
-<ul class="sectlevel2">
-<li><a href="#security_functional_requirements">14.1. Security Functional Requirements</a></li>
-<li><a href="#security_assurance_requirements">14.2. Security Assurance Requirements</a></li>
-<li><a href="#selection_based_security_functional_requirements">14.3. Selection-Based Security Functional Requirements</a></li>
-<li><a href="#objective_security_functional_requirements">14.4. Objective Security Functional Requirements</a></li>
-<li><a href="#optional_security_functional_requirements">14.5. Optional Security Functional Requirements</a></li>
-</ul>
-</li>
-<li><a href="#dhs_study_on_mobile_device_security">15. DHS Study on Mobile Device Security</a>
-<ul class="sectlevel2">
-<li><a href="#mobile_security_threats_and_defenses">15.1. Mobile Security Threats and Defenses</a></li>
-</ul>
-</li>
-<li><a href="#guidelines_for_managing_the_security_of_mobile_devices_in_the_enterprise">16. Guidelines for Managing the Security of Mobile Devices in the Enterprise</a>
-<ul class="sectlevel2">
-<li><a href="#high_level_threats_and_vulnerabilities_for_mobile_devices">16.1. High-Level Threats and Vulnerabilities for Mobile Devices</a></li>
-<li><a href="#technologies_for_mobile_device_management">16.2. Technologies for Mobile Device Management</a></li>
-</ul>
-</li>
-<li><a href="#mobile_banking_applications_security_challenges">17. Mobile Banking Applications Security Challenges</a>
-<ul class="sectlevel2">
-<li><a href="#vulnerabilities_11">17.1. Vulnerabilities</a></li>
-</ul>
-</li>
-<li><a href="#secure_mobile_development_guide">18. Secure Mobile Development Guide</a>
-<ul class="sectlevel2">
-<li><a href="#coding_practices">18.1. CODING PRACTICES</a></li>
-<li><a href="#handling_sensitive_data">18.2. HANDLING SENSITIVE DATA</a></li>
-<li><a href="#caching_and_logging">18.3. CACHING AND LOGGING</a></li>
-<li><a href="#webviews">18.4. WEBVIEWS</a></li>
-<li><a href="#ios">18.5. IOS</a></li>
-<li><a href="#android">18.6. Android</a></li>
-<li><a href="#servers">18.7. Servers</a></li>
+<li><a href="#owasp_top_10_mobile_risks">2.1. OWASP Top 10 Mobile Risks</a></li>
+<li><a href="#mobile_application_security_requirements">2.2. Mobile Application Security Requirements</a></li>
+<li><a href="#secure_mobile_development_guidelines">2.3. Secure Mobile Development Guidelines</a></li>
+<li><a href="#owasp_cheat_sheet_series">2.4. OWASP Cheat Sheet Series</a></li>
+<li><a href="#owasp_mobile_verification_standard">2.5. OWASP Mobile Verification Standard</a></li>
+<li><a href="#owasp_threat_model_project">2.6. OWASP Threat Model Project</a></li>
+<li><a href="#owasp_m_tools">2.7. OWASP M-Tools</a></li>
+<li><a href="#ios_security_whitepaper">2.8. iOS Security Whitepaper</a></li>
+<li><a href="#android_security_guide">2.9. Android Security Guide</a></li>
+<li><a href="#android_developer_security_guide">2.10. Android Developer Security Guide</a></li>
+<li><a href="#cordova_security_guide">2.11. Cordova Security Guide</a></li>
+<li><a href="#vetting_the_security_of_mobile_applications">2.12. Vetting the Security of Mobile Applications</a></li>
+<li><a href="#niap_mobile_app_vetting">2.13. NIAP Mobile App Vetting</a></li>
+<li><a href="#dhs_study_on_mobile_device_security">2.14. DHS Study on Mobile Device Security</a></li>
+<li><a href="#guidelines_for_managing_the_security_of_mobile_devices_in_the_enterprise">2.15. Guidelines for Managing the Security of Mobile Devices in the Enterprise</a></li>
+<li><a href="#mobile_banking_applications_security_challenges">2.16. Mobile Banking Applications Security Challenges</a></li>
+<li><a href="#secure_mobile_development_guide">2.17. Secure Mobile Development Guide</a></li>
 </ul>
 </li>
 </ul>
@@ -686,8 +539,79 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Implement Secure Password Recovery Mechanism</strong>. <em>(To allow a user to recover their account using security questions only they should know the answers too and sending a recovery code using a side channel such as SMS)</em>.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="data_storage_summary">1.2. Data Storage Summary</h3>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Do&#8217;s</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dont&#8217;s</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Classify data storage according to sensitivity and apply controls accordingly</strong> <em>(To understand what information should be protected)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Store any sensitive data on a mobile device where possible</strong> <em>(Prevent data leak)</em>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>When storing sensitive data on the device, use a file encryption API provided by the OS or other trusted source</strong> <em>(Secure Cryptography)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Write data to persistent memory accessible to other applications without encryption</strong> <em>(Shared storage is untrusted)</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use file encryption API’s which use a secret key protected by the device unlock code and deletable on remote wipe if available</strong> <em>(Protect secret key)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Including the keys in the same attacker-readable directory as the encrypted content</strong> <em>(Can be used to decrypt data)</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Make use of remote wipe and kill switch APIs to remove sensitive information from the device in the event of theft or loss</strong> <em>(Prevent data leak if the device is lost)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Take screeenshots contain sensitive data</strong> <em>(Avoid sensitive data is exposed through screenshots)</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use a time based (expiry) type of control which will wipe sensitive data from the mobile device once the application has not communicated with its servers for a given period of time</strong> <em>(Less chance to decrypt data by using brute force)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Leak permission-protected data to other applications</strong> <em>(Prevent other apps access sensitive data)</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Automatic application shutdown and/or lockout after X minutes of inactivity</strong> <em>(Less chance of data leak)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Allow third party keyboards to be used for inputs that may contain sensitive data</strong> <em>(Prevent data leak)</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Verify that OS level storage encryption is enabled and the device is protected by a PIN or passphrase</strong> <em>(Ensure data encryption by default)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Backup or synchronize sensitive data</strong> <em>(Prevent data leak)</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Restrict the data that is shared with other applications</strong> <em>(Prevent other apps access sensitive data)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Log sensitive information</strong> <em>(Prevent data leak through logs)</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Nullify any variables that hold keys after use</strong> <em>(Secure keys in memory)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>using immutable objects for sensitive keys or passwords such as in Android java.lang.String and use char array instead</strong> <em>(Secure keys in memory)</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Restrict broadcast messages (e.g., Android Broadcast Intents) to authorized applications</strong> <em>(Prevent other apps access sensitive data)</em></p></td>
 <td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Disable Auto Correction and Autosuggestion for inputs that contain sensitive data</strong> <em>(Prevent data leak)</em></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Disable cut, copy and paste functionalities for inputs that may contain sensitive data or restrict the pasteboard to be accessible only from this application</strong> <em>(Prevent data leak)</em></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Delete application caches on app termination</strong> <em>(Prevent data leak)</em></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Clear cookies and data in Webview on app termination</strong> <em>(Prevent data leak)</em></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Remove sesitive data from views when in background</strong> <em>(Prevent data leak)</em></p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -696,15 +620,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="owasp_top_10_mobile_risks">2. OWASP Top 10 Mobile Risks</h2>
+<h2 id="references">2. References</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="owasp_top_10_mobile_risks">2.1. OWASP Top 10 Mobile Risks</h3>
 <div class="paragraph">
 <p>This is a summary of the <a href="https://www.owasp.org/index.php/OWASP_Mobile_Security_Project#tab=Top_10_Mobile_Risks">OWASP Top 10 Mobile Risks Project for 2017</a>.</p>
 </div>
-<div class="sect2">
-<h3 id="m1_improper_platform_usage">2.1. M1 - Improper Platform Usage</h3>
 <div class="sect3">
-<h4 id="threat_agents">2.1.1. Threat Agents</h4>
+<h4 id="m1_improper_platform_usage">2.1.1. M1 - Improper Platform Usage</h4>
+<div class="sect4">
+<h5 id="threat_agents">Threat Agents</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -713,8 +639,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="weekness">2.1.2. Weekness</h4>
+<div class="sect4">
+<h5 id="weekness">Weekness</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -726,8 +652,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="vulnerabilities">2.1.3. Vulnerabilities</h4>
+<div class="sect4">
+<h5 id="vulnerabilities">Vulnerabilities</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -742,8 +668,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="preventations">2.1.4. Preventations</h4>
+<div class="sect4">
+<h5 id="preventations">Preventations</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -753,10 +679,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="m2_insecure_data_storage">2.2. M2 - Insecure Data Storage</h3>
 <div class="sect3">
-<h4 id="threat_agents_2">2.2.1. Threat Agents</h4>
+<h4 id="m2_insecure_data_storage">2.1.2. M2 - Insecure Data Storage</h4>
+<div class="sect4">
+<h5 id="threat_agents_2">Threat Agents</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -768,8 +694,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="weekness_2">2.2.2. Weekness</h4>
+<div class="sect4">
+<h5 id="weekness_2">Weekness</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -784,8 +710,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="vulnerabilities_2">2.2.3. Vulnerabilities</h4>
+<div class="sect4">
+<h5 id="vulnerabilities_2">Vulnerabilities</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -838,8 +764,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="preventations_2">2.2.4. Preventations</h4>
+<div class="sect4">
+<h5 id="preventations_2">Preventations</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -880,10 +806,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="m3_insecure_communication">2.3. M3 - Insecure Communication</h3>
 <div class="sect3">
-<h4 id="threat_agents_3">2.3.1. Threat Agents</h4>
+<h4 id="m3_insecure_communication">2.1.3. M3 - Insecure Communication</h4>
+<div class="sect4">
+<h5 id="threat_agents_3">Threat Agents</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -898,8 +824,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="weekness_3">2.3.2. Weekness</h4>
+<div class="sect4">
+<h5 id="weekness_3">Weekness</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -914,8 +840,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="vulnerabilities_3">2.3.3. Vulnerabilities</h4>
+<div class="sect4">
+<h5 id="vulnerabilities_3">Vulnerabilities</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -951,8 +877,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="preventations_3">2.3.4. Preventations</h4>
+<div class="sect4">
+<h5 id="preventations_3">Preventations</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1031,10 +957,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="m4_insecure_authentication">2.4. M4 - Insecure Authentication</h3>
 <div class="sect3">
-<h4 id="threat_agents_4">2.4.1. Threat Agents</h4>
+<h4 id="m4_insecure_authentication">2.1.4. M4 - Insecure Authentication</h4>
+<div class="sect4">
+<h5 id="threat_agents_4">Threat Agents</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1043,8 +969,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="weekness_4">2.4.2. Weekness</h4>
+<div class="sect4">
+<h5 id="weekness_4">Weekness</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1059,8 +985,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="vulnerabilities_4">2.4.3. Vulnerabilities</h4>
+<div class="sect4">
+<h5 id="vulnerabilities_4">Vulnerabilities</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1078,8 +1004,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="preventations_4">2.4.4. Preventations</h4>
+<div class="sect4">
+<h5 id="preventations_4">Preventations</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1119,10 +1045,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="m5_insufficient_cryptography">2.5. M5 - Insufficient Cryptography</h3>
 <div class="sect3">
-<h4 id="threat_agents_5">2.5.1. Threat Agents</h4>
+<h4 id="m5_insufficient_cryptography">2.1.5. M5 - Insufficient Cryptography</h4>
+<div class="sect4">
+<h5 id="threat_agents_5">Threat Agents</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1134,8 +1060,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="weekness_5">2.5.2. Weekness</h4>
+<div class="sect4">
+<h5 id="weekness_5">Weekness</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1144,8 +1070,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="vulnerabilities_5">2.5.3. Vulnerabilities</h4>
+<div class="sect4">
+<h5 id="vulnerabilities_5">Vulnerabilities</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1198,8 +1124,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="preventations_5">2.5.4. Preventations</h4>
+<div class="sect4">
+<h5 id="preventations_5">Preventations</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1215,10 +1141,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="m6_insecure_authorization">2.6. M6 - Insecure Authorization</h3>
 <div class="sect3">
-<h4 id="threat_agents_6">2.6.1. Threat Agents</h4>
+<h4 id="m6_insecure_authorization">2.1.6. M6 - Insecure Authorization</h4>
+<div class="sect4">
+<h5 id="threat_agents_6">Threat Agents</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1227,8 +1153,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="weekness_6">2.6.2. Weekness</h4>
+<div class="sect4">
+<h5 id="weekness_6">Weekness</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1240,8 +1166,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="vulnerabilities_6">2.6.3. Vulnerabilities</h4>
+<div class="sect4">
+<h5 id="vulnerabilities_6">Vulnerabilities</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1256,8 +1182,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="preventations_6">2.6.4. Preventations</h4>
+<div class="sect4">
+<h5 id="preventations_6">Preventations</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1270,10 +1196,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="m7_poor_code_quality">2.7. M7 - Poor Code Quality</h3>
 <div class="sect3">
-<h4 id="threat_agents_7">2.7.1. Threat Agents</h4>
+<h4 id="m7_poor_code_quality">2.1.7. M7 - Poor Code Quality</h4>
+<div class="sect4">
+<h5 id="threat_agents_7">Threat Agents</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1285,8 +1211,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="weekness_7">2.7.2. Weekness</h4>
+<div class="sect4">
+<h5 id="weekness_7">Weekness</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1295,8 +1221,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="vulnerabilities_7">2.7.3. Vulnerabilities</h4>
+<div class="sect4">
+<h5 id="vulnerabilities_7">Vulnerabilities</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1305,8 +1231,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="preventations_7">2.7.4. Preventations</h4>
+<div class="sect4">
+<h5 id="preventations_7">Preventations</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1328,10 +1254,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="m8_code_tampering">2.8. M8 - Code Tampering</h3>
 <div class="sect3">
-<h4 id="threat_agents_8">2.8.1. Threat Agents</h4>
+<h4 id="m8_code_tampering">2.1.8. M8 - Code Tampering</h4>
+<div class="sect4">
+<h5 id="threat_agents_8">Threat Agents</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1343,8 +1269,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="weekness_8">2.8.2. Weekness</h4>
+<div class="sect4">
+<h5 id="weekness_8">Weekness</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1353,8 +1279,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="vulnerabilities_8">2.8.3. Vulnerabilities</h4>
+<div class="sect4">
+<h5 id="vulnerabilities_8">Vulnerabilities</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1366,8 +1292,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="preventations_8">2.8.4. Preventations</h4>
+<div class="sect4">
+<h5 id="preventations_8">Preventations</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1377,10 +1303,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="m9_reverse_engineering">2.9. M9 - Reverse Engineering</h3>
 <div class="sect3">
-<h4 id="threat_agents_9">2.9.1. Threat Agents</h4>
+<h4 id="m9_reverse_engineering">2.1.9. M9 - Reverse Engineering</h4>
+<div class="sect4">
+<h5 id="threat_agents_9">Threat Agents</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1408,8 +1334,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="weekness_9">2.9.2. Weekness</h4>
+<div class="sect4">
+<h5 id="weekness_9">Weekness</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1418,8 +1344,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="vulnerabilities_9">2.9.3. Vulnerabilities</h4>
+<div class="sect4">
+<h5 id="vulnerabilities_9">Vulnerabilities</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1444,8 +1370,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="preventations_9">2.9.4. Preventations</h4>
+<div class="sect4">
+<h5 id="preventations_9">Preventations</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1455,10 +1381,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="m10_extraneous_functionality">2.10. M10 - Extraneous Functionality</h3>
 <div class="sect3">
-<h4 id="threat_agents_10">2.10.1. Threat Agents</h4>
+<h4 id="m10_extraneous_functionality">2.1.10. M10 - Extraneous Functionality</h4>
+<div class="sect4">
+<h5 id="threat_agents_10">Threat Agents</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1467,8 +1393,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="weekness_10">2.10.2. Weekness</h4>
+<div class="sect4">
+<h5 id="weekness_10">Weekness</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1480,8 +1406,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="vulnerabilities_10">2.10.3. Vulnerabilities</h4>
+<div class="sect4">
+<h5 id="vulnerabilities_10">Vulnerabilities</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1493,8 +1419,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="preventations_10">2.10.4. Preventations</h4>
+<div class="sect4">
+<h5 id="preventations_10">Preventations</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1514,20 +1440,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="mobile_application_security_requirements">3. Mobile Application Security Requirements</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="mobile_application_security_requirements">2.2. Mobile Application Security Requirements</h3>
 <div class="paragraph">
 <p>This is a review this the <a href="https://www.stigviewer.com/stig/mobile_application_security_requirements_guide/">Mobile Application Security Requirements</a>.</p>
 </div>
-<div class="sect2">
-<h3 id="requirements_in_categories">3.1. Requirements in Categories</h3>
+<div class="sect3">
+<h4 id="requirements_in_categories">2.2.1. Requirements in Categories</h4>
 <div class="paragraph">
 <p>The requirements can be grouped in the following categories</p>
 </div>
-<div class="sect3">
-<h4 id="design_high_level_requirement">3.1.1. Design &amp; High Level Requirement</h4>
+<div class="sect4">
+<h5 id="design_high_level_requirement">Design &amp; High Level Requirement</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1545,8 +1469,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="authentication_authorisation">3.1.2. Authentication &amp; Authorisation</h4>
+<div class="sect4">
+<h5 id="authentication_authorisation">Authentication &amp; Authorisation</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1561,8 +1485,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="secure_data_storage">3.1.3. Secure Data Storage</h4>
+<div class="sect4">
+<h5 id="secure_data_storage">Secure Data Storage</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1583,8 +1507,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="secure_network_communication">3.1.4. Secure Network Communication</h4>
+<div class="sect4">
+<h5 id="secure_network_communication">Secure Network Communication</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1599,8 +1523,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="trusted_third_party_libaries">3.1.5. Trusted Third-party libaries</h4>
+<div class="sect4">
+<h5 id="trusted_third_party_libaries">Trusted Third-party libaries</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1612,8 +1536,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="interaction_with_os_other_apps">3.1.6. Interaction with OS/Other Apps</h4>
+<div class="sect4">
+<h5 id="interaction_with_os_other_apps">Interaction with OS/Other Apps</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1637,8 +1561,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="safe_app_memory_management">3.1.7. Safe App Memory Management</h4>
+<div class="sect4">
+<h5 id="safe_app_memory_management">Safe App Memory Management</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1653,8 +1577,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="secure_cryptography">3.1.8. Secure Cryptography</h4>
+<div class="sect4">
+<h5 id="secure_cryptography">Secure Cryptography</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1678,8 +1602,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="references_to_external_resources">3.1.9. References to External Resources</h4>
+<div class="sect4">
+<h5 id="references_to_external_resources">References to External Resources</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1691,8 +1615,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="code_signing">3.1.10. Code Signing</h4>
+<div class="sect4">
+<h5 id="code_signing">Code Signing</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1703,10 +1627,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="secure_mobile_development_guidelines">4. Secure Mobile Development Guidelines</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="secure_mobile_development_guidelines">2.3. Secure Mobile Development Guidelines</h3>
 <div class="paragraph">
 <p>This is a summary of how to develop secure mobile applications. It is generated based on the contents form the following sources:</p>
 </div>
@@ -1723,8 +1645,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </div>
-<div class="sect2">
-<h3 id="authentication_and_password_management">4.1. Authentication and Password Management</h3>
+<div class="sect3">
+<h4 id="authentication_and_password_management">2.3.1. Authentication and Password Management</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1775,8 +1697,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="communication_security">4.2. Communication Security</h3>
+<div class="sect3">
+<h4 id="communication_security">2.3.2. Communication Security</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1812,8 +1734,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="data_storage_and_protection">4.3. Data Storage and Protection</h3>
+<div class="sect3">
+<h4 id="data_storage_and_protection">2.3.3. Data Storage and Protection</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1939,8 +1861,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="session_management">4.4. Session Management</h3>
+<div class="sect3">
+<h4 id="session_management">2.3.4. Session Management</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1970,8 +1892,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="secure_the_backend_services_and_the_platform_server_and_apis">4.5. Secure the backend services and the platform server and APIs</h3>
+<div class="sect3">
+<h4 id="secure_the_backend_services_and_the_platform_server_and_apis">2.3.5. Secure the backend services and the platform server and APIs</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1998,8 +1920,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="3rd_party_libraries">4.6. 3rd Party libraries</h3>
+<div class="sect3">
+<h4 id="3rd_party_libraries">2.3.6. 3rd Party libraries</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2020,8 +1942,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="consent_and_privacy_protection">4.7. Consent and privacy protection</h3>
+<div class="sect3">
+<h4 id="consent_and_privacy_protection">2.3.7. Consent and privacy protection</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2085,8 +2007,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="protect_paid_resources">4.8. Protect paid resources</h3>
+<div class="sect3">
+<h4 id="protect_paid_resources">2.3.8. Protect paid resources</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2117,8 +2039,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="secure_software_distribution">4.9. Secure software distribution</h3>
+<div class="sect3">
+<h4 id="secure_software_distribution">2.3.9. Secure software distribution</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2148,8 +2070,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="handle_runtime_code_interpretation_correctly">4.10. Handle runtime code interpretation correctly</h3>
+<div class="sect3">
+<h4 id="handle_runtime_code_interpretation_correctly">2.3.10. Handle runtime code interpretation correctly</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2173,8 +2095,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="check_device_and_application_integrity">4.11. Check device and application integrity</h3>
+<div class="sect3">
+<h4 id="check_device_and_application_integrity">2.3.11. Check device and application integrity</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2202,8 +2124,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="code_obfuscation">4.12. Code Obfuscation</h3>
+<div class="sect3">
+<h4 id="code_obfuscation">2.3.12. Code Obfuscation</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2218,8 +2140,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="protect_the_application_from_client_side_injections">4.13. Protect the application from client side injections</h3>
+<div class="sect3">
+<h4 id="protect_the_application_from_client_side_injections">2.3.13. Protect the application from client side injections</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2273,8 +2195,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="ensure_correct_usage_of_biometric_sensors_and_secure_hardware">4.14. Ensure correct usage of biometric sensors and secure hardware</h3>
+<div class="sect3">
+<h4 id="ensure_correct_usage_of_biometric_sensors_and_secure_hardware">2.3.14. Ensure correct usage of biometric sensors and secure hardware</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2308,15 +2230,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="owasp_cheat_sheet_series">5. OWASP Cheat Sheet Series</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="owasp_cheat_sheet_series">2.4. OWASP Cheat Sheet Series</h3>
 <div class="paragraph">
 <p>This is a summary of notes taken from the <a href="https://www.owasp.org/index.php/OWASP_Cheat_">OWASP Cheat Sheet Series</a></p>
 </div>
-<div class="sect2">
-<h3 id="cryptographic_requirements">5.1. Cryptographic Requirements</h3>
+<div class="sect3">
+<h4 id="cryptographic_requirements">2.4.1. Cryptographic Requirements</h4>
 <div class="paragraph">
 <p>The recommended minimal key lengths and algorithms by OWASP are outlined below.</p>
 </div>
@@ -2353,32 +2273,32 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tbody>
 </table>
 </div>
-<div class="sect2">
-<h3 id="certificate_pinning">5.2. Certificate Pinning</h3>
+<div class="sect3">
+<h4 id="certificate_pinning">2.4.2. Certificate Pinning</h4>
 <div class="paragraph">
 <p>Pinning is the process of associating a host with their expected X509 certificate or public key.
 Once a certificate or public key is known or seen for a host, the certificate or public key is associated or 'pinned' to the host. If more than one certificate or public key is acceptable, then the program holds a pinset. In this case, the advertised identity must match one of the elements in the pinset.</p>
 </div>
-<div class="sect3">
-<h4 id="pinning_methods">5.2.1. Pinning Methods</h4>
+<div class="sect4">
+<h5 id="pinning_methods">Pinning Methods</h5>
 <div class="paragraph">
 <p>There are a number of ways you can pin the certificate to the client: the whole certificate, the public key of the certificate or a hash of the information.</p>
 </div>
-<div class="sect4">
-<h5 id="certificate">Certificate</h5>
+<div class="sect5">
+<h6 id="certificate">Certificate</h6>
 <div class="paragraph">
 <p>The certificate is the easiest to pin to the client. However, one of the main downsides is having to update the app with a new certificate every time the cert expires, cert rotation or a CA is compromised.</p>
 </div>
 </div>
-<div class="sect4">
-<h5 id="public_key">Public Key</h5>
+<div class="sect5">
+<h6 id="public_key">Public Key</h6>
 <div class="paragraph">
 <p>Public key pinning is more flexible. As with a certificate, the program checks the extracted public key with its embedded copy of the public key. This will mean that if a cert is rotated or expires, and the public key doesn&#8217;t change in the process, you don&#8217;t need to update your applications with new certificates, as we are only concerned with a public key.
 There are some extra steps necessary to extract the public key from a certificate and as the key is static and may violate key rotation policies.</p>
 </div>
 </div>
-<div class="sect4">
-<h5 id="hpkp_http_public_key_pinning">HPKP (HTTP Public Key Pinning)</h5>
+<div class="sect5">
+<h6 id="hpkp_http_public_key_pinning">HPKP (HTTP Public Key Pinning)</h6>
 <div class="paragraph">
 <p>With HPKP, a number of public keys are pinned on the server. When a client visits the website for the first time, the client will store these pins.
 On every future visit to the website, the client will make sure the public keys match the ones that they have stored locally. If the keys don&#8217;t match, it could mean that the CA was compromised or the keys have been rotated.
@@ -2426,20 +2346,20 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="trustkit">5.2.2. TrustKit</h4>
+<div class="sect4">
+<h5 id="trustkit">TrustKit</h5>
 <div class="paragraph">
 <p><a href="https://github.com/datatheorem/TrustKit">TrustKit</a> for iOS and <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit-Android</a> for Android allow SSL pinning for native mobile apps.</p>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="jailbreaking">5.3. Jailbreaking</h3>
+<div class="sect3">
+<h4 id="jailbreaking">2.4.3. Jailbreaking</h4>
 <div class="paragraph">
 <p>Jailbreaking or rooting is the process of gaining unauthorized access or elevated privileges on a system.</p>
 </div>
-<div class="sect3">
-<h4 id="detecting_jailbreak">5.3.1. Detecting Jailbreak</h4>
+<div class="sect4">
+<h5 id="detecting_jailbreak">Detecting Jailbreak</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -2458,8 +2378,8 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="mobile_testing">5.4. Mobile Testing</h3>
+<div class="sect3">
+<h4 id="mobile_testing">2.4.4. Mobile Testing</h4>
 <div class="paragraph">
 <p>The OWASP cheat sheet series also provides in-depth guides on how to analyse a mobile app for security risks.</p>
 </div>
@@ -2475,15 +2395,13 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="owasp_mobile_verification_standard">6. OWASP Mobile Verification Standard</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="owasp_mobile_verification_standard">2.5. OWASP Mobile Verification Standard</h3>
 <div class="paragraph">
 <p>This is a fork of the <a href="https://www.owasp.org/images/f/fe/MASVS_v0.9.3.pdf">OWASP Mobile Verification Standard</a>.</p>
 </div>
-<div class="sect2">
-<h3 id="verification_levels">6.1. Verification Levels</h3>
+<div class="sect3">
+<h4 id="verification_levels">2.5.1. Verification Levels</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2528,8 +2446,8 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="table_keys">6.2. Table Keys</h3>
+<div class="sect3">
+<h4 id="table_keys">2.5.2. Table Keys</h4>
 <div class="paragraph">
 <p><em>Category</em> - The type of work required for each item. Some enhancements have been made.</p>
 </div>
@@ -2556,8 +2474,8 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <p><em>OS/Framework Columns</em> - A column is allocated for each Mobile OS/Framework for any specific details for each item.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="architecture_design_and_threat_modelling">6.3. Architecture, Design and Threat Modelling</h3>
+<div class="sect3">
+<h4 id="architecture_design_and_threat_modelling">2.5.3. Architecture, Design and Threat Modelling</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 12.5%;">
@@ -2715,8 +2633,8 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </tbody>
 </table>
 </div>
-<div class="sect2">
-<h3 id="data_storage_and_privacy">6.4. Data Storage and Privacy</h3>
+<div class="sect3">
+<h4 id="data_storage_and_privacy">2.5.4. Data Storage and Privacy</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 12.5%;">
@@ -2864,8 +2782,8 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </tbody>
 </table>
 </div>
-<div class="sect2">
-<h3 id="cryptography">6.5. Cryptography</h3>
+<div class="sect3">
+<h4 id="cryptography">2.5.5. Cryptography</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 12.5%;">
@@ -2953,8 +2871,8 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </tbody>
 </table>
 </div>
-<div class="sect2">
-<h3 id="authentication_and_session_management">6.6. Authentication and Session Management</h3>
+<div class="sect3">
+<h4 id="authentication_and_session_management">2.5.6. Authentication and Session Management</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 12.5%;">
@@ -3082,8 +3000,8 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </tbody>
 </table>
 </div>
-<div class="sect2">
-<h3 id="network_communication">6.7. Network Communication</h3>
+<div class="sect3">
+<h4 id="network_communication">2.5.7. Network Communication</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 12.5%;">
@@ -3171,8 +3089,8 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </tbody>
 </table>
 </div>
-<div class="sect2">
-<h3 id="environmental_interaction">6.8. Environmental Interaction</h3>
+<div class="sect3">
+<h4 id="environmental_interaction">2.5.8. Environmental Interaction</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 12.5%;">
@@ -3300,8 +3218,8 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </tbody>
 </table>
 </div>
-<div class="sect2">
-<h3 id="code_quality_and_build_settings">6.9. Code Quality and Build Settings</h3>
+<div class="sect3">
+<h4 id="code_quality_and_build_settings">2.5.9. Code Quality and Build Settings</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 12.5%;">
@@ -3409,8 +3327,8 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </tbody>
 </table>
 </div>
-<div class="sect2">
-<h3 id="resiliency_against_reverse_engineering_requirements">6.10. Resiliency Against Reverse Engineering Requirements</h3>
+<div class="sect3">
+<h4 id="resiliency_against_reverse_engineering_requirements">2.5.10. Resiliency Against Reverse Engineering Requirements</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 12.5%;">
@@ -3568,8 +3486,8 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </tbody>
 </table>
 </div>
-<div class="sect2">
-<h3 id="other_mobile_vulnerabilities">6.11. Other Mobile Vulnerabilities</h3>
+<div class="sect3">
+<h4 id="other_mobile_vulnerabilities">2.5.11. Other Mobile Vulnerabilities</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 14.2857%;">
@@ -3614,15 +3532,13 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </table>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="owasp_threat_model_project">7. OWASP Threat Model Project</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="owasp_threat_model_project">2.6. OWASP Threat Model Project</h3>
 <div class="paragraph">
 <p>This is a summary of notes taken from the <a href="https://www.owasp.org/index.php/OWASP_Mobile_Security_Project#tab=M-Threat_Model_Project">OWASP Threat Model Project</a>.</p>
 </div>
-<div class="sect2">
-<h3 id="mobile_threat_model_overview">7.1. Mobile Threat Model Overview</h3>
+<div class="sect3">
+<h4 id="mobile_threat_model_overview">2.6.1. Mobile Threat Model Overview</h4>
 <div class="paragraph">
 <p>To carry out threat modelling, you will need to have a clear understanding of the underlying system. Its important to define the following areas to understand possible threat to the mobile application.</p>
 </div>
@@ -3662,8 +3578,8 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="mobile_architecture">7.2. Mobile Architecture</h3>
+<div class="sect3">
+<h4 id="mobile_architecture">2.6.2. Mobile Architecture</h4>
 <div class="paragraph">
 <p>The mobile application architecture should, at the very least, describe device specific features used by the application such as:</p>
 </div>
@@ -3709,8 +3625,8 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="mobile_data">7.3. Mobile Data</h3>
+<div class="sect3">
+<h4 id="mobile_data">2.6.3. Mobile Data</h4>
 <div class="paragraph">
 <p>Its important to know what purpose does the app serve from a business perspective and what data the app stores, transmits and receives.
 It’s also important to review data flow diagrams to determine exactly how data in the mobile app is handled.</p>
@@ -3750,13 +3666,13 @@ It’s also important to review data flow diagrams to determine exactly how data
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="threat_agent_identification">7.4. Threat Agent Identification</h3>
+<div class="sect3">
+<h4 id="threat_agent_identification">2.6.4. Threat Agent Identification</h4>
 <div class="paragraph">
 <p>This area covers what the threats to the mobile application are and who are the threat agents.</p>
 </div>
-<div class="sect3">
-<h4 id="identifying_threat_agents">7.4.1. Identifying Threat Agents</h4>
+<div class="sect4">
+<h5 id="identifying_threat_agents">Identifying Threat Agents</h5>
 <div class="paragraph">
 <p>The process of identifying a threat agent is very simple and have been mentioned in the below steps:</p>
 </div>
@@ -3774,10 +3690,10 @@ It’s also important to review data flow diagrams to determine exactly how data
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="listing_of_threat_agents_by_category">7.4.2. Listing of Threat Agents - By Category</h4>
 <div class="sect4">
-<h5 id="human_interaction_examples">Human Interaction Examples</h5>
+<h5 id="listing_of_threat_agents_by_category">Listing of Threat Agents - By Category</h5>
+<div class="sect5">
+<h6 id="human_interaction_examples">Human Interaction Examples</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -3801,8 +3717,8 @@ It’s also important to review data flow diagrams to determine exactly how data
 </ul>
 </div>
 </div>
-<div class="sect4">
-<h5 id="automated_programs_examples">Automated Programs Examples</h5>
+<div class="sect5">
+<h6 id="automated_programs_examples">Automated Programs Examples</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -3821,14 +3737,14 @@ It’s also important to review data flow diagrams to determine exactly how data
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="methods_of_attack">7.4.3. Methods of Attack</h4>
+<div class="sect4">
+<h5 id="methods_of_attack">Methods of Attack</h5>
 <div class="paragraph">
 <p>We should observe and list the different methods an attacker can use to reach the data.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="controls">7.4.4. Controls</h4>
+<div class="sect4">
+<h5 id="controls">Controls</h5>
 <div class="paragraph">
 <p>Given the above methods of attacks, we should outline some contols to:</p>
 </div>
@@ -3851,15 +3767,13 @@ It’s also important to review data flow diagrams to determine exactly how data
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="owasp_m_tools">8. OWASP M-Tools</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="owasp_m_tools">2.7. OWASP M-Tools</h3>
 <div class="paragraph">
 <p>This is a summary of the tools that are described in <a href="https://www.owasp.org/index.php/OWASP_Mobile_Security_Project#tab=M-Tools">OWASP Mobile Security M Tools</a> page.</p>
 </div>
-<div class="sect2">
-<h3 id="imas">8.1. iMAS</h3>
+<div class="sect3">
+<h4 id="imas">2.7.1. iMAS</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -3954,15 +3868,15 @@ It’s also important to review data flow diagrams to determine exactly how data
 </li>
 </ul>
 </div>
-<div class="sect3">
-<h4 id="comment">8.1.1. Comment</h4>
+<div class="sect4">
+<h5 id="comment">Comment</h5>
 <div class="paragraph">
 <p>Although most of the modules are about 3-4 years old, I think the modules are still highly recommended and we should take a look when we implement some of the features.</p>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="goatdroid">8.2. GoatDroid</h3>
+<div class="sect3">
+<h4 id="goatdroid">2.7.2. GoatDroid</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -3987,8 +3901,8 @@ It’s also important to review data flow diagrams to determine exactly how data
 </li>
 </ul>
 </div>
-<div class="sect3">
-<h4 id="comment_2">8.2.1. Comment</h4>
+<div class="sect4">
+<h5 id="comment_2">Comment</h5>
 <div class="paragraph">
 <p>Looks promising, however, looks like the apps are not being maintained for the last 4 years and there are many issues being opened to complain the apps are not working anymore.</p>
 </div>
@@ -3997,8 +3911,8 @@ It’s also important to review data flow diagrams to determine exactly how data
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="igoat">8.3. iGoat</h3>
+<div class="sect3">
+<h4 id="igoat">2.7.3. iGoat</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -4023,8 +3937,8 @@ It’s also important to review data flow diagrams to determine exactly how data
 </li>
 </ul>
 </div>
-<div class="sect3">
-<h4 id="comment_3">8.3.1. Comment</h4>
+<div class="sect4">
+<h5 id="comment_3">Comment</h5>
 <div class="paragraph">
 <p>Doesn&#8217;t look like the app is being maintained, and doesn&#8217;t appear to work with the latest version of iOS.</p>
 </div>
@@ -4033,8 +3947,8 @@ It’s also important to review data flow diagrams to determine exactly how data
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="damn_vulnerable_ios_application">8.4. Damn Vulnerable iOS Application</h3>
+<div class="sect3">
+<h4 id="damn_vulnerable_ios_application">2.7.4. Damn Vulnerable iOS Application</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -4062,16 +3976,16 @@ It’s also important to review data flow diagrams to determine exactly how data
 </li>
 </ul>
 </div>
-<div class="sect3">
-<h4 id="comment_4">8.4.1. Comment</h4>
+<div class="sect4">
+<h5 id="comment_4">Comment</h5>
 <div class="paragraph">
 <p>Looks much better than iGoat.
 Especially the websit has a "Learn" section provides a series of very good blog posts about iOS security.</p>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="mobisec">8.5. MobiSec</h3>
+<div class="sect3">
+<h4 id="mobisec">2.7.5. MobiSec</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -4089,15 +4003,15 @@ Especially the websit has a "Learn" section provides a series of very good blog 
 </li>
 </ul>
 </div>
-<div class="sect3">
-<h4 id="comment_5">8.5.1. Comment</h4>
+<div class="sect4">
+<h5 id="comment_5">Comment</h5>
 <div class="paragraph">
 <p>The last release was about 5 years ago. Doesn&#8217;t looks like it&#8217;s being maintained properly.</p>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="androick">8.6. Androick</h3>
+<div class="sect3">
+<h4 id="androick">2.7.6. Androick</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -4122,15 +4036,15 @@ Especially the websit has a "Learn" section provides a series of very good blog 
 </li>
 </ul>
 </div>
-<div class="sect3">
-<h4 id="comment_6">8.6.1. Comment</h4>
+<div class="sect4">
+<h5 id="comment_6">Comment</h5>
 <div class="paragraph">
 <p>A nice small tool that could be useful to get all the app files from an Android device.</p>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="nowsecure_app_testing_community_edition">8.7. NowSecure App Testing Community Edition</h3>
+<div class="sect3">
+<h4 id="nowsecure_app_testing_community_edition">2.7.7. NowSecure App Testing Community Edition</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -4195,8 +4109,8 @@ Especially the websit has a "Learn" section provides a series of very good blog 
 </li>
 </ul>
 </div>
-<div class="sect3">
-<h4 id="comment_7">8.7.1. Comment</h4>
+<div class="sect4">
+<h5 id="comment_7">Comment</h5>
 <div class="paragraph">
 <p>The tools are very useful. We should try them.</p>
 </div>
@@ -4218,8 +4132,8 @@ Especially the websit has a "Learn" section provides a series of very good blog 
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="conclusion">8.8. Conclusion</h3>
+<div class="sect3">
+<h4 id="conclusion">2.7.8. Conclusion</h4>
 <div class="paragraph">
 <p>I think the tools we should try are:</p>
 </div>
@@ -4271,23 +4185,21 @@ Especially the websit has a "Learn" section provides a series of very good blog 
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="ios_security_whitepaper">9. iOS Security Whitepaper</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="ios_security_whitepaper">2.8. iOS Security Whitepaper</h3>
 <div class="paragraph">
 <p>This is a summary of the <a href="https://www.apple.com/business/docs/iOS_Security_Guide.pdf">iOS security whitepaper</a>.</p>
 </div>
-<div class="sect2">
-<h3 id="system_security">9.1. System Security</h3>
 <div class="sect3">
-<h4 id="secure_boot_chain">9.1.1. Secure boot chain</h4>
+<h4 id="system_security">2.8.1. System Security</h4>
+<div class="sect4">
+<h5 id="secure_boot_chain">Secure boot chain</h5>
 <div class="paragraph">
 <p>Each step of the startup process contains components that are cryptographically signed by Apple to ensure integrity and that proceed only after verifying the chain of trust.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="system_software_authorization">9.1.2. System Software Authorization</h4>
+<div class="sect4">
+<h5 id="system_software_authorization">System Software Authorization</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -4305,8 +4217,8 @@ By authorizing and signing only for known measurements, the server ensures that 
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="secure_enclave">9.1.3. Secure Enclave</h4>
+<div class="sect4">
+<h5 id="secure_enclave">Secure Enclave</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -4324,8 +4236,8 @@ By authorizing and signing only for known measurements, the server ensures that 
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="touchid">9.1.4. TouchId</h4>
+<div class="sect4">
+<h5 id="touchid">TouchId</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -4338,10 +4250,10 @@ By authorizing and signing only for known measurements, the server ensures that 
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="file_data_protection">9.2. File Data Protection</h3>
 <div class="sect3">
-<h4 id="overview">9.2.1. Overview</h4>
+<h4 id="file_data_protection">2.8.2. File Data Protection</h4>
+<div class="sect4">
+<h5 id="overview">Overview</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -4353,8 +4265,8 @@ By authorizing and signing only for known measurements, the server ensures that 
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="passcode">9.2.2. Passcode</h4>
+<div class="sect4">
+<h5 id="passcode">Passcode</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -4369,8 +4281,8 @@ By authorizing and signing only for known measurements, the server ensures that 
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="data_protection_classes">9.2.3. Data Protection classes</h4>
+<div class="sect4">
+<h5 id="data_protection_classes">Data Protection classes</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -4412,8 +4324,8 @@ By authorizing and signing only for known measurements, the server ensures that 
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="keychain_data_protection">9.2.4. Keychain Data Protection</h4>
+<div class="sect4">
+<h5 id="keychain_data_protection">Keychain Data Protection</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -4453,8 +4365,8 @@ By authorizing and signing only for known measurements, the server ensures that 
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="access_to_safari_saved_passwords">9.2.5. Access to Safari saved passwords</h4>
+<div class="sect4">
+<h5 id="access_to_safari_saved_passwords">Access to Safari saved passwords</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -4476,8 +4388,8 @@ By authorizing and signing only for known measurements, the server ensures that 
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="keybags">9.2.6. Keybags</h4>
+<div class="sect4">
+<h5 id="keybags">Keybags</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -4550,10 +4462,10 @@ By authorizing and signing only for known measurements, the server ensures that 
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="app_security">9.3. App Security</h3>
 <div class="sect3">
-<h4 id="app_code_signing">9.3.1. App code signing</h4>
+<h4 id="app_security">2.8.3. App Security</h4>
+<div class="sect4">
+<h5 id="app_code_signing">App code signing</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -4568,8 +4480,8 @@ By authorizing and signing only for known measurements, the server ensures that 
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="runtime_process_security">9.3.2. Runtime process security</h4>
+<div class="sect4">
+<h5 id="runtime_process_security">Runtime process security</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -4590,8 +4502,8 @@ By authorizing and signing only for known measurements, the server ensures that 
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="extensions">9.3.3. Extensions</h4>
+<div class="sect4">
+<h5 id="extensions">Extensions</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -4622,8 +4534,8 @@ By authorizing and signing only for known measurements, the server ensures that 
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="app_groups">9.3.4. App Groups</h4>
+<div class="sect4">
+<h5 id="app_groups">App Groups</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -4648,8 +4560,8 @@ By authorizing and signing only for known measurements, the server ensures that 
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="data_protection_in_apps">9.3.5. Data Protection in apps</h4>
+<div class="sect4">
+<h5 id="data_protection_in_apps">Data Protection in apps</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -4661,8 +4573,8 @@ By authorizing and signing only for known measurements, the server ensures that 
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="accessories">9.3.6. Accessories</h4>
+<div class="sect4">
+<h5 id="accessories">Accessories</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -4677,8 +4589,8 @@ By authorizing and signing only for known measurements, the server ensures that 
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="homekit">9.3.7. Homekit</h4>
+<div class="sect4">
+<h5 id="homekit">Homekit</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -4703,8 +4615,8 @@ By authorizing and signing only for known measurements, the server ensures that 
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="healthkit">9.3.8. HealthKit</h4>
+<div class="sect4">
+<h5 id="healthkit">HealthKit</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -4723,10 +4635,10 @@ By authorizing and signing only for known measurements, the server ensures that 
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="network_security">9.4. Network Security</h3>
 <div class="sect3">
-<h4 id="tls">9.4.1. TLS</h4>
+<h4 id="network_security">2.8.4. Network Security</h4>
+<div class="sect4">
+<h5 id="tls">TLS</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -4751,8 +4663,8 @@ By authorizing and signing only for known measurements, the server ensures that 
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="vpn">9.4.2. VPN</h4>
+<div class="sect4">
+<h5 id="vpn">VPN</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -4767,8 +4679,8 @@ By authorizing and signing only for known measurements, the server ensures that 
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="single_sign_on">9.4.3. Single Sign-on</h4>
+<div class="sect4">
+<h5 id="single_sign_on">Single Sign-on</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -4785,17 +4697,15 @@ By authorizing and signing only for known measurements, the server ensures that 
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="android_security_guide">10. Android Security Guide</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="android_security_guide">2.9. Android Security Guide</h3>
 <div class="paragraph">
 <p>This is a summary of the <a href="https://source.android.com/security/">Android Security Guide</a>.</p>
 </div>
-<div class="sect2">
-<h3 id="kernel_security">10.1. Kernel Security</h3>
 <div class="sect3">
-<h4 id="application_sandbox">10.1.1. Application Sandbox</h4>
+<h4 id="kernel_security">2.9.1. Kernel Security</h4>
+<div class="sect4">
+<h5 id="application_sandbox">Application Sandbox</h5>
 <div class="paragraph">
 <p>Android uses the UNIX user-based protection to identify and isolate running applications.
 The Android system assigns a unique UID (User ID) to each Android application and runs the application as a certain user in a separate process.
@@ -4807,14 +4717,14 @@ Memory corruption errors in one application will not lead to corruption in other
 Applications with the same user ID can access each other&#8217;s data and also run in the same process.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="filesystem_permissions">10.1.2. Filesystem Permissions</h4>
+<div class="sect4">
+<h5 id="filesystem_permissions">Filesystem Permissions</h5>
 <div class="paragraph">
 <p>The filesystem permissions ensure that one user cannot alter or read another user&#8217;s files. In the context of Android, this means that one application, cannot access or alter the data for another application, unless they explicitly allow it.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="device_rooting">10.1.3. Device Rooting</h4>
+<div class="sect4">
+<h5 id="device_rooting">Device Rooting</h5>
 <div class="paragraph">
 <p>By default, only the kernel and small number of core applications run using root permissions. Root permissions will allow you full access to all applications on the device, as well as their applications data.</p>
 </div>
@@ -4824,8 +4734,8 @@ Applications could use a key stored off-device, but this approach will only prov
 At some point the key must be provided to the application and it then becomes accessible to root users.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="filesystem_encryption">10.1.4. Filesystem Encryption</h4>
+<div class="sect4">
+<h5 id="filesystem_encryption">Filesystem Encryption</h5>
 <div class="paragraph">
 <p>A number of different filesytem encryption approaches have been used by different versions of Android.</p>
 </div>
@@ -4874,17 +4784,17 @@ At some point the key must be provided to the application and it then becomes ac
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="application_security">10.2. Application Security</h3>
 <div class="sect3">
-<h4 id="certificate_authorities">10.2.1. Certificate Authorities</h4>
+<h4 id="application_security">2.9.2. Application Security</h4>
+<div class="sect4">
+<h5 id="certificate_authorities">Certificate Authorities</h5>
 <div class="paragraph">
 <p>Android includes a set of installed system Certificate Authorities, which are trusted system-wide.
 Devices running Android 7.0 and above will have an Android stock set of system CAs as device manufacturers supplied CA&#8217;s are no longer permitted.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="application_signing">10.2.2. Application Signing</h4>
+<div class="sect4">
+<h5 id="application_signing">Application Signing</h5>
 <div class="paragraph">
 <p>APK Signing will allow a developer to identify the author of the application.
 The signed application certificate defines which user id is associated with which application.
@@ -4892,8 +4802,8 @@ The application signing ensures that applications cannot access each other excep
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="authentication">10.3. Authentication</h3>
+<div class="sect3">
+<h4 id="authentication">2.9.3. Authentication</h4>
 <div class="paragraph">
 <p>Two key pieces make up Authentication &amp; Key Storage from Android 6.0.</p>
 </div>
@@ -4923,8 +4833,8 @@ The application signing ensures that applications cannot access each other excep
 <div class="paragraph">
 <p>The two authentication components work with the Keystore and (other components) to support the use of hardware-backed authentication tokens or AuthTokens.</p>
 </div>
-<div class="sect3">
-<h4 id="enrollment">10.3.1. Enrollment</h4>
+<div class="sect4">
+<h5 id="enrollment">Enrollment</h5>
 <div class="paragraph">
 <p>On first boot of the device, the user must initially enroll a PIN/pattern/password with Gatekeeper.
 This is known as enrollment.
@@ -4934,8 +4844,8 @@ This is necessary to to create the User&#8217;s SID (User Secure Identifier) whi
 <p>This SID is cryptographically bound to the user&#8217;s password, so when a successful authentication takes place, the AuthTokens will contain the User SID for that password.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="authentication_process">10.3.2. Authentication Process</h4>
+<div class="sect4">
+<h5 id="authentication_process">Authentication Process</h5>
 <div class="paragraph">
 <p>Once a user has set up a credential (eg. a Pattern lock) and they have received their User SID (Secure User Id), they are now ready to authenticate.</p>
 </div>
@@ -4991,15 +4901,15 @@ The <code>keymaster</code> trusts the timestamp in the token as the last authent
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="keystore">10.4. Keystore</h3>
+<div class="sect3">
+<h4 id="keystore">2.9.4. Keystore</h4>
 <div class="paragraph">
 <p>The Android Keystore system allows storage of cryptographic keys inside a container to make it more difficult to extract them from a device.
 Once keys are in the keystore, they can be used for cryptographic operations with the key material remaining non-exportable.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="trusted_execution_environment">10.5. Trusted Execution Environment</h3>
+<div class="sect3">
+<h4 id="trusted_execution_environment">2.9.5. Trusted Execution Environment</h4>
 <div class="paragraph">
 <p>A TEE processor is generally a separate microprocessor or a virtualized instance of the main processor.
 The TEE processor is isolated from the rest of the system using memory and I/O protection mechanisms supported by the hardware.</p>
@@ -5011,15 +4921,13 @@ Applications running on the main processor will therefore delegate any operation
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="android_developer_security_guide">11. Android Developer Security Guide</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="android_developer_security_guide">2.10. Android Developer Security Guide</h3>
 <div class="paragraph">
 <p>This is a summary of the <a href="https://developer.android.com/training/best-security.html">Android Developer Security Guide</a>.</p>
 </div>
-<div class="sect2">
-<h3 id="overview_2">11.1. Overview</h3>
+<div class="sect3">
+<h4 id="overview_2">2.10.1. Overview</h4>
 <div class="paragraph">
 <p>The following core security features help you build secure apps:</p>
 </div>
@@ -5045,8 +4953,8 @@ Applications running on the main processor will therefore delegate any operation
 </li>
 </ul>
 </div>
-<div class="sect3">
-<h4 id="data_storage">11.1.1. Data Storage</h4>
+<div class="sect4">
+<h5 id="data_storage">Data Storage</h5>
 <div class="paragraph">
 <p>The most common security concern for an application on Android is whether the data that you save on the device is accessible to other apps.</p>
 </div>
@@ -5100,8 +5008,8 @@ Signature permissions do not require user confirmation, so they provide a better
 </ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="permissions">11.1.2. Permissions</h4>
+<div class="sect4">
+<h5 id="permissions">Permissions</h5>
 <div class="paragraph">
 <p>Android permissions are ranked in four different categories based on the protection level they offer:</p>
 </div>
@@ -5122,8 +5030,8 @@ Signature permissions do not require user confirmation, so they provide a better
 </ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="ip_networking">11.1.3. IP Networking</h4>
+<div class="sect4">
+<h5 id="ip_networking">IP Networking</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -5142,8 +5050,8 @@ Binding to <code>INADDR_ANY</code> is worse than using loopback because then you
 </ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="telephony_networking">11.1.4. Telephony Networking</h4>
+<div class="sect4">
+<h5 id="telephony_networking">Telephony Networking</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -5156,8 +5064,8 @@ Don&#8217;t rely on unauthenticated SMS data to perform sensitive commands.</p>
 </ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="input_validation">11.1.5. Input Validation</h4>
+<div class="sect4">
+<h5 id="input_validation">Input Validation</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -5177,8 +5085,8 @@ Android provides a number of technologies like ASLR and DEP that reduce the expl
 </ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="handling_user_data">11.1.6. Handling User Data</h4>
+<div class="sect4">
+<h5 id="handling_user_data">Handling User Data</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -5205,8 +5113,8 @@ Android provides a number of technologies like ASLR and DEP that reduce the expl
 </ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="using_webviews">11.1.7. Using Webviews</h4>
+<div class="sect4">
+<h5 id="using_webviews">Using Webviews</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -5226,8 +5134,8 @@ In general, the Android documentation recommends exposing <code>addJavaScriptInt
 </ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="handling_credentials">11.1.8. Handling Credentials</h4>
+<div class="sect4">
+<h5 id="handling_credentials">Handling Credentials</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -5248,8 +5156,8 @@ In general, the Android documentation recommends exposing <code>addJavaScriptInt
 </ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="cryptography_2">11.1.9. Cryptography</h4>
+<div class="sect4">
+<h5 id="cryptography_2">Cryptography</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -5261,8 +5169,8 @@ In general, the Android documentation recommends exposing <code>addJavaScriptInt
 </ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="ipc">11.1.10. IPC</h4>
+<div class="sect4">
+<h5 id="ipc">IPC</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -5280,8 +5188,8 @@ If IPC is between your own separate apps that are signed with the same key, it i
 </ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="intents">11.1.11. Intents</h4>
+<div class="sect4">
+<h5 id="intents">Intents</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -5296,8 +5204,8 @@ If IPC is between your own separate apps that are signed with the same key, it i
 </ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="services">11.1.12. Services</h4>
+<div class="sect4">
+<h5 id="services">Services</h5>
 <div class="paragraph">
 <p>A Service is often used to supply functionality for other applications to use. Each service class must have a corresponding <code>&lt;service&gt;</code> declaration in its manifest file.</p>
 </div>
@@ -5318,8 +5226,8 @@ You should use the declarative permissions in the manifest, since those are less
 </ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="binder_and_messenger_interfaces">11.1.13. Binder and Messenger Interfaces</h4>
+<div class="sect4">
+<h5 id="binder_and_messenger_interfaces">Binder and Messenger Interfaces</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -5333,8 +5241,8 @@ This is especially important before accessing a service on behalf of the caller,
 </ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="broadcast_receivers">11.1.14. Broadcast Receivers</h4>
+<div class="sect4">
+<h5 id="broadcast_receivers">Broadcast Receivers</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -5347,8 +5255,8 @@ This prevents applications without appropriate permissions from sending an inten
 </ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="dynamically_loading_code">11.1.15. Dynamically Loading Code</h4>
+<div class="sect4">
+<h5 id="dynamically_loading_code">Dynamically Loading Code</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -5363,8 +5271,8 @@ This prevents applications without appropriate permissions from sending an inten
 </ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="virtual_machine_security">11.1.16. Virtual Machine Security</h4>
+<div class="sect4">
+<h5 id="virtual_machine_security">Virtual Machine Security</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -5374,8 +5282,8 @@ This prevents applications without appropriate permissions from sending an inten
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="security_with_https_and_ssl">11.2. Security with HTTPS and SSL</h3>
+<div class="sect3">
+<h4 id="security_with_https_and_ssl">2.10.2. Security with HTTPS and SSL</h4>
 <div class="paragraph">
 <p>This is a summary of the <a href="https://developer.android.com/training/articles/security-ssl.html">Android Developer Security with HTTPS and SSL Guide</a>.</p>
 </div>
@@ -5386,8 +5294,8 @@ It&#8217;s possible that an application might use SSL incorrectly such that mali
 <div class="paragraph">
 <p>As of Android 4.2 (Jelly Bean), Android currently contains over 100 CAs that are updated in each release. Similar to a server, a CA has a certificate and a private key. When issuing a certificate for a server, the CA signs the server certificate using its private key. The client can then verify that the server has a certificate issued by a CA known to the platform.</p>
 </div>
-<div class="sect3">
-<h4 id="https_example">11.2.1. HTTPS Example</h4>
+<div class="sect4">
+<h5 id="https_example">HTTPS Example</h5>
 <div class="paragraph">
 <p>Assuming you have a web server with a certificate issued by a well known CA, you can make a secure request with code as simple this:</p>
 </div>
@@ -5465,8 +5373,8 @@ copyInputStreamToOutputStream(in, System.out);</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="hostname_verification">11.3. Hostname verification</h3>
+<div class="sect3">
+<h4 id="hostname_verification">2.10.3. Hostname verification</h4>
 <div class="paragraph">
 <p>There are two key parts to verifying an SSL connection:</p>
 </div>
@@ -5496,8 +5404,8 @@ The server is configured with a certificate that does not have a subject or subj
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="warnings_about_using_sslsocket_directly">11.4. Warnings About Using SSLSocket Directly</h3>
+<div class="sect3">
+<h4 id="warnings_about_using_sslsocket_directly">2.10.4. Warnings About Using SSLSocket Directly</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -5506,8 +5414,8 @@ The server is configured with a certificate that does not have a subject or subj
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="blacklisting">11.5. Blacklisting</h3>
+<div class="sect3">
+<h4 id="blacklisting">2.10.5. Blacklisting</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -5519,8 +5427,8 @@ The server is configured with a certificate that does not have a subject or subj
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="pinning">11.6. Pinning</h3>
+<div class="sect3">
+<h4 id="pinning">2.10.6. Pinning</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -5529,8 +5437,8 @@ The server is configured with a certificate that does not have a subject or subj
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="client_certificates">11.7. Client Certificates</h3>
+<div class="sect3">
+<h4 id="client_certificates">2.10.7. Client Certificates</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -5539,8 +5447,8 @@ The server is configured with a certificate that does not have a subject or subj
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="nogotofail_a_network_traffic_security_testing_tool">11.8. Nogotofail: A Network Traffic Security Testing Tool</h3>
+<div class="sect3">
+<h4 id="nogotofail_a_network_traffic_security_testing_tool">2.10.8. Nogotofail: A Network Traffic Security Testing Tool</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -5567,15 +5475,13 @@ It&#8217;s an automated, powerful, and scalable tool for testing network securit
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="cordova_security_guide">12. Cordova Security Guide</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="cordova_security_guide">2.11. Cordova Security Guide</h3>
 <div class="paragraph">
 <p>This is a summary of the <a href="https://cordova.apache.org/docs/en/latest/guide/appdev/security/">Cordova Security Guide</a>.</p>
 </div>
-<div class="sect2">
-<h3 id="whitelist">12.1. Whitelist</h3>
+<div class="sect3">
+<h4 id="whitelist">2.11.1. Whitelist</h4>
 <div class="paragraph">
 <p>Domain whitelisting is a security model that controls access to external domains over which your application has no control. Cordova provides a configurable security policy to define which external sites may be accessed. By default, new apps are configured to allow access to any site. Before moving your application to production, you should formulate a whitelist and allow access to specific network domains and subdomains.</p>
 </div>
@@ -5586,14 +5492,14 @@ It&#8217;s an automated, powerful, and scalable tool for testing network securit
 <p>Note that the whitelist applies only to the main Cordova webview, and does not apply to an <a href="https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-inappbrowser/">InAppBrowser</a> webview or opening links in the system web browser.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="iframes_calback_id_mechanism">12.2. Iframes &amp; Calback ID Mechanism</h3>
+<div class="sect3">
+<h4 id="iframes_calback_id_mechanism">2.11.2. Iframes &amp; Calback ID Mechanism</h4>
 <div class="paragraph">
 <p>If content is served in an iframe from a whitelisted domain, that domain will have access to the native Cordova bridge. This means that if you whitelist a third-party advertising network and serve those ads through an iframe, it is possible that a malicious ad will be able to break out of the iframe and perform malicious actions. Because of this, you should generally not use iframes unless you control the server that hosts the iframe content.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="certificate_pinning_2">12.3. Certificate Pinning</h3>
+<div class="sect3">
+<h4 id="certificate_pinning_2">2.11.3. Certificate Pinning</h4>
 <div class="paragraph">
 <p>Cordova does not support true certificate pinning. The main barrier to this is a lack of native APIs in Android for intercepting SSL connections to perform the check of the server&#8217;s certificate.
 Since Apache Cordova is meant to offer consistent APIs across multiple platforms, not having a capability in a major platform breaks that consistency.</p>
@@ -5602,8 +5508,8 @@ Since Apache Cordova is meant to offer consistent APIs across multiple platforms
 <p>There are ways to approximate certificate pinning, such as checking the server&#8217;s public key (fingerprint) is the expected value when your application starts or at other various times during your application&#8217;s lifetime. There are third-party plugins available for Cordova that can do that. However, this is not the same as true certificate pinning which automatically verifies the expected value on every connection to the server.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="self_signed_certificates">12.4. Self-signed Certificates</h3>
+<div class="sect3">
+<h4 id="self_signed_certificates">2.11.4. Self-signed Certificates</h4>
 <div class="paragraph">
 <p>Using self-signed certificates on your server is not recommended.
 If you desire SSL, then it is highly recommended that your server have a certificate that has been properly signed by a well-known CA (certificate authority).
@@ -5611,17 +5517,17 @@ The inability to do true certificate pinning makes this important.
 The reason is that accepting self-signed certificates bypasses the certificate chain validation, which allows any server certificate to be considered valid by the device.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="encrypted_storage">12.5. Encrypted storage</h3>
+<div class="sect3">
+<h4 id="encrypted_storage">2.11.5. Encrypted storage</h4>
 <div class="paragraph">
 <p>For encrypted storage, you could consider using one of a number of secure storage plugins for Cordova.
 The <a href="https://www.npmjs.com/package/cordova-plugin-secure-key-store">cordova-plugin-secure-key-store</a> plugin uses the Android Keystore and the iOS Keychain for stores sensitive data.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="general_tips">12.6. General Tips</h3>
 <div class="sect3">
-<h4 id="use_inappbrowser_for_outside_links">12.6.1. Use InAppBrowser for outside links</h4>
+<h4 id="general_tips">2.11.6. General Tips</h4>
+<div class="sect4">
+<h5 id="use_inappbrowser_for_outside_links">Use InAppBrowser for outside links</h5>
 <div class="paragraph">
 <p>Use the InAppBrowser when opening links to any outside website. This is much safer than whitelisting a domain name and including the content directly in your application because the InAppBrowser will use the native browser&#8217;s security features and will not give the website access to your Cordova environment. Even if you trust the third party website and include it directly in your application, that third party website could link to malicious web content.</p>
 </div>
@@ -5637,8 +5543,8 @@ function onDeviceReady() {
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="validate_all_user_input">12.6.2. Validate all User Input</h4>
+<div class="sect4">
+<h5 id="validate_all_user_input">Validate all User Input</h5>
 <div class="paragraph">
 <p>Always validate any and all input that your application accepts.
 This includes:</p>
@@ -5679,14 +5585,14 @@ This includes:</p>
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="do_not_cache_sensitive_data">12.6.3. Do not cache sensitive data</h4>
+<div class="sect4">
+<h5 id="do_not_cache_sensitive_data">Do not cache sensitive data</h5>
 <div class="paragraph">
 <p>If usernames, password, geolocation information, and other sensitive data is cached, then it could potentially be retrieved later by an unauthorized user or application.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="do_not_assume_that_your_source_code_is_secure">12.6.4. Do not assume that your source code is secure</h4>
+<div class="sect4">
+<h5 id="do_not_assume_that_your_source_code_is_secure">Do not assume that your source code is secure</h5>
 <div class="paragraph">
 <p>Since a Cordova application is built from HTML and JavaScript assets that get packaged in a native container, you should not consider your code to be secure.
 It is possible to reverse engineer a Cordova application to recover sensitive app data or hardcoded keys etc.</p>
@@ -5694,17 +5600,15 @@ It is possible to reverse engineer a Cordova application to recover sensitive ap
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="vetting_the_security_of_mobile_applications">13. Vetting the Security of Mobile Applications</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="vetting_the_security_of_mobile_applications">2.12. Vetting the Security of Mobile Applications</h3>
 <div class="paragraph">
 <p>This is a summary of notes taken from the <a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-163.pdf">NIST Vetting the Security of Mobile Applications</a>.</p>
 </div>
-<div class="sect2">
-<h3 id="app_vetting_process">13.1. App Vetting Process</h3>
 <div class="sect3">
-<h4 id="general_process">13.1.1. General Process</h4>
+<h4 id="app_vetting_process">2.12.1. App Vetting Process</h4>
+<div class="sect4">
+<h5 id="general_process">General Process</h5>
 <div class="paragraph">
 <p>In an enterprise environment, before the mobile apps are deployed to the devices, they needs to be vetted. The process works like this:</p>
 </div>
@@ -5742,8 +5646,8 @@ Based on the reports the auditor will then submit the recommendation to the appr
 <p>Further note that although app vetting processes may vary among organizations, organizations should strive to implement a process that is repeatable, efficient, consistent, and that limits errors.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="planning_the_vetting_process">13.1.2. Planning the Vetting Process</h4>
+<div class="sect4">
+<h5 id="planning_the_vetting_process">Planning the Vetting Process</h5>
 <div class="paragraph">
 <p>Before an organization can implement an app vetting process, it is necessary for the organization to first</p>
 </div>
@@ -5761,8 +5665,8 @@ Based on the reports the auditor will then submit the recommendation to the appr
 </ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="recommendation">13.1.3. Recommendation</h4>
+<div class="sect4">
+<h5 id="recommendation">Recommendation</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -5793,23 +5697,23 @@ Based on the reports the auditor will then submit the recommendation to the appr
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="app_testing">13.2. App Testing</h3>
+<div class="sect3">
+<h4 id="app_testing">2.12.2. App Testing</h4>
 <div class="paragraph">
 <p>General app security requirements include:</p>
 </div>
-<div class="sect3">
-<h4 id="testing_requirements">13.2.1. Testing Requirements</h4>
 <div class="sect4">
-<h5 id="enabling_authorized_functionality">Enabling authorized functionality</h5>
+<h5 id="testing_requirements">Testing Requirements</h5>
 <div class="sect5">
-<h6 id="requirement">Requirement</h6>
+<h6 id="enabling_authorized_functionality">Enabling authorized functionality</h6>
+<div class="sect6">
+<h7 id="requirement">Requirement</h7>
 <div class="paragraph">
 <p>The app must work as described; all buttons, menu items, and other interfaces must work. Error conditions must be handled gracefully, such as when a service or function is unavailable (e.g., disabled, unreachable, etc.)</p>
 </div>
 </div>
-<div class="sect5">
-<h6 id="examples">Examples</h6>
+<div class="sect6">
+<h7 id="examples">Examples</h7>
 <div class="ulist">
 <ul>
 <li>
@@ -5828,16 +5732,16 @@ Based on the reports the auditor will then submit the recommendation to the appr
 </div>
 </div>
 </div>
-<div class="sect4">
-<h5 id="preventing_unauthorized_functionality">Preventing unauthorized functionality</h5>
 <div class="sect5">
-<h6 id="requirement_2">Requirement</h6>
+<h6 id="preventing_unauthorized_functionality">Preventing unauthorized functionality</h6>
+<div class="sect6">
+<h7 id="requirement_2">Requirement</h7>
 <div class="paragraph">
 <p>Unauthorized functionality, such as data exfiltration performed by malware, must not be supported.</p>
 </div>
 </div>
-<div class="sect5">
-<h6 id="examples_2">Examples</h6>
+<div class="sect6">
+<h7 id="examples_2">Examples</h7>
 <div class="ulist">
 <ul>
 <li>
@@ -5869,16 +5773,16 @@ Based on the reports the auditor will then submit the recommendation to the appr
 </div>
 </div>
 </div>
-<div class="sect4">
-<h5 id="limiting_permissions">Limiting permissions</h5>
 <div class="sect5">
-<h6 id="requirement_3">Requirement</h6>
+<h6 id="limiting_permissions">Limiting permissions</h6>
+<div class="sect6">
+<h7 id="requirement_3">Requirement</h7>
 <div class="paragraph">
 <p>Apps should have only the minimum permissions necessary and should only grant other applications the necessary permissions.</p>
 </div>
 </div>
-<div class="sect5">
-<h6 id="examples_3">Examples</h6>
+<div class="sect6">
+<h7 id="examples_3">Examples</h7>
 <div class="ulist">
 <ul>
 <li>
@@ -5915,17 +5819,17 @@ Based on the reports the auditor will then submit the recommendation to the appr
 </div>
 </div>
 </div>
-<div class="sect4">
-<h5 id="protecting_sensitive_data">Protecting sensitive data</h5>
 <div class="sect5">
-<h6 id="requirement_4">Requirement</h6>
+<h6 id="protecting_sensitive_data">Protecting sensitive data</h6>
+<div class="sect6">
+<h7 id="requirement_4">Requirement</h7>
 <div class="paragraph">
 <p>Apps that collect, store, and transmit sensitive data should protect the confidentiality and integrity of this data.
 This category includes preserving privacy, such as asking permission to use personal information and using it only for authorized purposes</p>
 </div>
 </div>
-<div class="sect5">
-<h6 id="examples_4">Examples</h6>
+<div class="sect6">
+<h7 id="examples_4">Examples</h7>
 <div class="ulist">
 <ul>
 <li>
@@ -5964,17 +5868,17 @@ This category includes preserving privacy, such as asking permission to use pers
 </div>
 </div>
 </div>
-<div class="sect4">
-<h5 id="securing_app_code_dependencies">Securing app code dependencies</h5>
 <div class="sect5">
-<h6 id="requirement_5">Requirement</h6>
+<h6 id="securing_app_code_dependencies">Securing app code dependencies</h6>
+<div class="sect6">
+<h7 id="requirement_5">Requirement</h7>
 <div class="paragraph">
 <p>The app must use any dependencies, such as on libraries, in a reasonable manner and not for malicious reasons.
 Specifically, an app should properly use other bodies of code, such as libraries, only when needed, and not to attempt to obfuscate malicious activity</p>
 </div>
 </div>
-<div class="sect5">
-<h6 id="examples_5">Examples</h6>
+<div class="sect6">
+<h7 id="examples_5">Examples</h7>
 <div class="ulist">
 <ul>
 <li>
@@ -6036,16 +5940,16 @@ Specifically, an app should properly use other bodies of code, such as libraries
 </div>
 </div>
 </div>
-<div class="sect4">
-<h5 id="testing_app_updates">Testing app updates</h5>
 <div class="sect5">
-<h6 id="requirement_6">Requirement</h6>
+<h6 id="testing_app_updates">Testing app updates</h6>
+<div class="sect6">
+<h7 id="requirement_6">Requirement</h7>
 <div class="paragraph">
 <p>New versions of the app must be tested to identify any new weaknesses.</p>
 </div>
 </div>
-<div class="sect5">
-<h6 id="examples_6">Examples</h6>
+<div class="sect6">
+<h7 id="examples_6">Examples</h7>
 <div class="ulist">
 <ul>
 <li>
@@ -6072,10 +5976,10 @@ Specifically, an app should properly use other bodies of code, such as libraries
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="testing_approaches">13.2.2. Testing Approaches</h4>
 <div class="sect4">
-<h5 id="correctness_testing">Correctness Testing</h5>
+<h5 id="testing_approaches">Testing Approaches</h5>
+<div class="sect5">
+<h6 id="correctness_testing">Correctness Testing</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -6087,8 +5991,8 @@ Specifically, an app should properly use other bodies of code, such as libraries
 </ul>
 </div>
 </div>
-<div class="sect4">
-<h5 id="source_code_versus_binary_code">Source Code Versus Binary Code</h5>
+<div class="sect5">
+<h6 id="source_code_versus_binary_code">Source Code Versus Binary Code</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -6104,8 +6008,8 @@ Specifically, an app should properly use other bodies of code, such as libraries
 </ul>
 </div>
 </div>
-<div class="sect4">
-<h5 id="static_versus_dynamic_analysis">Static Versus Dynamic Analysis</h5>
+<div class="sect5">
+<h6 id="static_versus_dynamic_analysis">Static Versus Dynamic Analysis</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -6114,8 +6018,8 @@ Specifically, an app should properly use other bodies of code, such as libraries
 </ul>
 </div>
 </div>
-<div class="sect4">
-<h5 id="automated_tools">Automated Tools</h5>
+<div class="sect5">
+<h6 id="automated_tools">Automated Tools</h6>
 <div class="paragraph">
 <p>Classes of automated tools include</p>
 </div>
@@ -6169,8 +6073,8 @@ Specifically, an app should properly use other bodies of code, such as libraries
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="sharing_results">13.2.3. Sharing Results</h4>
+<div class="sect4">
+<h5 id="sharing_results">Sharing Results</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -6194,8 +6098,8 @@ product names, and impact metrics.</p>
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="recommendation_2">13.2.4. Recommendation</h4>
+<div class="sect4">
+<h5 id="recommendation_2">Recommendation</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -6220,10 +6124,10 @@ product names, and impact metrics.</p>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="app_approval_rejection">13.3. App Approval/Rejection</h3>
 <div class="sect3">
-<h4 id="report_and_risk_auditing">13.3.1. Report and Risk Auditing</h4>
+<h4 id="app_approval_rejection">2.12.3. App Approval/Rejection</h4>
+<div class="sect4">
+<h5 id="report_and_risk_auditing">Report and Risk Auditing</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -6239,8 +6143,8 @@ product names, and impact metrics.</p>
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="organization_specific_vetting_criteria">13.3.2. Organization-Specific Vetting Criteria</h4>
+<div class="sect4">
+<h5 id="organization_specific_vetting_criteria">Organization-Specific Vetting Criteria</h5>
 <div class="paragraph">
 <p>Sample criterias:</p>
 </div>
@@ -6292,8 +6196,8 @@ product names, and impact metrics.</p>
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="recommendation_3">13.3.3. Recommendation</h4>
+<div class="sect4">
+<h5 id="recommendation_3">Recommendation</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -6313,17 +6217,15 @@ product names, and impact metrics.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="niap_mobile_app_vetting">14. NIAP Mobile App Vetting</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="niap_mobile_app_vetting">2.13. NIAP Mobile App Vetting</h3>
 <div class="paragraph">
 <p>This is a summary of the <a href="https://www.niap-ccevs.org/pp/pp_app_v1.2_table-reqs.htm">NIAP Mobile App Vetting</a> Guidelines.</p>
 </div>
-<div class="sect2">
-<h3 id="security_functional_requirements">14.1. Security Functional Requirements</h3>
 <div class="sect3">
-<h4 id="random_bit_generation_services">14.1.1. Random Bit Generation Services</h4>
+<h4 id="security_functional_requirements">2.13.1. Security Functional Requirements</h4>
+<div class="sect4">
+<h5 id="random_bit_generation_services">Random Bit Generation Services</h5>
 <div class="paragraph">
 <p>The Application should select from the following approaches for its cryptographic operations:</p>
 </div>
@@ -6344,8 +6246,8 @@ product names, and impact metrics.</p>
 <p><em>DRBG</em>: Deterministic Random Bit Generator (aka RNG, PRNG) based HMACs, Hashes, and Ciphers. In this requirement, cryptographic operations include all cryptographic key generation/derivation/agreement, IVs (for certain modes), as well as protocol-specific random values.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="storage_of_credentials">14.1.2. Storage of Credentials</h4>
+<div class="sect4">
+<h5 id="storage_of_credentials">Storage of Credentials</h5>
 <div class="paragraph">
 <p>The Application should select from the following approaches for storage of credentials in non-volatile memory:</p>
 </div>
@@ -6366,8 +6268,8 @@ product names, and impact metrics.</p>
 <p>This requirement ensures that persistent credentials like secret keys, PKI private keys, or passwords are stored in a secure manner.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="access_to_platform_resources">14.1.3. Access to Platform Resources</h4>
+<div class="sect4">
+<h5 id="access_to_platform_resources">Access to Platform Resources</h5>
 <div class="paragraph">
 <p>The application shall restrict its access to the following and additonal hardware resources:</p>
 </div>
@@ -6428,8 +6330,8 @@ product names, and impact metrics.</p>
 <p>Sensitive information repositories are defined as those collections of sensitive data that could be expected to be shared among some applications, users, or user roles, but to which not all of these would ordinarily require access.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="network_communications">14.1.4. Network Communications</h4>
+<div class="sect4">
+<h5 id="network_communications">Network Communications</h5>
 <div class="paragraph">
 <p>The application shall restrict network communication to the following and additional application-initiated communications:</p>
 </div>
@@ -6450,8 +6352,8 @@ product names, and impact metrics.</p>
 <p>This requirement is intended to restrict both inbound/outbound network communications to only those required, or to those initiated by the user.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="encryption_of_sensitive_application_data">14.1.5. Encryption Of Sensitive Application Data</h4>
+<div class="sect4">
+<h5 id="encryption_of_sensitive_application_data">Encryption Of Sensitive Application Data</h5>
 <div class="paragraph">
 <p>The Application should select from the following approaches for storage of sensitive data in non-volatile memory:</p>
 </div>
@@ -6473,21 +6375,21 @@ product names, and impact metrics.</p>
 The only exception is if the user intentionally exports the sensitive data to non-protected files.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="supported_configuration_mechanism">14.1.6. Supported Configuration Mechanism</h4>
+<div class="sect4">
+<h5 id="supported_configuration_mechanism">Supported Configuration Mechanism</h5>
 <div class="paragraph">
 <p>The application shall invoke the mechanisms recommended by the platform or framework vendor for storing and setting configuration options.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="secure_by_default_configuration">14.1.7. Secure by Default Configuration</h4>
+<div class="sect4">
+<h5 id="secure_by_default_configuration">Secure by Default Configuration</h5>
 <div class="paragraph">
 <p>The application shall be configured by default with file permissions which protect it and its data from unauthorized access.
 There should be some form of trust boundary which protects the application and its data.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="specification_of_management_functions">14.1.8. Specification of Management Functions</h4>
+<div class="sect4">
+<h5 id="specification_of_management_functions">Specification of Management Functions</h5>
 <div class="paragraph">
 <p>The TSF (Target of Evaluation Security Functionality) shall be capable of performing the following management functions:</p>
 </div>
@@ -6514,8 +6416,8 @@ There should be some form of trust boundary which protects the application and i
 <p>TOE (Target of Evaluation) security functionality is the “combined functionality of all hardware, software, and firmware of a TOE that must be relied upon for the correct enforcement of the security functional requirements.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="user_consent_for_transmission_of_personally_identifiable_information">14.1.9. User Consent for Transmission of Personally Identifiable Information</h4>
+<div class="sect4">
+<h5 id="user_consent_for_transmission_of_personally_identifiable_information">User Consent for Transmission of Personally Identifiable Information</h5>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -6535,14 +6437,14 @@ it does not apply if the user volunteers PII without prompting from the applicat
 A dialog box that declares intent to send PII presented to the user when the application is started is sufficient to meet this requirement.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="use_of_supported_services_and_apis">14.1.10. Use of Supported Services and APIs</h4>
+<div class="sect4">
+<h5 id="use_of_supported_services_and_apis">Use of Supported Services and APIs</h5>
 <div class="paragraph">
 <p>The application shall use only documented platform APIs.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="anti_exploitation_capabilities">14.1.11. Anti-Exploitation Capabilities</h4>
+<div class="sect4">
+<h5 id="anti_exploitation_capabilities">Anti-Exploitation Capabilities</h5>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -6591,8 +6493,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="integrity_for_installation_and_update">14.1.12. Integrity for Installation and Update</h4>
+<div class="sect4">
+<h5 id="integrity_for_installation_and_update">Integrity for Installation and Update</h5>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -6619,8 +6521,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="use_of_third_party_libraries">14.1.13. Use of Third Party Libraries</h4>
+<div class="sect4">
+<h5 id="use_of_third_party_libraries">Use of Third Party Libraries</h5>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -6632,8 +6534,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="protection_of_data_in_transit">14.1.14. Protection of Data in Transit</h4>
+<div class="sect4">
+<h5 id="protection_of_data_in_transit">Protection of Data in Transit</h5>
 <div class="paragraph">
 <p>The application shall use one or more of the approaches for transmitting between itself and another trusted IT product:</p>
 </div>
@@ -6655,8 +6557,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="security_assurance_requirements">14.2. Security Assurance Requirements</h3>
+<div class="sect3">
+<h4 id="security_assurance_requirements">2.13.2. Security Assurance Requirements</h4>
 <div class="paragraph">
 <p>The application shall be labeled with a unique references:</p>
 </div>
@@ -6680,10 +6582,10 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="selection_based_security_functional_requirements">14.3. Selection-Based Security Functional Requirements</h3>
 <div class="sect3">
-<h4 id="random_bit_generation_from_application">14.3.1. Random Bit Generation from Application</h4>
+<h4 id="selection_based_security_functional_requirements">2.13.3. Selection-Based Security Functional Requirements</h4>
+<div class="sect4">
+<h5 id="random_bit_generation_from_application">Random Bit Generation from Application</h5>
 <div class="paragraph">
 <p>The application shall perform all deterministic random bit generation (DRBG) services in accordance with <a href="http://csrc.nist.gov/publications/nistpubs/800-90A/SP800-90A.pdf">NIST Special Publication 800-90A</a> using any of the following:</p>
 </div>
@@ -6730,8 +6632,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 <p>of entropy at least equal to the greatest security strength (according to <a href="http://csrc.nist.gov/publications/nistpubs/800-57/sp800-57-Part1-revised2_Mar08-2007.pdf">NIST SP 800-57</a>) of the keys and hashes that it will generate.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="cryptographic_key_generation_services">14.3.2. Cryptographic Key Generation Services</h4>
+<div class="sect4">
+<h5 id="cryptographic_key_generation_services">Cryptographic Key Generation Services</h5>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -6749,8 +6651,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="cryptographic_asymmetric_key_generation">14.3.3. Cryptographic Asymmetric Key Generation</h4>
+<div class="sect4">
+<h5 id="cryptographic_asymmetric_key_generation">Cryptographic Asymmetric Key Generation</h5>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -6779,8 +6681,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="cryptographic_operation_encryption_decryption">14.3.4. Cryptographic Operation - Encryption/Decryption</h4>
+<div class="sect4">
+<h5 id="cryptographic_operation_encryption_decryption">Cryptographic Operation - Encryption/Decryption</h5>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -6815,8 +6717,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 <p>with cryptographic key sizes of 256-bit.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="cryptographic_operation_hashing">14.3.5. Cryptographic Operation - Hashing</h4>
+<div class="sect4">
+<h5 id="cryptographic_operation_hashing">Cryptographic Operation - Hashing</h5>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -6869,8 +6771,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="cryptographic_operation_signing">14.3.6. Cryptographic Operation - Signing</h4>
+<div class="sect4">
+<h5 id="cryptographic_operation_signing">Cryptographic Operation - Signing</h5>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -6889,8 +6791,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="cryptographic_operation_keyed_hash_message_authentication">14.3.7. Cryptographic Operation - Keyed-Hash Message Authentication</h4>
+<div class="sect4">
+<h5 id="cryptographic_operation_keyed_hash_message_authentication">Cryptographic Operation - Keyed-Hash Message Authentication</h5>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -6950,8 +6852,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 <p>bits that meet the following: <a href="http://csrc.nist.gov/publications/fips/fips198-1/FIPS-198-1_final.pdf">FIPS Pub 198-1</a> The Keyed-Hash Message Authentication Code and <a href="http://csrc.nist.gov/publications/fips/fips180-4/fips-180-4.pdf">FIPS Pub 180-4</a> Secure Hash Standard.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="tls_client_protocol">14.3.8. TLS Client Protocol</h4>
+<div class="sect4">
+<h5 id="tls_client_protocol">TLS Client Protocol</h5>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -7042,8 +6944,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="tls_server_protocol">14.3.9. TLS Server Protocol</h4>
+<div class="sect4">
+<h5 id="tls_server_protocol">TLS Server Protocol</h5>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -7170,8 +7072,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="dtls_implementation">14.3.10. DTLS Implementation</h4>
+<div class="sect4">
+<h5 id="dtls_implementation">DTLS Implementation</h5>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -7203,8 +7105,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="https_protocol">14.3.11. HTTPS Protocol</h4>
+<div class="sect4">
+<h5 id="https_protocol">HTTPS Protocol</h5>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -7252,8 +7154,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 <p>if the peer certificate is deemed invalid.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="x_509_certificate_validation">14.3.12. X.509 Certificate Validation</h4>
+<div class="sect4">
+<h5 id="x_509_certificate_validation">X.509 Certificate Validation</h5>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -7339,8 +7241,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="x_509_certificate_authentication">14.3.13. X.509 Certificate Authentication</h4>
+<div class="sect4">
+<h5 id="x_509_certificate_authentication">X.509 Certificate Authentication</h5>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -7382,10 +7284,10 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="objective_security_functional_requirements">14.4. Objective Security Functional Requirements</h3>
 <div class="sect3">
-<h4 id="tls_client_protocol_2">14.4.1. TLS Client Protocol</h4>
+<h4 id="objective_security_functional_requirements">2.13.4. Objective Security Functional Requirements</h4>
+<div class="sect4">
+<h5 id="tls_client_protocol_2">TLS Client Protocol</h5>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -7413,8 +7315,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 <p>and no other hash algorithms.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="use_of_supported_services_and_apis_2">14.4.2. Use of Supported Services and APIs</h4>
+<div class="sect4">
+<h5 id="use_of_supported_services_and_apis_2">Use of Supported Services and APIs</h5>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -7426,8 +7328,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="software_identification_and_versions">14.4.3. Software Identification and Versions</h4>
+<div class="sect4">
+<h5 id="software_identification_and_versions">Software Identification and Versions</h5>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -7447,10 +7349,10 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="optional_security_functional_requirements">14.5. Optional Security Functional Requirements</h3>
 <div class="sect3">
-<h4 id="cryptographic_symmetric_key_generation">14.5.1. Cryptographic Symmetric Key Generation</h4>
+<h4 id="optional_security_functional_requirements">2.13.5. Optional Security Functional Requirements</h4>
+<div class="sect4">
+<h5 id="cryptographic_symmetric_key_generation">Cryptographic Symmetric Key Generation</h5>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -7472,8 +7374,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="tls_client_protocol_3">14.5.2. TLS Client Protocol</h4>
+<div class="sect4">
+<h5 id="tls_client_protocol_3">TLS Client Protocol</h5>
 <div class="paragraph">
 <p>The application shall:</p>
 </div>
@@ -7487,17 +7389,15 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="dhs_study_on_mobile_device_security">15. DHS Study on Mobile Device Security</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="dhs_study_on_mobile_device_security">2.14. DHS Study on Mobile Device Security</h3>
 <div class="paragraph">
 <p>This is a review of the <a href="https://www.dhs.gov/sites/default/files/publications/DHS%20Study%20on%20Mobile%20Device%20Security%20-%20April%202017-FINAL.pdf">DHS Study on Mobile Device Security</a></p>
 </div>
-<div class="sect2">
-<h3 id="mobile_security_threats_and_defenses">15.1. Mobile Security Threats and Defenses</h3>
 <div class="sect3">
-<h4 id="mobile_security_threats_categories">15.1.1. Mobile Security Threats Categories</h4>
+<h4 id="mobile_security_threats_and_defenses">2.14.1. Mobile Security Threats and Defenses</h4>
+<div class="sect4">
+<h5 id="mobile_security_threats_categories">Mobile Security Threats Categories</h5>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -7540,10 +7440,10 @@ A dialog box that declares intent to send PII presented to the user when the app
 </tbody>
 </table>
 </div>
-<div class="sect3">
-<h4 id="threats_in_the_mobile_device_technology_stack">15.1.2. Threats in the Mobile Device Technology Stack</h4>
 <div class="sect4">
-<h5 id="mobile_operating_system">Mobile Operating System</h5>
+<h5 id="threats_in_the_mobile_device_technology_stack">Threats in the Mobile Device Technology Stack</h5>
+<div class="sect5">
+<h6 id="mobile_operating_system">Mobile Operating System</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -7596,8 +7496,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect4">
-<h5 id="low_level_device_components">Low-Level Device Components</h5>
+<div class="sect5">
+<h6 id="low_level_device_components">Low-Level Device Components</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -7635,8 +7535,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect4">
-<h5 id="defense_gaps">Defense Gaps</h5>
+<div class="sect5">
+<h6 id="defense_gaps">Defense Gaps</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -7661,10 +7561,10 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="threats_in_mobile_applications">15.1.3. Threats in Mobile Applications</h4>
 <div class="sect4">
-<h5 id="threats_against_vulnerable_applications">Threats against Vulnerable Applications</h5>
+<h5 id="threats_in_mobile_applications">Threats in Mobile Applications</h5>
+<div class="sect5">
+<h6 id="threats_against_vulnerable_applications">Threats against Vulnerable Applications</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -7765,8 +7665,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect4">
-<h5 id="threats_from_potentially_harmful_applications">Threats from Potentially Harmful Applications</h5>
+<div class="sect5">
+<h6 id="threats_from_potentially_harmful_applications">Threats from Potentially Harmful Applications</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -7843,8 +7743,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect4">
-<h5 id="defense_gaps_2">Defense Gaps</h5>
+<div class="sect5">
+<h6 id="defense_gaps_2">Defense Gaps</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -7878,10 +7778,10 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="threats_in_mobile_networks">15.1.4. Threats in Mobile Networks</h4>
 <div class="sect4">
-<h5 id="key_components_in_mobile_networks">Key Components in Mobile Networks</h5>
+<h5 id="threats_in_mobile_networks">Threats in Mobile Networks</h5>
+<div class="sect5">
+<h6 id="key_components_in_mobile_networks">Key Components in Mobile Networks</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -7932,8 +7832,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect4">
-<h5 id="sim_card">SIM Card</h5>
+<div class="sect5">
+<h6 id="sim_card">SIM Card</h6>
 <div class="paragraph">
 <p>Communicates directly with the carrier’s core network to authenticate itself, the user, and the user’s services and service level.</p>
 </div>
@@ -7968,8 +7868,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect4">
-<h5 id="radio_access_networks">Radio Access Networks</h5>
+<div class="sect5">
+<h6 id="radio_access_networks">Radio Access Networks</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -8010,8 +7910,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect4">
-<h5 id="backhaul_networks">Backhaul Networks</h5>
+<div class="sect5">
+<h6 id="backhaul_networks">Backhaul Networks</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -8027,8 +7927,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect4">
-<h5 id="core_networks">Core Networks</h5>
+<div class="sect5">
+<h6 id="core_networks">Core Networks</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -8057,8 +7957,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect4">
-<h5 id="defenses">Defenses</h5>
+<div class="sect5">
+<h6 id="defenses">Defenses</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -8076,8 +7976,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect4">
-<h5 id="gaps">Gaps</h5>
+<div class="sect5">
+<h6 id="gaps">Gaps</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -8099,10 +7999,10 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="device_physical_access">15.1.5. Device Physical Access</h4>
 <div class="sect4">
-<h5 id="threats">Threats</h5>
+<h5 id="device_physical_access">Device Physical Access</h5>
+<div class="sect5">
+<h6 id="threats">Threats</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -8117,8 +8017,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect4">
-<h5 id="defenses_2">Defenses</h5>
+<div class="sect5">
+<h6 id="defenses_2">Defenses</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -8133,8 +8033,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect4">
-<h5 id="gaps_2">Gaps</h5>
+<div class="sect5">
+<h6 id="gaps_2">Gaps</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -8150,13 +8050,13 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="mobile_enterprise">15.1.6. Mobile Enterprise</h4>
+<div class="sect4">
+<h5 id="mobile_enterprise">Mobile Enterprise</h5>
 <div class="paragraph">
 <p>The mobile enterprise consists of systems, applications, processes, and people that work together to control, manage, and integrate the use of mobile devices and related technologies into business and mission operations.</p>
 </div>
-<div class="sect4">
-<h5 id="enterprise_mobility_management">Enterprise Mobility Management</h5>
+<div class="sect5">
+<h6 id="enterprise_mobility_management">Enterprise Mobility Management</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -8206,8 +8106,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect4">
-<h5 id="enterprise_mobile_application_stores">Enterprise Mobile Application Stores</h5>
+<div class="sect5">
+<h6 id="enterprise_mobile_application_stores">Enterprise Mobile Application Stores</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -8248,8 +8148,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect4">
-<h5 id="gaps_3">Gaps</h5>
+<div class="sect5">
+<h6 id="gaps_3">Gaps</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -8283,8 +8183,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="emerging_threats">15.1.7. Emerging Threats</h4>
+<div class="sect4">
+<h5 id="emerging_threats">Emerging Threats</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -8352,10 +8252,10 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="a_framework_for_modeling_mobile_threats">15.1.8. A Framework for Modeling Mobile Threats</h4>
 <div class="sect4">
-<h5 id="seven_stage_cyber_attack_lifecycle">Seven-stage Cyber Attack Lifecycle</h5>
+<h5 id="a_framework_for_modeling_mobile_threats">A Framework for Modeling Mobile Threats</h5>
+<div class="sect5">
+<h6 id="seven_stage_cyber_attack_lifecycle">Seven-stage Cyber Attack Lifecycle</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -8383,10 +8283,10 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="new_or_updated_policy_standards_and_best_practices">15.1.9. New or Updated Policy, Standards, and Best Practices</h4>
 <div class="sect4">
-<h5 id="mobile_applications">Mobile Applications</h5>
+<h5 id="new_or_updated_policy_standards_and_best_practices">New or Updated Policy, Standards, and Best Practices</h5>
+<div class="sect5">
+<h6 id="mobile_applications">Mobile Applications</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -8401,19 +8301,17 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="guidelines_for_managing_the_security_of_mobile_devices_in_the_enterprise">16. Guidelines for Managing the Security of Mobile Devices in the Enterprise</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="guidelines_for_managing_the_security_of_mobile_devices_in_the_enterprise">2.15. Guidelines for Managing the Security of Mobile Devices in the Enterprise</h3>
 <div class="paragraph">
 <p>This is a summary of notes taken from the <a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-124r1.pdf">NIST Guidelines for Managing the Security of Mobile Devices in the Enterprise</a>.</p>
 </div>
-<div class="sect2">
-<h3 id="high_level_threats_and_vulnerabilities_for_mobile_devices">16.1. High-Level Threats and Vulnerabilities for Mobile Devices</h3>
 <div class="sect3">
-<h4 id="lack_of_physical_security_controls">16.1.1. Lack of Physical Security Controls</h4>
+<h4 id="high_level_threats_and_vulnerabilities_for_mobile_devices">2.15.1. High-Level Threats and Vulnerabilities for Mobile Devices</h4>
 <div class="sect4">
-<h5 id="mitigations">Mitigations</h5>
+<h5 id="lack_of_physical_security_controls">Lack of Physical Security Controls</h5>
+<div class="sect5">
+<h6 id="mitigations">Mitigations</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -8429,10 +8327,10 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="use_of_untrusted_mobile_devices">16.1.2. Use of Untrusted Mobile Devices</h4>
 <div class="sect4">
-<h5 id="mitigations_2">Mitigations</h5>
+<h5 id="use_of_untrusted_mobile_devices">Use of Untrusted Mobile Devices</h5>
+<div class="sect5">
+<h6 id="mitigations_2">Mitigations</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -8448,10 +8346,10 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="use_of_untrusted_networks">16.1.3. Use of Untrusted Networks</h4>
 <div class="sect4">
-<h5 id="mitigations_3">Mitigations</h5>
+<h5 id="use_of_untrusted_networks">Use of Untrusted Networks</h5>
+<div class="sect5">
+<h6 id="mitigations_3">Mitigations</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -8467,10 +8365,10 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="use_of_untrusted_applications">16.1.4. Use of Untrusted Applications</h4>
 <div class="sect4">
-<h5 id="mitigations_4">Mitigations</h5>
+<h5 id="use_of_untrusted_applications">Use of Untrusted Applications</h5>
+<div class="sect5">
+<h6 id="mitigations_4">Mitigations</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -8486,10 +8384,10 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="interaction_with_other_systems">16.1.5. Interaction with Other Systems</h4>
 <div class="sect4">
-<h5 id="mitigations_5">Mitigations</h5>
+<h5 id="interaction_with_other_systems">Interaction with Other Systems</h5>
+<div class="sect5">
+<h6 id="mitigations_5">Mitigations</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -8511,10 +8409,10 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="use_of_untrusted_content">16.1.6. Use of Untrusted Content</h4>
 <div class="sect4">
-<h5 id="mitigations_6">Mitigations</h5>
+<h5 id="use_of_untrusted_content">Use of Untrusted Content</h5>
+<div class="sect5">
+<h6 id="mitigations_6">Mitigations</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -8533,10 +8431,10 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="use_of_location_services">16.1.7. Use of Location Services</h4>
 <div class="sect4">
-<h5 id="mitigations_7">Mitigations</h5>
+<h5 id="use_of_location_services">Use of Location Services</h5>
+<div class="sect5">
+<h6 id="mitigations_7">Mitigations</h6>
 <div class="ulist">
 <ul>
 <li>
@@ -8550,8 +8448,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="technologies_for_mobile_device_management">16.2. Technologies for Mobile Device Management</h3>
+<div class="sect3">
+<h4 id="technologies_for_mobile_device_management">2.15.2. Technologies for Mobile Device Management</h4>
 <div class="paragraph">
 <p>The MDM system should have the following capabilities:</p>
 </div>
@@ -8652,15 +8550,13 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="mobile_banking_applications_security_challenges">17. Mobile Banking Applications Security Challenges</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="mobile_banking_applications_security_challenges">2.16. Mobile Banking Applications Security Challenges</h3>
 <div class="paragraph">
 <p>This is a summary of the <a href="http://info.nowsecure.com/rs/201-XEW-873/images/NowSecure-Accenture-Mobile-Banking-Apps-Security-Challenges.pdf?utm_source=mkto&amp;utm_medium=email&amp;utm_campaign=Mobile+Bank+Apps+Security+Challenges&amp;utm_content=Delivery+Email&amp;mkt_tok=eyJpIjoiWmpRMk16UTNNRGhoTjJJMiIsInQiOiJBcmZGXC9TXC8rTUJya0tZNlNxd21TdDk2K3pSK1JHelg2M1ZcL09vUm9cL2NvZmMrK01hQktMeDl4K21LV3NSWnEyZXM3YU0wUFYyTjd1Rng4dVZcL0NWQU5laWNqTlZ6eGlSU3NzVjZJZDM1WmhzN2RvVTdadE9HT082c2ZLSkxQckxhIn0%3D">Mobile Banking Applications Security Challenges</a> report.</p>
 </div>
-<div class="sect2">
-<h3 id="vulnerabilities_11">17.1. Vulnerabilities</h3>
+<div class="sect3">
+<h4 id="vulnerabilities_11">2.16.1. Vulnerabilities</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -8770,17 +8666,15 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="secure_mobile_development_guide">18. Secure Mobile Development Guide</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="secure_mobile_development_guide">2.17. Secure Mobile Development Guide</h3>
 <div class="paragraph">
 <p>This is a summary of <a href="https://books.nowsecure.com/secure-mobile-development/en/">Secure Mobile Development Guide</a>.</p>
 </div>
-<div class="sect2">
-<h3 id="coding_practices">18.1. CODING PRACTICES</h3>
 <div class="sect3">
-<h4 id="increase_code_complexity_and_use_obfuscation">18.1.1. Increase Code Complexity and Use Obfuscation</h4>
+<h4 id="coding_practices">2.17.1. CODING PRACTICES</h4>
+<div class="sect4">
+<h5 id="increase_code_complexity_and_use_obfuscation">Increase Code Complexity and Use Obfuscation</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -8832,8 +8726,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="avoid_simple_logic">18.1.2. Avoid Simple Logic</h4>
+<div class="sect4">
+<h5 id="avoid_simple_logic">Avoid Simple Logic</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -8848,8 +8742,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="test_third_party_libraries">18.1.3. Test Third-Party Libraries</h4>
+<div class="sect4">
+<h5 id="test_third_party_libraries">Test Third-Party Libraries</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -8864,8 +8758,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="implement_anti_tamper_techniques">18.1.4. Implement Anti-tamper Techniques</h4>
+<div class="sect4">
+<h5 id="implement_anti_tamper_techniques">Implement Anti-tamper Techniques</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -8877,8 +8771,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="securely_store_sensitive_data_in_ram">18.1.5. Securely Store Sensitive Data in RAM</h4>
+<div class="sect4">
+<h5 id="securely_store_sensitive_data_in_ram">Securely Store Sensitive Data in RAM</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -8890,8 +8784,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="understand_secure_deletion_of_data">18.1.6. Understand Secure Deletion of Data</h4>
+<div class="sect4">
+<h5 id="understand_secure_deletion_of_data">Understand Secure Deletion of Data</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -8903,8 +8797,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="avoid_query_string_for_sensitive_data">18.1.7. Avoid Query String for Sensitive Data</h4>
+<div class="sect4">
+<h5 id="avoid_query_string_for_sensitive_data">Avoid Query String for Sensitive Data</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -8920,10 +8814,10 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="handling_sensitive_data">18.2. HANDLING SENSITIVE DATA</h3>
 <div class="sect3">
-<h4 id="implement_secure_data_storage">18.2.1. Implement Secure Data Storage</h4>
+<h4 id="handling_sensitive_data">2.17.2. HANDLING SENSITIVE DATA</h4>
+<div class="sect4">
+<h5 id="implement_secure_data_storage">Implement Secure Data Storage</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -8945,8 +8839,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="use_secure_setting_for_cookies">18.2.2. Use SECURE Setting For Cookies</h4>
+<div class="sect4">
+<h5 id="use_secure_setting_for_cookies">Use SECURE Setting For Cookies</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -8955,8 +8849,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="fully_validate_ssl_tls">18.2.3. Fully Validate SSL/TLS</h4>
+<div class="sect4">
+<h5 id="fully_validate_ssl_tls">Fully Validate SSL/TLS</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9004,8 +8898,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="protect_against_ssl_downgrade_attacks">18.2.4. Protect Against SSL Downgrade Attacks</h4>
+<div class="sect4">
+<h5 id="protect_against_ssl_downgrade_attacks">Protect Against SSL Downgrade Attacks</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9023,8 +8917,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="limit_use_of_uuid">18.2.5. Limit Use of UUID</h4>
+<div class="sect4">
+<h5 id="limit_use_of_uuid">Limit Use of UUID</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9039,8 +8933,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="treat_geolocation_data_carefully">18.2.6. Treat Geolocation Data Carefully</h4>
+<div class="sect4">
+<h5 id="treat_geolocation_data_carefully">Treat Geolocation Data Carefully</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9058,8 +8952,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="institute_local_session_timeout">18.2.7. Institute Local Session Timeout</h4>
+<div class="sect4">
+<h5 id="institute_local_session_timeout">Institute Local Session Timeout</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9074,8 +8968,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="implement_enhanced_two_factor_authentication">18.2.8. Implement Enhanced / Two-Factor Authentication</h4>
+<div class="sect4">
+<h5 id="implement_enhanced_two_factor_authentication">Implement Enhanced / Two-Factor Authentication</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9090,8 +8984,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="protect_application_settings">18.2.9. Protect Application Settings</h4>
+<div class="sect4">
+<h5 id="protect_application_settings">Protect Application Settings</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9106,8 +9000,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="hide_account_numbers_and_use_tokens">18.2.10. Hide Account Numbers and Use Tokens</h4>
+<div class="sect4">
+<h5 id="hide_account_numbers_and_use_tokens">Hide Account Numbers and Use Tokens</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9122,8 +9016,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="implement_secure_network_transmission_of_sensitive_data">18.2.11. Implement Secure Network Transmission Of Sensitive Data</h4>
+<div class="sect4">
+<h5 id="implement_secure_network_transmission_of_sensitive_data">Implement Secure Network Transmission Of Sensitive Data</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9135,8 +9029,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="validate_input_from_client">18.2.12. Validate Input From Client</h4>
+<div class="sect4">
+<h5 id="validate_input_from_client">Validate Input From Client</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9148,8 +9042,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="avoid_storing_app_data_in_backups">18.2.13. Avoid Storing App Data in Backups</h4>
+<div class="sect4">
+<h5 id="avoid_storing_app_data_in_backups">Avoid Storing App Data in Backups</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9176,10 +9070,10 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="caching_and_logging">18.3. CACHING AND LOGGING</h3>
 <div class="sect3">
-<h4 id="avoid_caching_app_data">18.3.1. Avoid Caching App Data</h4>
+<h4 id="caching_and_logging">2.17.3. CACHING AND LOGGING</h4>
+<div class="sect4">
+<h5 id="avoid_caching_app_data">Avoid Caching App Data</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9191,8 +9085,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="avoid_crash_logs">18.3.2. Avoid Crash Logs</h4>
+<div class="sect4">
+<h5 id="avoid_crash_logs">Avoid Crash Logs</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9213,8 +9107,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="limit_caching_of_username">18.3.3. Limit Caching of Username</h4>
+<div class="sect4">
+<h5 id="limit_caching_of_username">Limit Caching of Username</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9223,8 +9117,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="carefully_manage_debug_logs">18.3.4. Carefully Manage Debug Logs</h4>
+<div class="sect4">
+<h5 id="carefully_manage_debug_logs">Carefully Manage Debug Logs</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9239,8 +9133,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="be_aware_of_the_keyboard_cache">18.3.5. Be Aware of the Keyboard Cache</h4>
+<div class="sect4">
+<h5 id="be_aware_of_the_keyboard_cache">Be Aware of the Keyboard Cache</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9252,8 +9146,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="be_aware_of_copy_and_paste">18.3.6. Be Aware of Copy and Paste</h4>
+<div class="sect4">
+<h5 id="be_aware_of_copy_and_paste">Be Aware of Copy and Paste</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9263,10 +9157,10 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="webviews">18.4. WEBVIEWS</h3>
 <div class="sect3">
-<h4 id="prevent_framing_and_clickjacking">18.4.1. Prevent Framing and Clickjacking</h4>
+<h4 id="webviews">2.17.4. WEBVIEWS</h4>
+<div class="sect4">
+<h5 id="prevent_framing_and_clickjacking">Prevent Framing and Clickjacking</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9290,8 +9184,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="protect_against_csrf_with_form_tokens">18.4.2. Protect Against CSRF with Form Tokens</h4>
+<div class="sect4">
+<h5 id="protect_against_csrf_with_form_tokens">Protect Against CSRF with Form Tokens</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9301,10 +9195,10 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="ios">18.5. IOS</h3>
 <div class="sect3">
-<h4 id="use_the_keychain_carefully">18.5.1. Use the Keychain Carefully</h4>
+<h4 id="ios">2.17.5. IOS</h4>
+<div class="sect4">
+<h5 id="use_the_keychain_carefully">Use the Keychain Carefully</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9319,8 +9213,8 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="avoid_cached_application_snapshots">18.5.2. Avoid Cached Application Snapshots</h4>
+<div class="sect4">
+<h5 id="avoid_cached_application_snapshots">Avoid Cached Application Snapshots</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9333,8 +9227,8 @@ This method should be overridden and all the sensitive information in the user i
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="implement_protections_against_buffer_overflow_attacks">18.5.3. Implement Protections Against Buffer Overflow Attacks</h4>
+<div class="sect4">
+<h5 id="implement_protections_against_buffer_overflow_attacks">Implement Protections Against Buffer Overflow Attacks</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9363,8 +9257,8 @@ This method should be overridden and all the sensitive information in the user i
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="avoid_caching_http_s_requests_responses">18.5.4. Avoid Caching HTTP(S) Requests/Responses</h4>
+<div class="sect4">
+<h5 id="avoid_caching_http_s_requests_responses">Avoid Caching HTTP(S) Requests/Responses</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9373,8 +9267,8 @@ This method should be overridden and all the sensitive information in the user i
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="implement_app_transport_security_ats">18.5.5. Implement App Transport Security (ATS)</h4>
+<div class="sect4">
+<h5 id="implement_app_transport_security_ats">Implement App Transport Security (ATS)</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9383,8 +9277,8 @@ This method should be overridden and all the sensitive information in the user i
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="implement_touch_id_properly">18.5.6. Implement Touch ID Properly</h4>
+<div class="sect4">
+<h5 id="implement_touch_id_properly">Implement Touch ID Properly</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9404,10 +9298,10 @@ This method should be overridden and all the sensitive information in the user i
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="android">18.6. Android</h3>
 <div class="sect3">
-<h4 id="implement_file_permissions_carefully">18.6.1. Implement File Permissions Carefully</h4>
+<h4 id="android">2.17.6. Android</h4>
+<div class="sect4">
+<h5 id="implement_file_permissions_carefully">Implement File Permissions Carefully</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9419,8 +9313,8 @@ This method should be overridden and all the sensitive information in the user i
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="implement_intents_carefully">18.6.2. Implement Intents Carefully</h4>
+<div class="sect4">
+<h5 id="implement_intents_carefully">Implement Intents Carefully</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9435,8 +9329,8 @@ This method should be overridden and all the sensitive information in the user i
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="check_activities">18.6.3. Check Activities</h4>
+<div class="sect4">
+<h5 id="check_activities">Check Activities</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9458,8 +9352,8 @@ This method should be overridden and all the sensitive information in the user i
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="use_broadcasts_carefully">18.6.4. Use Broadcasts Carefully</h4>
+<div class="sect4">
+<h5 id="use_broadcasts_carefully">Use Broadcasts Carefully</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9468,8 +9362,8 @@ This method should be overridden and all the sensitive information in the user i
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="implement_pendingintents_carefully">18.6.5. Implement PendingIntents Carefully</h4>
+<div class="sect4">
+<h5 id="implement_pendingintents_carefully">Implement PendingIntents Carefully</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9478,8 +9372,8 @@ This method should be overridden and all the sensitive information in the user i
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="protect_application_services">18.6.6. Protect Application Services</h4>
+<div class="sect4">
+<h5 id="protect_application_services">Protect Application Services</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9488,8 +9382,8 @@ This method should be overridden and all the sensitive information in the user i
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="avoid_intent_sniffing">18.6.7. Avoid Intent Sniffing</h4>
+<div class="sect4">
+<h5 id="avoid_intent_sniffing">Avoid Intent Sniffing</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9498,8 +9392,8 @@ This method should be overridden and all the sensitive information in the user i
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="implement_content_providers_carefully">18.6.8. Implement Content Providers Carefully</h4>
+<div class="sect4">
+<h5 id="implement_content_providers_carefully">Implement Content Providers Carefully</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9517,8 +9411,8 @@ This method should be overridden and all the sensitive information in the user i
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="follow_webview_best_practices">18.6.9. Follow WebView Best Practices</h4>
+<div class="sect4">
+<h5 id="follow_webview_best_practices">Follow WebView Best Practices</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9533,8 +9427,8 @@ This method should be overridden and all the sensitive information in the user i
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="avoid_storing_cached_camera_images">18.6.10. Avoid Storing Cached Camera Images</h4>
+<div class="sect4">
+<h5 id="avoid_storing_cached_camera_images">Avoid Storing Cached Camera Images</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9556,8 +9450,8 @@ This method should be overridden and all the sensitive information in the user i
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="avoid_gui_objects_caching">18.6.11. Avoid GUI Objects Caching</h4>
+<div class="sect4">
+<h5 id="avoid_gui_objects_caching">Avoid GUI Objects Caching</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9572,8 +9466,8 @@ This method should be overridden and all the sensitive information in the user i
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="sign_android_apks">18.6.12. Sign Android APKs</h4>
+<div class="sect4">
+<h5 id="sign_android_apks">Sign Android APKs</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9595,10 +9489,10 @@ This method should be overridden and all the sensitive information in the user i
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="servers">18.7. Servers</h3>
 <div class="sect3">
-<h4 id="implement_proper_web_server_configuration">18.7.1. Implement Proper Web Server Configuration</h4>
+<h4 id="servers">2.17.7. Servers</h4>
+<div class="sect4">
+<h5 id="implement_proper_web_server_configuration">Implement Proper Web Server Configuration</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9616,8 +9510,8 @@ This method should be overridden and all the sensitive information in the user i
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="properly_configure_server_side_ssl">18.7.2. Properly Configure Server-side SSL</h4>
+<div class="sect4">
+<h5 id="properly_configure_server_side_ssl">Properly Configure Server-side SSL</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9661,8 +9555,8 @@ This method should be overridden and all the sensitive information in the user i
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="use_proper_session_management">18.7.3. Use Proper Session Management</h4>
+<div class="sect4">
+<h5 id="use_proper_session_management">Use Proper Session Management</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9677,8 +9571,8 @@ This method should be overridden and all the sensitive information in the user i
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="protect_and_pen_test_web_services">18.7.4. Protect and Pen Test Web Services</h4>
+<div class="sect4">
+<h5 id="protect_and_pen_test_web_services">Protect and Pen Test Web Services</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9696,8 +9590,8 @@ This method should be overridden and all the sensitive information in the user i
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="protect_internal_resources">18.7.5. Protect Internal Resources</h4>
+<div class="sect4">
+<h5 id="protect_internal_resources">Protect Internal Resources</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -9713,9 +9607,10 @@ This method should be overridden and all the sensitive information in the user i
 </div>
 </div>
 </div>
+</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-08-28 17:04:53 IST
+Last updated 2017-08-29 10:43:50 IST
 </div>
 </div>
 </body>

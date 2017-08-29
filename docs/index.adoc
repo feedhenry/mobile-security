@@ -8,22 +8,27 @@
 All things mobile security related.
 
 :toc:
+== Mobile Security Recomendations Overview
 
-include::mobileSecurityOverview.adoc[leveloffset=+1]
-include::owaspTopMobileRisks.adoc[leveloffset=+1]
-include::mobileSecurityRequirements.adoc[leveloffset=+1]
-include::owaspMobileDevelopmentGuidelines.adoc[leveloffset=+1]
-include::owaspCheatSheetSeries.adoc[leveloffset=+1]
-include::owaspMobileVerificationStandard.adoc[leveloffset=+1]
-include::owaspMobileThreatModelProject.adoc[leveloffset=+1]
-include::owaspMobileMTools.adoc[leveloffset=+1]
-include::iosSecurityGuide.adoc[leveloffset=+1]
-include::androidSecurityGuide.adoc[leveloffset=+1]
-include::androidDeveloperSecurityGuide.adoc[leveloffset=+1]
-include::cordovaSecurityGuide.adoc[leveloffset=+1]
-include::nispMobileSecurityVetting.adoc[leveloffset=+1]
-include::niapMobileAppVetting.adoc[leveloffset=+1]
-include::dhsMobileDeviceSecurity.adoc[leveloffset=+1]
-include::nispMobileDeviceSecurityGuides.adoc[leveloffset=+1]
-include::mobileBankingSecurity.adoc[leveloffset=+1]
-include::mobileSecureDevelopmentGuide.adoc[leveloffset=+1]
+include::mobileAuthOverview.adoc[leveloffset=+2]
+include::mobileDataStorageOverview.adoc[leveloffset=+2]
+
+== References
+
+include::owaspTopMobileRisks.adoc[leveloffset=+2]
+include::mobileSecurityRequirements.adoc[leveloffset=+2]
+include::owaspMobileDevelopmentGuidelines.adoc[leveloffset=+2]
+include::owaspCheatSheetSeries.adoc[leveloffset=+2]
+include::owaspMobileVerificationStandard.adoc[leveloffset=2]
+include::owaspMobileThreatModelProject.adoc[leveloffset=+2]
+include::owaspMobileMTools.adoc[leveloffset=+2]
+include::iosSecurityGuide.adoc[leveloffset=+2]
+include::androidSecurityGuide.adoc[leveloffset=+2]
+include::androidDeveloperSecurityGuide.adoc[leveloffset=+2]
+include::cordovaSecurityGuide.adoc[leveloffset=+2]
+include::nispMobileSecurityVetting.adoc[leveloffset=+2]
+include::niapMobileAppVetting.adoc[leveloffset=+2]
+include::dhsMobileDeviceSecurity.adoc[leveloffset=+2]
+include::nispMobileDeviceSecurityGuides.adoc[leveloffset=+2]
+include::mobileBankingSecurity.adoc[leveloffset=+2]
+include::mobileSecureDevelopmentGuide.adoc[leveloffset=+2]
