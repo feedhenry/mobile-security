@@ -435,6 +435,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#authentication_session_management">1.1. Authentication &amp; Session Management</a></li>
 <li><a href="#data_storage_summary">1.2. Data Storage Summary</a></li>
+<li><a href="#mobile_security_recomendations_overview_2">1.3. Mobile Security Recomendations Overview</a></li>
 </ul>
 </li>
 <li><a href="#references">2. References</a>
@@ -623,6 +624,74 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tr>
 </tbody>
 </table>
+</div>
+<div class="sect2">
+<h3 id="mobile_security_recomendations_overview_2">1.3. Mobile Security Recomendations Overview</h3>
+<div class="sect3">
+<h4 id="network_security">1.3.1. Network Security</h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Do&#8217;s</th>
+<th class="tableblock halign-left valign-top">Dont&#8217;s</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Include a Backup Cert Pin.</strong> <em>(Retain app connectivity if new keys on server are used or the CA is changed)</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pin the full certificate</strong>. <em>(The full cert, and potentially backup certs are available for inspection, the certificate is bundled with the app meaning that when a cert expires the app must be rebuilt with a new cert)</em>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Perform Certificate Pinning using the hash of the public key - SubjectPublicKeyInfo of the X.509 certificate.</strong> <em>(Allows you to anonymize a certificate or public key and ensures an attacker does not see the reserved certificate or public key in advance of its use).</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Send sensitive data without certificate pinning.</strong> <em>(Creates higher risk as an attacker with network privileges, or who has compromised TLS, is better positioned to intercept data)</em>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Perform proper certifcate validation if the platform doesn&#8217;t allow true certificate pinning.</strong> <em>(Adds an extra precautionary check when sending sensitive data)</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Establish connections with endpoints that offer a different certificate or key, even if signed by a trusted CA.</strong> <em>(The channel is not trusted.)</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use TLS for network encryption.</strong> <em>(SSL 2.0 and 3.0 have been deprecated by the IETF)</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use Mixed SSL sessions</strong>. <em>(The users session ID can be exposed over non HTTPS requests)</em>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use a secure channel consistently throughout the app</strong>. <em>(Ensure that some network calls are not sent in plaintext)</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use localhost network ports for handling sensitive IPC.</strong> <em>(The interface is accessible by other applications on the device)</em>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Verify that the app doesn’t rely on a single insecure communication channel such as email or SMS for critical operations, such as enrollments and account recovery.</strong> <em>(Use a hardware token or secure channel as GCM or Apple Push notifications)</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Don’t rely on unauthenticated SMS data to perform sensitive commands.</strong> <em>(The input may be malicious, be spoofed or sniffed using another app with SMS read permissions)</em>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Verify that the app uses some form of whitelisting to control access to external domains.</strong> <em>(Limit the outbound requests to predefined trusted domains).</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Avoid sending crash logs over the network in plaintext</strong>. <em>(Logs can contain sensitive or important information about the user and/or the application)</em>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pay particular attention to validating all data received from and sent to non-trusted third party apps/plugins before incorporating their use into an application.</strong> <em>(Some plugins can interact with ad networks etc)</em>.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Consider using HTTP Strict Transport Security (HSTS).</strong> <em>(Protect against protocol downgrade attacks and cookie hijacking)</em>.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Make sure that you don’t trust data downloaded from HTTP or other insecure protocols.</strong> <em>(Validate the data before using it in an application)</em>.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Require User Approval before Executing a Function that Transmits PII over a Network</strong>. <em>(Inform the user that their data is being transferred over a network or being sent to another location)</em>.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>For highly sensitive values, implement additional encryption in transit.</strong> <em>(Improved protection in case the secure channel somehow compromised)</em>.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </div>
@@ -4643,7 +4712,7 @@ By authorizing and signing only for known measurements, the server ensures that 
 </div>
 </div>
 <div class="sect3">
-<h4 id="network_security">2.8.4. Network Security</h4>
+<h4 id="network_security_2">2.8.4. Network Security</h4>
 <div class="sect4">
 <h5 id="tls">TLS</h5>
 <div class="ulist">
@@ -9617,7 +9686,7 @@ This method should be overridden and all the sensitive information in the user i
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-08-29 13:59:17 IST
+Last updated 2017-08-29 14:03:30 IST
 </div>
 </div>
 </body>
