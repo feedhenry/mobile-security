@@ -13,6 +13,7 @@ All things mobile security related.
 include::mobileAuthOverview.adoc[leveloffset=+2]
 include::mobileDataStorageOverview.adoc[leveloffset=+2]
 include::mobileNetworkOverview.adoc[leveloffset=+2]
+include::mobileDeviceSecurityOverview.adoc[leveloffset=+2]
 
 == References
 
