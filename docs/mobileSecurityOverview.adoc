@@ -8,7 +8,7 @@
 |*Pin the full certificate*. _(The full cert, and potentially backup certs are available for inspection, the certificate is bundled with the app meaning that when a cert expires the app must be rebuilt with a new cert)_.
 
 |*Perform Certificate Pinning using the hash of the public key - SubjectPublicKeyInfo of the X.509 certificate.* _(Allows you to anonymize a certificate or public key and ensures an attacker does not see the reserved certificate or public key in advance of its use)._
-|*Send sensitive data without certificate pinning.* _(Creates higher risk as an attacker with network privileges, or who has compromised TLS, is better positioned to intercept data.)_
+|*Send sensitive data without certificate pinning.* _(Creates higher risk as an attacker with network privileges, or who has compromised TLS, is better positioned to intercept data)_.
 
 |*Perform proper certifcate validation if the platform doesn't allow true certificate pinning.* _(Adds an extra precautionary check when sending sensitive data)_.
 |*Establish connections with endpoints that offer a different certificate or key, even if signed by a trusted CA.* _(The channel is not trusted.)_
