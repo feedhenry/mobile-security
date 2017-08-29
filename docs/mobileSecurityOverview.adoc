@@ -1,0 +1,44 @@
+= Mobile Security Recomendations Overview
+
+== Network Security
+|===
+|Do's |Dont's
+
+|*Include a Backup Cert Pin.* _(Retain app connectivity if new keys on server are used or the CA is changed)_.
+|*Pin the full certificate*. _(The full cert, and potentially backup certs are available for inspection, the certificate is bundled with the app meaning that when a cert expires the app must be rebuilt with a new cert)_.
+
+|*Perform Certificate Pinning using the hash of the public key - SubjectPublicKeyInfo of the X.509 certificate.* _(Allows you to anonymize a certificate or public key and ensures an attacker does not see the reserved certificate or public key in advance of its use)._
+|*Send sensitive data without certificate pinning.* _(Creates higher risk as an attacker with network privileges, or who has compromised TLS, is better positioned to intercept data.)_
+
+|*Perform proper certifcate validation if the platform doesn't allow true certificate pinning.* _(Adds an extra precautionary check when sending sensitive data)_.
+|*Establish connections with endpoints that offer a different certificate or key, even if signed by a trusted CA.* _(The channel is not trusted.)_
+
+|*Use TLS for network encryption.* _(SSL 2.0 and 3.0 have been deprecated by the IETF)_.
+|*Use Mixed SSL sessions*. _(The users session ID can be exposed over non HTTPS requests)_.
+
+|*Use a secure channel consistently throughout the app*. _(Ensure that some network calls are not sent in plaintext)_.
+|*Use localhost network ports for handling sensitive IPC.* _(The interface is accessible by other applications on the device)_.
+
+|*Verify that the app doesn’t rely on a single insecure communication channel such as email or SMS for critical operations, such as enrollments and account recovery.* _(Use a hardware token or secure channel as GCM or Apple Push notifications)_.
+|*Don’t rely on unauthenticated SMS data to perform sensitive commands.* _(The input may be malicious, be spoofed or sniffed using another app with SMS read permissions)_.
+
+|*Verify that the app uses some form of whitelisting to control access to external domains.* _(Limit the outbound requests to predefined trusted domains)._
+|*Avoid sending crash logs over the network in plaintext*. _(Logs can contain sensitive or important information about the user and/or the application)_.
+
+
+|*Pay particular attention to validating all data received from and sent to non-trusted third party apps/plugins before incorporating their use into an application.* _(Some plugins can interact with ad networks etc)_.
+|
+
+|*Consider using HTTP Strict Transport Security (HSTS).* _(Protect against protocol downgrade attacks and cookie hijacking)_.
+|
+
+|*Make sure that you don’t trust data downloaded from HTTP or other insecure protocols.* _(Validate the data before using it in an application)_.
+|
+
+|*Require User Approval before Executing a Function that Transmits PII over a Network*. _(Inform the user that their data is being transferred over a network or being sent to another location)_.
+|
+
+|*For highly sensitive values, implement additional encryption in transit.* _(Improved protection in case the secure channel somehow compromised)_.
+|
+
+|===
