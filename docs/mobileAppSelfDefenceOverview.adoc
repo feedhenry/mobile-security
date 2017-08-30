@@ -1,4 +1,5 @@
 = Mobile App Self-Defence
+
 |===
 |Do's |Dont's
 
@@ -48,5 +49,14 @@
 |
 
 |*Perform user interaction anomaly detection.* _(Allows the identificiation of abnormal app usage by a user that may be malicous)._
+|
+
+|*Consider only starting the app if it is running on the latest version or block requests from old versions of the app.* _(Older versions maybe have logic or security issues)._
+|
+
+|*Out-of-appstore security updates should be shipped using an encrypted connection.* _(Ensure that the security patch has not been tampered with in transit)._
+|
+
+|*Ensure that the installation package and its updates shall be digitally signed such that its platform can cryptographically verify them prior to installation.* _(Verify integrity before applying the update)._
 |
 |===
