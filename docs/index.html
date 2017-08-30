@@ -770,6 +770,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Perform user interaction anomaly detection.</strong> <em>(Allows the identificiation of abnormal app usage by a user that may be malicous).</em></p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Consider only starting the app if it is running on the latest version or block requests from old versions of the app.</strong> <em>(Older versions maybe have logic or security issues).</em></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Out-of-appstore security updates should be shipped using an encrypted connection.</strong> <em>(Ensure that the security patch has not been tampered with in transit).</em></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Ensure that the installation package and its updates shall be digitally signed such that its platform can cryptographically verify them prior to installation.</strong> <em>(Verify integrity before applying the update).</em></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
 </tbody>
 </table>
 </div>
