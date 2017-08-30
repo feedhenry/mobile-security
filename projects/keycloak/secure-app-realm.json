@@ -1,4 +1,4 @@
-[ {
+{
   "id" : "secure-app",
   "realm" : "secure-app",
   "notBefore" : 0,
@@ -1576,4 +1576,4 @@
     "waitIncrementSeconds" : "60"
   },
   "keycloakVersion" : "3.2.1.Final"
-} ]
+}
