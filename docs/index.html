@@ -5571,9 +5571,8 @@ copyInputStreamToOutputStream(in, System.out);</code></pre>
 </ul>
 </div>
 </div>
-</div>
-<div class="sect3">
-<h4 id="hostname_verification">2.10.3. Hostname verification</h4>
+<div class="sect4">
+<h5 id="hostname_verification">Hostname verification</h5>
 <div class="paragraph">
 <p>There are two key parts to verifying an SSL connection:</p>
 </div>
@@ -5603,51 +5602,35 @@ The server is configured with a certificate that does not have a subject or subj
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="warnings_about_using_sslsocket_directly">2.10.4. Warnings About Using SSLSocket Directly</h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
+<div class="sect4">
+<h5 id="warnings_about_using_sslsocket_directly">Warnings About Using SSLSocket Directly</h5>
+<div class="paragraph">
 <p><a href="https://developer.android.com/reference/javax/net/ssl/SSLSocket.html">SSLSocket</a> does not perform hostname verification. It is up the your app to do its own hostname verification, preferably by calling <code>getDefaultHostnameVerifier()</code> with the expected hostname. Further beware that <code>HostnameVerifier.verify()</code> doesn&#8217;t throw an exception on error but instead returns a boolean result that you must explicitly check.</p>
-</li>
-</ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="blacklisting">2.10.5. Blacklisting</h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
+<div class="sect4">
+<h5 id="blacklisting">Blacklisting</h5>
+<div class="paragraph">
 <p>SSL relies heavily on CAs to issue certificates to only the properly verified owners of servers and domains. In rare cases, CAs are either tricked or breached, resulting in the certificates for a hostname to be issued to someone other than the owner of the server or domain.</p>
-</li>
-<li>
+</div>
+<div class="paragraph">
 <p>In order to mitigate this risk, Android has the ability to blacklist certain certificates or even whole CAs. While this list was historically built into the operating system, starting in Android 4.2 this list can be remotely updated to deal with future compromises.</p>
-</li>
-</ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="pinning">2.10.6. Pinning</h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
+<div class="sect4">
+<h5 id="pinning">Pinning</h5>
+<div class="paragraph">
 <p>An app can further protect itself from fraudulently issued certificates by a technique known as pinning. This prevents the compromise of one of the other 100+ CAs in the system from resulting in a breach of the apps secure channel.</p>
-</li>
-</ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="client_certificates">2.10.7. Client Certificates</h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
+<div class="sect4">
+<h5 id="client_certificates">Client Certificates</h5>
+<div class="paragraph">
 <p>SSL also supports the notion of client certificates that allow the server to validate the identity of a client.</p>
-</li>
-</ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="nogotofail_a_network_traffic_security_testing_tool">2.10.8. Nogotofail: A Network Traffic Security Testing Tool</h4>
+<div class="sect4">
+<h5 id="nogotofail_a_network_traffic_security_testing_tool">Nogotofail: A Network Traffic Security Testing Tool</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -5671,6 +5654,289 @@ It&#8217;s an automated, powerful, and scalable tool for testing network securit
 <p>Understanding what applications and devices are generating what traffic.</p>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="network_security_configuration">2.10.3. Network Security Configuration</h4>
+<div class="paragraph">
+<p>This is a summary of the <a href="https://developer.android.com/training/articles/security-ssl.html">Android Developer Network Security Configuration Guide</a>.</p>
+</div>
+<div class="sect4">
+<h5 id="configuration">Configuration</h5>
+<div class="paragraph">
+<p>The Network Security Configuration feature lets apps customize their network security settings in a safe, declarative configuration file without modifying app code. These settings can be configured for specific domains and for a specific app. The key capabilities of this feature are as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Custom trust anchors</strong>: Customize which Certificate Authorities (CA) are trusted for an app&#8217;s secure connections. For example, trusting particular self-signed certificates or restricting the set of public CAs that the app trusts.</p>
+</li>
+<li>
+<p><strong>Debug-only overrides</strong>: Safely debug secure connections in an app without added risk to the installed base.</p>
+</li>
+<li>
+<p><strong>Cleartext traffic opt-out</strong>: Protect apps from accidental usage of cleartext traffic.</p>
+</li>
+<li>
+<p><strong>Certificate pinning</strong>: Restrict an app&#8217;s secure connection to particular certificates.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The Network Security Configuration feature uses an XML file where you specify the settings for your app. You must include an entry in the manifest of your app to point to this file.</p>
+</div>
+<div class="paragraph">
+<p>Example reference of the network security settings from the applications manifest xml:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;manifest ... &gt;
+    &lt;application android:networkSecurityConfig="@xml/network_security_config"
+                    ... &gt;
+        ...
+    &lt;/application&gt;
+&lt;/manifest&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="customizing_trusted_cas">Customizing Trusted CAs</h5>
+<div class="paragraph">
+<p>An app may want to trust a custom set of CAs instead of the platform default. The most common reasons of this are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Connecting to a host with a custom certificate authority, such as a CA that is self-signed or is issued internally within a company.</p>
+</li>
+<li>
+<p>Limiting the set of CAs to only the CAs you trust instead of every pre-installed CA.</p>
+</li>
+<li>
+<p>Trusting additional CAs not included in the system.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>An app can customize its own connections using <code>base-config</code> (for app-wide customization) or <code>domain-config</code> (for per-domain customization).</p>
+</div>
+<div class="paragraph">
+<p>For Configuring CA&#8217;s, configuration examples are available in the Andoird Documentation.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://developer.android.com/training/articles/security-config.html#ConfigCustom">Configuring a Custom CA</a></p>
+</li>
+<li>
+<p><a href="https://developer.android.com/training/articles/security-config.html#LimitingCas">Limiting the Set of Trusted CAs</a></p>
+</li>
+<li>
+<p><a href="https://developer.android.com/training/articles/security-config.html#TrustingAdditionalCas">Trusting Additional CAs</a></p>
+</li>
+<li>
+<p><a href="http://developer.android.com/training/articles/security-config.html#TrustingDebugCa">Configuring CAs for Debugging</a></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="opting_out_of_cleartext_traffic">Opting Out of Cleartext Traffic</h5>
+<div class="paragraph">
+<p>Applications intending to connect to destinations using only secure connections can opt-out of supporting cleartext (using the unencrypted HTTP protocol instead of HTTPS) to those destinations. This option helps prevent accidental regressions in apps due to changes in URLs provided by external sources such as backend servers.</p>
+</div>
+<div class="paragraph">
+<p>For example, an app may want to ensure that all connections to secure.example.com are always done over HTTPS to protect sensitive traffic from hostile networks.</p>
+</div>
+<div class="paragraph">
+<p><strong>res/xml/network_security_config.xml</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;network-security-config&gt;
+    &lt;domain-config cleartextTrafficPermitted="false"&gt;
+        &lt;domain includeSubdomains="true"&gt;secure.example.com&lt;/domain&gt;
+    &lt;/domain-config&gt;
+&lt;/network-security-config&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="pinning_certificates">Pinning Certificates</h5>
+<div class="paragraph">
+<p>Normally, an app trusts all pre-installed CAs. If any of these CAs were to issue a fradulent certificate, the app would be at risk from a man-in-the-middle attack. Some apps choose to limit the set of certificates they accept by either limiting the set of CAs they trust or by certificate pinning.</p>
+</div>
+<div class="paragraph">
+<p>Certificate pinning is done by providing a set of certificates by hash of the public key (SubjectPublicKeyInfo of the X.509 certificate). A certificate chain is then valid only if the certificate chain contains at least one of the pinned public keys.</p>
+</div>
+<div class="paragraph">
+<p>Note that, when using certificate pinning, you should always include a backup key so that if you are forced to switch to new keys or change CAs (when pinning to a CA certificate or an intermediate of that CA), your app&#8217;s connectivity is unaffected. Otherwise, you must push out an update to the app to restore connectivity.</p>
+</div>
+<div class="paragraph">
+<p><strong>res/xml/network_security_config.xml:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;network-security-config&gt;
+    &lt;domain-config&gt;
+        &lt;domain includeSubdomains="true"&gt;example.com&lt;/domain&gt;
+        &lt;pin-set expiration="2018-01-01"&gt;
+            &lt;pin digest="SHA-256"&gt;7HIpactkIAq2Y49orFOOQKurWxmmSFZhBCoQYcRhJ3Y=&lt;/pin&gt;
+            &lt;!-- backup pin --&gt;
+            &lt;pin digest="SHA-256"&gt;fwza0LRMXouZHRC8Ei+4PyuldPDcf3UKgO/04cDM1oE=&lt;/pin&gt;
+        &lt;/pin-set&gt;
+    &lt;/domain-config&gt;
+&lt;/network-security-config&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="configuration_inheritance_behavior">Configuration Inheritance Behavior</h5>
+<div class="paragraph">
+<p>Values not set in a specific configuration are inherited. This behavior allows more complex configurations while keeping the configuration file readable.</p>
+</div>
+<div class="paragraph">
+<p>If a value is not set in a specific entry, then the value from the more general entry is used. For example, values not set in a domain-config are taken from the parent domain-config, if nested, or from the base-config if not. Values not set in the base-config use the platform default values.</p>
+</div>
+<div class="paragraph">
+<p>For example, consider where all connections to subdomains of example.com must use a custom set of CAs. Additonally, cleartext traffic to these domains is permitted except when connecting to secure.example.com. By nesting the configuration for secure.example.com inside the configuration for example.com, the trust-anchors does not need to be duplicated.</p>
+</div>
+<div class="sect5">
+<h6 id="configuration_file_format">Configuration File Format</h6>
+<div class="paragraph">
+<p>The Network Security Configuration feature uses an XML file format. The overall structure of the file is shown in the following code sample:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;network-security-config&gt;
+    &lt;base-config&gt;
+        &lt;trust-anchors&gt;
+            &lt;certificates src="..."/&gt;
+            ...
+        &lt;/trust-anchors&gt;
+    &lt;/base-config&gt;
+
+    &lt;domain-config&gt;
+        &lt;domain&gt;android.com&lt;/domain&gt;
+        ...
+        &lt;trust-anchors&gt;
+            &lt;certificates src="..."/&gt;
+            ...
+        &lt;/trust-anchors&gt;
+        &lt;pin-set&gt;
+            &lt;pin digest="..."&gt;...&lt;/pin&gt;
+            ...
+        &lt;/pin-set&gt;
+    &lt;/domain-config&gt;
+    ...
+    &lt;debug-overrides&gt;
+        &lt;trust-anchors&gt;
+            &lt;certificates src="..."/&gt;
+            ...
+        &lt;/trust-anchors&gt;
+    &lt;/debug-overrides&gt;
+&lt;/network-security-config&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The full network security configuration options can be seen <a href="https://developer.android.com/training/articles/security-config.html#network-security-config">here</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="safetynet">2.10.4. SafetyNet</h4>
+<div class="paragraph">
+<p>SafetyNet provides a set of services and APIs that help protect your app against security threats, including device tampering, bad URLs, potentially harmful apps, and fake users.</p>
+</div>
+<div class="sect4">
+<h5 id="safetynet_attestation_api">SafetyNet Attestation API</h5>
+<div class="paragraph">
+<p>The <a href="https://developer.android.com/training/safetynet/attestation.html">SafetyNet Attestation API</a> provides services for determining whether a device running your app satisfies Android compatibility tests.</p>
+</div>
+<div class="paragraph">
+<p>SafetyNet examines software and hardware information on the device where your app is installed to create a profile of that device. The service then attempts to find this same profile within a list of device models that have passed Android compatibility testing. The API also uses this software and hardware information to help you assess the basic integrity of the device, as well as the APK information of the calling app. This attestation helps you to determine whether or not the particular device has been tampered with or otherwise modified.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="safetynet_safe_browsing_api">SafetyNet Safe Browsing API</h5>
+<div class="paragraph">
+<p>The <a href="https://developer.android.com/training/safetynet/safebrowsing.html">SafetyNet Safe Browsing API</a> provides services for determining whether a URL has been marked as a known threat by Google. Your app can use a URL check to determine whether a URL poses a known threat.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="safetynet_recaptcha_api">SafetyNet reCAPTCHA API</h5>
+<div class="paragraph">
+<p>The <a href="https://developer.android.com/training/safetynet/recaptcha.html">SafetyNet reCAPTCHA API</a> service includes a reCAPTCHA API that you can use to protect your app from malicious traffic. reCAPTCHA is a free service that uses an advanced risk analysis engine to protect your app from spam and other abusive actions. If the service suspects that the user interacting with your app might be a bot instead of a human, it serves a CAPTCHA that a human must solve before your app can continue executing.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="safetynet_verify_apps_api">SafetyNet Verify Apps API</h5>
+<div class="paragraph">
+<p>The <a href="https://developer.android.com/training/safetynet/verify-apps.html">SafetyNet Verify Apps API</a> allows your app to interact programmatically with the Verify Apps feature on a device, protecting the device against potentially harmful apps. The SafetyNet Verify Apps API allows you to leverage this feature to protect your app&#8217;s data. By using this API, you can determine whether a user&#8217;s device is protected by the Verify Apps feature, encourage users not already using the feature to opt in to its protection, and identify any known potentially harmful apps that are installed on the device.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="key_attestation">2.10.5. Key Attestation</h4>
+<div class="paragraph">
+<p>This is a summary of the <a href="https://developer.android.com/training/articles/security-key-attestation.html">Android Developer Key Attestation Security Guide</a> and the <a href="https://www.androidcentral.com/how-android-n-addresses-security">Android 7.0: "Security Benefits that Truly Matter"</a> post.</p>
+</div>
+<div class="sect4">
+<h5 id="verifying_hardware_backed_keypairs">Verifying Hardware Backed Keypairs</h5>
+<div class="paragraph">
+<p>Key Attestation will allow developers to make sure the keys they may be using in their apps are valid and stored in the phone&#8217;s hardware-backed keystore and not in software. When the attestation tool is given a generated alias for a key (the actual key should never be shared) it then generates a certificate chain that can be used to verify the key. Developers can verify both the key as well as the verified boot state to make sure everything is valid.</p>
+</div>
+<div class="paragraph">
+<p>Phones that ship with Android N and use Google services will have a certificate that&#8217;s issued by Google as the root (or primary) authority while other phones that have been upgraded will need a certificate issued by the company who made them.</p>
+</div>
+<div class="paragraph">
+<p>Not all phones that can run Android N have a trusted hardware environment to store encryption keys, and in those cases, software-level key attestation is used instead. The verified boot state can still be checked to make sure the system software hasn&#8217;t been tampered with.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="retrieving_and_verifying_a_hardware_backed_key_pair">Retrieving and Verifying a Hardware-backed Key Pair</h5>
+<div class="paragraph">
+<p>During key attestation, you specify the alias of a key pair. The attestation tool, in return, provides a certificate chain, which you can use to verify the properties of that key pair.</p>
+</div>
+<div class="paragraph">
+<p>If the device supports hardware-level key attestation, the root certificate within this chain is signed using an attestation root key, which the device manufacturer injects into the device&#8217;s hardware-backed keystore at the factory.</p>
+</div>
+<div class="paragraph">
+<p>On devices that ship with hardware-level key attestation, Android 7.0 (API level 24), and Google Play services, the root certificate is signed with the Google attestation root key. You should verify that this root certificate appears within Google&#8217;s list of root certificates.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="implementing_key_attestation">Implementing Key Attestation</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Use a KeyStore object&#8217;s <code>getCertificateChain()</code> method to get a reference to the chain of X.509 certificates associated with the hardware-backed keystore.</p>
+</li>
+<li>
+<p>Check each certificate&#8217;s validity using a X509Certificate object&#8217;s <code>checkValidity()</code> method. <strong>Caution</strong>: Although you can complete this process within your app directly, it&#8217;s safer to check the certificates' revocation lists on a separate server that you trust.</p>
+</li>
+<li>
+<p>On a separate server that you trust, obtain a reference to the ASN.1 parser library that is most appropriate for your toolset. Use this parser to extract the attestation certificate extension data, which appears within the first element of the certificate chain.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>The <a href="https://github.com/googlesamples/android-key-attestation">Key Attestation sample</a> uses the ASN.1 parser from Bouncy Castle to extract an attestation certificate&#8217;s extension data. You can use this sample as a reference for creating your own parser.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Compare the extension data that you&#8217;ve retrieved from your ASN.1 parser with the set of values that you expect the hardware-backed key to contain.
+<strong>Caution</strong>: Although you can complete this process within your app directly, it&#8217;s safer to check the certificate&#8217;s extension data on a separate server that you trust.</p>
+</li>
+</ol>
+</div>
 </div>
 </div>
 </div>
@@ -9809,7 +10075,7 @@ This method should be overridden and all the sensitive information in the user i
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-08-30 09:08:35 IST
+Last updated 2017-08-30 09:59:17 IST
 </div>
 </div>
 </body>
