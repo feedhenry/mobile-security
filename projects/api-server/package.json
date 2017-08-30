@@ -1,0 +1,32 @@
+{
+  "name": "secure-backend",
+  "version": "0.1.0",
+  "description": "A backend app secured by Keycloak",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "author": "RedHat <weil@redhat.com>",
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "express-session": "^1.15.5",
+    "helmet": "^3.1.0",
+    "keycloak-connect": "^3.3.0-cr.1",
+    "mongoose": "^4.7.0",
+    "morgan": "^1.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.11.1",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.7.1",
+    "nodemon": "^1.11.0"
+  }
+}
