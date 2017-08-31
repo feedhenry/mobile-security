@@ -1,12 +1,7 @@
 package com.feedhenry.nativeandroid;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.support.v7.app.AppCompatActivity;
-
 import android.os.AsyncTask;
-
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -44,7 +39,7 @@ public class AuthenticateActivity extends AppCompatActivity {
         mUsernameView = (AutoCompleteTextView) findViewById(R.id.username);
         mPasswordView = (EditText) findViewById(R.id.password);
 
-        // Add a listener for the
+        // Add a listener for the keyboard input button so that the enter key will submit the form
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -138,6 +133,9 @@ public class AuthenticateActivity extends AppCompatActivity {
             mPassword = password;
         }
 
+        /**
+         * Placeholder for performing authentication in the background
+         */
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against keycloak
@@ -152,6 +150,9 @@ public class AuthenticateActivity extends AppCompatActivity {
             return true;
         }
 
+        /**
+         * Method to handle the UI after authentication has completed
+         */
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
@@ -163,13 +164,6 @@ public class AuthenticateActivity extends AppCompatActivity {
                 mPasswordView.setError(getString(R.string.error_incorrect_credentials));
                 mPasswordView.requestFocus();
             }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
     }
 }
 
