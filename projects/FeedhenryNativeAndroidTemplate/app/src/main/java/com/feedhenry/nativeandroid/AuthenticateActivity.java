@@ -51,6 +51,7 @@ public class AuthenticateActivity extends AppCompatActivity {
             }
         });
 
+        // Reference the login button
         Button mSignInButton = (Button) findViewById(R.id.sign_in_button);
         mSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -84,14 +85,14 @@ public class AuthenticateActivity extends AppCompatActivity {
         boolean cancel = false;
         View focusView = null;
 
-        // Check for a valid password, if the user entered one.
+        // Check if the password field is empty
         if (TextUtils.isEmpty(password)) {
             mPasswordView.setError(getString(R.string.error_field_required));
             focusView = mPasswordView;
             cancel = true;
         }
 
-        // Check for a valid username
+        // Check if the username field is empty
         if (TextUtils.isEmpty(username)) {
             mUsernameView.setError(getString(R.string.error_field_required));
             focusView = mUsernameView;
@@ -115,8 +116,8 @@ public class AuthenticateActivity extends AppCompatActivity {
      * Shows the progress UI and hides the login form.
      */
     private void showProgress(final boolean show) {
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
     }
 
     /**
@@ -164,6 +165,7 @@ public class AuthenticateActivity extends AppCompatActivity {
                 mPasswordView.setError(getString(R.string.error_incorrect_credentials));
                 mPasswordView.requestFocus();
             }
+        }
     }
 }
 
