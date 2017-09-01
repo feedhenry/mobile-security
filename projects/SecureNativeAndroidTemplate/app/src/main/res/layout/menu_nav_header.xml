@@ -14,8 +14,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="100px"
-        android:layout_height="100px"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         app:srcCompat="@drawable/fh_icon" />
 
