@@ -1,15 +1,17 @@
 FROM node:6
 
+EXPOSE 8080
+
 # Create app directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN mkdir -p $HOME/src/app
+WORKDIR $HOME/src/app
 
 # Install app dependencies
-COPY package.json /usr/src/app/
+COPY package.json $HOME/src/app/
 RUN npm install
 
 # Bundle app source
-COPY . /usr/src/app
+COPY . $HOME/src/app
 
-EXPOSE 8080
+CMD ["npm", "start"]
 
