@@ -13,6 +13,7 @@ services:
       - keycloak
     environment:
       - MONGO_DB_URI=mongodb://mongo:27017/secure-backend
+      - KEYCLOAK_URL=http://keycloak:8080/auth
 
   mongo:
     image: mongo

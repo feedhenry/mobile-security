@@ -13,7 +13,7 @@ const routes = require('./routes');
 const app  = express();
 
 const memoryStore = new session.MemoryStore();
-const keycloak = new Keycloak({ store: memoryStore });
+const keycloak = new Keycloak({ store: memoryStore }, config.keycloak);
 
 mongoose.Promise = bluebird;
 mongoose.connect(config.mongo.url);
