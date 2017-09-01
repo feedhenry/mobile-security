@@ -3,7 +3,9 @@ version: '2'
 services:
   web:
     command: npm run dev
-    build: ./api-server
+    build:
+      dockerfile: Dockerfile-dev
+      context: ./api-server
     volumes:
       - ./api-server/:/app
     ports:
