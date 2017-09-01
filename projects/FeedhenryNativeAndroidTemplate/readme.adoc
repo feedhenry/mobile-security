@@ -1,0 +1,16 @@
+= Native Android Template
+
+This is a Native Android Template application demonstrating secure mobile practises.
+
+* Minimum SDK Version: 15
+* Target SDK Version: 25
+
+== Features
+. Authentication
+
+== Structure
+* *manifests/*
+** AndroidManifest.xml _(App Permissions Declared)_
+* *java/com.feedhenry.nativeandroid/*
+*** [underline]#MenuActivity# _(Sidebar and home screen logic)_
+*** [underline]#AuthenticateActivity#  _(Authentication logic)_
