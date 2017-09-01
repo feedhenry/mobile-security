@@ -1,0 +1,40 @@
+version: '2'
+
+services:
+  web:
+    command: npm run dev
+    build: ./api-server
+    volumes:
+      - ./api-server/:/app
+    ports:
+      - "8080:8080"
+    links:
+      - mongo
+      - keycloak
+    environment:
+      - MONGO_DB_URI=mongodb://mongo:27017/secure-backend
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes_from:
+      - mongodata
+
+  mongodata:
+    image: tianon/true
+    volumes:
+      - /data/db
+
+  keycloak:
+    image: jboss/keycloak
+    command: ["-b", "0.0.0.0", "-Dkeycloak.import=/tmp/keycloak/secure-app-realm.json"]
+    #command: ["-b", "0.0.0.0", "-Dkeycloak.migration.action=export -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.realmName=secure-app -Dkeycloak.migration.file=/tmp/keycloak/exported-realm.json"]
+    ports:
+      - "9090:8080"
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+    volumes:
+      - ./keycloak:/tmp/keycloak
+  

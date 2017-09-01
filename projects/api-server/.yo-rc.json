@@ -1,0 +1,8 @@
+{
+  "generator-api": {
+    "promptValues": {
+      "authorName": "RedHat",
+      "authorEmail": "weil@redhat.com"
+    }
+  }
+}
