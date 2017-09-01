@@ -2,7 +2,6 @@ version: '2'
 
 services:
   web:
-    dockerfile: Dockerfile-dev
     command: npm run dev
     build:
       dockerfile: Dockerfile-dev
