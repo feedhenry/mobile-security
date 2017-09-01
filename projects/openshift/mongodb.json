@@ -1,0 +1,184 @@
+{
+    "kind": "Template",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "mongodb"
+    },
+    "objects": [
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "mongodb",
+                "labels": {
+                    "app": "mongodb-persistent",
+                    "template": "mongodb-persistent-template"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "mongo",
+                        "protocol": "TCP",
+                        "port": 27017,
+                        "targetPort": 27017
+                    }
+                ],
+                "selector": {
+                    "name": "mongodb"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "mongodb",
+                "generation": 1,
+                "labels": {
+                    "app": "mongodb-persistent",
+                    "template": "mongodb-persistent-template"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "test": false,
+                "selector": {
+                    "name": "mongodb"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "name": "mongodb"
+                        }
+                    },
+                    "spec": {
+                        "volumes": [
+                            {
+                                "name": "mongodb-data",
+                                "persistentVolumeClaim": {
+                                    "claimName": "mongodb"
+                                }
+                            }
+                        ],
+                        "containers": [
+                            {
+                                "name": "mongodb",
+                                "image": "docker.io/centos/mongodb-32-centos7:latest",
+                                "ports": [
+                                    {
+                                        "containerPort": 27017,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "MONGODB_USER",
+                                        "value": "${MONGODB_USER}"
+                                    },
+                                    {
+                                        "name": "MONGODB_PASSWORD",
+                                        "value": "${MONGODB_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "MONGODB_DATABASE",
+                                        "value": "${MONGODB_DATABASE}"
+                                    },
+                                    {
+                                        "name": "MONGODB_ADMIN_PASSWORD",
+                                        "value": "${MONGODB_ADMIN_PASSWORD}"
+                                    }
+                                ],
+                                "resources": {
+                                    "limits": {
+                                        "memory": "512Mi"
+                                    }
+                                },
+                                "volumeMounts": [
+                                    {
+                                        "name": "mongodb-data",
+                                        "mountPath": "/var/lib/mongodb/data"
+                                    }
+                                ],
+                                "livenessProbe": {
+                                    "tcpSocket": {
+                                        "port": 27017
+                                    },
+                                    "initialDelaySeconds": 30,
+                                    "timeoutSeconds": 1,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 3
+                                },
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/sh",
+                                            "-i",
+                                            "-c",
+                                            "mongo 127.0.0.1:27017/$MONGODB_DATABASE -u $MONGODB_USER -p $MONGODB_PASSWORD --eval=\"quit()\""
+                                        ]
+                                    },
+                                    "initialDelaySeconds": 3,
+                                    "timeoutSeconds": 1,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 3
+                                },
+                                "imagePullPolicy": "IfNotPresent",
+                                "securityContext": {
+                                    "capabilities": {},
+                                    "privileged": false
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    ],
+    "parameters": [
+        {
+            "name": "MONGODB_USER",
+            "displayName": "Mongodb username",
+            "description": "The name of the mongodb user",
+            "value": "secure-app"
+        },
+        {
+            "name": "MONGODB_PASSWORD",
+            "displayName": "Mongodb password",
+            "description": "The name of the Mongodb password",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}",
+            "required": true
+        },
+        {
+            "name": "MONGODB_DATABASE",
+            "displayName": "Mongodb database name",
+            "description": "The name of the mongodb database",
+            "value": "secure-app"
+        },
+        {
+            "name": "MONGODB_ADMIN_PASSWORD",
+            "displayName": "Mongodb admin password",
+            "description": "The name of the Mongodb admin password",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}",
+            "required": true
+        }
+    ]
+}

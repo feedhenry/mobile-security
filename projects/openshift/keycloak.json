@@ -97,11 +97,11 @@
                             }],
                             "env": [{
                                     "name": "KEYCLOAK_USER",
-                                    "value": "admin"
+                                    "value": "${KEYCLOAK_USER}"
                                 },
                                 {
                                     "name": "KEYCLOAK_PASSWORD",
-                                    "value": "admin"
+                                    "value": "${KEYCLOAK_PASSWORD}"
                                 }
                             ],
                             "resources": {},
@@ -110,6 +110,22 @@
                     }
                 }
             }
+        }
+    ],
+    "parameters": [
+        {
+            "name": "KEYCLOAK_USER",
+            "displayName": "Keycloak admin username",
+            "description": "The name of the keycloak admin user",
+            "value": "admin"
+        },
+        {
+            "name": "KEYCLOAK_PASSWORD",
+            "displayName": "Keycloak admin password",
+            "description": "The name of the keycloak admin password",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}",
+            "required": true
         }
     ]
 }
