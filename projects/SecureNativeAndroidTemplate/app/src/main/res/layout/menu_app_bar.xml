@@ -20,6 +20,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/menu_home" />
+    <include layout="@layout/content_area" />
 
 </android.support.design.widget.CoordinatorLayout>

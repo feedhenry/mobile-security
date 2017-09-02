@@ -14,6 +14,7 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_incorrect_credentials">Incorrect Credentials</string>
     <string name="error_field_required">This field is required</string>
+    <string name="app_description">A Native Android Application that demonstates Secure Mobile Development Practises.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

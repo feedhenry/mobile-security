@@ -3,7 +3,11 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_authenticate"
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_authentication"
             android:icon="@drawable/ic_lock_open"
             android:title="Authentication" />
         <item
