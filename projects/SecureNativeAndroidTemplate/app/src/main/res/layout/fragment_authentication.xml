@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,9 +10,10 @@
     tools:context="com.feedhenry.securenativeandroidtemplate.AuthenticationFragment">
 
     <!-- Login Spinner -->
+
     <ProgressBar
         android:id="@+id/login_progress"
-        style="@style/Widget.AppCompat.ProgressBar"
+        style="@android:style/Widget.Material.ProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -21,7 +23,7 @@
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="437dp">
 
         <LinearLayout
             android:id="@+id/username_login_form"
@@ -65,6 +67,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <!-- Login Button -->
+
             <Button
                 android:id="@+id/sign_in_button"
                 style="?android:textAppearanceSmall"
@@ -73,6 +76,13 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/action_sign_in"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/keycloak"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/auth_description"
+                android:textAlignment="center" />
 
         </LinearLayout>
     </ScrollView>

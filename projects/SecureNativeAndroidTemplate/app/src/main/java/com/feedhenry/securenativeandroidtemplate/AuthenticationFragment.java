@@ -170,7 +170,7 @@ public class AuthenticationFragment extends Fragment {
 
             if (success) {
                 // Load Auth Details View
-                ((MainActivity)getActivity()).loadFragment(new HomeFragment());
+                ((MainActivity)getActivity()).loadFragment(new AuthenticationDetailsFragment());
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_credentials));
                 mPasswordView.requestFocus();
