@@ -1,0 +1,25 @@
+= Secure Native Android Template
+
+A Native Android Application that demonstrates Secure Mobile Development Practises.
+
+== Requirements
+* Minimum SDK Version: 15
+* Target SDK Version: 25
+
+== Structure
+* *manifests/*
+** *AndroidManifest.xml* _(App Permissions Declared)_
+* *java/com.feedhenry.securenativeandroidtemplate/*
+*** *MainActivity* _(Menu and Fragment Navigation Logic)_
+**** Relates to:
+*****  `res/layout/activity_main.xml` _(Menu system master)_
+*****  `res/layout/content_area.xml` _(Content view for fragments)_
+*****  `res/layout/menu_app_bar.xml` _(Top app bar)_
+*****  `res/layout/menu_nav_header.xml` _Sidebar app menu header)_
+*****  `res/menu/menu_sidebar_content.xml` _(Sidebar content menu)_
+*** *HomeFragment*  _(Home screen view and logic)_
+**** Relates to: `res/layout/fragment_home.xml`
+*** *AuthenticationFragment*  _(Authentication view and logic)_
+**** Relates to: `res/layout/fragment_authentication.xml`
+*** *AuthenticationDetailsFragment*  _(Authentication user details view and logic)_
+**** Relates to: `res/layout/fragment_authentication_details.xml`

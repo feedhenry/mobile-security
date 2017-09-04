@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_authentication"
+            android:icon="@drawable/ic_lock_open"
+            android:title="Authentication" />
+        <item
+            android:id="@+id/nav_storage"
+            android:icon="@drawable/ic_storage"
+            android:title="Storage" />
+        <item
+            android:id="@+id/nav_network"
+            android:icon="@drawable/ic_network_locked"
+            android:title="Network" />
+        <item
+            android:id="@+id/nav_device"
+            android:icon="@drawable/ic_phone_lock"
+            android:title="Device" />
+        <item
+            android:id="@+id/nav_cryptography"
+            android:icon="@drawable/ic_crypto"
+            android:title="Cryptography" />
+        <item
+            android:id="@+id/nav_configuration"
+            android:icon="@drawable/ic_config"
+            android:title="Configuration" />
+    </group>
+</menu>

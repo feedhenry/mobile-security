@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Secure Android Template</string>
+
+    <!-- Strings related to Navigation -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Strings related to Authentication -->
+    <string name="title_activity_authenticate">Authenticate</string>
+    <string name="prompt_username">Username</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_incorrect_credentials">Incorrect Credentials</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="app_description">A Native Android Application that demonstrates Secure Mobile Development Practises.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="auth_description">OpenID Connect Authentication via Keycloak.</string>
+
+</resources>
