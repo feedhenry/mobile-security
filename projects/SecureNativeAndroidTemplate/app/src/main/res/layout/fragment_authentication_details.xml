@@ -9,6 +9,6 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="User Profile Details View"
+        android:text="@string/auth_user_details_view"
         android:textAlignment="center" />
 </FrameLayout>

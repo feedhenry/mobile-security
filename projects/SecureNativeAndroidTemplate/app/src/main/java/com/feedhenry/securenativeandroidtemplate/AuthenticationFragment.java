@@ -15,6 +15,10 @@ import android.view.KeyEvent;
 import android.text.TextUtils;
 import android.os.AsyncTask;
 
+import com.feedhenry.securenativeandroidtemplate.authenticate.AuthenticateProvider;
+import com.feedhenry.securenativeandroidtemplate.authenticate.AuthenticateProviderImpl;
+import com.feedhenry.securenativeandroidtemplate.authenticate.AuthenticateResult;
+
 /**
  * A login screen that offers login via username/password.
  */
@@ -22,6 +26,7 @@ public class AuthenticationFragment extends Fragment {
 
     View view;
 
+    private AuthenticateProvider mAuthProvider = new AuthenticateProviderImpl();
     // Keep track of the login task to ensure we can cancel it if requested.
     private UserLoginTask mAuthTask = null;
 
@@ -30,6 +35,8 @@ public class AuthenticationFragment extends Fragment {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+
+    private AuthenticateSuccessCallback mAuthSuccessCallback;
 
     public AuthenticationFragment() {
         // Required empty public constructor
@@ -130,10 +137,27 @@ public class AuthenticationFragment extends Fragment {
     }
 
     /**
+     * Allow override the default auth provider. Mainly used for tests.
+     * @param authProvier
+     */
+    public void setAuthProvider(AuthenticateProvider authProvier) {
+        mAuthProvider = authProvier;
+    }
+
+
+    /**
+     * Set a callback that will be invoked when the authentication is completely successfully
+     * @param callback
+     */
+    public void setAuthSuccessCallback(AuthenticateSuccessCallback callback) {
+        mAuthSuccessCallback = callback;
+    }
+
+    /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    public class UserLoginTask extends AsyncTask<Void, Void, AuthenticateResult> {
 
         private final String mUsername;
         private final String mPassword;
@@ -147,35 +171,34 @@ public class AuthenticationFragment extends Fragment {
          * Placeholder for performing authentication in the background
          */
         @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against keycloak
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            return true;
+        protected AuthenticateResult doInBackground(Void... params) {
+            return mAuthProvider.authenticateWithUsernameAndPassword(mUsername, mPassword);
         }
 
         /**
          * Method to handle the UI after authentication has completed
          */
         @Override
-        protected void onPostExecute(final Boolean success) {
+        protected void onPostExecute(final AuthenticateResult result) {
             mAuthTask = null;
             showProgress(false);
 
-            if (success) {
-                // Load Auth Details View
-                ((MainActivity)getActivity()).loadFragment(new AuthenticationDetailsFragment());
+            if (result != null) {
+                if (mAuthSuccessCallback != null) {
+                    mAuthSuccessCallback.authenticated(result);
+                }
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_credentials));
                 mPasswordView.requestFocus();
             }
         }
+    }
+
+    /**
+     * To allow the caller define what actions need to be performed when the authentication is completed
+     */
+    public interface AuthenticateSuccessCallback {
+        public void authenticated(AuthenticateResult result);
     }
 
 }

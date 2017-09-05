@@ -12,6 +12,8 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 
+import com.feedhenry.securenativeandroidtemplate.authenticate.AuthenticateResult;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -66,7 +68,15 @@ public class MainActivity extends AppCompatActivity
         }
         // Visit the Authentication Screen
         if (id == R.id.nav_authentication) {
-            loadFragment(new AuthenticationFragment());
+            AuthenticationFragment authFragment = new AuthenticationFragment();
+            authFragment.setAuthSuccessCallback(new AuthenticationFragment.AuthenticateSuccessCallback() {
+                @Override
+                public void authenticated(AuthenticateResult result) {
+                    //TODO: inject the result to the details fragment
+                    loadFragment(new AuthenticationDetailsFragment());
+                }
+            });
+            loadFragment(authFragment);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

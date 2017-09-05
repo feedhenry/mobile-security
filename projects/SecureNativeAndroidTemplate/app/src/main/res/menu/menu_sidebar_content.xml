@@ -5,30 +5,30 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
-            android:title="Home" />
+            android:title="@string/fragment_title_home" />
         <item
             android:id="@+id/nav_authentication"
             android:icon="@drawable/ic_lock_open"
-            android:title="Authentication" />
+            android:title="@string/fragment_title_authenticate" />
         <item
             android:id="@+id/nav_storage"
             android:icon="@drawable/ic_storage"
-            android:title="Storage" />
+            android:title="@string/fragment_title_storage" />
         <item
             android:id="@+id/nav_network"
             android:icon="@drawable/ic_network_locked"
-            android:title="Network" />
+            android:title="@string/fragment_title_network" />
         <item
             android:id="@+id/nav_device"
             android:icon="@drawable/ic_phone_lock"
-            android:title="Device" />
+            android:title="@string/fragment_title_device" />
         <item
             android:id="@+id/nav_cryptography"
             android:icon="@drawable/ic_crypto"
-            android:title="Cryptography" />
+            android:title="@string/fragment_title_cryptography" />
         <item
             android:id="@+id/nav_configuration"
             android:icon="@drawable/ic_config"
-            android:title="Configuration" />
+            android:title="@string/fragment_title_configuration" />
     </group>
 </menu>
