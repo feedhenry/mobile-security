@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/wei-lee/mobile-security.svg?style=svg)](https://circleci.com/gh/wei-lee/mobile-security)
+
 # Secure-backend
 
 This is an example backend RESTFul API server. Requires nodejs >= 6.
