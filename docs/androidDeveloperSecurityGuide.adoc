@@ -536,3 +536,104 @@ if (!mDPM.isAdminActive(..)) {
     startActivity(new Intent(context, SecureActivity.class));
 }
 ```
+
+== Supporting Direct Boot
+
+Android 7.0 runs in a secure, Direct Boot mode when the device has been powered on but the user has not unlocked the device.
+
+NOTE: Most apps should not use Direct Boot mode, as the apps will be running before user has unlocked the device. 
+It should only be used if it's important for the app to run right after the system is started.
+
+=== Requesting Access to Run During Direct Boot
+
+Apps must register their components with the system before they can run during Direct Boot mode or access device encrypted storage. For example:
+
+```
+<receiver
+  android:directBootAware="true" >
+  ...
+  <intent-filter>
+    <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+  </intent-filter>
+</receiver>
+```
+
+=== Accessing Device Encrypted Storage
+
+The app will not be able to access the normal file system as the device is still locked.
+Android system provides two new storage locations for data:
+
+* Credential encrypted storage, which is the default storage location and only available after the user has unlocked the device.
+* Device encrypted storage, which is a storage location available both during Direct Boot mode and after the user has unlocked the device.
+
+You can access device encrypted storage like this:
+
+```
+Context directBootContext = appContext.createDeviceProtectedStorageContext();
+// Access appDataFilename that lives in device encrypted storage
+FileInputStream inStream = directBootContext.openFileInput(appDataFilename);
+// Use inStream to read content...
+```
+
+=== Getting Notified of User Unlock
+
+When the user unlocks the device after restart, your app can switch to accessing credential encrypted storage and use regular system services that depend on user credentials.
+
+To get notified when the user unlocks the device after a reboot, register a BroadcastReceiver from a running component to listen for unlock notification messages. 
+
+=== Migrating Existing Data
+
+If a user updates their device to use Direct Boot mode, you might have existing data that needs to get migrated to device encrypted storage.
+
+You can use:
+
+* Context.moveSharedPreferencesFrom()
+* Context.moveDatabaseFrom() 
+
+to migrate preference and database data between credential encrypted storage and device encrypted storage
+
+== Using Scoped Directory Access
+
+This function make it easier for apps that just need access to specific directories. For example, photo apps only need to access the `Pictures` directory.
+
+This is a new function provided from Android 7.0
+
+=== Accessing an External Storage Directory
+
+Example:
+
+```
+StorageManager sm = (StorageManager)getSystemService(Context.STORAGE_SERVICE);
+StorageVolume volume = sm.getPrimaryStorageVolume();
+Intent intent = volume.createAccessIntent(Environment.DIRECTORY_PICTURES);
+startActivityForResult(intent, request_code);
+```
+
+The system may confirm the access with the user.
+
+=== Accessing a Directory on Removable Media
+
+. Add a BroadcastReceiver that listens for the MEDIA_MOUNTED notification, for example:
++
+```
+<receiver
+    android:name=".MediaMountedReceiver"
+    android:enabled="true"
+    android:exported="true" >
+    <intent-filter>
+        <action android:name="android.intent.action.MEDIA_MOUNTED" />
+        <data android:scheme="file" />
+    </intent-filter>
+</receiver>
+```
+
+. When the user mounts removable media, like an SD card, the system sends a MEDIA_MOUNTED notification. Request access like this:
++
+```
+// BroadcastReceiver has already cached the MEDIA_MOUNTED
+// notification Intent in mediaMountedIntent
+StorageVolume volume = (StorageVolume)
+    mediaMountedIntent.getParcelableExtra(StorageVolume.EXTRA_STORAGE_VOLUME);
+volume.createAccessIntent(Environment.DIRECTORY_PICTURES);
+startActivityForResult(intent, request_code);
+```

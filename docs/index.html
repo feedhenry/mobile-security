@@ -6145,6 +6145,163 @@ if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.HONEYCOMB) {
 </div>
 </div>
 </div>
+<div class="sect3">
+<h4 id="supporting_direct_boot">2.10.7. Supporting Direct Boot</h4>
+<div class="paragraph">
+<p>Android 7.0 runs in a secure, Direct Boot mode when the device has been powered on but the user has not unlocked the device.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Most apps should not use Direct Boot mode, as the apps will be running before user has unlocked the device.
+It should only be used if it&#8217;s important for the app to run right after the system is started.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect4">
+<h5 id="requesting_access_to_run_during_direct_boot">Requesting Access to Run During Direct Boot</h5>
+<div class="paragraph">
+<p>Apps must register their components with the system before they can run during Direct Boot mode or access device encrypted storage. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>&lt;receiver
+  android:directBootAware="true" &gt;
+  ...
+  &lt;intent-filter&gt;
+    &lt;action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" /&gt;
+  &lt;/intent-filter&gt;
+&lt;/receiver&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="accessing_device_encrypted_storage">Accessing Device Encrypted Storage</h5>
+<div class="paragraph">
+<p>The app will not be able to access the normal file system as the device is still locked.
+Android system provides two new storage locations for data:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Credential encrypted storage, which is the default storage location and only available after the user has unlocked the device.</p>
+</li>
+<li>
+<p>Device encrypted storage, which is a storage location available both during Direct Boot mode and after the user has unlocked the device.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can access device encrypted storage like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>Context directBootContext = appContext.createDeviceProtectedStorageContext();
+// Access appDataFilename that lives in device encrypted storage
+FileInputStream inStream = directBootContext.openFileInput(appDataFilename);
+// Use inStream to read content...</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="getting_notified_of_user_unlock">Getting Notified of User Unlock</h5>
+<div class="paragraph">
+<p>When the user unlocks the device after restart, your app can switch to accessing credential encrypted storage and use regular system services that depend on user credentials.</p>
+</div>
+<div class="paragraph">
+<p>To get notified when the user unlocks the device after a reboot, register a BroadcastReceiver from a running component to listen for unlock notification messages.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="migrating_existing_data">Migrating Existing Data</h5>
+<div class="paragraph">
+<p>If a user updates their device to use Direct Boot mode, you might have existing data that needs to get migrated to device encrypted storage.</p>
+</div>
+<div class="paragraph">
+<p>You can use:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Context.moveSharedPreferencesFrom()</p>
+</li>
+<li>
+<p>Context.moveDatabaseFrom()</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>to migrate preference and database data between credential encrypted storage and device encrypted storage</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="using_scoped_directory_access">2.10.8. Using Scoped Directory Access</h4>
+<div class="paragraph">
+<p>This function make it easier for apps that just need access to specific directories. For example, photo apps only need to access the <code>Pictures</code> directory.</p>
+</div>
+<div class="paragraph">
+<p>This is a new function provided from Android 7.0</p>
+</div>
+<div class="sect4">
+<h5 id="accessing_an_external_storage_directory">Accessing an External Storage Directory</h5>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>StorageManager sm = (StorageManager)getSystemService(Context.STORAGE_SERVICE);
+StorageVolume volume = sm.getPrimaryStorageVolume();
+Intent intent = volume.createAccessIntent(Environment.DIRECTORY_PICTURES);
+startActivityForResult(intent, request_code);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The system may confirm the access with the user.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="accessing_a_directory_on_removable_media">Accessing a Directory on Removable Media</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add a BroadcastReceiver that listens for the MEDIA_MOUNTED notification, for example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>&lt;receiver
+    android:name=".MediaMountedReceiver"
+    android:enabled="true"
+    android:exported="true" &gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name="android.intent.action.MEDIA_MOUNTED" /&gt;
+        &lt;data android:scheme="file" /&gt;
+    &lt;/intent-filter&gt;
+&lt;/receiver&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>When the user mounts removable media, like an SD card, the system sends a MEDIA_MOUNTED notification. Request access like this:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>// BroadcastReceiver has already cached the MEDIA_MOUNTED
+// notification Intent in mediaMountedIntent
+StorageVolume volume = (StorageVolume)
+    mediaMountedIntent.getParcelableExtra(StorageVolume.EXTRA_STORAGE_VOLUME);
+volume.createAccessIntent(Environment.DIRECTORY_PICTURES);
+startActivityForResult(intent, request_code);</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="cordova_security_guide">2.11. Cordova Security Guide</h3>
@@ -10281,7 +10438,7 @@ This method should be overridden and all the sensitive information in the user i
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-09-07 11:13:07 IST
+Last updated 2017-09-07 14:47:18 IST
 </div>
 </div>
 </body>
