@@ -8,4 +8,4 @@ The rest of the document are the summaries of all the references that are used t
 
 # Build
 
-Run `asciidoctor ./docs/index.adoc` to generate a new `index.html`.
+Run `asciidoctor ./index.adoc` to generate a new `index.html`.
