@@ -414,3 +414,125 @@ On devices that ship with hardware-level key attestation, Android 7.0 (API level
 . Compare the extension data that you've retrieved from your ASN.1 parser with the set of values that you expect the hardware-backed key to contain.
 *Caution*: Although you can complete this process within your app directly, it's safer to check the certificate's extension data on a separate server that you trust.
 
+== Device Management Policies
+
+It allows developers to create an application that manages access to its content by enforcing device management policies.
+Specifically, the application can be configured such that it ensures a screen-lock password of sufficient strength is set up before displaying restricted content to the user.
+
+=== Define and Declare policy
+
+. Declare the policy in the `res/xml/device_admin.xml` file, example:
++
+```
+<device-admin xmlns:android="http://schemas.android.com/apk/res/android">
+  <uses-policies>
+    <limit-password />
+  </uses-policies>
+</device-admin>
+```
+. Then reference it in the Android manifest file:
++
+```
+<receiver android:name=".Policy$PolicyAdmin"
+    android:permission="android.permission.BIND_DEVICE_ADMIN">
+    <meta-data android:name="android.app.device_admin"
+        android:resource="@xml/device_admin" />
+    <intent-filter>
+        <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+    </intent-filter>
+</receiver>
+```
+
+=== Create the Device Administration Receiver
+
+The receiver will get notified of events related to the policies you’ve declared to support. 
+An application can selectively override callback methods. For example:
+
+```
+public static class PolicyAdmin extends DeviceAdminReceiver {
+
+    @Override
+    public void onDisabled(Context context, Intent intent) {
+        // Called when the app is about to be deactivated as a device administrator.
+        // Deletes previously stored password policy.
+        super.onDisabled(context, intent);
+        SharedPreferences prefs = context.getSharedPreferences(APP_PREF, Activity.MODE_PRIVATE);
+        prefs.edit().clear().commit();
+    }
+}
+```
+
+=== Activate the Device Administrator
+
+Before enforcing any policies, the user needs to manually activate the application as a device administrator.
+It can be done like this:
+
+```
+if (!mPolicy.isAdminActive()) {
+
+    Intent activateDeviceAdminIntent =
+        new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+
+    activateDeviceAdminIntent.putExtra(
+        DevicePolicyManager.EXTRA_DEVICE_ADMIN,
+        mPolicy.getPolicyAdmin());
+
+    // It is good practice to include the optional explanation text to
+    // explain to user why the application is requesting to be a device
+    // administrator. The system will display this message on the activation
+    // screen.
+    activateDeviceAdminIntent.putExtra(
+        DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+        getResources().getString(R.string.device_admin_activation_message));
+
+    startActivityForResult(activateDeviceAdminIntent,
+        REQ_ACTIVATE_DEVICE_ADMIN);
+}
+```
+
+=== Implement the Device Policy Controller
+
+After the device administrator is activated successfully, the application then configures Device Policy Manager with the requested policy. 
+For example:
+
+* Require password has minimum uppercase letters
++
+```
+DevicePolicyManager mDPM = (DevicePolicyManager)
+        context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+ComponentName mPolicyAdmin = new ComponentName(context, PolicyAdmin.class);
+...
+mDPM.setPasswordQuality(mPolicyAdmin, PASSWORD_QUALITY_VALUES[mPasswordQuality]);
+mDPM.setPasswordMinimumLength(mPolicyAdmin, mPasswordLength);
+if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+    mDPM.setPasswordMinimumUpperCase(mPolicyAdmin, mPasswordMinUpperCase);
+}
+```
+
+* If the requirement is not met, invoke the activity to ask user to reset password:
++
+```
+if (!mDPM.isActivePasswordSufficient()) {
+    ...
+    // Triggers password change screen in Settings.
+    Intent intent =
+        new Intent(DevicePolicyManager.ACTION_SET_NEW_PASSWORD);
+    startActivity(intent);
+}
+```
+
+* Finally, if requirement is met, the app can continue:
++
+```
+if (!mDPM.isAdminActive(..)) {
+    // Activates device administrator.
+    ...
+} else if (!mDPM.isActivePasswordSufficient()) {
+    // Launches password set-up screen in Settings.
+    ...
+} else {
+    // Grants access to secure content.
+    ...
+    startActivity(new Intent(context, SecureActivity.class));
+}
+```
