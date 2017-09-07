@@ -5992,6 +5992,316 @@ It&#8217;s an automated, powerful, and scalable tool for testing network securit
 </div>
 </div>
 </div>
+<div class="sect3">
+<h4 id="device_management_policies">2.10.6. Device Management Policies</h4>
+<div class="paragraph">
+<p>It allows developers to create an application that manages access to its content by enforcing device management policies.
+Specifically, the application can be configured such that it ensures a screen-lock password of sufficient strength is set up before displaying restricted content to the user.</p>
+</div>
+<div class="sect4">
+<h5 id="define_and_declare_policy">Define and Declare policy</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Declare the policy in the <code>res/xml/device_admin.xml</code> file, example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>&lt;device-admin xmlns:android="http://schemas.android.com/apk/res/android"&gt;
+  &lt;uses-policies&gt;
+    &lt;limit-password /&gt;
+  &lt;/uses-policies&gt;
+&lt;/device-admin&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Then reference it in the Android manifest file:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>&lt;receiver android:name=".Policy$PolicyAdmin"
+    android:permission="android.permission.BIND_DEVICE_ADMIN"&gt;
+    &lt;meta-data android:name="android.app.device_admin"
+        android:resource="@xml/device_admin" /&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name="android.app.action.DEVICE_ADMIN_ENABLED" /&gt;
+    &lt;/intent-filter&gt;
+&lt;/receiver&gt;</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="create_the_device_administration_receiver">Create the Device Administration Receiver</h5>
+<div class="paragraph">
+<p>The receiver will get notified of events related to the policies you’ve declared to support.
+An application can selectively override callback methods. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>public static class PolicyAdmin extends DeviceAdminReceiver {
+
+    @Override
+    public void onDisabled(Context context, Intent intent) {
+        // Called when the app is about to be deactivated as a device administrator.
+        // Deletes previously stored password policy.
+        super.onDisabled(context, intent);
+        SharedPreferences prefs = context.getSharedPreferences(APP_PREF, Activity.MODE_PRIVATE);
+        prefs.edit().clear().commit();
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="activate_the_device_administrator">Activate the Device Administrator</h5>
+<div class="paragraph">
+<p>Before enforcing any policies, the user needs to manually activate the application as a device administrator.
+It can be done like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>if (!mPolicy.isAdminActive()) {
+
+    Intent activateDeviceAdminIntent =
+        new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+
+    activateDeviceAdminIntent.putExtra(
+        DevicePolicyManager.EXTRA_DEVICE_ADMIN,
+        mPolicy.getPolicyAdmin());
+
+    // It is good practice to include the optional explanation text to
+    // explain to user why the application is requesting to be a device
+    // administrator. The system will display this message on the activation
+    // screen.
+    activateDeviceAdminIntent.putExtra(
+        DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+        getResources().getString(R.string.device_admin_activation_message));
+
+    startActivityForResult(activateDeviceAdminIntent,
+        REQ_ACTIVATE_DEVICE_ADMIN);
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="implement_the_device_policy_controller">Implement the Device Policy Controller</h5>
+<div class="paragraph">
+<p>After the device administrator is activated successfully, the application then configures Device Policy Manager with the requested policy.
+For example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Require password has minimum uppercase letters</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>DevicePolicyManager mDPM = (DevicePolicyManager)
+        context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+ComponentName mPolicyAdmin = new ComponentName(context, PolicyAdmin.class);
+...
+mDPM.setPasswordQuality(mPolicyAdmin, PASSWORD_QUALITY_VALUES[mPasswordQuality]);
+mDPM.setPasswordMinimumLength(mPolicyAdmin, mPasswordLength);
+if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.HONEYCOMB) {
+    mDPM.setPasswordMinimumUpperCase(mPolicyAdmin, mPasswordMinUpperCase);
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If the requirement is not met, invoke the activity to ask user to reset password:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>if (!mDPM.isActivePasswordSufficient()) {
+    ...
+    // Triggers password change screen in Settings.
+    Intent intent =
+        new Intent(DevicePolicyManager.ACTION_SET_NEW_PASSWORD);
+    startActivity(intent);
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Finally, if requirement is met, the app can continue:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>if (!mDPM.isAdminActive(..)) {
+    // Activates device administrator.
+    ...
+} else if (!mDPM.isActivePasswordSufficient()) {
+    // Launches password set-up screen in Settings.
+    ...
+} else {
+    // Grants access to secure content.
+    ...
+    startActivity(new Intent(context, SecureActivity.class));
+}</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="supporting_direct_boot">2.10.7. Supporting Direct Boot</h4>
+<div class="paragraph">
+<p>Android 7.0 runs in a secure, Direct Boot mode when the device has been powered on but the user has not unlocked the device.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Most apps should not use Direct Boot mode, as the apps will be running before user has unlocked the device.
+It should only be used if it&#8217;s important for the app to run right after the system is started.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect4">
+<h5 id="requesting_access_to_run_during_direct_boot">Requesting Access to Run During Direct Boot</h5>
+<div class="paragraph">
+<p>Apps must register their components with the system before they can run during Direct Boot mode or access device encrypted storage. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>&lt;receiver
+  android:directBootAware="true" &gt;
+  ...
+  &lt;intent-filter&gt;
+    &lt;action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" /&gt;
+  &lt;/intent-filter&gt;
+&lt;/receiver&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="accessing_device_encrypted_storage">Accessing Device Encrypted Storage</h5>
+<div class="paragraph">
+<p>The app will not be able to access the normal file system as the device is still locked.
+Android system provides two new storage locations for data:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Credential encrypted storage, which is the default storage location and only available after the user has unlocked the device.</p>
+</li>
+<li>
+<p>Device encrypted storage, which is a storage location available both during Direct Boot mode and after the user has unlocked the device.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can access device encrypted storage like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>Context directBootContext = appContext.createDeviceProtectedStorageContext();
+// Access appDataFilename that lives in device encrypted storage
+FileInputStream inStream = directBootContext.openFileInput(appDataFilename);
+// Use inStream to read content...</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="getting_notified_of_user_unlock">Getting Notified of User Unlock</h5>
+<div class="paragraph">
+<p>When the user unlocks the device after restart, your app can switch to accessing credential encrypted storage and use regular system services that depend on user credentials.</p>
+</div>
+<div class="paragraph">
+<p>To get notified when the user unlocks the device after a reboot, register a BroadcastReceiver from a running component to listen for unlock notification messages.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="migrating_existing_data">Migrating Existing Data</h5>
+<div class="paragraph">
+<p>If a user updates their device to use Direct Boot mode, you might have existing data that needs to get migrated to device encrypted storage.</p>
+</div>
+<div class="paragraph">
+<p>You can use:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Context.moveSharedPreferencesFrom()</p>
+</li>
+<li>
+<p>Context.moveDatabaseFrom()</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>to migrate preference and database data between credential encrypted storage and device encrypted storage</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="using_scoped_directory_access">2.10.8. Using Scoped Directory Access</h4>
+<div class="paragraph">
+<p>This function make it easier for apps that just need access to specific directories. For example, photo apps only need to access the <code>Pictures</code> directory.</p>
+</div>
+<div class="paragraph">
+<p>This is a new function provided from Android 7.0</p>
+</div>
+<div class="sect4">
+<h5 id="accessing_an_external_storage_directory">Accessing an External Storage Directory</h5>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>StorageManager sm = (StorageManager)getSystemService(Context.STORAGE_SERVICE);
+StorageVolume volume = sm.getPrimaryStorageVolume();
+Intent intent = volume.createAccessIntent(Environment.DIRECTORY_PICTURES);
+startActivityForResult(intent, request_code);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The system may confirm the access with the user.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="accessing_a_directory_on_removable_media">Accessing a Directory on Removable Media</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add a BroadcastReceiver that listens for the MEDIA_MOUNTED notification, for example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>&lt;receiver
+    android:name=".MediaMountedReceiver"
+    android:enabled="true"
+    android:exported="true" &gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name="android.intent.action.MEDIA_MOUNTED" /&gt;
+        &lt;data android:scheme="file" /&gt;
+    &lt;/intent-filter&gt;
+&lt;/receiver&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>When the user mounts removable media, like an SD card, the system sends a MEDIA_MOUNTED notification. Request access like this:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>// BroadcastReceiver has already cached the MEDIA_MOUNTED
+// notification Intent in mediaMountedIntent
+StorageVolume volume = (StorageVolume)
+    mediaMountedIntent.getParcelableExtra(StorageVolume.EXTRA_STORAGE_VOLUME);
+volume.createAccessIntent(Environment.DIRECTORY_PICTURES);
+startActivityForResult(intent, request_code);</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="cordova_security_guide">2.11. Cordova Security Guide</h3>
@@ -10128,7 +10438,7 @@ This method should be overridden and all the sensitive information in the user i
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-09-07 11:13:07 IST
+Last updated 2017-09-07 14:47:18 IST
 </div>
 </div>
 </body>
