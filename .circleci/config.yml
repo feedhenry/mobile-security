@@ -13,7 +13,7 @@ jobs:
     working_directory: ~/repo/projects/api-server
 
     steps:
-      - checkout
+      - checkout:
           path: ~/repo
 
       # Download and cache dependencies
