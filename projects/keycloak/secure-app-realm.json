@@ -50,7 +50,9 @@
       "clientId": "client-app",
       "enabled": true,
       "publicClient": true,
-      "redirectUris": [],
+      "redirectUris": [
+      "com.feedhenry.securenativeandroidtemplate:/callback"
+      ],
       "webOrigins": [
         "*"
       ]
