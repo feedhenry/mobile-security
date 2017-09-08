@@ -1,82 +1,101 @@
 {
-  "id": "secure-app",
-  "realm": "secure-app",
-  "enabled": true,
-  "sslRequired": "external",
-  "registrationAllowed": true,
-  "requiredCredentials": [
-    "password"
-  ],
-  "users": [{
-      "username": "user1",
-      "enabled": true,
-      "credentials": [{
-        "type": "password",
-        "value": "123"
-      }],
-      "clientRoles": {
-        "account": [
-          "view-profile",
-          "manage-account"
-        ]
-      },
-      "attributes": {},
-      "groups": []
-    },
-    {
-      "username": "user2",
-      "enabled": true,
-      "credentials": [{
-        "type": "password",
-        "value": "123"
-      }],
-      "clientRoles": {
-        "account": [
-          "view-profile",
-          "manage-account"
-        ]
-      },
-      "attributes": {},
-      "groups": []
-    }
-  ],
-  "clients": [{
-      "clientId": "api-server",
-      "enabled": true,
-      "bearerOnly": true,
-      "adminUrl": "http://localhost:8080"
-    },
-    {
-      "clientId": "client-app",
-      "enabled": true,
-      "publicClient": true,
-      "redirectUris": [
-      "com.feedhenry.securenativeandroidtemplate:/callback"
-      ],
-      "webOrigins": [
-        "*"
-      ]
-    }
-  ],
-  "clientScopeMappings": {
-    "account": [{
-        "client": "api-server",
-        "roles": [
-          "view-profile"
-        ]
+   "id":"secure-app",
+   "realm":"secure-app",
+   "enabled":true,
+   "sslRequired":"external",
+   "registrationAllowed":true,
+   "requiredCredentials":[
+      "password"
+   ],
+   "users":[
+      {
+         "username":"user1",
+         "enabled":true,
+         "credentials":[
+            {
+               "type":"password",
+               "value":"123"
+            }
+         ],
+         "clientRoles":{
+            "account":[
+               "view-profile",
+               "manage-account"
+            ]
+         },
+         "attributes":{
+
+         },
+         "groups":[
+
+         ]
       },
       {
-        "client": "client-app",
-        "roles": [
-          "view-profile"
-        ]
+         "username":"user2",
+         "enabled":true,
+         "credentials":[
+            {
+               "type":"password",
+               "value":"123"
+            }
+         ],
+         "clientRoles":{
+            "account":[
+               "view-profile",
+               "manage-account"
+            ]
+         },
+         "attributes":{
+
+         },
+         "groups":[
+
+         ]
       }
-    ]
-  },
-  "roles": {
-    "client": {
-      "api-server": [],
-      "client-app": []
-    }
-  }
+   ],
+   "clients":[
+      {
+         "clientId":"api-server",
+         "enabled":true,
+         "bearerOnly":true,
+         "adminUrl":"http://localhost:8080"
+      },
+      {
+         "clientId":"client-app",
+         "enabled":true,
+         "publicClient":true,
+         "redirectUris":[
+            "com.feedhenry.securenativeandroidtemplate:/callback"
+         ],
+         "webOrigins":[
+            "*"
+         ]
+      }
+   ],
+   "clientScopeMappings":{
+      "account":[
+         {
+            "client":"api-server",
+            "roles":[
+               "view-profile"
+            ]
+         },
+         {
+            "client":"client-app",
+            "roles":[
+               "view-profile"
+            ]
+         }
+      ]
+   },
+   "roles":{
+      "client":{
+         "api-server":[
+
+         ],
+         "client-app":[
+
+         ]
+      }
+   }
 }
