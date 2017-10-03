@@ -4,13 +4,13 @@
 |Do's |Dont's
 
 |*Perform Authentication on the Server Side.* _(The client side should never be trusted)_.
-|*Use Fingerprint Scanner for Authentication.* _(Possible False Positives)_.
+|*Use the Fingerprint Scanner solely for Authentication.* _(Possible False Positives [1])_.
 
 |*Use Randomly Generated access tokens instead of sending user credentials in requests.* _(At worst, a temporary session token can therefore only be stolen)_.
-|*Use Pattern Locks for Authentication.* _(Lack of Entropy, Smudge Attacks)_.
+|*Use Pattern Locks for Authentication.* _(Lack of Entropy, Vulnerable to Smudge Attacks [2])_.
 
 |*A password policy is enforced at the remote endpoint.* _(Prevent easily guessable passwords from being used)_.
-|*Use Pin code authentication.* _(Easily brute forced and the end user may resuse the device security pin)_.
+|*Use a short Pin code solely authentication.* _(Easily brute forced and the end user may reuse the device security pin)_.
 
 |*Sessions are terminated at the remote endpoint after a predefined time.* _(Sessions token lifetimes should be kept short to limit the attack window if an valid session token is stolen)_.
 |*Do not use any values for authenticating a user like device identifiers or geo-location.* _(These can be spoofed easily)_.
@@ -19,7 +19,7 @@
 |*Avoid relying on any roles or permission information that comes from the mobile device itself.* _(The client side and user input should not be trusted)_.
 
 |*Use contextual anomaly based detection to take into account the users IP, geographic location, time of day as part of the authentication phase.* _(Helps detect unusual login activity)_.
-|*Log user releated information.* _(Personal information data leak)_
+|*Log user related information.* _(Personal information data leak)_
 
 |*A second factor of authentication exists and is enforced.* _(Extra layer of protection in case another authentication factor has been compromised)_.
 |*Fail authentication with a Generic Error.* _(The login screen should not show hints on the existence of a username/email address etc)_.
@@ -48,3 +48,130 @@
 |*Implement Secure Password Recovery Mechanism*. _(To allow a user to recover their account using security questions only they should know the answers too and sending a recovery code using a side channel such as SMS)_.
 |
 |===
+
+== References
+
+1. The probability of a random person unlocking a given iPhone with Touch ID is 1 in 50,000. https://support.apple.com/en-ie/HT204587[Apple Support]
+2. Penn State researchers managed to identify the pass code patterns on two smartphones, 68% of the time, using photographs taken under different lighting conditions, and camera positions. https://www.usenix.org/legacy/events/woot10/tech/full_papers/Aviv.pdf[Smudge Attacks on Smartphone Touch Screens]
+
+== Implementation
+=== Overview
+
+An Authentication & Session Management implementation has been provided in our https://github.com/feedhenry/mobile-security-android-template[Mobile Security Android Template] App.
+
+The Application uses http://openid.net/connect/[OpenID Connect] for authentication and access control. The Open Source Identity and Access Management server, http://www.keycloak.org[Keycloak], is being used as an Identity Broker.
+The OpenID library https://github.com/openid/AppAuth-Android[AppAuth-Android] is being used for communicating with an OpenID Connect Provider/Broker.
+
+The Keycloak server is enforcing a number of Security Controls on the mobile app.
+
+. https://github.com/feedhenry/mobile-security/blob/master/projects/keycloak/secure-app-realm.json#L6-L11[Brute force detection] on the login screen.
+. https://github.com/feedhenry/mobile-security/blob/master/projects/keycloak/secure-app-realm.json#L12[Account lockouts] for failed login attempts.
+. https://github.com/feedhenry/mobile-security/blob/master/projects/keycloak/secure-app-realm.json#L101[2FA] for mobile Users.
+. http://www.keycloak.org/docs/latest/server_admin/topics/sessions/administering.html[Session management] for mobile users.
+. https://github.com/feedhenry/mobile-security/blob/master/projects/keycloak/secure-app-realm.json#L13-L17[Audit tracing] of auth events.
+
+=== Code Examples
+The main code logic is found under https://github.com/feedhenry/mobile-security-android-template/tree/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/authentication[mobile-security-android-template/.../authentication].
+
+There is also an https://github.com/feedhenry/mobile-security-android-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/AuthHelper.java[authentication helper class] for retrieving information about the users auth state from other places inside the app.
+
+The following code snippets below describe the main authentication code logic in the mobile app.
+
+==== OpenID Connect: Performing the Authentication Request
+
+This function is used to perform a redirect to the Identity Providers login screen. The OpenID Connect Auth and Token endpoints must be specified to make AppAuth aware of the URI used to perform the authentication on, as well as the URI used to perform the token exchange.
+Once we have setup the necessary AppAuth configuration, we can create the new Authorization Request. Here, we provide the endpoints for the OpenID Connect provider as well as the client ID, response type and redirect URI. We then perform the auth request and create a new intent which will handle the auth response from the system browser.
+
+.Code
+[source,java,linenums]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/authentication/providers/KeycloakAuthenticateProviderImpl.java[tags=performAuthRequest]
+....
+
+==== OpenID Connect: Handling the Authentication Response
+Once the Authentication phase has ended, the user will be redirected back to the mobile app from the system browser.
+A check is performed in the MainActivity for incoming intents. Any incoming intents that match the Android auth response intent will be directed to the below function.
+
+.Code
+[source,java,linenums]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/authentication/providers/KeycloakAuthenticateProviderImpl.java[tags=onAuthResult]
+....
+
+Once the intent is not null, we inspect it to check whether the authentication was successful or not. If the authentication failed, we are handling this in another function which will display a failure message to the user.
+If the authentication was a success, we then make a call to the `exchangeToken()` function to swap our temporary token for the identity, access and refresh tokens.
+
+.Code
+[source,java,linenums]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/authentication/providers/KeycloakAuthenticateProviderImpl.java[tags=handleAuthorizationResponse]
+....
+
+==== OpenID Connect: Exchanging Tokens
+
+Here, we send our temporary token to the the token endpoint on the OpenID Connect provider. If this token is valid, we will receive an access, identity and refresh token.
+We can now form an Identity for the logged in user based on the tokens being returned.
+
+.Code
+[source,java,linenums]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/authentication/providers/KeycloakAuthenticateProviderImpl.java[tags=exchangeTokens]
+....
+
+==== OpenID Connect: Logout
+
+To logout of the application, we must make a call to the logout endpoint on the OpenID Connect provider along with providing the identity token and a redirect URI.
+
+.Code
+[source,java,linenums]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/authentication/providers/KeycloakAuthenticateProviderImpl.java[tags=logout]
+....
+
+==== Auth Helper Class: Reading/Writing the Auth State
+As mentioned earlier, an auth helper class has been provided to for easy querying of the auth state and retrieval of other useful information.
+
+The Auth State can be read using the code below and called using `AuthHelper.readAuthState()`.
+
+.Code
+[source,java,linenum]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/AuthHelper.java[tags=readAuthState]
+....
+
+Similarly, you can write a new Auth State using the code below and can be called using `AuthHelper.writeAuthState(Authstate state)`.
+
+.Code
+[source,java,linenum]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/AuthHelper.java[tags=writeAuthState]
+....
+
+==== Auth Helper Class: Getting Identity Information
+This function can be used to get the users identity/access information from the auth state. The users identity is returned as a JSONObject.
+
+.Code
+[source,java,linenum]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/AuthHelper.java[tags=getIdentityInformation]
+....
+
+==== Auth Helper Class: Making Authenticated Bearer Requests
+The `makeBearerRequest()` function allows you to make HTTP calls against resources that require a valid Access Token (Such as a cloud app protected by Keycloak).
+The function accepts a URL in the form of a String along with a http://square.github.io/okhttp/[OkHttp] callback.
+
+.Code
+[source,java,linenum]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/AuthHelper.java[tags=makeBearerRequest]
+....
+
+==== Auth Helper Class: Other Helper Functions
+
+There are also a number of other functions in the helper class to get some auth related information:
+
+* `isAuthorized()` - Returns a boolean value for if the user is authenticated or authorized (for OAuth).
+* `getAccessToken()` - Returns a String of the Access Token.
+* `getIdentityToken()` - Returns a String of the Identity Token.
+* `getNeedsTokenRefresh()` - Returns a boolean value for if a new access token needs to be required.
+* `setNeedsTokenRefresh()` - Set a flag to say that a new access token is required.
