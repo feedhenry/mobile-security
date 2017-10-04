@@ -66,7 +66,7 @@ The Keycloak server is enforcing a number of Security Controls on the mobile app
 
 . https://github.com/feedhenry/mobile-security/blob/master/projects/keycloak/secure-app-realm.json#L6-L11[Brute force detection] on the login screen.
 . https://github.com/feedhenry/mobile-security/blob/master/projects/keycloak/secure-app-realm.json#L12[Account lockouts] for failed login attempts.
-. https://github.com/feedhenry/mobile-security/blob/master/projects/keycloak/secure-app-realm.json#L101[2FA] for mobile Users.
+. https://github.com/feedhenry/mobile-security/blob/master/projects/keycloak/secure-app-realm.json#L101[2FA] for mobile users.
 . http://www.keycloak.org/docs/latest/server_admin/topics/sessions/administering.html[Session management] for mobile users.
 . https://github.com/feedhenry/mobile-security/blob/master/projects/keycloak/secure-app-realm.json#L13-L17[Audit tracing] of auth events.
 
@@ -80,7 +80,7 @@ The following code snippets below describe the main authentication code logic in
 ==== OpenID Connect: Performing the Authentication Request
 
 This function is used to perform a redirect to the Identity Providers login screen. The OpenID Connect Auth and Token endpoints must be specified to make AppAuth aware of the URI used to perform the authentication on, as well as the URI used to perform the token exchange.
-Once we have setup the necessary AppAuth configuration, we can create the new Authorization Request. Here, we provide the endpoints for the OpenID Connect provider as well as the client ID, response type and redirect URI. We then perform the auth request and create a new intent which will handle the auth response from the system browser.
+Once we have setup the necessary AppAuth configuration, we can create the new Authorization Request. Here, we provide the endpoints for the OpenID Connect provider as well as the client ID, response type and redirect URI. We then perform the auth request and create a new intent which will handle the auth response from the system browser. The authentication phase will occur in a system browser in a safe context outside of the application.
 
 .Code
 [source,java,linenums]
