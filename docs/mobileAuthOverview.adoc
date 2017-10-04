@@ -83,7 +83,7 @@ This function is used to perform a redirect to the Identity Providers login scre
 Once we have setup the necessary AppAuth configuration, we can create the new Authorization Request. Here, we provide the endpoints for the OpenID Connect provider as well as the client ID, response type and redirect URI. We then perform the auth request and create a new intent which will handle the auth response from the system browser. The authentication phase will occur in a system browser in a safe context outside of the application.
 
 .Code
-[source,java,linenums]
+[source,java,linenums,indent=0]
 ....
 include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/authentication/providers/KeycloakAuthenticateProviderImpl.java[tags=performAuthRequest]
 ....
@@ -93,7 +93,7 @@ Once the Authentication phase has ended, the user will be redirected back to the
 A check is performed in the MainActivity for incoming intents. Any incoming intents that match the Android auth response intent will be directed to the below function.
 
 .Code
-[source,java,linenums]
+[source,java,linenums,indent=0]
 ....
 include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/authentication/providers/KeycloakAuthenticateProviderImpl.java[tags=onAuthResult]
 ....
@@ -102,7 +102,7 @@ Once the intent is not null, we inspect it to check whether the authentication w
 If the authentication was a success, we then make a call to the `exchangeToken()` function to swap our temporary token for the identity, access and refresh tokens.
 
 .Code
-[source,java,linenums]
+[source,java,linenums,indent=0]
 ....
 include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/authentication/providers/KeycloakAuthenticateProviderImpl.java[tags=handleAuthorizationResponse]
 ....
@@ -113,7 +113,7 @@ Here, we send our temporary token to the the token endpoint on the OpenID Connec
 We can now form an Identity for the logged in user based on the tokens being returned.
 
 .Code
-[source,java,linenums]
+[source,java,linenums,indent=0]
 ....
 include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/authentication/providers/KeycloakAuthenticateProviderImpl.java[tags=exchangeTokens]
 ....
@@ -123,7 +123,7 @@ include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-tem
 To logout of the application, we must make a call to the logout endpoint on the OpenID Connect provider along with providing the identity token and a redirect URI.
 
 .Code
-[source,java,linenums]
+[source,java,linenums,indent=0]
 ....
 include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/authentication/providers/KeycloakAuthenticateProviderImpl.java[tags=logout]
 ....
@@ -134,7 +134,7 @@ As mentioned earlier, an auth helper class has been provided to for easy queryin
 The Auth State can be read using the code below and called using `AuthHelper.readAuthState()`.
 
 .Code
-[source,java,linenum]
+[source,java,linenum,indent=0]
 ....
 include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/AuthHelper.java[tags=readAuthState]
 ....
@@ -142,7 +142,7 @@ include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-tem
 Similarly, you can write a new Auth State using the code below and can be called using `AuthHelper.writeAuthState(Authstate state)`.
 
 .Code
-[source,java,linenum]
+[source,java,linenum,indent=0]
 ....
 include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/AuthHelper.java[tags=writeAuthState]
 ....
@@ -151,7 +151,7 @@ include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-tem
 This function can be used to get the users identity/access information from the auth state. The users identity is returned as a JSONObject.
 
 .Code
-[source,java,linenum]
+[source,java,linenum,indent=0]
 ....
 include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/AuthHelper.java[tags=getIdentityInformation]
 ....
@@ -161,7 +161,7 @@ The `makeBearerRequest()` function allows you to make HTTP calls against resourc
 The function accepts a URL in the form of a String along with a http://square.github.io/okhttp/[OkHttp] callback.
 
 .Code
-[source,java,linenum]
+[source,java,linenum,indent=0]
 ....
 include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/AuthHelper.java[tags=makeBearerRequest]
 ....

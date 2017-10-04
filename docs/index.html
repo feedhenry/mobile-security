@@ -659,7 +659,7 @@ The OpenID library <a href="https://github.com/openid/AppAuth-Android">AppAuth-A
 <p><a href="https://github.com/feedhenry/mobile-security/blob/master/projects/keycloak/secure-app-realm.json#L12">Account lockouts</a> for failed login attempts.</p>
 </li>
 <li>
-<p><a href="https://github.com/feedhenry/mobile-security/blob/master/projects/keycloak/secure-app-realm.json#L101">2FA</a> for mobile Users.</p>
+<p><a href="https://github.com/feedhenry/mobile-security/blob/master/projects/keycloak/secure-app-realm.json#L101">2FA</a> for mobile users.</p>
 </li>
 <li>
 <p><a href="http://www.keycloak.org/docs/latest/server_admin/topics/sessions/administering.html">Session management</a> for mobile users.</p>
@@ -685,7 +685,7 @@ The OpenID library <a href="https://github.com/openid/AppAuth-Android">AppAuth-A
 <h6 id="openid_connect_performing_the_authentication_request">OpenID Connect: Performing the Authentication Request</h6>
 <div class="paragraph">
 <p>This function is used to perform a redirect to the Identity Providers login screen. The OpenID Connect Auth and Token endpoints must be specified to make AppAuth aware of the URI used to perform the authentication on, as well as the URI used to perform the token exchange.
-Once we have setup the necessary AppAuth configuration, we can create the new Authorization Request. Here, we provide the endpoints for the OpenID Connect provider as well as the client ID, response type and redirect URI. We then perform the auth request and create a new intent which will handle the auth response from the system browser.</p>
+Once we have setup the necessary AppAuth configuration, we can create the new Authorization Request. Here, we provide the endpoints for the OpenID Connect provider as well as the client ID, response type and redirect URI. We then perform the auth request and create a new intent which will handle the auth response from the system browser. The authentication phase will occur in a system browser in a safe context outside of the application.</p>
 </div>
 <div class="listingblock">
 <div class="title">Code</div>
@@ -726,43 +726,43 @@ Once we have setup the necessary AppAuth configuration, we can create the new Au
 34
 35
 36
-37</div></td><td class="code"><span></span>    <span class="tok-cm">/**</span>
-<span class="tok-cm">     * Create the config for the initial Keycloak auth request to get a temporary token and create an intent to handle the response</span>
-<span class="tok-cm">     */</span>
-    <span class="tok-nd">@Override</span>
-    <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">performAuthRequest</span><span class="tok-o">(</span><span class="tok-n">Activity</span> <span class="tok-n">fromActivity</span><span class="tok-o">,</span> <span class="tok-n">Callback</span> <span class="tok-n">authCallback</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-        <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">authCallback</span> <span class="tok-o">=</span> <span class="tok-n">authCallback</span><span class="tok-o">;</span>
-        <span class="tok-c1">// Setup the config for the AuthorizationService</span>
-        <span class="tok-n">serviceConfig</span> <span class="tok-o">=</span>
-                <span class="tok-k">new</span> <span class="tok-n">AuthorizationServiceConfiguration</span><span class="tok-o">(</span>
-                        <span class="tok-n">AUTHORIZATION_ENDPOINT</span><span class="tok-o">,</span> <span class="tok-c1">// the clients keycloak authorization endpoint</span>
-                        <span class="tok-n">TOKEN_ENDPOINT</span><span class="tok-o">);</span> <span class="tok-c1">// the clients keycloak token endpoint</span>
+37</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Create the config for the initial Keycloak auth request to get a temporary token and create an intent to handle the response</span>
+<span class="tok-cm"> */</span>
+<span class="tok-nd">@Override</span>
+<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">performAuthRequest</span><span class="tok-o">(</span><span class="tok-n">Activity</span> <span class="tok-n">fromActivity</span><span class="tok-o">,</span> <span class="tok-n">Callback</span> <span class="tok-n">authCallback</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+    <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">authCallback</span> <span class="tok-o">=</span> <span class="tok-n">authCallback</span><span class="tok-o">;</span>
+    <span class="tok-c1">// Setup the config for the AuthorizationService</span>
+    <span class="tok-n">serviceConfig</span> <span class="tok-o">=</span>
+            <span class="tok-k">new</span> <span class="tok-n">AuthorizationServiceConfiguration</span><span class="tok-o">(</span>
+                    <span class="tok-n">AUTHORIZATION_ENDPOINT</span><span class="tok-o">,</span> <span class="tok-c1">// the clients keycloak authorization endpoint</span>
+                    <span class="tok-n">TOKEN_ENDPOINT</span><span class="tok-o">);</span> <span class="tok-c1">// the clients keycloak token endpoint</span>
 
-        <span class="tok-c1">// Persist the AuthorizationServiceConfiguration</span>
-        <span class="tok-n">authState</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">AuthState</span><span class="tok-o">(</span><span class="tok-n">serviceConfig</span><span class="tok-o">);</span>
+    <span class="tok-c1">// Persist the AuthorizationServiceConfiguration</span>
+    <span class="tok-n">authState</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">AuthState</span><span class="tok-o">(</span><span class="tok-n">serviceConfig</span><span class="tok-o">);</span>
 
-        <span class="tok-c1">// Prevent the app opening the keycloak view in chrome custom tabs, instead open it in the native browser</span>
-        <span class="tok-n">AppAuthConfiguration</span> <span class="tok-n">appAuthConfig</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">AppAuthConfiguration</span><span class="tok-o">.</span><span class="tok-na">Builder</span><span class="tok-o">()</span>
-                <span class="tok-o">.</span><span class="tok-na">setBrowserMatcher</span><span class="tok-o">(</span><span class="tok-k">new</span> <span class="tok-n">BrowserBlacklist</span><span class="tok-o">(</span>
-                        <span class="tok-n">VersionedBrowserMatcher</span><span class="tok-o">.</span><span class="tok-na">CHROME_CUSTOM_TAB</span><span class="tok-o">))</span>
-                <span class="tok-o">.</span><span class="tok-na">build</span><span class="tok-o">();</span>
+    <span class="tok-c1">// Prevent the app opening the keycloak view in chrome custom tabs, instead open it in the native browser</span>
+    <span class="tok-n">AppAuthConfiguration</span> <span class="tok-n">appAuthConfig</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">AppAuthConfiguration</span><span class="tok-o">.</span><span class="tok-na">Builder</span><span class="tok-o">()</span>
+            <span class="tok-o">.</span><span class="tok-na">setBrowserMatcher</span><span class="tok-o">(</span><span class="tok-k">new</span> <span class="tok-n">BrowserBlacklist</span><span class="tok-o">(</span>
+                    <span class="tok-n">VersionedBrowserMatcher</span><span class="tok-o">.</span><span class="tok-na">CHROME_CUSTOM_TAB</span><span class="tok-o">))</span>
+            <span class="tok-o">.</span><span class="tok-na">build</span><span class="tok-o">();</span>
 
-        <span class="tok-c1">// create a new auth service with the auth config</span>
-        <span class="tok-n">authService</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">AuthorizationService</span><span class="tok-o">(</span><span class="tok-n">context</span><span class="tok-o">,</span> <span class="tok-n">appAuthConfig</span><span class="tok-o">);</span>
+    <span class="tok-c1">// create a new auth service with the auth config</span>
+    <span class="tok-n">authService</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">AuthorizationService</span><span class="tok-o">(</span><span class="tok-n">context</span><span class="tok-o">,</span> <span class="tok-n">appAuthConfig</span><span class="tok-o">);</span>
 
-        <span class="tok-n">AuthorizationRequest</span><span class="tok-o">.</span><span class="tok-na">Builder</span> <span class="tok-n">authRequestBuilder</span> <span class="tok-o">=</span>
-                <span class="tok-k">new</span> <span class="tok-n">AuthorizationRequest</span><span class="tok-o">.</span><span class="tok-na">Builder</span><span class="tok-o">(</span>
-                        <span class="tok-n">serviceConfig</span><span class="tok-o">,</span> <span class="tok-c1">// the authorization service configuration</span>
-                        <span class="tok-n">CLIENT_ID</span><span class="tok-o">,</span> <span class="tok-c1">// the client ID, typically pre-registered and static</span>
-                        <span class="tok-n">ResponseTypeValues</span><span class="tok-o">.</span><span class="tok-na">CODE</span><span class="tok-o">,</span> <span class="tok-c1">// the response_type value: we want a code</span>
-                        <span class="tok-n">REDIRECT_URI</span><span class="tok-o">)</span> <span class="tok-c1">// the redirect URI to which the auth response is sent</span>
-                        <span class="tok-o">.</span><span class="tok-na">setScopes</span><span class="tok-o">(</span><span class="tok-n">OPEN_ID_SCOPE</span><span class="tok-o">);</span>
+    <span class="tok-n">AuthorizationRequest</span><span class="tok-o">.</span><span class="tok-na">Builder</span> <span class="tok-n">authRequestBuilder</span> <span class="tok-o">=</span>
+            <span class="tok-k">new</span> <span class="tok-n">AuthorizationRequest</span><span class="tok-o">.</span><span class="tok-na">Builder</span><span class="tok-o">(</span>
+                    <span class="tok-n">serviceConfig</span><span class="tok-o">,</span> <span class="tok-c1">// the authorization service configuration</span>
+                    <span class="tok-n">CLIENT_ID</span><span class="tok-o">,</span> <span class="tok-c1">// the client ID, typically pre-registered and static</span>
+                    <span class="tok-n">ResponseTypeValues</span><span class="tok-o">.</span><span class="tok-na">CODE</span><span class="tok-o">,</span> <span class="tok-c1">// the response_type value: we want a code</span>
+                    <span class="tok-n">REDIRECT_URI</span><span class="tok-o">)</span> <span class="tok-c1">// the redirect URI to which the auth response is sent</span>
+                    <span class="tok-o">.</span><span class="tok-na">setScopes</span><span class="tok-o">(</span><span class="tok-n">OPEN_ID_SCOPE</span><span class="tok-o">);</span>
 
-        <span class="tok-n">authRequest</span> <span class="tok-o">=</span> <span class="tok-n">authRequestBuilder</span><span class="tok-o">.</span><span class="tok-na">build</span><span class="tok-o">();</span>
-        <span class="tok-c1">// perform the auth request</span>
-        <span class="tok-n">Intent</span> <span class="tok-n">authIntent</span> <span class="tok-o">=</span> <span class="tok-n">authService</span><span class="tok-o">.</span><span class="tok-na">getAuthorizationRequestIntent</span><span class="tok-o">(</span><span class="tok-n">authRequest</span><span class="tok-o">);</span>
-        <span class="tok-n">fromActivity</span><span class="tok-o">.</span><span class="tok-na">startActivityForResult</span><span class="tok-o">(</span><span class="tok-n">authIntent</span><span class="tok-o">,</span> <span class="tok-n">Constants</span><span class="tok-o">.</span><span class="tok-na">REQUEST_CODES</span><span class="tok-o">.</span><span class="tok-na">AUTH_CODE</span><span class="tok-o">);</span>
-    <span class="tok-o">}</span>
+    <span class="tok-n">authRequest</span> <span class="tok-o">=</span> <span class="tok-n">authRequestBuilder</span><span class="tok-o">.</span><span class="tok-na">build</span><span class="tok-o">();</span>
+    <span class="tok-c1">// perform the auth request</span>
+    <span class="tok-n">Intent</span> <span class="tok-n">authIntent</span> <span class="tok-o">=</span> <span class="tok-n">authService</span><span class="tok-o">.</span><span class="tok-na">getAuthorizationRequestIntent</span><span class="tok-o">(</span><span class="tok-n">authRequest</span><span class="tok-o">);</span>
+    <span class="tok-n">fromActivity</span><span class="tok-o">.</span><span class="tok-na">startActivityForResult</span><span class="tok-o">(</span><span class="tok-n">authIntent</span><span class="tok-o">,</span> <span class="tok-n">Constants</span><span class="tok-o">.</span><span class="tok-na">REQUEST_CODES</span><span class="tok-o">.</span><span class="tok-na">AUTH_CODE</span><span class="tok-o">);</span>
+<span class="tok-o">}</span>
 </td></tr></table></code></pre>
 </div>
 </div>
@@ -785,16 +785,16 @@ A check is performed in the MainActivity for incoming intents. Any incoming inte
  7
  8
  9
-10</div></td><td class="code"><span></span>    <span class="tok-cm">/**</span>
-<span class="tok-cm">     * Checks if the incoming intent matches the Keycloak Auth response intent</span>
-<span class="tok-cm">     *</span>
-<span class="tok-cm">     * @param intent - the intent to check</span>
-<span class="tok-cm">     */</span>
-    <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">onAuthResult</span><span class="tok-o">(</span><span class="tok-nd">@Nullable</span> <span class="tok-n">Intent</span> <span class="tok-n">intent</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-        <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">intent</span> <span class="tok-o">!=</span> <span class="tok-kc">null</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-            <span class="tok-n">handleAuthorizationResponse</span><span class="tok-o">(</span><span class="tok-n">intent</span><span class="tok-o">);</span>
-        <span class="tok-o">}</span>
+10</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Checks if the incoming intent matches the Keycloak Auth response intent</span>
+<span class="tok-cm"> *</span>
+<span class="tok-cm"> * @param intent - the intent to check</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">onAuthResult</span><span class="tok-o">(</span><span class="tok-nd">@Nullable</span> <span class="tok-n">Intent</span> <span class="tok-n">intent</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">intent</span> <span class="tok-o">!=</span> <span class="tok-kc">null</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">handleAuthorizationResponse</span><span class="tok-o">(</span><span class="tok-n">intent</span><span class="tok-o">);</span>
     <span class="tok-o">}</span>
+<span class="tok-o">}</span>
 </td></tr></table></code></pre>
 </div>
 </div>
@@ -822,24 +822,24 @@ If the authentication was a success, we then make a call to the <code>exchangeTo
 15
 16
 17
-18</div></td><td class="code"><span></span>    <span class="tok-cm">/**</span>
-<span class="tok-cm">     * Handles the initial auth response and create a new request to the token endpoint to get the actual tokens</span>
-<span class="tok-cm">     *</span>
-<span class="tok-cm">     * @param intent - the auth response intent</span>
-<span class="tok-cm">     */</span>
-    <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">handleAuthorizationResponse</span><span class="tok-o">(</span><span class="tok-n">Intent</span> <span class="tok-n">intent</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-        <span class="tok-n">AuthorizationResponse</span> <span class="tok-n">response</span> <span class="tok-o">=</span> <span class="tok-n">AuthorizationResponse</span><span class="tok-o">.</span><span class="tok-na">fromIntent</span><span class="tok-o">(</span><span class="tok-n">intent</span><span class="tok-o">);</span>
-        <span class="tok-n">AuthorizationException</span> <span class="tok-n">error</span> <span class="tok-o">=</span> <span class="tok-n">AuthorizationException</span><span class="tok-o">.</span><span class="tok-na">fromIntent</span><span class="tok-o">(</span><span class="tok-n">intent</span><span class="tok-o">);</span>
+18</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Handles the initial auth response and create a new request to the token endpoint to get the actual tokens</span>
+<span class="tok-cm"> *</span>
+<span class="tok-cm"> * @param intent - the auth response intent</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">handleAuthorizationResponse</span><span class="tok-o">(</span><span class="tok-n">Intent</span> <span class="tok-n">intent</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+    <span class="tok-n">AuthorizationResponse</span> <span class="tok-n">response</span> <span class="tok-o">=</span> <span class="tok-n">AuthorizationResponse</span><span class="tok-o">.</span><span class="tok-na">fromIntent</span><span class="tok-o">(</span><span class="tok-n">intent</span><span class="tok-o">);</span>
+    <span class="tok-n">AuthorizationException</span> <span class="tok-n">error</span> <span class="tok-o">=</span> <span class="tok-n">AuthorizationException</span><span class="tok-o">.</span><span class="tok-na">fromIntent</span><span class="tok-o">(</span><span class="tok-n">intent</span><span class="tok-o">);</span>
 
-        <span class="tok-c1">// update the auth state</span>
-        <span class="tok-n">authState</span><span class="tok-o">.</span><span class="tok-na">update</span><span class="tok-o">(</span><span class="tok-n">response</span><span class="tok-o">,</span> <span class="tok-n">error</span><span class="tok-o">);</span>
+    <span class="tok-c1">// update the auth state</span>
+    <span class="tok-n">authState</span><span class="tok-o">.</span><span class="tok-na">update</span><span class="tok-o">(</span><span class="tok-n">response</span><span class="tok-o">,</span> <span class="tok-n">error</span><span class="tok-o">);</span>
 
-        <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">response</span> <span class="tok-o">!=</span> <span class="tok-kc">null</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-            <span class="tok-n">exchangeTokens</span><span class="tok-o">(</span><span class="tok-n">response</span><span class="tok-o">);</span>
-        <span class="tok-o">}</span> <span class="tok-k">else</span> <span class="tok-o">{</span>
-            <span class="tok-n">authFailed</span><span class="tok-o">(</span><span class="tok-n">error</span><span class="tok-o">);</span>
-        <span class="tok-o">}</span>
+    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">response</span> <span class="tok-o">!=</span> <span class="tok-kc">null</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">exchangeTokens</span><span class="tok-o">(</span><span class="tok-n">response</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span> <span class="tok-k">else</span> <span class="tok-o">{</span>
+        <span class="tok-n">authFailed</span><span class="tok-o">(</span><span class="tok-n">error</span><span class="tok-o">);</span>
     <span class="tok-o">}</span>
+<span class="tok-o">}</span>
 </td></tr></table></code></pre>
 </div>
 </div>
@@ -881,35 +881,35 @@ We can now form an Identity for the logged in user based on the tokens being ret
 26
 27
 28
-29</div></td><td class="code"><span></span>    <span class="tok-cm">/**</span>
-<span class="tok-cm">     * Token exchange against the token endpoint</span>
-<span class="tok-cm">     *</span>
-<span class="tok-cm">     * @param response - the auth response from the intent/server</span>
-<span class="tok-cm">     */</span>
-    <span class="tok-kd">private</span> <span class="tok-kt">void</span> <span class="tok-nf">exchangeTokens</span><span class="tok-o">(</span><span class="tok-n">AuthorizationResponse</span> <span class="tok-n">response</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-        <span class="tok-n">authService</span><span class="tok-o">.</span><span class="tok-na">performTokenRequest</span><span class="tok-o">(</span><span class="tok-n">response</span><span class="tok-o">.</span><span class="tok-na">createTokenExchangeRequest</span><span class="tok-o">(),</span> <span class="tok-k">new</span> <span class="tok-n">AuthorizationService</span><span class="tok-o">.</span><span class="tok-na">TokenResponseCallback</span><span class="tok-o">()</span> <span class="tok-o">{</span>
-            <span class="tok-nd">@Override</span>
-            <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">onTokenRequestCompleted</span><span class="tok-o">(</span><span class="tok-nd">@Nullable</span> <span class="tok-n">TokenResponse</span> <span class="tok-n">tokenResponse</span><span class="tok-o">,</span> <span class="tok-nd">@Nullable</span> <span class="tok-n">AuthorizationException</span> <span class="tok-n">exception</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-                <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">tokenResponse</span> <span class="tok-o">!=</span> <span class="tok-kc">null</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-                    <span class="tok-n">authState</span><span class="tok-o">.</span><span class="tok-na">update</span><span class="tok-o">(</span><span class="tok-n">tokenResponse</span><span class="tok-o">,</span> <span class="tok-n">exception</span><span class="tok-o">);</span>
-                    <span class="tok-n">AuthHelper</span><span class="tok-o">.</span><span class="tok-na">writeAuthState</span><span class="tok-o">(</span><span class="tok-n">authState</span><span class="tok-o">);</span>
+29</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Token exchange against the token endpoint</span>
+<span class="tok-cm"> *</span>
+<span class="tok-cm"> * @param response - the auth response from the intent/server</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">private</span> <span class="tok-kt">void</span> <span class="tok-nf">exchangeTokens</span><span class="tok-o">(</span><span class="tok-n">AuthorizationResponse</span> <span class="tok-n">response</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+    <span class="tok-n">authService</span><span class="tok-o">.</span><span class="tok-na">performTokenRequest</span><span class="tok-o">(</span><span class="tok-n">response</span><span class="tok-o">.</span><span class="tok-na">createTokenExchangeRequest</span><span class="tok-o">(),</span> <span class="tok-k">new</span> <span class="tok-n">AuthorizationService</span><span class="tok-o">.</span><span class="tok-na">TokenResponseCallback</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+        <span class="tok-nd">@Override</span>
+        <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">onTokenRequestCompleted</span><span class="tok-o">(</span><span class="tok-nd">@Nullable</span> <span class="tok-n">TokenResponse</span> <span class="tok-n">tokenResponse</span><span class="tok-o">,</span> <span class="tok-nd">@Nullable</span> <span class="tok-n">AuthorizationException</span> <span class="tok-n">exception</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+            <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">tokenResponse</span> <span class="tok-o">!=</span> <span class="tok-kc">null</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+                <span class="tok-n">authState</span><span class="tok-o">.</span><span class="tok-na">update</span><span class="tok-o">(</span><span class="tok-n">tokenResponse</span><span class="tok-o">,</span> <span class="tok-n">exception</span><span class="tok-o">);</span>
+                <span class="tok-n">AuthHelper</span><span class="tok-o">.</span><span class="tok-na">writeAuthState</span><span class="tok-o">(</span><span class="tok-n">authState</span><span class="tok-o">);</span>
 
-                    <span class="tok-n">JSONObject</span> <span class="tok-n">decodedIdentityData</span> <span class="tok-o">=</span> <span class="tok-n">AuthHelper</span><span class="tok-o">.</span><span class="tok-na">getIdentityInformation</span><span class="tok-o">();</span>
-                    <span class="tok-n">Identity</span> <span class="tok-n">newIdentity</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">Identity</span><span class="tok-o">(</span><span class="tok-s">&quot;&quot;</span><span class="tok-o">,</span> <span class="tok-s">&quot;&quot;</span><span class="tok-o">,</span> <span class="tok-s">&quot;&quot;</span><span class="tok-o">,</span> <span class="tok-k">new</span> <span class="tok-n">ArrayList</span><span class="tok-o">&lt;</span><span class="tok-n">String</span><span class="tok-o">&gt;());</span>
+                <span class="tok-n">JSONObject</span> <span class="tok-n">decodedIdentityData</span> <span class="tok-o">=</span> <span class="tok-n">AuthHelper</span><span class="tok-o">.</span><span class="tok-na">getIdentityInformation</span><span class="tok-o">();</span>
+                <span class="tok-n">Identity</span> <span class="tok-n">newIdentity</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">Identity</span><span class="tok-o">(</span><span class="tok-s">&quot;&quot;</span><span class="tok-o">,</span> <span class="tok-s">&quot;&quot;</span><span class="tok-o">,</span> <span class="tok-s">&quot;&quot;</span><span class="tok-o">,</span> <span class="tok-k">new</span> <span class="tok-n">ArrayList</span><span class="tok-o">&lt;</span><span class="tok-n">String</span><span class="tok-o">&gt;());</span>
 
-                    <span class="tok-k">try</span> <span class="tok-o">{</span>
-                        <span class="tok-n">newIdentity</span> <span class="tok-o">=</span> <span class="tok-n">Identity</span><span class="tok-o">.</span><span class="tok-na">fromJson</span><span class="tok-o">(</span><span class="tok-n">decodedIdentityData</span><span class="tok-o">);</span>
-                    <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">JSONException</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-                        <span class="tok-n">Log</span><span class="tok-o">.</span><span class="tok-na">i</span><span class="tok-o">(</span><span class="tok-s">&quot;&quot;</span><span class="tok-o">,</span><span class="tok-s">&quot;Decoding Access Token Failed&quot;</span><span class="tok-o">,</span> <span class="tok-n">e</span><span class="tok-o">);</span>
-                    <span class="tok-o">}</span>
-
-                    <span class="tok-n">authSuccess</span><span class="tok-o">(</span><span class="tok-n">newIdentity</span><span class="tok-o">);</span>
-                <span class="tok-o">}</span> <span class="tok-k">else</span> <span class="tok-o">{</span>
-                    <span class="tok-n">authFailed</span><span class="tok-o">(</span><span class="tok-n">exception</span><span class="tok-o">);</span>
+                <span class="tok-k">try</span> <span class="tok-o">{</span>
+                    <span class="tok-n">newIdentity</span> <span class="tok-o">=</span> <span class="tok-n">Identity</span><span class="tok-o">.</span><span class="tok-na">fromJson</span><span class="tok-o">(</span><span class="tok-n">decodedIdentityData</span><span class="tok-o">);</span>
+                <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">JSONException</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+                    <span class="tok-n">Log</span><span class="tok-o">.</span><span class="tok-na">i</span><span class="tok-o">(</span><span class="tok-s">&quot;&quot;</span><span class="tok-o">,</span><span class="tok-s">&quot;Decoding Access Token Failed&quot;</span><span class="tok-o">,</span> <span class="tok-n">e</span><span class="tok-o">);</span>
                 <span class="tok-o">}</span>
+
+                <span class="tok-n">authSuccess</span><span class="tok-o">(</span><span class="tok-n">newIdentity</span><span class="tok-o">);</span>
+            <span class="tok-o">}</span> <span class="tok-k">else</span> <span class="tok-o">{</span>
+                <span class="tok-n">authFailed</span><span class="tok-o">(</span><span class="tok-n">exception</span><span class="tok-o">);</span>
             <span class="tok-o">}</span>
-        <span class="tok-o">});</span>
-    <span class="tok-o">}</span>
+        <span class="tok-o">}</span>
+    <span class="tok-o">});</span>
+<span class="tok-o">}</span>
 </td></tr></table></code></pre>
 </div>
 </div>
@@ -950,35 +950,35 @@ We can now form an Identity for the logged in user based on the tokens being ret
 26
 27
 28
-29</div></td><td class="code"><span></span>    <span class="tok-cm">/**</span>
-<span class="tok-cm">     * Perform a logout request against the openid connect server</span>
-<span class="tok-cm">     * @param logoutCallback - the logout callback</span>
-<span class="tok-cm">     */</span>
-    <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">logout</span><span class="tok-o">(</span><span class="tok-n">Callback</span> <span class="tok-n">logoutCallback</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-        <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">logoutCallback</span> <span class="tok-o">=</span> <span class="tok-n">logoutCallback</span><span class="tok-o">;</span>
-        <span class="tok-n">String</span> <span class="tok-n">identityToken</span> <span class="tok-o">=</span> <span class="tok-n">AuthHelper</span><span class="tok-o">.</span><span class="tok-na">getIdentityToken</span><span class="tok-o">();</span>
+29</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Perform a logout request against the openid connect server</span>
+<span class="tok-cm"> * @param logoutCallback - the logout callback</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">logout</span><span class="tok-o">(</span><span class="tok-n">Callback</span> <span class="tok-n">logoutCallback</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+    <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">logoutCallback</span> <span class="tok-o">=</span> <span class="tok-n">logoutCallback</span><span class="tok-o">;</span>
+    <span class="tok-n">String</span> <span class="tok-n">identityToken</span> <span class="tok-o">=</span> <span class="tok-n">AuthHelper</span><span class="tok-o">.</span><span class="tok-na">getIdentityToken</span><span class="tok-o">();</span>
 
-        <span class="tok-c1">// Construct the Keycloak logout URL</span>
-        <span class="tok-n">String</span> <span class="tok-n">logoutRequestUri</span> <span class="tok-o">=</span> <span class="tok-n">baseLogoutEndpoint</span> <span class="tok-o">+</span>
-                <span class="tok-n">tokenHintFragment</span> <span class="tok-o">+</span>
-                <span class="tok-n">identityToken</span> <span class="tok-o">+</span>
-                <span class="tok-n">redirectFragment</span> <span class="tok-o">+</span>
-                <span class="tok-n">redirectUri</span><span class="tok-o">;</span>
+    <span class="tok-c1">// Construct the Keycloak logout URL</span>
+    <span class="tok-n">String</span> <span class="tok-n">logoutRequestUri</span> <span class="tok-o">=</span> <span class="tok-n">baseLogoutEndpoint</span> <span class="tok-o">+</span>
+            <span class="tok-n">tokenHintFragment</span> <span class="tok-o">+</span>
+            <span class="tok-n">identityToken</span> <span class="tok-o">+</span>
+            <span class="tok-n">redirectFragment</span> <span class="tok-o">+</span>
+            <span class="tok-n">redirectUri</span><span class="tok-o">;</span>
 
-        <span class="tok-n">AuthHelper</span><span class="tok-o">.</span><span class="tok-na">makeBearerRequest</span><span class="tok-o">(</span><span class="tok-n">logoutRequestUri</span><span class="tok-o">,</span> <span class="tok-k">new</span> <span class="tok-n">okhttp3</span><span class="tok-o">.</span><span class="tok-na">Callback</span><span class="tok-o">()</span> <span class="tok-o">{</span>
-            <span class="tok-nd">@Override</span>
-            <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">onFailure</span><span class="tok-o">(</span><span class="tok-n">Call</span> <span class="tok-n">call</span><span class="tok-o">,</span> <span class="tok-n">IOException</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-                <span class="tok-n">logoutFailed</span><span class="tok-o">(</span><span class="tok-n">e</span><span class="tok-o">);</span>
-            <span class="tok-o">}</span>
+    <span class="tok-n">AuthHelper</span><span class="tok-o">.</span><span class="tok-na">makeBearerRequest</span><span class="tok-o">(</span><span class="tok-n">logoutRequestUri</span><span class="tok-o">,</span> <span class="tok-k">new</span> <span class="tok-n">okhttp3</span><span class="tok-o">.</span><span class="tok-na">Callback</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+        <span class="tok-nd">@Override</span>
+        <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">onFailure</span><span class="tok-o">(</span><span class="tok-n">Call</span> <span class="tok-n">call</span><span class="tok-o">,</span> <span class="tok-n">IOException</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+            <span class="tok-n">logoutFailed</span><span class="tok-o">(</span><span class="tok-n">e</span><span class="tok-o">);</span>
+        <span class="tok-o">}</span>
 
-            <span class="tok-nd">@Override</span>
-            <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">onResponse</span><span class="tok-o">(</span><span class="tok-n">Call</span> <span class="tok-n">call</span><span class="tok-o">,</span> <span class="tok-n">Response</span> <span class="tok-n">response</span><span class="tok-o">)</span> <span class="tok-kd">throws</span> <span class="tok-n">IOException</span> <span class="tok-o">{</span>
-                <span class="tok-c1">// nullify the auth state</span>
-                <span class="tok-n">AuthHelper</span><span class="tok-o">.</span><span class="tok-na">writeAuthState</span><span class="tok-o">(</span><span class="tok-kc">null</span><span class="tok-o">);</span>
-                <span class="tok-n">logoutSuccess</span><span class="tok-o">();</span>
-            <span class="tok-o">}</span>
-        <span class="tok-o">});</span>
-    <span class="tok-o">}</span>
+        <span class="tok-nd">@Override</span>
+        <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">onResponse</span><span class="tok-o">(</span><span class="tok-n">Call</span> <span class="tok-n">call</span><span class="tok-o">,</span> <span class="tok-n">Response</span> <span class="tok-n">response</span><span class="tok-o">)</span> <span class="tok-kd">throws</span> <span class="tok-n">IOException</span> <span class="tok-o">{</span>
+            <span class="tok-c1">// nullify the auth state</span>
+            <span class="tok-n">AuthHelper</span><span class="tok-o">.</span><span class="tok-na">writeAuthState</span><span class="tok-o">(</span><span class="tok-kc">null</span><span class="tok-o">);</span>
+            <span class="tok-n">logoutSuccess</span><span class="tok-o">();</span>
+        <span class="tok-o">}</span>
+    <span class="tok-o">});</span>
+<span class="tok-o">}</span>
 </td></tr></table></code></pre>
 </div>
 </div>
@@ -1008,21 +1008,21 @@ We can now form an Identity for the logged in user based on the tokens being ret
 12
 13
 14
-15</div></td><td class="code"><span></span>    <span class="tok-cm">/**</span>
-<span class="tok-cm">     * Read the auth state from shared preferences</span>
-<span class="tok-cm">     */</span>
-    <span class="tok-kd">public</span> <span class="tok-kd">static</span> <span class="tok-n">AuthState</span> <span class="tok-nf">readAuthState</span><span class="tok-o">()</span> <span class="tok-o">{</span>
-        <span class="tok-n">String</span> <span class="tok-n">currentState</span> <span class="tok-o">=</span> <span class="tok-n">mPrefs</span><span class="tok-o">.</span><span class="tok-na">getString</span><span class="tok-o">(</span><span class="tok-n">KEY_STATE</span><span class="tok-o">,</span> <span class="tok-kc">null</span><span class="tok-o">);</span>
-        <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">currentState</span> <span class="tok-o">==</span> <span class="tok-kc">null</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-            <span class="tok-k">return</span> <span class="tok-k">new</span> <span class="tok-n">AuthState</span><span class="tok-o">();</span>
-        <span class="tok-o">}</span>
-        <span class="tok-k">try</span> <span class="tok-o">{</span>
-            <span class="tok-k">return</span> <span class="tok-n">AuthState</span><span class="tok-o">.</span><span class="tok-na">jsonDeserialize</span><span class="tok-o">(</span><span class="tok-n">currentState</span><span class="tok-o">);</span>
-        <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">JSONException</span> <span class="tok-n">ex</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-            <span class="tok-n">Log</span><span class="tok-o">.</span><span class="tok-na">w</span><span class="tok-o">(</span><span class="tok-s">&quot;AuthState&quot;</span><span class="tok-o">,</span> <span class="tok-s">&quot;Failed to deserialize stored auth state: &quot;</span> <span class="tok-o">+</span> <span class="tok-n">ex</span><span class="tok-o">);</span>
-            <span class="tok-k">return</span> <span class="tok-k">new</span> <span class="tok-n">AuthState</span><span class="tok-o">();</span>
-        <span class="tok-o">}</span>
+15</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Read the auth state from shared preferences</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">public</span> <span class="tok-kd">static</span> <span class="tok-n">AuthState</span> <span class="tok-nf">readAuthState</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+    <span class="tok-n">String</span> <span class="tok-n">currentState</span> <span class="tok-o">=</span> <span class="tok-n">mPrefs</span><span class="tok-o">.</span><span class="tok-na">getString</span><span class="tok-o">(</span><span class="tok-n">KEY_STATE</span><span class="tok-o">,</span> <span class="tok-kc">null</span><span class="tok-o">);</span>
+    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">currentState</span> <span class="tok-o">==</span> <span class="tok-kc">null</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-k">return</span> <span class="tok-k">new</span> <span class="tok-n">AuthState</span><span class="tok-o">();</span>
     <span class="tok-o">}</span>
+    <span class="tok-k">try</span> <span class="tok-o">{</span>
+        <span class="tok-k">return</span> <span class="tok-n">AuthState</span><span class="tok-o">.</span><span class="tok-na">jsonDeserialize</span><span class="tok-o">(</span><span class="tok-n">currentState</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">JSONException</span> <span class="tok-n">ex</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">Log</span><span class="tok-o">.</span><span class="tok-na">w</span><span class="tok-o">(</span><span class="tok-s">&quot;AuthState&quot;</span><span class="tok-o">,</span> <span class="tok-s">&quot;Failed to deserialize stored auth state: &quot;</span> <span class="tok-o">+</span> <span class="tok-n">ex</span><span class="tok-o">);</span>
+        <span class="tok-k">return</span> <span class="tok-k">new</span> <span class="tok-n">AuthState</span><span class="tok-o">();</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span>
 </td></tr></table></code></pre>
 </div>
 </div>
@@ -1046,21 +1046,21 @@ We can now form an Identity for the logged in user based on the tokens being ret
 12
 13
 14
-15</div></td><td class="code"><span></span>    <span class="tok-cm">/**</span>
-<span class="tok-cm">     * Write the auth state to shared preferences</span>
-<span class="tok-cm">     * @param state - The Authstate to write to shared preferences</span>
-<span class="tok-cm">     */</span>
-    <span class="tok-kd">public</span> <span class="tok-kd">static</span> <span class="tok-kt">void</span> <span class="tok-nf">writeAuthState</span><span class="tok-o">(</span><span class="tok-nd">@Nullable</span> <span class="tok-n">AuthState</span> <span class="tok-n">state</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-        <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">state</span> <span class="tok-o">==</span> <span class="tok-kc">null</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-            <span class="tok-k">if</span> <span class="tok-o">(!</span><span class="tok-n">mPrefs</span><span class="tok-o">.</span><span class="tok-na">edit</span><span class="tok-o">().</span><span class="tok-na">remove</span><span class="tok-o">(</span><span class="tok-n">KEY_STATE</span><span class="tok-o">).</span><span class="tok-na">commit</span><span class="tok-o">())</span> <span class="tok-o">{</span>
-                <span class="tok-k">throw</span> <span class="tok-k">new</span> <span class="tok-n">IllegalStateException</span><span class="tok-o">(</span><span class="tok-s">&quot;Failed to write state to shared prefs&quot;</span><span class="tok-o">);</span>
-            <span class="tok-o">}</span>
-        <span class="tok-o">}</span> <span class="tok-k">else</span> <span class="tok-o">{</span>
-            <span class="tok-k">if</span> <span class="tok-o">(!</span><span class="tok-n">mPrefs</span><span class="tok-o">.</span><span class="tok-na">edit</span><span class="tok-o">().</span><span class="tok-na">putString</span><span class="tok-o">(</span><span class="tok-n">KEY_STATE</span><span class="tok-o">,</span> <span class="tok-n">state</span><span class="tok-o">.</span><span class="tok-na">jsonSerializeString</span><span class="tok-o">()).</span><span class="tok-na">commit</span><span class="tok-o">())</span> <span class="tok-o">{</span>
-                <span class="tok-k">throw</span> <span class="tok-k">new</span> <span class="tok-n">IllegalStateException</span><span class="tok-o">(</span><span class="tok-s">&quot;Failed to write state to shared prefs&quot;</span><span class="tok-o">);</span>
-            <span class="tok-o">}</span>
+15</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Write the auth state to shared preferences</span>
+<span class="tok-cm"> * @param state - The Authstate to write to shared preferences</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">public</span> <span class="tok-kd">static</span> <span class="tok-kt">void</span> <span class="tok-nf">writeAuthState</span><span class="tok-o">(</span><span class="tok-nd">@Nullable</span> <span class="tok-n">AuthState</span> <span class="tok-n">state</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">state</span> <span class="tok-o">==</span> <span class="tok-kc">null</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-k">if</span> <span class="tok-o">(!</span><span class="tok-n">mPrefs</span><span class="tok-o">.</span><span class="tok-na">edit</span><span class="tok-o">().</span><span class="tok-na">remove</span><span class="tok-o">(</span><span class="tok-n">KEY_STATE</span><span class="tok-o">).</span><span class="tok-na">commit</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+            <span class="tok-k">throw</span> <span class="tok-k">new</span> <span class="tok-n">IllegalStateException</span><span class="tok-o">(</span><span class="tok-s">&quot;Failed to write state to shared prefs&quot;</span><span class="tok-o">);</span>
+        <span class="tok-o">}</span>
+    <span class="tok-o">}</span> <span class="tok-k">else</span> <span class="tok-o">{</span>
+        <span class="tok-k">if</span> <span class="tok-o">(!</span><span class="tok-n">mPrefs</span><span class="tok-o">.</span><span class="tok-na">edit</span><span class="tok-o">().</span><span class="tok-na">putString</span><span class="tok-o">(</span><span class="tok-n">KEY_STATE</span><span class="tok-o">,</span> <span class="tok-n">state</span><span class="tok-o">.</span><span class="tok-na">jsonSerializeString</span><span class="tok-o">()).</span><span class="tok-na">commit</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+            <span class="tok-k">throw</span> <span class="tok-k">new</span> <span class="tok-n">IllegalStateException</span><span class="tok-o">(</span><span class="tok-s">&quot;Failed to write state to shared prefs&quot;</span><span class="tok-o">);</span>
         <span class="tok-o">}</span>
     <span class="tok-o">}</span>
+<span class="tok-o">}</span>
 </td></tr></table></code></pre>
 </div>
 </div>
@@ -1095,29 +1095,29 @@ We can now form an Identity for the logged in user based on the tokens being ret
 20
 21
 22
-23</div></td><td class="code"><span></span>    <span class="tok-cm">/**</span>
-<span class="tok-cm">     * Get the authenticated users identity information</span>
-<span class="tok-cm">     */</span>
-    <span class="tok-kd">public</span> <span class="tok-kd">static</span> <span class="tok-n">JSONObject</span> <span class="tok-nf">getIdentityInformation</span><span class="tok-o">()</span> <span class="tok-o">{</span>
-        <span class="tok-n">String</span> <span class="tok-n">accessToken</span> <span class="tok-o">=</span> <span class="tok-n">getAccessToken</span><span class="tok-o">();</span>
-        <span class="tok-n">JSONObject</span> <span class="tok-n">decodedIdentityData</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">JSONObject</span><span class="tok-o">();</span>
+23</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Get the authenticated users identity information</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">public</span> <span class="tok-kd">static</span> <span class="tok-n">JSONObject</span> <span class="tok-nf">getIdentityInformation</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+    <span class="tok-n">String</span> <span class="tok-n">accessToken</span> <span class="tok-o">=</span> <span class="tok-n">getAccessToken</span><span class="tok-o">();</span>
+    <span class="tok-n">JSONObject</span> <span class="tok-n">decodedIdentityData</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">JSONObject</span><span class="tok-o">();</span>
 
+    <span class="tok-k">try</span> <span class="tok-o">{</span>
+        <span class="tok-c1">// Decode the Access Token to Extract the Identity Information</span>
+        <span class="tok-n">String</span><span class="tok-o">[]</span> <span class="tok-n">splitToken</span> <span class="tok-o">=</span> <span class="tok-n">accessToken</span><span class="tok-o">.</span><span class="tok-na">split</span><span class="tok-o">(</span><span class="tok-s">&quot;\\.&quot;</span><span class="tok-o">);</span>
+        <span class="tok-kt">byte</span><span class="tok-o">[]</span> <span class="tok-n">decodedBytes</span> <span class="tok-o">=</span> <span class="tok-n">Base64</span><span class="tok-o">.</span><span class="tok-na">decode</span><span class="tok-o">(</span><span class="tok-n">splitToken</span><span class="tok-o">[</span><span class="tok-mi">1</span><span class="tok-o">],</span> <span class="tok-n">Base64</span><span class="tok-o">.</span><span class="tok-na">URL_SAFE</span><span class="tok-o">);</span>
+        <span class="tok-n">String</span> <span class="tok-n">decoded</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">String</span><span class="tok-o">(</span><span class="tok-n">decodedBytes</span><span class="tok-o">,</span> <span class="tok-s">&quot;UTF-8&quot;</span><span class="tok-o">);</span>
         <span class="tok-k">try</span> <span class="tok-o">{</span>
-            <span class="tok-c1">// Decode the Access Token to Extract the Identity Information</span>
-            <span class="tok-n">String</span><span class="tok-o">[]</span> <span class="tok-n">splitToken</span> <span class="tok-o">=</span> <span class="tok-n">accessToken</span><span class="tok-o">.</span><span class="tok-na">split</span><span class="tok-o">(</span><span class="tok-s">&quot;\\.&quot;</span><span class="tok-o">);</span>
-            <span class="tok-kt">byte</span><span class="tok-o">[]</span> <span class="tok-n">decodedBytes</span> <span class="tok-o">=</span> <span class="tok-n">Base64</span><span class="tok-o">.</span><span class="tok-na">decode</span><span class="tok-o">(</span><span class="tok-n">splitToken</span><span class="tok-o">[</span><span class="tok-mi">1</span><span class="tok-o">],</span> <span class="tok-n">Base64</span><span class="tok-o">.</span><span class="tok-na">URL_SAFE</span><span class="tok-o">);</span>
-            <span class="tok-n">String</span> <span class="tok-n">decoded</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">String</span><span class="tok-o">(</span><span class="tok-n">decodedBytes</span><span class="tok-o">,</span> <span class="tok-s">&quot;UTF-8&quot;</span><span class="tok-o">);</span>
-            <span class="tok-k">try</span> <span class="tok-o">{</span>
-                <span class="tok-n">decodedIdentityData</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">JSONObject</span><span class="tok-o">(</span><span class="tok-n">decoded</span><span class="tok-o">);</span>
-            <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">JSONException</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-                <span class="tok-n">e</span><span class="tok-o">.</span><span class="tok-na">printStackTrace</span><span class="tok-o">();</span>
-            <span class="tok-o">}</span>
-
-        <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">UnsupportedEncodingException</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-            <span class="tok-n">Log</span><span class="tok-o">.</span><span class="tok-na">e</span><span class="tok-o">(</span><span class="tok-s">&quot;&quot;</span><span class="tok-o">,</span> <span class="tok-s">&quot;Error Decoding Access Token&quot;</span><span class="tok-o">,</span> <span class="tok-n">e</span><span class="tok-o">);</span>
+            <span class="tok-n">decodedIdentityData</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">JSONObject</span><span class="tok-o">(</span><span class="tok-n">decoded</span><span class="tok-o">);</span>
+        <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">JSONException</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+            <span class="tok-n">e</span><span class="tok-o">.</span><span class="tok-na">printStackTrace</span><span class="tok-o">();</span>
         <span class="tok-o">}</span>
-        <span class="tok-k">return</span> <span class="tok-n">decodedIdentityData</span><span class="tok-o">;</span>
+
+    <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">UnsupportedEncodingException</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">Log</span><span class="tok-o">.</span><span class="tok-na">e</span><span class="tok-o">(</span><span class="tok-s">&quot;&quot;</span><span class="tok-o">,</span> <span class="tok-s">&quot;Error Decoding Access Token&quot;</span><span class="tok-o">,</span> <span class="tok-n">e</span><span class="tok-o">);</span>
     <span class="tok-o">}</span>
+    <span class="tok-k">return</span> <span class="tok-n">decodedIdentityData</span><span class="tok-o">;</span>
+<span class="tok-o">}</span>
 </td></tr></table></code></pre>
 </div>
 </div>
@@ -1152,28 +1152,28 @@ The function accepts a URL in the form of a String along with a <a href="http://
 19
 20
 21
-22</div></td><td class="code"><span></span>    <span class="tok-cm">/**</span>
-<span class="tok-cm">     * Make a request to a resource that requires the access token to be sent with the request</span>
-<span class="tok-cm">     */</span>
-    <span class="tok-kd">public</span> <span class="tok-kd">static</span> <span class="tok-n">Call</span> <span class="tok-nf">makeBearerRequest</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">url</span><span class="tok-o">,</span> <span class="tok-n">okhttp3</span><span class="tok-o">.</span><span class="tok-na">Callback</span> <span class="tok-n">callback</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+22</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Make a request to a resource that requires the access token to be sent with the request</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">public</span> <span class="tok-kd">static</span> <span class="tok-n">Call</span> <span class="tok-nf">makeBearerRequest</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">url</span><span class="tok-o">,</span> <span class="tok-n">okhttp3</span><span class="tok-o">.</span><span class="tok-na">Callback</span> <span class="tok-n">callback</span><span class="tok-o">)</span> <span class="tok-o">{</span>
 
-        <span class="tok-c1">// Ensure that a non-expired access token is being used for the request</span>
-        <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">getNeedsTokenRefresh</span><span class="tok-o">())</span> <span class="tok-o">{</span>
-            <span class="tok-n">setNeedsTokenRefresh</span><span class="tok-o">();</span>
-        <span class="tok-o">}</span>
-
-        <span class="tok-n">String</span> <span class="tok-n">accessToken</span> <span class="tok-o">=</span> <span class="tok-n">getAccessToken</span><span class="tok-o">();</span>
-
-        <span class="tok-n">OkHttpClient</span> <span class="tok-n">httpClient</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">OkHttpClient</span><span class="tok-o">();</span>
-        <span class="tok-n">Request</span> <span class="tok-n">request</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">Request</span><span class="tok-o">.</span><span class="tok-na">Builder</span><span class="tok-o">()</span>
-                <span class="tok-o">.</span><span class="tok-na">url</span><span class="tok-o">(</span><span class="tok-n">url</span><span class="tok-o">)</span>
-                <span class="tok-o">.</span><span class="tok-na">addHeader</span><span class="tok-o">(</span><span class="tok-s">&quot;Authorization&quot;</span><span class="tok-o">,</span> <span class="tok-n">String</span><span class="tok-o">.</span><span class="tok-na">format</span><span class="tok-o">(</span><span class="tok-s">&quot;Bearer %s&quot;</span><span class="tok-o">,</span> <span class="tok-n">accessToken</span><span class="tok-o">))</span>
-                <span class="tok-o">.</span><span class="tok-na">build</span><span class="tok-o">();</span>
-
-        <span class="tok-n">Call</span> <span class="tok-n">call</span> <span class="tok-o">=</span> <span class="tok-n">httpClient</span><span class="tok-o">.</span><span class="tok-na">newCall</span><span class="tok-o">(</span><span class="tok-n">request</span><span class="tok-o">);</span>
-        <span class="tok-n">call</span><span class="tok-o">.</span><span class="tok-na">enqueue</span><span class="tok-o">(</span><span class="tok-n">callback</span><span class="tok-o">);</span>
-        <span class="tok-k">return</span> <span class="tok-n">call</span><span class="tok-o">;</span>
+    <span class="tok-c1">// Ensure that a non-expired access token is being used for the request</span>
+    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">getNeedsTokenRefresh</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+        <span class="tok-n">setNeedsTokenRefresh</span><span class="tok-o">();</span>
     <span class="tok-o">}</span>
+
+    <span class="tok-n">String</span> <span class="tok-n">accessToken</span> <span class="tok-o">=</span> <span class="tok-n">getAccessToken</span><span class="tok-o">();</span>
+
+    <span class="tok-n">OkHttpClient</span> <span class="tok-n">httpClient</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">OkHttpClient</span><span class="tok-o">();</span>
+    <span class="tok-n">Request</span> <span class="tok-n">request</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">Request</span><span class="tok-o">.</span><span class="tok-na">Builder</span><span class="tok-o">()</span>
+            <span class="tok-o">.</span><span class="tok-na">url</span><span class="tok-o">(</span><span class="tok-n">url</span><span class="tok-o">)</span>
+            <span class="tok-o">.</span><span class="tok-na">addHeader</span><span class="tok-o">(</span><span class="tok-s">&quot;Authorization&quot;</span><span class="tok-o">,</span> <span class="tok-n">String</span><span class="tok-o">.</span><span class="tok-na">format</span><span class="tok-o">(</span><span class="tok-s">&quot;Bearer %s&quot;</span><span class="tok-o">,</span> <span class="tok-n">accessToken</span><span class="tok-o">))</span>
+            <span class="tok-o">.</span><span class="tok-na">build</span><span class="tok-o">();</span>
+
+    <span class="tok-n">Call</span> <span class="tok-n">call</span> <span class="tok-o">=</span> <span class="tok-n">httpClient</span><span class="tok-o">.</span><span class="tok-na">newCall</span><span class="tok-o">(</span><span class="tok-n">request</span><span class="tok-o">);</span>
+    <span class="tok-n">call</span><span class="tok-o">.</span><span class="tok-na">enqueue</span><span class="tok-o">(</span><span class="tok-n">callback</span><span class="tok-o">);</span>
+    <span class="tok-k">return</span> <span class="tok-n">call</span><span class="tok-o">;</span>
+<span class="tok-o">}</span>
 </td></tr></table></code></pre>
 </div>
 </div>
@@ -11098,7 +11098,7 @@ This method should be overridden and all the sensitive information in the user i
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-10-03 15:26:49 IST
+Last updated 2017-10-03 17:03:57 IST
 </div>
 </div>
 </body>
