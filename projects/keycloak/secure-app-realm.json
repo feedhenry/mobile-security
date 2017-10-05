@@ -21,6 +21,9 @@
    "users":[
       {
          "username":"user1",
+         "firstName" : "User",
+         "lastName" : "1",
+         "email" : "user1@feedhenry.org",
          "enabled":true,
          "credentials":[
             {
@@ -41,6 +44,9 @@
       },
       {
          "username":"user2",
+         "firstName" : "User",
+         "lastName" : "2",
+         "email" : "user2@feedhenry.org",
          "enabled":true,
          "credentials":[
             {
@@ -73,7 +79,7 @@
             }
          ],
          "requiredActions" : [ "CONFIGURE_TOTP" ],
-         "realmRoles" : [ "mobile-user" ],
+         "realmRoles" : [ ],
          "clientRoles":{
             "account":[
                "view-profile",
@@ -83,7 +89,7 @@
          "attributes":{
 
          },
-         "groups" : [ "/Mobile Users" ]
+         "groups" : [ "/Mobile Users", "/API Access" ]
       },
       {
          "username":"secure-user2",
@@ -99,7 +105,7 @@
             }
          ],
          "requiredActions" : [ "CONFIGURE_TOTP" ],
-         "realmRoles" : [ "mobile-user" ],
+         "realmRoles" : [ ],
          "clientRoles":{
             "account":[
                "view-profile",
@@ -109,7 +115,32 @@
          "attributes":{
 
          },
-         "groups" : [ "/Mobile Users" ]
+         "groups" : [ "/Mobile Users", "/API Access" ]
+      },
+      {
+         "username":"superuser",
+         "enabled" : true,
+          "emailVerified" : true,
+          "firstName" : "Super",
+          "lastName" : "User",
+          "email" : "superuser@feedhenry.org",
+         "credentials":[
+            {
+               "type":"password",
+               "value":"123"
+            }
+         ],
+         "realmRoles" : [ ],
+         "clientRoles":{
+            "account":[
+               "view-profile",
+               "manage-account"
+            ]
+         },
+         "attributes":{
+
+         },
+         "groups" : [ "/Mobile Users", "/API Access", "Superuser" ]
       }
    ],
    "clients":[
@@ -148,11 +179,26 @@
       ]
    },
    "groups" : [ {
-     "id" : "99cc1e2a-ebde-4cab-893e-58a6f184060c",
      "name" : "Mobile Users",
      "path" : "/Mobile Users",
      "attributes" : { },
      "realmRoles" : [ "mobile-user" ],
+     "clientRoles" : { },
+     "subGroups" : [ ]
+   },
+   {
+     "name" : "API Access",
+     "path" : "/API Access",
+     "attributes" : { },
+     "realmRoles" : [ "mobile-user", "api-access" ],
+     "clientRoles" : { },
+     "subGroups" : [ ]
+   },
+   {
+     "name" : "Superuser",
+     "path" : "/Superusers",
+     "attributes" : { },
+     "realmRoles" : [ "mobile-user", "api-access", "superuser" ],
      "clientRoles" : { },
      "subGroups" : [ ]
    } ],
