@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.5">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>Mobile Security</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -89,13 +89,12 @@ strong,b{font-weight:bold;line-height:inherit}
 small{font-size:60%;line-height:inherit}
 code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
 ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
-ul,ol,ul.no-bullet,ol.no-bullet{margin-left:1.5em}
+ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
 ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
 ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
-ul.no-bullet{list-style:none}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -131,7 +130,11 @@ strong strong{font-weight:400}
 kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background-color:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
 .keyseq kbd:first-child{margin-left:0}
 .keyseq kbd:last-child{margin-right:0}
-.menuseq,.menu{color:rgba(0,0,0,.8)}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
 b.button:before,b.button:after{position:relative;top:-1px;font-weight:400}
 b.button:before{content:"[";padding:0 3px 0 2px}
 b.button:after{content:"]";padding:0 2px 0 3px}
@@ -198,7 +201,7 @@ table.tableblock>caption.title{white-space:nowrap;overflow:visible;max-width:0}
 table.tableblock #preamble>.sectionbody>.paragraph:first-of-type p{font-size:inherit}
 .admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
 .admonitionblock>table td.icon{text-align:center;width:80px}
-.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon img{max-width:initial}
 .admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #ddddd8;color:rgba(0,0,0,.6)}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
@@ -254,13 +257,13 @@ table.pyhltable .linenodiv{background:none!important;padding-right:0!important}
 table.tableblock{max-width:100%;border-collapse:separate}
 table.tableblock td>.paragraph:last-child p>p:last-child,table.tableblock th>p:last-child,table.tableblock td>p:last-child{margin-bottom:0}
 table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
-table.grid-all th.tableblock,table.grid-all td.tableblock{border-width:0 1px 1px 0}
-table.grid-all tfoot>tr>th.tableblock,table.grid-all tfoot>tr>td.tableblock{border-width:1px 1px 0 0}
-table.grid-cols th.tableblock,table.grid-cols td.tableblock{border-width:0 1px 0 0}
-table.grid-all *>tr>.tableblock:last-child,table.grid-cols *>tr>.tableblock:last-child{border-right-width:0}
-table.grid-rows th.tableblock,table.grid-rows td.tableblock{border-width:0 0 1px 0}
-table.grid-all tbody>tr:last-child>th.tableblock,table.grid-all tbody>tr:last-child>td.tableblock,table.grid-all thead:last-child>tr>th.tableblock,table.grid-rows tbody>tr:last-child>th.tableblock,table.grid-rows tbody>tr:last-child>td.tableblock,table.grid-rows thead:last-child>tr>th.tableblock{border-bottom-width:0}
-table.grid-rows tfoot>tr>th.tableblock,table.grid-rows tfoot>tr>td.tableblock{border-width:1px 0 0 0}
+table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
+table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
+table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
+table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px 0}
+table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0 0}
+table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
+table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
 table.frame-all{border-width:1px}
 table.frame-sides{border-width:0 1px}
 table.frame-topbot{border-width:1px 0}
@@ -281,10 +284,12 @@ ul li ol{margin-left:1.5em}
 dl dd{margin-left:1.125em}
 dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
 ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
-ul.unstyled,ol.unnumbered,ul.checklist,ul.none{list-style-type:none}
-ul.unstyled,ol.unnumbered,ul.checklist{margin-left:.625em}
-ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1em;font-size:.85em}
-ul.checklist li>p:first-child>input[type="checkbox"]:first-child{width:1em;position:relative;top:1px}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
 ul.inline{margin:0 auto .625em auto;margin-left:-1.375em;margin-right:0;padding:0;list-style:none;overflow:hidden}
 ul.inline>li{list-style:none;float:left;margin-left:1.375em;display:block}
 ul.inline>li>*{display:block}
@@ -301,7 +306,8 @@ ol.lowergreek{list-style-type:lower-greek}
 td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
 td.hdlist1{font-weight:bold;padding-bottom:1.25em}
 .literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
-.colist>table tr>td:first-of-type{padding:0 .75em;line-height:1}
+.colist>table tr>td:first-of-type{padding:.4em .75em 0 .75em;line-height:1;vertical-align:top}
+.colist>table tr>td:first-of-type img{max-width:initial}
 .colist>table tr>td:last-of-type{padding:.25em 0}
 .thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
 .imageblock.left,.imageblock[style*="float: left"]{margin:.25em .625em 1.25em 0}
@@ -364,6 +370,7 @@ div.unbreakable{page-break-inside:avoid}
 .yellow{color:#bfbf00}
 .yellow-background{background-color:#fafa00}
 span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
 .admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
 .admonitionblock td.icon .icon-note:before{content:"\f05a";color:#19407c}
 .admonitionblock td.icon .icon-tip:before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
@@ -417,6 +424,77 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .hide-for-print{display:none!important}
 .show-for-print{display:inherit!important}}
 </style>
+<style>
+.listingblock .pygments .hll { background-color: #ffffcc }
+.listingblock .pygments, .listingblock .pygments code { background: #f0f3f3; }
+.listingblock .pygments .tok-c { color: #0099FF; font-style: italic } /* Comment */
+.listingblock .pygments .tok-err { color: #AA0000; background-color: #FFAAAA } /* Error */
+.listingblock .pygments .tok-k { color: #006699; font-weight: bold } /* Keyword */
+.listingblock .pygments .tok-o { color: #555555 } /* Operator */
+.listingblock .pygments .tok-ch { color: #0099FF; font-style: italic } /* Comment.Hashbang */
+.listingblock .pygments .tok-cm { color: #0099FF; font-style: italic } /* Comment.Multiline */
+.listingblock .pygments .tok-cp { color: #009999 } /* Comment.Preproc */
+.listingblock .pygments .tok-cpf { color: #0099FF; font-style: italic } /* Comment.PreprocFile */
+.listingblock .pygments .tok-c1 { color: #0099FF; font-style: italic } /* Comment.Single */
+.listingblock .pygments .tok-cs { color: #0099FF; font-weight: bold; font-style: italic } /* Comment.Special */
+.listingblock .pygments .tok-gd { background-color: #FFCCCC; border: 1px solid #CC0000 } /* Generic.Deleted */
+.listingblock .pygments .tok-ge { font-style: italic } /* Generic.Emph */
+.listingblock .pygments .tok-gr { color: #FF0000 } /* Generic.Error */
+.listingblock .pygments .tok-gh { color: #003300; font-weight: bold } /* Generic.Heading */
+.listingblock .pygments .tok-gi { background-color: #CCFFCC; border: 1px solid #00CC00 } /* Generic.Inserted */
+.listingblock .pygments .tok-go { color: #AAAAAA } /* Generic.Output */
+.listingblock .pygments .tok-gp { color: #000099; font-weight: bold } /* Generic.Prompt */
+.listingblock .pygments .tok-gs { font-weight: bold } /* Generic.Strong */
+.listingblock .pygments .tok-gu { color: #003300; font-weight: bold } /* Generic.Subheading */
+.listingblock .pygments .tok-gt { color: #99CC66 } /* Generic.Traceback */
+.listingblock .pygments .tok-kc { color: #006699; font-weight: bold } /* Keyword.Constant */
+.listingblock .pygments .tok-kd { color: #006699; font-weight: bold } /* Keyword.Declaration */
+.listingblock .pygments .tok-kn { color: #006699; font-weight: bold } /* Keyword.Namespace */
+.listingblock .pygments .tok-kp { color: #006699 } /* Keyword.Pseudo */
+.listingblock .pygments .tok-kr { color: #006699; font-weight: bold } /* Keyword.Reserved */
+.listingblock .pygments .tok-kt { color: #007788; font-weight: bold } /* Keyword.Type */
+.listingblock .pygments .tok-m { color: #FF6600 } /* Literal.Number */
+.listingblock .pygments .tok-s { color: #CC3300 } /* Literal.String */
+.listingblock .pygments .tok-na { color: #330099 } /* Name.Attribute */
+.listingblock .pygments .tok-nb { color: #336666 } /* Name.Builtin */
+.listingblock .pygments .tok-nc { color: #00AA88; font-weight: bold } /* Name.Class */
+.listingblock .pygments .tok-no { color: #336600 } /* Name.Constant */
+.listingblock .pygments .tok-nd { color: #9999FF } /* Name.Decorator */
+.listingblock .pygments .tok-ni { color: #999999; font-weight: bold } /* Name.Entity */
+.listingblock .pygments .tok-ne { color: #CC0000; font-weight: bold } /* Name.Exception */
+.listingblock .pygments .tok-nf { color: #CC00FF } /* Name.Function */
+.listingblock .pygments .tok-nl { color: #9999FF } /* Name.Label */
+.listingblock .pygments .tok-nn { color: #00CCFF; font-weight: bold } /* Name.Namespace */
+.listingblock .pygments .tok-nt { color: #330099; font-weight: bold } /* Name.Tag */
+.listingblock .pygments .tok-nv { color: #003333 } /* Name.Variable */
+.listingblock .pygments .tok-ow { color: #000000; font-weight: bold } /* Operator.Word */
+.listingblock .pygments .tok-w { color: #bbbbbb } /* Text.Whitespace */
+.listingblock .pygments .tok-mb { color: #FF6600 } /* Literal.Number.Bin */
+.listingblock .pygments .tok-mf { color: #FF6600 } /* Literal.Number.Float */
+.listingblock .pygments .tok-mh { color: #FF6600 } /* Literal.Number.Hex */
+.listingblock .pygments .tok-mi { color: #FF6600 } /* Literal.Number.Integer */
+.listingblock .pygments .tok-mo { color: #FF6600 } /* Literal.Number.Oct */
+.listingblock .pygments .tok-sa { color: #CC3300 } /* Literal.String.Affix */
+.listingblock .pygments .tok-sb { color: #CC3300 } /* Literal.String.Backtick */
+.listingblock .pygments .tok-sc { color: #CC3300 } /* Literal.String.Char */
+.listingblock .pygments .tok-dl { color: #CC3300 } /* Literal.String.Delimiter */
+.listingblock .pygments .tok-sd { color: #CC3300; font-style: italic } /* Literal.String.Doc */
+.listingblock .pygments .tok-s2 { color: #CC3300 } /* Literal.String.Double */
+.listingblock .pygments .tok-se { color: #CC3300; font-weight: bold } /* Literal.String.Escape */
+.listingblock .pygments .tok-sh { color: #CC3300 } /* Literal.String.Heredoc */
+.listingblock .pygments .tok-si { color: #AA0000 } /* Literal.String.Interpol */
+.listingblock .pygments .tok-sx { color: #CC3300 } /* Literal.String.Other */
+.listingblock .pygments .tok-sr { color: #33AAAA } /* Literal.String.Regex */
+.listingblock .pygments .tok-s1 { color: #CC3300 } /* Literal.String.Single */
+.listingblock .pygments .tok-ss { color: #FFCC33 } /* Literal.String.Symbol */
+.listingblock .pygments .tok-bp { color: #336666 } /* Name.Builtin.Pseudo */
+.listingblock .pygments .tok-fm { color: #CC00FF } /* Name.Function.Magic */
+.listingblock .pygments .tok-vc { color: #003333 } /* Name.Variable.Class */
+.listingblock .pygments .tok-vg { color: #003333 } /* Name.Variable.Global */
+.listingblock .pygments .tok-vi { color: #003333 } /* Name.Variable.Instance */
+.listingblock .pygments .tok-vm { color: #003333 } /* Name.Variable.Magic */
+.listingblock .pygments .tok-il { color: #FF6600 } /* Literal.Number.Integer.Long */
+</style>
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
@@ -424,7 +502,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#mobile_security_recomendations_overview">1. Mobile Security Recomendations Overview</a>
+<li><a href="#mobile_security_recommendations_overview">1. Mobile Security Recommendations Overview</a>
 <ul class="sectlevel2">
 <li><a href="#authentication_session_management">1.1. Authentication &amp; Session Management</a></li>
 <li><a href="#data_storage_summary">1.2. Data Storage Summary</a></li>
@@ -434,7 +512,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#cryptography_summary">1.6. Cryptography Summary</a></li>
 </ul>
 </li>
-<li><a href="#references">2. References</a>
+<li><a href="#references_2">2. References</a>
 <ul class="sectlevel2">
 <li><a href="#owasp_top_10_mobile_risks">2.1. OWASP Top 10 Mobile Risks</a></li>
 <li><a href="#mobile_application_security_requirements">2.2. Mobile Application Security Requirements</a></li>
@@ -467,7 +545,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="mobile_security_recomendations_overview">1. Mobile Security Recomendations Overview</h2>
+<h2 id="mobile_security_recommendations_overview">1. Mobile Security Recommendations Overview</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="authentication_session_management">1.1. Authentication &amp; Session Management</h3>
@@ -485,15 +563,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Perform Authentication on the Server Side.</strong> <em>(The client side should never be trusted)</em>.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use Fingerprint Scanner for Authentication.</strong> <em>(Possible False Positives)</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use the Fingerprint Scanner solely for Authentication.</strong> <em>(Possible False Positives [1])</em>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use Randomly Generated access tokens instead of sending user credentials in requests.</strong> <em>(At worst, a temporary session token can therefore only be stolen)</em>.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use Pattern Locks for Authentication.</strong> <em>(Lack of Entropy, Smudge Attacks)</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use Pattern Locks for Authentication.</strong> <em>(Lack of Entropy, Vulnerable to Smudge Attacks [2])</em>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>A password policy is enforced at the remote endpoint.</strong> <em>(Prevent easily guessable passwords from being used)</em>.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use Pin code authentication.</strong> <em>(Easily brute forced and the end user may resuse the device security pin)</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use a short Pin code solely authentication.</strong> <em>(Easily brute forced and the end user may reuse the device security pin)</em>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Sessions are terminated at the remote endpoint after a predefined time.</strong> <em>(Sessions token lifetimes should be kept short to limit the attack window if an valid session token is stolen)</em>.</p></td>
@@ -505,7 +583,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use contextual anomaly based detection to take into account the users IP, geographic location, time of day as part of the authentication phase.</strong> <em>(Helps detect unusual login activity)</em>.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Log user releated information.</strong> <em>(Personal information data leak)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Log user related information.</strong> <em>(Personal information data leak)</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>A second factor of authentication exists and is enforced.</strong> <em>(Extra layer of protection in case another authentication factor has been compromised)</em>.</p></td>
@@ -545,6 +623,588 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tr>
 </tbody>
 </table>
+<div class="sect3">
+<h4 id="references">1.1.1. References</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The probability of a random person unlocking a given iPhone with Touch ID is 1 in 50,000. <a href="https://support.apple.com/en-ie/HT204587">Apple Support</a></p>
+</li>
+<li>
+<p>Penn State researchers managed to identify the pass code patterns on two smartphones, 68% of the time, using photographs taken under different lighting conditions, and camera positions. <a href="https://www.usenix.org/legacy/events/woot10/tech/full_papers/Aviv.pdf">Smudge Attacks on Smartphone Touch Screens</a></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation">1.1.2. Implementation</h4>
+<div class="sect4">
+<h5 id="overview">Overview</h5>
+<div class="paragraph">
+<p>An Authentication &amp; Session Management implementation has been provided in our <a href="https://github.com/feedhenry/mobile-security-android-template">Mobile Security Android Template</a> App.</p>
+</div>
+<div class="paragraph">
+<p>The Application uses <a href="http://openid.net/connect/">OpenID Connect</a> for authentication and access control. The Open Source Identity and Access Management server, <a href="http://www.keycloak.org">Keycloak</a>, is being used as an Identity Broker.
+The OpenID library <a href="https://github.com/openid/AppAuth-Android">AppAuth-Android</a> is being used for communicating with an OpenID Connect Provider/Broker.</p>
+</div>
+<div class="paragraph">
+<p>The Keycloak server is enforcing a number of Security Controls on the mobile app.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://github.com/feedhenry/mobile-security/blob/master/projects/keycloak/secure-app-realm.json#L6-L11">Brute force detection</a> on the login screen.</p>
+</li>
+<li>
+<p><a href="https://github.com/feedhenry/mobile-security/blob/master/projects/keycloak/secure-app-realm.json#L12">Account lockouts</a> for failed login attempts.</p>
+</li>
+<li>
+<p><a href="https://github.com/feedhenry/mobile-security/blob/master/projects/keycloak/secure-app-realm.json#L101">2FA</a> for mobile users.</p>
+</li>
+<li>
+<p><a href="http://www.keycloak.org/docs/latest/server_admin/topics/sessions/administering.html">Session management</a> for mobile users.</p>
+</li>
+<li>
+<p><a href="https://github.com/feedhenry/mobile-security/blob/master/projects/keycloak/secure-app-realm.json#L13-L17">Audit tracing</a> of auth events.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="code_examples">Code Examples</h5>
+<div class="paragraph">
+<p>The main code logic is found under <a href="https://github.com/feedhenry/mobile-security-android-template/tree/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/authentication">mobile-security-android-template/&#8230;&#8203;/authentication</a>.</p>
+</div>
+<div class="paragraph">
+<p>There is also an <a href="https://github.com/feedhenry/mobile-security-android-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/AuthHelper.java">authentication helper class</a> for retrieving information about the users auth state from other places inside the app.</p>
+</div>
+<div class="paragraph">
+<p>The following code snippets below describe the main authentication code logic in the mobile app.</p>
+</div>
+<div class="sect5">
+<h6 id="openid_connect_performing_the_authentication_request">OpenID Connect: Performing the Authentication Request</h6>
+<div class="paragraph">
+<p>This function is used to perform a redirect to the Identity Providers login screen. The OpenID Connect Auth and Token endpoints must be specified to make AppAuth aware of the URI used to perform the authentication on, as well as the URI used to perform the token exchange.
+Once we have setup the necessary AppAuth configuration, we can create the new Authorization Request. Here, we provide the endpoints for the OpenID Connect provider as well as the client ID, response type and redirect URI. We then perform the auth request and create a new intent which will handle the auth response from the system browser. The authentication phase will occur in a system browser in a safe context outside of the application.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Create the config for the initial Keycloak auth request to get a temporary token and create an intent to handle the response</span>
+<span class="tok-cm"> */</span>
+<span class="tok-nd">@Override</span>
+<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">performAuthRequest</span><span class="tok-o">(</span><span class="tok-n">Activity</span> <span class="tok-n">fromActivity</span><span class="tok-o">,</span> <span class="tok-n">Callback</span> <span class="tok-n">authCallback</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+    <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">authCallback</span> <span class="tok-o">=</span> <span class="tok-n">authCallback</span><span class="tok-o">;</span>
+    <span class="tok-c1">// Setup the config for the AuthorizationService</span>
+    <span class="tok-n">serviceConfig</span> <span class="tok-o">=</span>
+            <span class="tok-k">new</span> <span class="tok-n">AuthorizationServiceConfiguration</span><span class="tok-o">(</span>
+                    <span class="tok-n">AUTHORIZATION_ENDPOINT</span><span class="tok-o">,</span> <span class="tok-c1">// the clients keycloak authorization endpoint</span>
+                    <span class="tok-n">TOKEN_ENDPOINT</span><span class="tok-o">);</span> <span class="tok-c1">// the clients keycloak token endpoint</span>
+
+    <span class="tok-c1">// Persist the AuthorizationServiceConfiguration</span>
+    <span class="tok-n">authState</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">AuthState</span><span class="tok-o">(</span><span class="tok-n">serviceConfig</span><span class="tok-o">);</span>
+
+    <span class="tok-c1">// Prevent the app opening the keycloak view in chrome custom tabs, instead open it in the native browser</span>
+    <span class="tok-n">AppAuthConfiguration</span> <span class="tok-n">appAuthConfig</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">AppAuthConfiguration</span><span class="tok-o">.</span><span class="tok-na">Builder</span><span class="tok-o">()</span>
+            <span class="tok-o">.</span><span class="tok-na">setBrowserMatcher</span><span class="tok-o">(</span><span class="tok-k">new</span> <span class="tok-n">BrowserBlacklist</span><span class="tok-o">(</span>
+                    <span class="tok-n">VersionedBrowserMatcher</span><span class="tok-o">.</span><span class="tok-na">CHROME_CUSTOM_TAB</span><span class="tok-o">))</span>
+            <span class="tok-o">.</span><span class="tok-na">build</span><span class="tok-o">();</span>
+
+    <span class="tok-c1">// create a new auth service with the auth config</span>
+    <span class="tok-n">authService</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">AuthorizationService</span><span class="tok-o">(</span><span class="tok-n">context</span><span class="tok-o">,</span> <span class="tok-n">appAuthConfig</span><span class="tok-o">);</span>
+
+    <span class="tok-n">AuthorizationRequest</span><span class="tok-o">.</span><span class="tok-na">Builder</span> <span class="tok-n">authRequestBuilder</span> <span class="tok-o">=</span>
+            <span class="tok-k">new</span> <span class="tok-n">AuthorizationRequest</span><span class="tok-o">.</span><span class="tok-na">Builder</span><span class="tok-o">(</span>
+                    <span class="tok-n">serviceConfig</span><span class="tok-o">,</span> <span class="tok-c1">// the authorization service configuration</span>
+                    <span class="tok-n">CLIENT_ID</span><span class="tok-o">,</span> <span class="tok-c1">// the client ID, typically pre-registered and static</span>
+                    <span class="tok-n">ResponseTypeValues</span><span class="tok-o">.</span><span class="tok-na">CODE</span><span class="tok-o">,</span> <span class="tok-c1">// the response_type value: we want a code</span>
+                    <span class="tok-n">REDIRECT_URI</span><span class="tok-o">)</span> <span class="tok-c1">// the redirect URI to which the auth response is sent</span>
+                    <span class="tok-o">.</span><span class="tok-na">setScopes</span><span class="tok-o">(</span><span class="tok-n">OPEN_ID_SCOPE</span><span class="tok-o">);</span>
+
+    <span class="tok-n">authRequest</span> <span class="tok-o">=</span> <span class="tok-n">authRequestBuilder</span><span class="tok-o">.</span><span class="tok-na">build</span><span class="tok-o">();</span>
+    <span class="tok-c1">// perform the auth request</span>
+    <span class="tok-n">Intent</span> <span class="tok-n">authIntent</span> <span class="tok-o">=</span> <span class="tok-n">authService</span><span class="tok-o">.</span><span class="tok-na">getAuthorizationRequestIntent</span><span class="tok-o">(</span><span class="tok-n">authRequest</span><span class="tok-o">);</span>
+    <span class="tok-n">fromActivity</span><span class="tok-o">.</span><span class="tok-na">startActivityForResult</span><span class="tok-o">(</span><span class="tok-n">authIntent</span><span class="tok-o">,</span> <span class="tok-n">Constants</span><span class="tok-o">.</span><span class="tok-na">REQUEST_CODES</span><span class="tok-o">.</span><span class="tok-na">AUTH_CODE</span><span class="tok-o">);</span>
+<span class="tok-o">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="openid_connect_handling_the_authentication_response">OpenID Connect: Handling the Authentication Response</h6>
+<div class="paragraph">
+<p>Once the Authentication phase has ended, the user will be redirected back to the mobile app from the system browser.
+A check is performed in the MainActivity for incoming intents. Any incoming intents that match the Android auth response intent will be directed to the below function.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Checks if the incoming intent matches the Keycloak Auth response intent</span>
+<span class="tok-cm"> *</span>
+<span class="tok-cm"> * @param intent - the intent to check</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">onAuthResult</span><span class="tok-o">(</span><span class="tok-nd">@Nullable</span> <span class="tok-n">Intent</span> <span class="tok-n">intent</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">intent</span> <span class="tok-o">!=</span> <span class="tok-kc">null</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">handleAuthorizationResponse</span><span class="tok-o">(</span><span class="tok-n">intent</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once the intent is not null, we inspect it to check whether the authentication was successful or not. If the authentication failed, we are handling this in another function which will display a failure message to the user.
+If the authentication was a success, we then make a call to the <code>exchangeToken()</code> function to swap our temporary token for the identity, access and refresh tokens.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Handles the initial auth response and create a new request to the token endpoint to get the actual tokens</span>
+<span class="tok-cm"> *</span>
+<span class="tok-cm"> * @param intent - the auth response intent</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">handleAuthorizationResponse</span><span class="tok-o">(</span><span class="tok-n">Intent</span> <span class="tok-n">intent</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+    <span class="tok-n">AuthorizationResponse</span> <span class="tok-n">response</span> <span class="tok-o">=</span> <span class="tok-n">AuthorizationResponse</span><span class="tok-o">.</span><span class="tok-na">fromIntent</span><span class="tok-o">(</span><span class="tok-n">intent</span><span class="tok-o">);</span>
+    <span class="tok-n">AuthorizationException</span> <span class="tok-n">error</span> <span class="tok-o">=</span> <span class="tok-n">AuthorizationException</span><span class="tok-o">.</span><span class="tok-na">fromIntent</span><span class="tok-o">(</span><span class="tok-n">intent</span><span class="tok-o">);</span>
+
+    <span class="tok-c1">// update the auth state</span>
+    <span class="tok-n">authState</span><span class="tok-o">.</span><span class="tok-na">update</span><span class="tok-o">(</span><span class="tok-n">response</span><span class="tok-o">,</span> <span class="tok-n">error</span><span class="tok-o">);</span>
+
+    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">response</span> <span class="tok-o">!=</span> <span class="tok-kc">null</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">exchangeTokens</span><span class="tok-o">(</span><span class="tok-n">response</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span> <span class="tok-k">else</span> <span class="tok-o">{</span>
+        <span class="tok-n">authFailed</span><span class="tok-o">(</span><span class="tok-n">error</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="openid_connect_exchanging_tokens">OpenID Connect: Exchanging Tokens</h6>
+<div class="paragraph">
+<p>Here, we send our temporary token to the the token endpoint on the OpenID Connect provider. If this token is valid, we will receive an access, identity and refresh token.
+We can now form an Identity for the logged in user based on the tokens being returned.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Token exchange against the token endpoint</span>
+<span class="tok-cm"> *</span>
+<span class="tok-cm"> * @param response - the auth response from the intent/server</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">private</span> <span class="tok-kt">void</span> <span class="tok-nf">exchangeTokens</span><span class="tok-o">(</span><span class="tok-n">AuthorizationResponse</span> <span class="tok-n">response</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+    <span class="tok-n">authService</span><span class="tok-o">.</span><span class="tok-na">performTokenRequest</span><span class="tok-o">(</span><span class="tok-n">response</span><span class="tok-o">.</span><span class="tok-na">createTokenExchangeRequest</span><span class="tok-o">(),</span> <span class="tok-k">new</span> <span class="tok-n">AuthorizationService</span><span class="tok-o">.</span><span class="tok-na">TokenResponseCallback</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+        <span class="tok-nd">@Override</span>
+        <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">onTokenRequestCompleted</span><span class="tok-o">(</span><span class="tok-nd">@Nullable</span> <span class="tok-n">TokenResponse</span> <span class="tok-n">tokenResponse</span><span class="tok-o">,</span> <span class="tok-nd">@Nullable</span> <span class="tok-n">AuthorizationException</span> <span class="tok-n">exception</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+            <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">tokenResponse</span> <span class="tok-o">!=</span> <span class="tok-kc">null</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+                <span class="tok-n">authState</span><span class="tok-o">.</span><span class="tok-na">update</span><span class="tok-o">(</span><span class="tok-n">tokenResponse</span><span class="tok-o">,</span> <span class="tok-n">exception</span><span class="tok-o">);</span>
+                <span class="tok-n">AuthHelper</span><span class="tok-o">.</span><span class="tok-na">writeAuthState</span><span class="tok-o">(</span><span class="tok-n">authState</span><span class="tok-o">);</span>
+
+                <span class="tok-n">JSONObject</span> <span class="tok-n">decodedIdentityData</span> <span class="tok-o">=</span> <span class="tok-n">AuthHelper</span><span class="tok-o">.</span><span class="tok-na">getIdentityInformation</span><span class="tok-o">();</span>
+                <span class="tok-n">Identity</span> <span class="tok-n">newIdentity</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">Identity</span><span class="tok-o">(</span><span class="tok-s">&quot;&quot;</span><span class="tok-o">,</span> <span class="tok-s">&quot;&quot;</span><span class="tok-o">,</span> <span class="tok-s">&quot;&quot;</span><span class="tok-o">,</span> <span class="tok-k">new</span> <span class="tok-n">ArrayList</span><span class="tok-o">&lt;</span><span class="tok-n">String</span><span class="tok-o">&gt;());</span>
+
+                <span class="tok-k">try</span> <span class="tok-o">{</span>
+                    <span class="tok-n">newIdentity</span> <span class="tok-o">=</span> <span class="tok-n">Identity</span><span class="tok-o">.</span><span class="tok-na">fromJson</span><span class="tok-o">(</span><span class="tok-n">decodedIdentityData</span><span class="tok-o">);</span>
+                <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">JSONException</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+                    <span class="tok-n">Log</span><span class="tok-o">.</span><span class="tok-na">i</span><span class="tok-o">(</span><span class="tok-s">&quot;&quot;</span><span class="tok-o">,</span><span class="tok-s">&quot;Decoding Access Token Failed&quot;</span><span class="tok-o">,</span> <span class="tok-n">e</span><span class="tok-o">);</span>
+                <span class="tok-o">}</span>
+
+                <span class="tok-n">authSuccess</span><span class="tok-o">(</span><span class="tok-n">newIdentity</span><span class="tok-o">);</span>
+            <span class="tok-o">}</span> <span class="tok-k">else</span> <span class="tok-o">{</span>
+                <span class="tok-n">authFailed</span><span class="tok-o">(</span><span class="tok-n">exception</span><span class="tok-o">);</span>
+            <span class="tok-o">}</span>
+        <span class="tok-o">}</span>
+    <span class="tok-o">});</span>
+<span class="tok-o">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="openid_connect_logout">OpenID Connect: Logout</h6>
+<div class="paragraph">
+<p>To logout of the application, we must make a call to the logout endpoint on the OpenID Connect provider along with providing the identity token and a redirect URI.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Perform a logout request against the openid connect server</span>
+<span class="tok-cm"> * @param logoutCallback - the logout callback</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">logout</span><span class="tok-o">(</span><span class="tok-n">Callback</span> <span class="tok-n">logoutCallback</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+    <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">logoutCallback</span> <span class="tok-o">=</span> <span class="tok-n">logoutCallback</span><span class="tok-o">;</span>
+    <span class="tok-n">String</span> <span class="tok-n">identityToken</span> <span class="tok-o">=</span> <span class="tok-n">AuthHelper</span><span class="tok-o">.</span><span class="tok-na">getIdentityToken</span><span class="tok-o">();</span>
+
+    <span class="tok-c1">// Construct the Keycloak logout URL</span>
+    <span class="tok-n">String</span> <span class="tok-n">logoutRequestUri</span> <span class="tok-o">=</span> <span class="tok-n">baseLogoutEndpoint</span> <span class="tok-o">+</span>
+            <span class="tok-n">tokenHintFragment</span> <span class="tok-o">+</span>
+            <span class="tok-n">identityToken</span> <span class="tok-o">+</span>
+            <span class="tok-n">redirectFragment</span> <span class="tok-o">+</span>
+            <span class="tok-n">redirectUri</span><span class="tok-o">;</span>
+
+    <span class="tok-n">AuthHelper</span><span class="tok-o">.</span><span class="tok-na">makeBearerRequest</span><span class="tok-o">(</span><span class="tok-n">logoutRequestUri</span><span class="tok-o">,</span> <span class="tok-k">new</span> <span class="tok-n">okhttp3</span><span class="tok-o">.</span><span class="tok-na">Callback</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+        <span class="tok-nd">@Override</span>
+        <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">onFailure</span><span class="tok-o">(</span><span class="tok-n">Call</span> <span class="tok-n">call</span><span class="tok-o">,</span> <span class="tok-n">IOException</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+            <span class="tok-n">logoutFailed</span><span class="tok-o">(</span><span class="tok-n">e</span><span class="tok-o">);</span>
+        <span class="tok-o">}</span>
+
+        <span class="tok-nd">@Override</span>
+        <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">onResponse</span><span class="tok-o">(</span><span class="tok-n">Call</span> <span class="tok-n">call</span><span class="tok-o">,</span> <span class="tok-n">Response</span> <span class="tok-n">response</span><span class="tok-o">)</span> <span class="tok-kd">throws</span> <span class="tok-n">IOException</span> <span class="tok-o">{</span>
+            <span class="tok-c1">// nullify the auth state</span>
+            <span class="tok-n">AuthHelper</span><span class="tok-o">.</span><span class="tok-na">writeAuthState</span><span class="tok-o">(</span><span class="tok-kc">null</span><span class="tok-o">);</span>
+            <span class="tok-n">logoutSuccess</span><span class="tok-o">();</span>
+        <span class="tok-o">}</span>
+    <span class="tok-o">});</span>
+<span class="tok-o">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="auth_helper_class_reading_writing_the_auth_state">Auth Helper Class: Reading/Writing the Auth State</h6>
+<div class="paragraph">
+<p>As mentioned earlier, an auth helper class has been provided to for easy querying of the auth state and retrieval of other useful information.</p>
+</div>
+<div class="paragraph">
+<p>The Auth State can be read using the code below and called using <code>AuthHelper.readAuthState()</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Read the auth state from shared preferences</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">public</span> <span class="tok-kd">static</span> <span class="tok-n">AuthState</span> <span class="tok-nf">readAuthState</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+    <span class="tok-n">String</span> <span class="tok-n">currentState</span> <span class="tok-o">=</span> <span class="tok-n">mPrefs</span><span class="tok-o">.</span><span class="tok-na">getString</span><span class="tok-o">(</span><span class="tok-n">KEY_STATE</span><span class="tok-o">,</span> <span class="tok-kc">null</span><span class="tok-o">);</span>
+    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">currentState</span> <span class="tok-o">==</span> <span class="tok-kc">null</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-k">return</span> <span class="tok-k">new</span> <span class="tok-n">AuthState</span><span class="tok-o">();</span>
+    <span class="tok-o">}</span>
+    <span class="tok-k">try</span> <span class="tok-o">{</span>
+        <span class="tok-k">return</span> <span class="tok-n">AuthState</span><span class="tok-o">.</span><span class="tok-na">jsonDeserialize</span><span class="tok-o">(</span><span class="tok-n">currentState</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">JSONException</span> <span class="tok-n">ex</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">Log</span><span class="tok-o">.</span><span class="tok-na">w</span><span class="tok-o">(</span><span class="tok-s">&quot;AuthState&quot;</span><span class="tok-o">,</span> <span class="tok-s">&quot;Failed to deserialize stored auth state: &quot;</span> <span class="tok-o">+</span> <span class="tok-n">ex</span><span class="tok-o">);</span>
+        <span class="tok-k">return</span> <span class="tok-k">new</span> <span class="tok-n">AuthState</span><span class="tok-o">();</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Similarly, you can write a new Auth State using the code below and can be called using <code>AuthHelper.writeAuthState(Authstate state)</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Write the auth state to shared preferences</span>
+<span class="tok-cm"> * @param state - The Authstate to write to shared preferences</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">public</span> <span class="tok-kd">static</span> <span class="tok-kt">void</span> <span class="tok-nf">writeAuthState</span><span class="tok-o">(</span><span class="tok-nd">@Nullable</span> <span class="tok-n">AuthState</span> <span class="tok-n">state</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">state</span> <span class="tok-o">==</span> <span class="tok-kc">null</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-k">if</span> <span class="tok-o">(!</span><span class="tok-n">mPrefs</span><span class="tok-o">.</span><span class="tok-na">edit</span><span class="tok-o">().</span><span class="tok-na">remove</span><span class="tok-o">(</span><span class="tok-n">KEY_STATE</span><span class="tok-o">).</span><span class="tok-na">commit</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+            <span class="tok-k">throw</span> <span class="tok-k">new</span> <span class="tok-n">IllegalStateException</span><span class="tok-o">(</span><span class="tok-s">&quot;Failed to write state to shared prefs&quot;</span><span class="tok-o">);</span>
+        <span class="tok-o">}</span>
+    <span class="tok-o">}</span> <span class="tok-k">else</span> <span class="tok-o">{</span>
+        <span class="tok-k">if</span> <span class="tok-o">(!</span><span class="tok-n">mPrefs</span><span class="tok-o">.</span><span class="tok-na">edit</span><span class="tok-o">().</span><span class="tok-na">putString</span><span class="tok-o">(</span><span class="tok-n">KEY_STATE</span><span class="tok-o">,</span> <span class="tok-n">state</span><span class="tok-o">.</span><span class="tok-na">jsonSerializeString</span><span class="tok-o">()).</span><span class="tok-na">commit</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+            <span class="tok-k">throw</span> <span class="tok-k">new</span> <span class="tok-n">IllegalStateException</span><span class="tok-o">(</span><span class="tok-s">&quot;Failed to write state to shared prefs&quot;</span><span class="tok-o">);</span>
+        <span class="tok-o">}</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="auth_helper_class_getting_identity_information">Auth Helper Class: Getting Identity Information</h6>
+<div class="paragraph">
+<p>This function can be used to get the users identity/access information from the auth state. The users identity is returned as a JSONObject.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Get the authenticated users identity information</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">public</span> <span class="tok-kd">static</span> <span class="tok-n">JSONObject</span> <span class="tok-nf">getIdentityInformation</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+    <span class="tok-n">String</span> <span class="tok-n">accessToken</span> <span class="tok-o">=</span> <span class="tok-n">getAccessToken</span><span class="tok-o">();</span>
+    <span class="tok-n">JSONObject</span> <span class="tok-n">decodedIdentityData</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">JSONObject</span><span class="tok-o">();</span>
+
+    <span class="tok-k">try</span> <span class="tok-o">{</span>
+        <span class="tok-c1">// Decode the Access Token to Extract the Identity Information</span>
+        <span class="tok-n">String</span><span class="tok-o">[]</span> <span class="tok-n">splitToken</span> <span class="tok-o">=</span> <span class="tok-n">accessToken</span><span class="tok-o">.</span><span class="tok-na">split</span><span class="tok-o">(</span><span class="tok-s">&quot;\\.&quot;</span><span class="tok-o">);</span>
+        <span class="tok-kt">byte</span><span class="tok-o">[]</span> <span class="tok-n">decodedBytes</span> <span class="tok-o">=</span> <span class="tok-n">Base64</span><span class="tok-o">.</span><span class="tok-na">decode</span><span class="tok-o">(</span><span class="tok-n">splitToken</span><span class="tok-o">[</span><span class="tok-mi">1</span><span class="tok-o">],</span> <span class="tok-n">Base64</span><span class="tok-o">.</span><span class="tok-na">URL_SAFE</span><span class="tok-o">);</span>
+        <span class="tok-n">String</span> <span class="tok-n">decoded</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">String</span><span class="tok-o">(</span><span class="tok-n">decodedBytes</span><span class="tok-o">,</span> <span class="tok-s">&quot;UTF-8&quot;</span><span class="tok-o">);</span>
+        <span class="tok-k">try</span> <span class="tok-o">{</span>
+            <span class="tok-n">decodedIdentityData</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">JSONObject</span><span class="tok-o">(</span><span class="tok-n">decoded</span><span class="tok-o">);</span>
+        <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">JSONException</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+            <span class="tok-n">e</span><span class="tok-o">.</span><span class="tok-na">printStackTrace</span><span class="tok-o">();</span>
+        <span class="tok-o">}</span>
+
+    <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">UnsupportedEncodingException</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">Log</span><span class="tok-o">.</span><span class="tok-na">e</span><span class="tok-o">(</span><span class="tok-s">&quot;&quot;</span><span class="tok-o">,</span> <span class="tok-s">&quot;Error Decoding Access Token&quot;</span><span class="tok-o">,</span> <span class="tok-n">e</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+    <span class="tok-k">return</span> <span class="tok-n">decodedIdentityData</span><span class="tok-o">;</span>
+<span class="tok-o">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="auth_helper_class_making_authenticated_bearer_requests">Auth Helper Class: Making Authenticated Bearer Requests</h6>
+<div class="paragraph">
+<p>The <code>makeBearerRequest()</code> function allows you to make HTTP calls against resources that require a valid Access Token (Such as a cloud app protected by Keycloak).
+The function accepts a URL in the form of a String along with a <a href="http://square.github.io/okhttp/">OkHttp</a> callback.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Make a request to a resource that requires the access token to be sent with the request</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">public</span> <span class="tok-kd">static</span> <span class="tok-n">Call</span> <span class="tok-nf">makeBearerRequest</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">url</span><span class="tok-o">,</span> <span class="tok-n">okhttp3</span><span class="tok-o">.</span><span class="tok-na">Callback</span> <span class="tok-n">callback</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+
+    <span class="tok-c1">// Ensure that a non-expired access token is being used for the request</span>
+    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">getNeedsTokenRefresh</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+        <span class="tok-n">setNeedsTokenRefresh</span><span class="tok-o">();</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-n">String</span> <span class="tok-n">accessToken</span> <span class="tok-o">=</span> <span class="tok-n">getAccessToken</span><span class="tok-o">();</span>
+
+    <span class="tok-n">OkHttpClient</span> <span class="tok-n">httpClient</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">OkHttpClient</span><span class="tok-o">();</span>
+    <span class="tok-n">Request</span> <span class="tok-n">request</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">Request</span><span class="tok-o">.</span><span class="tok-na">Builder</span><span class="tok-o">()</span>
+            <span class="tok-o">.</span><span class="tok-na">url</span><span class="tok-o">(</span><span class="tok-n">url</span><span class="tok-o">)</span>
+            <span class="tok-o">.</span><span class="tok-na">addHeader</span><span class="tok-o">(</span><span class="tok-s">&quot;Authorization&quot;</span><span class="tok-o">,</span> <span class="tok-n">String</span><span class="tok-o">.</span><span class="tok-na">format</span><span class="tok-o">(</span><span class="tok-s">&quot;Bearer %s&quot;</span><span class="tok-o">,</span> <span class="tok-n">accessToken</span><span class="tok-o">))</span>
+            <span class="tok-o">.</span><span class="tok-na">build</span><span class="tok-o">();</span>
+
+    <span class="tok-n">Call</span> <span class="tok-n">call</span> <span class="tok-o">=</span> <span class="tok-n">httpClient</span><span class="tok-o">.</span><span class="tok-na">newCall</span><span class="tok-o">(</span><span class="tok-n">request</span><span class="tok-o">);</span>
+    <span class="tok-n">call</span><span class="tok-o">.</span><span class="tok-na">enqueue</span><span class="tok-o">(</span><span class="tok-n">callback</span><span class="tok-o">);</span>
+    <span class="tok-k">return</span> <span class="tok-n">call</span><span class="tok-o">;</span>
+<span class="tok-o">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="auth_helper_class_other_helper_functions">Auth Helper Class: Other Helper Functions</h6>
+<div class="paragraph">
+<p>There are also a number of other functions in the helper class to get some auth related information:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>isAuthorized()</code> - Returns a boolean value for if the user is authenticated or authorized (for OAuth).</p>
+</li>
+<li>
+<p><code>getAccessToken()</code> - Returns a String of the Access Token.</p>
+</li>
+<li>
+<p><code>getIdentityToken()</code> - Returns a String of the Identity Token.</p>
+</li>
+<li>
+<p><code>getNeedsTokenRefresh()</code> - Returns a boolean value for if a new access token needs to be required.</p>
+</li>
+<li>
+<p><code>setNeedsTokenRefresh()</code> - Set a flag to say that a new access token is required.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="data_storage_summary">1.2. Data Storage Summary</h3>
@@ -849,13 +1509,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-top"><p class="tableblock">Creation and Use of Custom Encryption Protocols</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Recommended minimal key lengths and algorithms
-</p><p class="tableblock">Key exchange : Diffie–Hellman with a minimum of 2048 bits
-</p><p class="tableblock">Message Integrity: HMAC-SHA2 (or HMAC-SHA-256)
-</p><p class="tableblock">Message Hash: SHA2 256 bits
-</p><p class="tableblock">Assymetric encryption: RSA 2048 bits
-</p><p class="tableblock">Symmetric-key algorithm: AES 128 bits (CBC or GCM)
-</p><p class="tableblock">Password Hashing: PBKDF2, Scrypt, Bcrypt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Recommended minimal key lengths and algorithms</p>
+<p class="tableblock">Key exchange : Diffie–Hellman with a minimum of 2048 bits</p>
+<p class="tableblock">Message Integrity: HMAC-SHA2 (or HMAC-SHA-256)</p>
+<p class="tableblock">Message Hash: SHA2 256 bits</p>
+<p class="tableblock">Assymetric encryption: RSA 2048 bits</p>
+<p class="tableblock">Symmetric-key algorithm: AES 128 bits (CBC or GCM)</p>
+<p class="tableblock">Password Hashing: PBKDF2, Scrypt, Bcrypt</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use of Insecure and/or Deprecated Algorithms, like RC2, MD5, MD4, SHA1</p></td>
 </tr>
 <tr>
@@ -872,7 +1532,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="references">2. References</h2>
+<h2 id="references_2">2. References</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="owasp_top_10_mobile_risks">2.1. OWASP Top 10 Mobile Risks</h3>
@@ -2564,11 +3224,11 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-javascript" data-lang="javascript">Public-Key-Pins:
-  pin-sha256="cUPcTAZWKaASuYWhhneDttWpY3oBAkE3h2+soZS7sWs=";
-  pin-sha256="M8HztCzM3elUxkcjR2S5P4hhyBNf6lHkmjAHKhpGPWE=";
-  max-age=5184000; includeSubDomains;
-  report-uri="https://www.example.org/hpkp-report"</code></pre>
+<pre class="pygments highlight"><code data-lang="javascript"><span></span><span class="tok-nx">Public</span><span class="tok-o">-</span><span class="tok-nx">Key</span><span class="tok-o">-</span><span class="tok-nx">Pins</span><span class="tok-o">:</span>
+  <span class="tok-nx">pin</span><span class="tok-o">-</span><span class="tok-nx">sha256</span><span class="tok-o">=</span><span class="tok-s2">&quot;cUPcTAZWKaASuYWhhneDttWpY3oBAkE3h2+soZS7sWs=&quot;</span><span class="tok-p">;</span>
+  <span class="tok-nx">pin</span><span class="tok-o">-</span><span class="tok-nx">sha256</span><span class="tok-o">=</span><span class="tok-s2">&quot;M8HztCzM3elUxkcjR2S5P4hhyBNf6lHkmjAHKhpGPWE=&quot;</span><span class="tok-p">;</span>
+  <span class="tok-nx">max</span><span class="tok-o">-</span><span class="tok-nx">age</span><span class="tok-o">=</span><span class="tok-mi">5184000</span><span class="tok-p">;</span> <span class="tok-nx">includeSubDomains</span><span class="tok-p">;</span>
+  <span class="tok-nx">report</span><span class="tok-o">-</span><span class="tok-nx">uri</span><span class="tok-o">=</span><span class="tok-s2">&quot;https://www.example.org/hpkp-report&quot;</span></code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -4505,7 +5165,7 @@ By authorizing and signing only for known measurements, the server ensures that 
 <div class="sect3">
 <h4 id="file_data_protection">2.8.2. File Data Protection</h4>
 <div class="sect4">
-<h5 id="overview">Overview</h5>
+<h5 id="overview_2">Overview</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -5179,7 +5839,7 @@ Applications running on the main processor will therefore delegate any operation
 <p>This is a summary of the <a href="https://developer.android.com/training/best-security.html">Android Developer Security Guide</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="overview_2">2.10.1. Overview</h4>
+<h4 id="overview_3">2.10.1. Overview</h4>
 <div class="paragraph">
 <p>The following core security features help you build secure apps:</p>
 </div>
@@ -5553,7 +6213,7 @@ It&#8217;s possible that an application might use SSL incorrectly such that mali
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>URL url = new URL("https://wikipedia.org");
+<pre class="pygments highlight"><code>URL url = new URL("https://wikipedia.org");
 URLConnection urlConnection = url.openConnection();
 InputStream in = urlConnection.getInputStream();
 copyInputStreamToOutputStream(in, System.out);</code></pre>
@@ -5564,7 +6224,7 @@ copyInputStreamToOutputStream(in, System.out);</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.</code></pre>
+<pre class="pygments highlight"><code>javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -5641,7 +6301,7 @@ copyInputStreamToOutputStream(in, System.out);</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>java.io.IOException: Hostname 'example.com' was not verified
+<pre class="pygments highlight"><code>java.io.IOException: Hostname 'example.com' was not verified
 at libcore.net.http.HttpConnection.verifySecureSocketHostname(HttpConnection.java:223)
 at libcore.net.http.HttpsURLConnectionImpl$HttpsEngine.connect(HttpsURLConnectionImpl.java:446)</code></pre>
 </div>
@@ -5744,7 +6404,7 @@ It&#8217;s an automated, powerful, and scalable tool for testing network securit
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+<pre class="pygments highlight"><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;manifest ... &gt;
     &lt;application android:networkSecurityConfig="@xml/network_security_config"
                     ... &gt;
@@ -5808,7 +6468,7 @@ It&#8217;s an automated, powerful, and scalable tool for testing network securit
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+<pre class="pygments highlight"><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;network-security-config&gt;
     &lt;domain-config cleartextTrafficPermitted="false"&gt;
         &lt;domain includeSubdomains="true"&gt;secure.example.com&lt;/domain&gt;
@@ -5833,7 +6493,7 @@ It&#8217;s an automated, powerful, and scalable tool for testing network securit
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+<pre class="pygments highlight"><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;network-security-config&gt;
     &lt;domain-config&gt;
         &lt;domain includeSubdomains="true"&gt;example.com&lt;/domain&gt;
@@ -5865,7 +6525,7 @@ It&#8217;s an automated, powerful, and scalable tool for testing network securit
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+<pre class="pygments highlight"><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;network-security-config&gt;
     &lt;base-config&gt;
         &lt;trust-anchors&gt;
@@ -6006,7 +6666,7 @@ Specifically, the application can be configured such that it ensures a screen-lo
 <p>Declare the policy in the <code>res/xml/device_admin.xml</code> file, example:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>&lt;device-admin xmlns:android="http://schemas.android.com/apk/res/android"&gt;
+<pre class="pygments highlight"><code>&lt;device-admin xmlns:android="http://schemas.android.com/apk/res/android"&gt;
   &lt;uses-policies&gt;
     &lt;limit-password /&gt;
   &lt;/uses-policies&gt;
@@ -6018,7 +6678,7 @@ Specifically, the application can be configured such that it ensures a screen-lo
 <p>Then reference it in the Android manifest file:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>&lt;receiver android:name=".Policy$PolicyAdmin"
+<pre class="pygments highlight"><code>&lt;receiver android:name=".Policy$PolicyAdmin"
     android:permission="android.permission.BIND_DEVICE_ADMIN"&gt;
     &lt;meta-data android:name="android.app.device_admin"
         android:resource="@xml/device_admin" /&gt;
@@ -6040,7 +6700,7 @@ An application can selectively override callback methods. For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>public static class PolicyAdmin extends DeviceAdminReceiver {
+<pre class="pygments highlight"><code>public static class PolicyAdmin extends DeviceAdminReceiver {
 
     @Override
     public void onDisabled(Context context, Intent intent) {
@@ -6062,7 +6722,7 @@ It can be done like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>if (!mPolicy.isAdminActive()) {
+<pre class="pygments highlight"><code>if (!mPolicy.isAdminActive()) {
 
     Intent activateDeviceAdminIntent =
         new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
@@ -6097,7 +6757,7 @@ For example:</p>
 <p>Require password has minimum uppercase letters</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>DevicePolicyManager mDPM = (DevicePolicyManager)
+<pre class="pygments highlight"><code>DevicePolicyManager mDPM = (DevicePolicyManager)
         context.getSystemService(Context.DEVICE_POLICY_SERVICE);
 ComponentName mPolicyAdmin = new ComponentName(context, PolicyAdmin.class);
 ...
@@ -6113,7 +6773,7 @@ if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.HONEYCOMB) {
 <p>If the requirement is not met, invoke the activity to ask user to reset password:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>if (!mDPM.isActivePasswordSufficient()) {
+<pre class="pygments highlight"><code>if (!mDPM.isActivePasswordSufficient()) {
     ...
     // Triggers password change screen in Settings.
     Intent intent =
@@ -6127,7 +6787,7 @@ if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.HONEYCOMB) {
 <p>Finally, if requirement is met, the app can continue:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>if (!mDPM.isAdminActive(..)) {
+<pre class="pygments highlight"><code>if (!mDPM.isAdminActive(..)) {
     // Activates device administrator.
     ...
 } else if (!mDPM.isActivePasswordSufficient()) {
@@ -6170,7 +6830,7 @@ It should only be used if it&#8217;s important for the app to run right after th
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>&lt;receiver
+<pre class="pygments highlight"><code>&lt;receiver
   android:directBootAware="true" &gt;
   ...
   &lt;intent-filter&gt;
@@ -6201,7 +6861,7 @@ Android system provides two new storage locations for data:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>Context directBootContext = appContext.createDeviceProtectedStorageContext();
+<pre class="pygments highlight"><code>Context directBootContext = appContext.createDeviceProtectedStorageContext();
 // Access appDataFilename that lives in device encrypted storage
 FileInputStream inStream = directBootContext.openFileInput(appDataFilename);
 // Use inStream to read content...</code></pre>
@@ -6255,7 +6915,7 @@ FileInputStream inStream = directBootContext.openFileInput(appDataFilename);
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>StorageManager sm = (StorageManager)getSystemService(Context.STORAGE_SERVICE);
+<pre class="pygments highlight"><code>StorageManager sm = (StorageManager)getSystemService(Context.STORAGE_SERVICE);
 StorageVolume volume = sm.getPrimaryStorageVolume();
 Intent intent = volume.createAccessIntent(Environment.DIRECTORY_PICTURES);
 startActivityForResult(intent, request_code);</code></pre>
@@ -6273,7 +6933,7 @@ startActivityForResult(intent, request_code);</code></pre>
 <p>Add a BroadcastReceiver that listens for the MEDIA_MOUNTED notification, for example:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>&lt;receiver
+<pre class="pygments highlight"><code>&lt;receiver
     android:name=".MediaMountedReceiver"
     android:enabled="true"
     android:exported="true" &gt;
@@ -6289,7 +6949,7 @@ startActivityForResult(intent, request_code);</code></pre>
 <p>When the user mounts removable media, like an SD card, the system sends a MEDIA_MOUNTED notification. Request access like this:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>// BroadcastReceiver has already cached the MEDIA_MOUNTED
+<pre class="pygments highlight"><code>// BroadcastReceiver has already cached the MEDIA_MOUNTED
 // notification Intent in mediaMountedIntent
 StorageVolume volume = (StorageVolume)
     mediaMountedIntent.getParcelableExtra(StorageVolume.EXTRA_STORAGE_VOLUME);
@@ -6364,7 +7024,7 @@ The <a href="https://www.npmjs.com/package/cordova-plugin-secure-key-store">cord
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>document.addEventListener("deviceready", onDeviceReady, false);
+<pre class="pygments highlight"><code>document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
     window.open = cordova.InAppBrowser.open;
 }</code></pre>
@@ -9995,7 +10655,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 <p>Use <code>X-FRAME-OPTIONS</code> HEADER</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>Header add X-FRAME-OPTIONS "DENY"</code></pre>
+<pre class="pygments highlight"><code>Header add X-FRAME-OPTIONS "DENY"</code></pre>
 </div>
 </div>
 </li>
@@ -10003,7 +10663,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 <p>Basic frame busting javascript</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>if( self != top ) {
+<pre class="pygments highlight"><code>if( self != top ) {
   top.location = self.location ;
 }</code></pre>
 </div>
@@ -10438,7 +11098,7 @@ This method should be overridden and all the sensitive information in the user i
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-09-07 14:47:18 IST
+Last updated 2017-10-03 17:03:57 IST
 </div>
 </div>
 </body>

@@ -2,13 +2,15 @@
 :idprefix:
 :numbered:
 :toc: left
+:source-highlighter: pygments
+:pygments-style: manni
 
 = Mobile Security
 
 All things mobile security related.
 
 :toc:
-== Mobile Security Recomendations Overview
+== Mobile Security Recommendations Overview
 
 include::mobileAuthOverview.adoc[leveloffset=+2]
 include::mobileDataStorageOverview.adoc[leveloffset=+2]
