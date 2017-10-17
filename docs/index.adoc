@@ -1,15 +1,16 @@
 :library: Asciidoctor
 :idprefix:
 :numbered:
+:stylesheet: assets/asciidoctor.css
 :toc: left
 :source-highlighter: pygments
 :pygments-style: manni
 
-= Mobile Security
+image::assets/fh_redhat_logo.png[align="center"]
 
-All things mobile security related.
+[.text-center]
+= FeedHenry Mobile Security
 
-:toc:
 == Mobile Security Recommendations Overview
 
 include::mobileAuthOverview.adoc[leveloffset=+2]

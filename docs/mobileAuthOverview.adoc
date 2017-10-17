@@ -157,13 +157,13 @@ include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-tem
 ....
 
 ==== Auth Helper Class: Making Authenticated Bearer Requests
-The `makeBearerRequest()` function allows you to make HTTP calls against resources that require a valid Access Token (Such as a cloud app protected by Keycloak).
-The function accepts a URL in the form of a String along with a http://square.github.io/okhttp/[OkHttp] callback.
+The `createRequest()` function allows you to make HTTP calls against resources that require a valid Access Token (Such as a cloud app protected by Keycloak).
+The function accepts a URL in the form of a String, a boolean value to state if you want the access token to be sent with the request, along with a http://square.github.io/okhttp/[OkHttp] callback.
 
 .Code
 [source,java,linenum,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/AuthHelper.java[tags=makeBearerRequest]
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/AuthHelper.java[tags=createRequest]
 ....
 
 ==== Auth Helper Class: Other Helper Functions
