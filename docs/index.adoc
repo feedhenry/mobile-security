@@ -1,12 +1,13 @@
 :library: Asciidoctor
 :idprefix:
 :numbered:
+:stylesheet: assets/asciidoctor.css
 :toc: left
-:stylesheet: assets/theme.css
 :source-highlighter: pygments
 :pygments-style: manni
 
 image::assets/fh_redhat_logo.png[align="center"]
+
 [.text-center]
 = FeedHenry Mobile Security
 
