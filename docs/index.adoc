@@ -2,14 +2,14 @@
 :idprefix:
 :numbered:
 :toc: left
+:stylesheet: assets/theme.css
 :source-highlighter: pygments
 :pygments-style: manni
 
-= Mobile Security
+image::assets/fh_redhat_logo.png[align="center"]
+[.text-center]
+= FeedHenry Mobile Security
 
-All things mobile security related.
-
-:toc:
 == Mobile Security Recommendations Overview
 
 include::mobileAuthOverview.adoc[leveloffset=+2]
