@@ -49,3 +49,140 @@
 
 
 |===
+
+== Implementation
+
+=== Overview
+
+We have implemented a feature in the sample app to allow users to manage secret notes. This feature is used to showcase the best practices around secure data storage.
+
+[.float-group]
+--
+[.left]
+image::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/screenshots/storage_menu.png[,270,480]
+
+[.left]
+image::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/screenshots/storage_main.png[,270,480]
+--
+
+The secret notes can be saved to either file system or database (SQLite). In both cases, the notes will be encrypted automatically when persisted, and decrypted automatically when loaded into the app.
+
+=== Secret Key Management
+
+Secret keys are being used to encrypt/decrypt the notes. To make sure the secret keys are securely persisted, in most cases, the OS's keystore should be used to persist the secret key.
+
+However, for Android, there is a difference between Android M and pre-Android M.
+
+==== Android M and later
+
+In Android M and later versions, the KeyStore API supports generating and persist secret key, so the implementation is quite straight forward:
+
+.Generate Secret Key
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/crypto/AndroidMSecureKeyStore.java[tags=generateAESKey]
+....
+
+==== Pre-Android M
+
+However, in pre-Android M, the KeyStore API only supports generating public/private key pairs, so we can't persist the secret key using the keystore. 
+
+Instead, we will have to:
+
+1. Generate the secret key without using the KeyStore
++
+.Generate Secret
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/crypto/PreAndroidMSecureKeyStore.java[tags=generateSecretKey]
+....
+
+2. Generate a public/private key pair using the KeyStore
++
+.Generate Keypair
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/crypto/PreAndroidMSecureKeyStore.java[tags=generatePrivateKeyPair]
+....
+
+3. Encrypt the generated secret key with the generated public key and persist the encrypted secret key using private SharedPreferences.
++
+.Encrypt Secret
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/crypto/PreAndroidMSecureKeyStore.java[tags=generateAESKey]
+....
+
+4. To load the secret tkey, the generated key pair needs to be loaded first, and then use the private key to decrypt the encrypted secret key.
++
+.Decrypt Secret
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/crypto/PreAndroidMSecureKeyStore.java[tags=getSecretKey]
+....
+
+The alternative option is to ask the user to provide a password. The password will be used to encrypt/decrypt the secret key. This does mean that the user will have to remember the password and enter it everytime when using the app.
+
+=== Encrypt/decrypt the secret key
+
+RSA encryption/decryption is used to encrypt/decrypt the secret key. It can be used to encrypt/decrypt relatively small amount of data.
+
+You can perform RSA encryption/decryption in Android like this:
+
+.RSA Encryption
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/crypto/RsaHelper.java[tags=encrypt]
+....
+
+.RSA Decryption
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/crypto/RsaHelper.java[tags=decrypt]
+....
+
+=== Encrypt/decrypt the content of notes
+
+Once we have the secret key, we can use it to encrypt/decrypt the content of the notes using AES.
+
+You can perform data encryption/decryption in Android like this:
+
+.Encryption
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/crypto/AesCrypto.java[tags=encrypt]
+....
+
+.Decryption
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/crypto/AesCrypto.java[tags=decrypt]
+....
+
+=== Persist data using file system
+
+When a secret note is created, it can be persisted to the file system. We should encrypt the file when it is being persisted, and decrypt it when it is being loaded:
+
+.File Encryption
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/store/SecureFileNoteStore.java[tags=writeFileWithEncryption]
+....
+
+.File Decryption
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/store/SecureFileNoteStore.java[tags=readFileWithDecryption]
+....
+
+=== Persist data using database (SQLite)
+
+To securely persist data to the database, a library called https://www.zetetic.net/sqlcipher/[SqlCipher] is used. The library will automatically manage the encryption/decryption of the sqlite database file. It is easy to use, and requires minimum changes to the code.
+
+To encrypt/decrypt the database, a password is required. You can ask the user to provide the password. In our sample application, we generated a random password and then protected using a public/private key pair. The password is saved to the private SharedPreferences.
+
+.SqlCipher Password
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/store/sqlite/SqliteNoteStore.java[tags=getDbPassword]
+....
