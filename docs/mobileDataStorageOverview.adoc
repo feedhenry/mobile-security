@@ -113,7 +113,7 @@ include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-tem
 include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/crypto/PreAndroidMSecureKeyStore.java[tags=generateAESKey]
 ....
 
-4. To load the secret tkey, the generated key pair needs to be loaded first, and then use the private key to decrypt the encrypted secret key.
+4. To load the secret key, the generated key pair needs to be loaded first, and then use the private key to decrypt the encrypted secret key.
 +
 .Decrypt Secret
 [source,java,linenums,indent=0]
