@@ -89,7 +89,7 @@
                     "spec": {
                         "containers": [{
                             "name": "keycloak-openshift",
-                            "image": "docker.io/jimmidyson/keycloak-openshift:2.5.4.Final",
+                            "image": "docker.io/jboss/keycloak-openshift:latest",
                             "ports": [{
                                 "containerPort": 8080,
                                 "protocol": "TCP"
