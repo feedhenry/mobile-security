@@ -30,13 +30,19 @@ services:
       - /data/db
 
   keycloak:
-    image: jboss/keycloak
+    image: weilee/keycloak-https:latest
     command: ["-b", "0.0.0.0", "-Dkeycloak.import=/tmp/keycloak/secure-app-realm.json"]
     ports:
       - "9090:8080"
+      - "9443:8443"
     environment:
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=admin
+      - SSL_KEYSTORE_PATH=/tmp/keycloak/server.keystore
+      - SSL_KEYSTORE_ALIAS=server
+      - SSL_KEYSTORE_PASS=Password1
+      - TRUST_KEYSTORE_PATH=/tmp/keycloak/trust.keystore
+      - TRUST_KEYSTORE_PASS=Password1
     volumes:
       - ./keycloak:/tmp/keycloak
   
