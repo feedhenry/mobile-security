@@ -30,7 +30,7 @@ Here are the steps to perform user authentication using X509 client certificate 
 
 * Distribute the client certificate
 
-  To make it easier to distribute the client cert, we convert it to PKCS12 format first:
+  To make it easier to distribute the client cert, we convert it to PKCS12 format first (password should be `changeit`):
 
   ```
   cd ./projects/certs
@@ -63,9 +63,11 @@ Here are the steps to perform user authentication using X509 client certificate 
 * Restart the emulator to make sure it is writable:
   
   ```
-  emulator -writable-system -netdelay none -netspeed full -avd <AVD name>
-  adb root
-  adb remount
+  cd $ANDROID_SDK/tools
+  ./emulator -writable-system -netdelay none -netspeed full -avd <AVD name>
+  cd $ANDROID_SDK/platform-tools
+  ./adb root
+  ./adb remount
   ```
 
 * Then pull down the hosts file from the emulator
@@ -93,7 +95,7 @@ Here are the steps to perform user authentication using X509 client certificate 
 ## Step 7: Enable client certificate authentication in Keycloak
 
 * From your local machine, login as the admin user to the Keycloak server.
-* Selecte the `secure-app` realm and click on `Authentication`
+* Select the `secure-app` realm and click on `Authentication`
 * Click on `Bindings` tab. In the drop down for `Browser Flow`, choose `X.509 browser` flow and then save.
 
 ## Step 8: Run the sample app and perform authentication
