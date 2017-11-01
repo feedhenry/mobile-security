@@ -30,7 +30,7 @@
 |*Verify that the app implements two or more functionally independent methods of root detection.* _(Use a dual verification approach)_.
 |
 
-|*Verify that the app implements multiple functionally independent debugging defenses.* _(Prevent a debugger from being attached that can view app data)._
+|*Verify that the app implements multiple functionally independent debugging defences.* _(Prevent a debugger from being attached that can view app data)._
 |
 
 |*Verify that the app detects, and response to, being run in an emulator using any method.* _(An emulator can be tampered with more easily than a hardware device)_.
@@ -48,7 +48,7 @@
 |*Verify that if the architecture requires sensitive computations be performed on the client-side, these computations are isolated from the operating system by using a hardware-based SE or TEE.* _(Sensitive operations should be carried out away from the main processor in a Trusted Execution Environment)._
 |
 
-|*Perform user interaction anomaly detection.* _(Allows the identificiation of abnormal app usage by a user that may be malicous)._
+|*Perform user interaction anomaly detection.* _(Allows the identification of abnormal app usage by a user that may be malicious)._
 |
 
 |*Consider only starting the app if it is running on the latest version or block requests from old versions of the app.* _(Older versions maybe have logic or security issues)._
@@ -60,3 +60,84 @@
 |*Ensure that the installation package and its updates shall be digitally signed such that its platform can cryptographically verify them prior to installation.* _(Verify integrity before applying the update)._
 |
 |===
+
+== Implementation
+=== Overview
+A number of checks were implemented to assess the security of the underlying device running the application.
+
+=== Code Examples
+The main code logic is found under https://github.com/feedhenry/mobile-security-android-template/tree/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device[here].
+
+The following code snippets below describe the main device trust detection logic in the mobile app.
+
+==== Detecting Root Access
+Device Root Access detection has been added using the https://github.com/scottyab/rootbeer[Rootbeer] library. This library uses a number of different checks to check if root access is present on the device.
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device/DeviceFragment.java[tags=detectRoot]
+....
+
+==== Detecting if Lock Screen Set
+Detecting if the Android device has a lock screen set (with pin, fingerprint, pattern etc) can be checked using the https://developer.android.com/reference/android/app/KeyguardManager.html[KeyguardManager] class in Android M or higher.
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device/DeviceFragment.java[tags=detectDeviceLock]
+....
+
+==== Detecting if Debugger is Attached
+Detecting if an Android debugger is attached to the application can be checked using the https://developer.android.com/reference/android/os/Debug.html[Debug] class.
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device/DeviceFragment.java[tags=debuggerDetected]
+....
+
+==== Detecting Emulator Access
+Detecting if the Application is being run on an emulator can be performed by checking a number of sources for evidence of emulator access.
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device/DeviceFragment.java[tags=isEmulator]
+....
+
+==== Detecting Hooking Framework Apps
+There are some simple checks added to the application to check if the http://repo.xposed.info/module/de.robv.android.xposed.installer[Xposed Framework] or http://www.cydiasubstrate.com[Cydia Substrate] are installed on the device, which can be used to attack and tamper with logic in an Android applications.
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device/DeviceFragment.java[tags=detectHookingFramework]
+....
+
+==== Detecting App Data Backup Enabled
+The application can check if the `allowBackup` flag in the applications `AndroidManifest.xml` file is set to true. If this flag is set to true, it is possible for an attacker to recover application data from the device without requiring root access.
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device/DeviceFragment.java[tags=detectBackupEnabled]
+....
+
+==== Detecting Out of Date OS Version
+The devices OS version can be checked using the https://developer.android.com/reference/android/os/Build.html[Build] class to see if the device is not running the latest of Android.
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device/DeviceFragment.java[tags=detectLatestOS]
+....
+
+==== Detecting Developer Mode Enabled
+The Developer Mode status can be checked using the https://developer.android.com/reference/android/provider/Settings.html[Settings] class in Android.
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device/DeviceFragment.java[tags=detectDeveloperOptions]
+....
