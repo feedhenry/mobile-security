@@ -8,8 +8,9 @@ const config = {
   },
   keycloak: {
     realm: 'secure-app',
-    'bearer-only': true,
-    'auth-server-url': process.env.KEYCLOAK_URL || 'http://localhost:9090/auth',
+    clientId: 'api-server',
+    bearerOnly: true,
+    serverUrl: process.env.KEYCLOAK_URL || 'http://localhost:9090/auth',
     'ssl-required': 'external',
     resource: 'api-server'
   }
