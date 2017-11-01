@@ -9,7 +9,7 @@
 |*Perform Certificate Pinning using the hash of the public key - SubjectPublicKeyInfo of the X.509 certificate.* _(Allows you to anonymize a certificate or public key and ensures an attacker does not see the reserved certificate or public key in advance of its use)._
 |*Send sensitive data without certificate pinning.* _(Creates higher risk as an attacker with network privileges, or who has compromised TLS, is better positioned to intercept data)_.
 
-|*Perform proper certifcate validation if the platform doesn't allow true certificate pinning.* _(Adds an extra precautionary check when sending sensitive data)_.
+|*Perform proper certificate validation if the platform doesn't allow true certificate pinning.* _(Adds an extra precautionary check when sending sensitive data)_.
 |*Establish connections with endpoints that offer a different certificate or key, even if signed by a trusted CA.* _(The channel is not trusted.)_
 
 |*Use TLS for network encryption.* _(SSL 2.0 and 3.0 have been deprecated by the IETF)_.
@@ -41,3 +41,44 @@
 |
 
 |===
+
+== Implementation
+=== Overview
+A number of features were added to enhance the security of the channel between the Mobile App and the Authentication or API Server.
+
+=== Code Examples
+The main code logic for certificate pinning is found under https://github.com/feedhenry/mobile-security-android-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/AuthHelper.java[here] in the AuthHelper class.
+
+==== Certificate Pinning
+Certificate Pinning has been implemented in the Application using the SPKI technique. This ensures easier maintenance and improved security by anonymizing the certificate information in the application.
+The https://github.com/datatheorem/TrustKit-Android[TrustKit Android] library is being utilised to allow certificate pinning to work with older API levels.
+
+The Android https://developer.android.com/training/articles/security-config.html[Network Security Configuration] XML file defined the pins of the server you want to pin against.
+
+.Code
+[source,xml,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/f237645fa504b584172a6d60d63f15da8c9fcd4d/app/src/main/res/xml/network_security_config.xml[]
+....
+
+You can get the pin for a website using OpenSSL:
+
+```
+openssl s_client -servername www.example.com -connect www.example.com:443 | openssl x509 -pubkey -noout | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64
+```
+
+A centralized HTTP request function has been created to perform requests to the Authentication and API servers. The `createRequest()` functions performs pinning verification on the requests.
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/AuthHelper.java[tags=createRequest]
+....
+
+A function has also been provided to check if the OkHTTP callback failure exception was due to a certificate validation issue.
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/AuthHelper.java[tags=checkCertificateVerificationError]
+....

@@ -1900,7 +1900,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Send sensitive data without certificate pinning.</strong> <em>(Creates higher risk as an attacker with network privileges, or who has compromised TLS, is better positioned to intercept data)</em>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Perform proper certifcate validation if the platform doesn&#8217;t allow true certificate pinning.</strong> <em>(Adds an extra precautionary check when sending sensitive data)</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Perform proper certificate validation if the platform doesn&#8217;t allow true certificate pinning.</strong> <em>(Adds an extra precautionary check when sending sensitive data)</em>.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Establish connections with endpoints that offer a different certificate or key, even if signed by a trusted CA.</strong> <em>(The channel is not trusted.)</em></p></td>
 </tr>
 <tr>
@@ -1941,6 +1941,246 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 </tr>
 </tbody>
 </table>
+<div class="sect3">
+<h4 id="implementation_3">1.3.1. Implementation</h4>
+<div class="sect4">
+<h5 id="overview_3">Overview</h5>
+<div class="paragraph">
+<p>A number of features were added to enhance the security of the channel between the Mobile App and the Authentication or API Server.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="code_examples_2">Code Examples</h5>
+<div class="paragraph">
+<p>The main code logic for certificate pinning is found under <a href="https://github.com/feedhenry/mobile-security-android-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/AuthHelper.java">here</a> in the AuthHelper class.</p>
+</div>
+<div class="sect5">
+<h6 id="certificate_pinning">Certificate Pinning</h6>
+<div class="paragraph">
+<p>Certificate Pinning has been implemented in the Application using the SPKI technique. This ensures easier maintenance and improved security by anonymizing the certificate information in the application.
+The <a href="https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/AuthHelper.java">TrustKit Android</a> library is being utilised to allow certificate pinning to work with older API levels.</p>
+</div>
+<div class="paragraph">
+<p>The Android <a href="https://developer.android.com/training/articles/security-config.html">Network Security Configuration</a> XML file defined the pins of the server you want to pin against.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</div></td><td class="code"><span></span><span class="tok-cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="tok-nt">&lt;network-security-config&gt;</span>
+    <span class="tok-nt">&lt;domain-config</span> <span class="tok-na">cleartextTrafficPermitted=</span><span class="tok-s">&quot;false&quot;</span><span class="tok-nt">&gt;</span>
+        <span class="tok-nt">&lt;domain</span> <span class="tok-na">includeSubdomains=</span><span class="tok-s">&quot;true&quot;</span><span class="tok-nt">&gt;</span>osm1.skunkhenry.com<span class="tok-nt">&lt;/domain&gt;</span>
+        <span class="tok-nt">&lt;pin-set&gt;</span>
+            // primary
+            <span class="tok-nt">&lt;pin</span> <span class="tok-na">digest=</span><span class="tok-s">&quot;SHA-256&quot;</span><span class="tok-nt">&gt;</span>jAoDAV3WG9IKcu0YJ1ZVTuEVqdcglfiQRqmfy3+ieoc=<span class="tok-nt">&lt;/pin&gt;</span>
+            // backup
+            <span class="tok-nt">&lt;pin</span> <span class="tok-na">digest=</span><span class="tok-s">&quot;SHA-256&quot;</span><span class="tok-nt">&gt;</span>XAoDAV3WG9IKcu0YJ1ZVTuEVqdcglfiQRqmfy3+ieoc=<span class="tok-nt">&lt;/pin&gt;</span>
+        <span class="tok-nt">&lt;/pin-set&gt;</span>
+
+        // Set this to true for production, at least 2 unique pins must be provided above!
+        <span class="tok-nt">&lt;trustkit-config</span> <span class="tok-na">enforcePinning=</span><span class="tok-s">&quot;true&quot;</span><span class="tok-nt">&gt;&lt;/trustkit-config&gt;</span>
+    <span class="tok-nt">&lt;/domain-config&gt;</span>
+    <span class="tok-nt">&lt;debug-overrides&gt;</span>
+        <span class="tok-nt">&lt;trust-anchors&gt;</span>
+            <span class="tok-c">&lt;!-- Trust preinstalled CAs --&gt;</span>
+            <span class="tok-nt">&lt;certificates</span> <span class="tok-na">src=</span><span class="tok-s">&quot;system&quot;</span> <span class="tok-nt">/&gt;</span>
+            <span class="tok-c">&lt;!-- Additionally trust user added CAs --&gt;</span>
+            <span class="tok-nt">&lt;certificates</span> <span class="tok-na">src=</span><span class="tok-s">&quot;user&quot;</span> <span class="tok-nt">/&gt;</span>
+        <span class="tok-nt">&lt;/trust-anchors&gt;</span>
+    <span class="tok-nt">&lt;/debug-overrides&gt;</span>
+<span class="tok-nt">&lt;/network-security-config&gt;</span>
+
+
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can get the pin for a website using OpenSSL:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code>openssl s_client -servername www.example.com -connect www.example.com:443 | openssl x509 -pubkey -noout | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A centralized HTTP request function has been created to perform requests to the Authentication and API servers. The <code>createRequest()</code> functions performs pinning verification on the requests.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54</div></td><td class="code"><span></span>
+<span class="tok-cm">/**</span>
+<span class="tok-cm"> * Make a request to a resource that requires the access token to be sent with the request</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">public</span> <span class="tok-kd">static</span> <span class="tok-n">Call</span> <span class="tok-nf">createRequest</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">requestUrl</span><span class="tok-o">,</span> <span class="tok-kt">boolean</span> <span class="tok-n">sendAccessToken</span><span class="tok-o">,</span> <span class="tok-n">okhttp3</span><span class="tok-o">.</span><span class="tok-na">Callback</span> <span class="tok-n">callback</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+
+    <span class="tok-n">URL</span> <span class="tok-n">url</span> <span class="tok-o">=</span> <span class="tok-kc">null</span><span class="tok-o">;</span>
+    <span class="tok-k">try</span> <span class="tok-o">{</span>
+        <span class="tok-n">url</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">URL</span><span class="tok-o">(</span><span class="tok-n">requestUrl</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">MalformedURLException</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">e</span><span class="tok-o">.</span><span class="tok-na">printStackTrace</span><span class="tok-o">();</span>
+    <span class="tok-o">}</span>
+    <span class="tok-n">String</span> <span class="tok-n">serverHostname</span> <span class="tok-o">=</span> <span class="tok-n">url</span><span class="tok-o">.</span><span class="tok-na">getHost</span><span class="tok-o">();</span>
+
+    <span class="tok-n">HttpsURLConnection</span> <span class="tok-n">connection</span> <span class="tok-o">=</span> <span class="tok-kc">null</span><span class="tok-o">;</span>
+    <span class="tok-k">try</span> <span class="tok-o">{</span>
+        <span class="tok-n">connection</span> <span class="tok-o">=</span> <span class="tok-o">(</span><span class="tok-n">HttpsURLConnection</span><span class="tok-o">)</span> <span class="tok-n">url</span><span class="tok-o">.</span><span class="tok-na">openConnection</span><span class="tok-o">();</span>
+    <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">IOException</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">e</span><span class="tok-o">.</span><span class="tok-na">printStackTrace</span><span class="tok-o">();</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-n">SSLSocketFactory</span> <span class="tok-n">sslSocketFactory</span> <span class="tok-o">=</span> <span class="tok-n">TrustKit</span><span class="tok-o">.</span><span class="tok-na">getInstance</span><span class="tok-o">().</span><span class="tok-na">getSSLSocketFactory</span><span class="tok-o">(</span><span class="tok-n">serverHostname</span><span class="tok-o">);</span>
+    <span class="tok-n">X509TrustManager</span> <span class="tok-n">trustManager</span> <span class="tok-o">=</span> <span class="tok-n">TrustKit</span><span class="tok-o">.</span><span class="tok-na">getInstance</span><span class="tok-o">().</span><span class="tok-na">getTrustManager</span><span class="tok-o">(</span><span class="tok-n">serverHostname</span><span class="tok-o">);</span>
+    <span class="tok-n">connection</span><span class="tok-o">.</span><span class="tok-na">setSSLSocketFactory</span><span class="tok-o">(</span><span class="tok-n">sslSocketFactory</span><span class="tok-o">);</span>
+
+    <span class="tok-n">OkHttpClient</span> <span class="tok-n">httpClient</span> <span class="tok-o">=</span> <span class="tok-n">HttpHelper</span><span class="tok-o">.</span><span class="tok-na">getHttpClient</span><span class="tok-o">()</span>
+            <span class="tok-o">.</span><span class="tok-na">sslSocketFactory</span><span class="tok-o">(</span><span class="tok-n">sslSocketFactory</span><span class="tok-o">,</span> <span class="tok-n">trustManager</span><span class="tok-o">)</span>
+            <span class="tok-o">.</span><span class="tok-na">connectTimeout</span><span class="tok-o">(</span><span class="tok-mi">10</span><span class="tok-o">,</span> <span class="tok-n">TimeUnit</span><span class="tok-o">.</span><span class="tok-na">SECONDS</span><span class="tok-o">)</span>
+            <span class="tok-o">.</span><span class="tok-na">build</span><span class="tok-o">();</span>
+
+    <span class="tok-n">Request</span> <span class="tok-n">request</span><span class="tok-o">;</span>
+
+    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">sendAccessToken</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-c1">// Ensure that a non-expired access token is being used for the request</span>
+        <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">getNeedsTokenRefresh</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+            <span class="tok-n">setNeedsTokenRefresh</span><span class="tok-o">();</span>
+        <span class="tok-o">}</span>
+
+        <span class="tok-n">String</span> <span class="tok-n">accessToken</span> <span class="tok-o">=</span> <span class="tok-n">getAccessToken</span><span class="tok-o">();</span>
+        <span class="tok-n">request</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">Request</span><span class="tok-o">.</span><span class="tok-na">Builder</span><span class="tok-o">()</span>
+                <span class="tok-o">.</span><span class="tok-na">url</span><span class="tok-o">(</span><span class="tok-n">url</span><span class="tok-o">)</span>
+                <span class="tok-o">.</span><span class="tok-na">addHeader</span><span class="tok-o">(</span><span class="tok-s">&quot;Authorization&quot;</span><span class="tok-o">,</span> <span class="tok-n">String</span><span class="tok-o">.</span><span class="tok-na">format</span><span class="tok-o">(</span><span class="tok-s">&quot;Bearer %s&quot;</span><span class="tok-o">,</span> <span class="tok-n">accessToken</span><span class="tok-o">))</span>
+                <span class="tok-o">.</span><span class="tok-na">build</span><span class="tok-o">();</span>
+    <span class="tok-o">}</span> <span class="tok-k">else</span> <span class="tok-o">{</span>
+        <span class="tok-n">request</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">Request</span><span class="tok-o">.</span><span class="tok-na">Builder</span><span class="tok-o">()</span>
+                <span class="tok-o">.</span><span class="tok-na">url</span><span class="tok-o">(</span><span class="tok-n">url</span><span class="tok-o">)</span>
+                <span class="tok-o">.</span><span class="tok-na">build</span><span class="tok-o">();</span>
+    <span class="tok-o">}</span>
+
+
+    <span class="tok-n">Call</span> <span class="tok-n">call</span> <span class="tok-o">=</span> <span class="tok-n">httpClient</span><span class="tok-o">.</span><span class="tok-na">newCall</span><span class="tok-o">(</span><span class="tok-n">request</span><span class="tok-o">);</span>
+    <span class="tok-n">call</span><span class="tok-o">.</span><span class="tok-na">enqueue</span><span class="tok-o">(</span><span class="tok-n">callback</span><span class="tok-o">);</span>
+    <span class="tok-k">return</span> <span class="tok-n">call</span><span class="tok-o">;</span>
+<span class="tok-o">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A function has also been provided to check if the OkHTTP callback failure exception was due to a certificate validation issue.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Check if an exception is caused by a certificate verification error</span>
+<span class="tok-cm"> * @param e</span>
+<span class="tok-cm"> * @return</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">public</span> <span class="tok-kd">static</span> <span class="tok-kt">boolean</span> <span class="tok-nf">checkCertificateVerificationError</span><span class="tok-o">(</span><span class="tok-n">Exception</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+    <span class="tok-kt">boolean</span> <span class="tok-n">certificateVerificationError</span> <span class="tok-o">=</span> <span class="tok-kc">false</span><span class="tok-o">;</span>
+    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">e</span><span class="tok-o">.</span><span class="tok-na">getCause</span><span class="tok-o">()</span> <span class="tok-o">!=</span> <span class="tok-kc">null</span> <span class="tok-o">&amp;&amp;</span>
+            <span class="tok-o">(</span><span class="tok-n">e</span><span class="tok-o">.</span><span class="tok-na">getCause</span><span class="tok-o">().</span><span class="tok-na">toString</span><span class="tok-o">().</span><span class="tok-na">contains</span><span class="tok-o">(</span><span class="tok-s">&quot;Certificate validation failed&quot;</span><span class="tok-o">)</span> <span class="tok-o">||</span>
+            <span class="tok-n">e</span><span class="tok-o">.</span><span class="tok-na">getCause</span><span class="tok-o">().</span><span class="tok-na">toString</span><span class="tok-o">().</span><span class="tok-na">contains</span><span class="tok-o">(</span><span class="tok-s">&quot;Pin verification failed&quot;</span><span class="tok-o">)))</span> <span class="tok-o">{</span>
+        <span class="tok-n">certificateVerificationError</span> <span class="tok-o">=</span> <span class="tok-kc">true</span><span class="tok-o">;</span>
+    <span class="tok-o">}</span>
+    <span class="tok-k">return</span> <span class="tok-n">certificateVerificationError</span><span class="tok-o">;</span>
+<span class="tok-o">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="mobile_app_self_defence">1.4. Mobile App Self-Defence</h3>
@@ -1993,7 +2233,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Verify that the app implements multiple functionally independent debugging defenses.</strong> <em>(Prevent a debugger from being attached that can view app data).</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Verify that the app implements multiple functionally independent debugging defences.</strong> <em>(Prevent a debugger from being attached that can view app data).</em></p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
@@ -2017,7 +2257,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Perform user interaction anomaly detection.</strong> <em>(Allows the identificiation of abnormal app usage by a user that may be malicous).</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Perform user interaction anomaly detection.</strong> <em>(Allows the identification of abnormal app usage by a user that may be malicious).</em></p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
@@ -2034,6 +2274,314 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 </tr>
 </tbody>
 </table>
+<div class="sect3">
+<h4 id="implementation_4">1.4.1. Implementation</h4>
+<div class="sect4">
+<h5 id="overview_4">Overview</h5>
+<div class="paragraph">
+<p>A number of checks were implemented to assess the security of the underlying device running the application.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="code_examples_3">Code Examples</h5>
+<div class="paragraph">
+<p>The main code logic is found under <a href="https://github.com/feedhenry/mobile-security-android-template/tree/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device">here</a>.</p>
+</div>
+<div class="paragraph">
+<p>The following code snippets below describe the main device trust detection logic in the mobile app.</p>
+</div>
+<div class="sect5">
+<h6 id="detecting_root_access">Detecting Root Access</h6>
+<div class="paragraph">
+<p>Device Root Access detection has been added using the <a href="https://github.com/scottyab/rootbeer">Rootbeer</a> library. This library uses a number of different checks to check if root access is present on the device.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Detect if the device is rooted.</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">detectRoot</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+    <span class="tok-n">totalTests</span><span class="tok-o">++;</span>
+    <span class="tok-n">RootBeer</span> <span class="tok-n">rootBeer</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">RootBeer</span><span class="tok-o">(</span><span class="tok-n">context</span><span class="tok-o">);</span>
+    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">rootBeer</span><span class="tok-o">.</span><span class="tok-na">isRooted</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+        <span class="tok-n">setDetected</span><span class="tok-o">(</span><span class="tok-n">rootAccess</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">string</span><span class="tok-o">.</span><span class="tok-na">root_detected_positive</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="detecting_if_lock_screen_set">Detecting if Lock Screen Set</h6>
+<div class="paragraph">
+<p>Detecting if the Android device has a lock screen set (with pin, fingerprint, pattern etc) can be checked using the <a href="https://developer.android.com/reference/android/app/KeyguardManager.html">KeyguardManager</a> class in Android M or higher.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Detect if the device has a lock screen setup (pin, password etc).</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">detectDeviceLock</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">VERSION</span><span class="tok-o">.</span><span class="tok-na">SDK_INT</span> <span class="tok-o">&gt;=</span> <span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">VERSION_CODES</span><span class="tok-o">.</span><span class="tok-na">M</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">totalTests</span><span class="tok-o">++;</span>
+        <span class="tok-n">KeyguardManager</span> <span class="tok-n">keyguardManager</span> <span class="tok-o">=</span> <span class="tok-o">(</span><span class="tok-n">KeyguardManager</span><span class="tok-o">)</span> <span class="tok-n">context</span><span class="tok-o">.</span><span class="tok-na">getSystemService</span><span class="tok-o">(</span><span class="tok-n">KEYGUARD_SERVICE</span><span class="tok-o">);</span>
+        <span class="tok-k">if</span> <span class="tok-o">(!</span><span class="tok-n">keyguardManager</span><span class="tok-o">.</span><span class="tok-na">isDeviceSecure</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+            <span class="tok-n">setDetected</span><span class="tok-o">(</span><span class="tok-n">lockScreenSetup</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">string</span><span class="tok-o">.</span><span class="tok-na">device_lock_detected_negative</span><span class="tok-o">);</span>
+        <span class="tok-o">}</span>
+    <span class="tok-o">}</span> <span class="tok-k">else</span> <span class="tok-o">{</span>
+        <span class="tok-n">lockScreenSetup</span><span class="tok-o">.</span><span class="tok-na">setVisibility</span><span class="tok-o">(</span><span class="tok-n">View</span><span class="tok-o">.</span><span class="tok-na">GONE</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="detecting_if_debugger_is_attached">Detecting if Debugger is Attached</h6>
+<div class="paragraph">
+<p>Detecting if an Android debugger is attached to the application can be checked using the <a href="https://developer.android.com/reference/android/os/Debug.html">Debug</a> class.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1
+2
+3
+4
+5
+6
+7
+8
+9</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Detect if a debugger is attached to the application.</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">debuggerDetected</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+    <span class="tok-n">totalTests</span><span class="tok-o">++;</span>
+    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">Debug</span><span class="tok-o">.</span><span class="tok-na">isDebuggerConnected</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+        <span class="tok-n">setDetected</span><span class="tok-o">(</span><span class="tok-n">debuggerAccess</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">string</span><span class="tok-o">.</span><span class="tok-na">debugger_detected_positive</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="detecting_emulator_access">Detecting Emulator Access</h6>
+<div class="paragraph">
+<p>Detecting if the Application is being run on an emulator can be performed by checking a number of sources for evidence of emulator access.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Helper function to detect if the host is an emulator</span>
+<span class="tok-cm"> *</span>
+<span class="tok-cm"> * @return boolean</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">private</span> <span class="tok-kt">boolean</span> <span class="tok-nf">isEmulator</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+    <span class="tok-k">return</span> <span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">FINGERPRINT</span><span class="tok-o">.</span><span class="tok-na">startsWith</span><span class="tok-o">(</span><span class="tok-s">&quot;generic&quot;</span><span class="tok-o">)</span>
+            <span class="tok-o">||</span> <span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">FINGERPRINT</span><span class="tok-o">.</span><span class="tok-na">startsWith</span><span class="tok-o">(</span><span class="tok-s">&quot;unknown&quot;</span><span class="tok-o">)</span>
+            <span class="tok-o">||</span> <span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">MODEL</span><span class="tok-o">.</span><span class="tok-na">contains</span><span class="tok-o">(</span><span class="tok-s">&quot;google_sdk&quot;</span><span class="tok-o">)</span>
+            <span class="tok-o">||</span> <span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">MODEL</span><span class="tok-o">.</span><span class="tok-na">contains</span><span class="tok-o">(</span><span class="tok-s">&quot;Emulator&quot;</span><span class="tok-o">)</span>
+            <span class="tok-o">||</span> <span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">MODEL</span><span class="tok-o">.</span><span class="tok-na">contains</span><span class="tok-o">(</span><span class="tok-s">&quot;Android SDK built for x86&quot;</span><span class="tok-o">)</span>
+            <span class="tok-o">||</span> <span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">SERIAL</span> <span class="tok-o">==</span> <span class="tok-kc">null</span>
+            <span class="tok-o">||</span> <span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">MANUFACTURER</span><span class="tok-o">.</span><span class="tok-na">contains</span><span class="tok-o">(</span><span class="tok-s">&quot;Genymotion&quot;</span><span class="tok-o">)</span>
+            <span class="tok-o">||</span> <span class="tok-o">(</span><span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">BRAND</span><span class="tok-o">.</span><span class="tok-na">startsWith</span><span class="tok-o">(</span><span class="tok-s">&quot;generic&quot;</span><span class="tok-o">)</span> <span class="tok-o">&amp;&amp;</span> <span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">DEVICE</span><span class="tok-o">.</span><span class="tok-na">startsWith</span><span class="tok-o">(</span><span class="tok-s">&quot;generic&quot;</span><span class="tok-o">))</span>
+            <span class="tok-o">||</span> <span class="tok-s">&quot;google_sdk&quot;</span><span class="tok-o">.</span><span class="tok-na">equals</span><span class="tok-o">(</span><span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">PRODUCT</span><span class="tok-o">);</span>
+<span class="tok-o">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="detecting_hooking_framework_apps">Detecting Hooking Framework Apps</h6>
+<div class="paragraph">
+<p>There are some simple checks added to the application to check if the <a href="http://repo.xposed.info/module/de.robv.android.xposed.installer">Xposed Framework</a> or <a href="http://www.cydiasubstrate.com">Cydia Substrate</a> are installed on the device, which can be used to attack and tamper with logic in an Android applications.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Detect if a hooking framework application is installed on the device</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">detectHookingFramework</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+    <span class="tok-n">totalTests</span><span class="tok-o">++;</span>
+    <span class="tok-n">String</span> <span class="tok-n">xposedPackageName</span> <span class="tok-o">=</span> <span class="tok-s">&quot;de.robv.android.xposed.installer&quot;</span><span class="tok-o">;</span>
+    <span class="tok-n">String</span> <span class="tok-n">substratePackageName</span> <span class="tok-o">=</span> <span class="tok-s">&quot;com.saurik.substrate&quot;</span><span class="tok-o">;</span>
+
+    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">checkAppInstalled</span><span class="tok-o">(</span><span class="tok-n">xposedPackageName</span><span class="tok-o">)</span> <span class="tok-o">||</span> <span class="tok-n">checkAppInstalled</span><span class="tok-o">(</span><span class="tok-n">substratePackageName</span><span class="tok-o">))</span> <span class="tok-o">{</span>
+        <span class="tok-n">setDetected</span><span class="tok-o">(</span><span class="tok-n">hookingDetected</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">string</span><span class="tok-o">.</span><span class="tok-na">hooking_detected_positive</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="detecting_app_data_backup_enabled">Detecting App Data Backup Enabled</h6>
+<div class="paragraph">
+<p>The application can check if the <code>allowBackup</code> flag in the applications <code>AndroidManifest.xml</code> file is set to true. If this flag is set to true, it is possible for an attacker to recover application data from the device without requiring root access.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Function to check if the backup flag is enabled in the application manifest file</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">detectBackupEnabled</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+    <span class="tok-n">totalTests</span><span class="tok-o">++;</span>
+    <span class="tok-k">try</span> <span class="tok-o">{</span>
+        <span class="tok-n">PackageInfo</span> <span class="tok-n">packageInfo</span><span class="tok-o">;</span>
+        <span class="tok-n">packageInfo</span> <span class="tok-o">=</span> <span class="tok-n">context</span><span class="tok-o">.</span><span class="tok-na">getPackageManager</span><span class="tok-o">().</span><span class="tok-na">getPackageInfo</span><span class="tok-o">(</span><span class="tok-n">context</span><span class="tok-o">.</span><span class="tok-na">getPackageName</span><span class="tok-o">(),</span> <span class="tok-mi">0</span><span class="tok-o">);</span>
+        <span class="tok-k">if</span> <span class="tok-o">((</span><span class="tok-n">packageInfo</span><span class="tok-o">.</span><span class="tok-na">applicationInfo</span><span class="tok-o">.</span><span class="tok-na">flags</span> <span class="tok-o">&amp;</span> <span class="tok-n">ApplicationInfo</span><span class="tok-o">.</span><span class="tok-na">FLAG_ALLOW_BACKUP</span><span class="tok-o">)</span> <span class="tok-o">!=</span> <span class="tok-mi">0</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+            <span class="tok-n">setDetected</span><span class="tok-o">(</span><span class="tok-n">allowBackup</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">string</span><span class="tok-o">.</span><span class="tok-na">allow_backup_detected_positive</span><span class="tok-o">);</span>
+        <span class="tok-o">}</span>
+    <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">PackageManager</span><span class="tok-o">.</span><span class="tok-na">NameNotFoundException</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">e</span><span class="tok-o">.</span><span class="tok-na">printStackTrace</span><span class="tok-o">();</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="detecting_out_of_date_os_version">Detecting Out of Date OS Version</h6>
+<div class="paragraph">
+<p>The devices OS version can be checked using the <a href="https://developer.android.com/reference/android/os/Build.html">Build</a> class to see if the device is not running the latest of Android.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Function to check if the device is running the latest Android OS</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">detectLatestOS</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+    <span class="tok-c1">// todo: find if there is a better way to define what the latest android version is</span>
+    <span class="tok-kt">int</span> <span class="tok-n">latestOsApiLevel</span> <span class="tok-o">=</span> <span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">VERSION_CODES</span><span class="tok-o">.</span><span class="tok-na">M</span><span class="tok-o">;</span>
+    <span class="tok-n">totalTests</span><span class="tok-o">++;</span>
+
+    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">VERSION</span><span class="tok-o">.</span><span class="tok-na">SDK_INT</span> <span class="tok-o">&lt;</span> <span class="tok-n">latestOsApiLevel</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">setDetected</span><span class="tok-o">(</span><span class="tok-n">deviceOS</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">string</span><span class="tok-o">.</span><span class="tok-na">device_os_latest_negative</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="detecting_developer_mode_enabled">Detecting Developer Mode Enabled</h6>
+<div class="paragraph">
+<p>The Developer Mode status can be checked using the <a href="https://developer.android.com/reference/android/provider/Settings.html">Settings</a> class in Android.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Detect if the developer options mode is enabled on the device</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">detectDeveloperOptions</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+    <span class="tok-n">totalTests</span><span class="tok-o">++;</span>
+    <span class="tok-kt">int</span> <span class="tok-n">devOptionsEnabled</span> <span class="tok-o">=</span> <span class="tok-n">Settings</span><span class="tok-o">.</span><span class="tok-na">Secure</span><span class="tok-o">.</span><span class="tok-na">getInt</span><span class="tok-o">(</span><span class="tok-n">context</span><span class="tok-o">.</span><span class="tok-na">getContentResolver</span><span class="tok-o">(),</span>
+            <span class="tok-n">Settings</span><span class="tok-o">.</span><span class="tok-na">Global</span><span class="tok-o">.</span><span class="tok-na">DEVELOPMENT_SETTINGS_ENABLED</span><span class="tok-o">,</span>
+            <span class="tok-mi">0</span><span class="tok-o">);</span>
+
+    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">devOptionsEnabled</span> <span class="tok-o">&gt;</span> <span class="tok-mi">0</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">setDetected</span><span class="tok-o">(</span><span class="tok-n">developerOptions</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">string</span><span class="tok-o">.</span><span class="tok-na">developer_options_positive</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="handling_sensitive_data_overview">1.5. Handling Sensitive Data Overview</h3>
@@ -3782,7 +4330,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 </table>
 </div>
 <div class="sect3">
-<h4 id="certificate_pinning">2.4.2. Certificate Pinning</h4>
+<h4 id="certificate_pinning_2">2.4.2. Certificate Pinning</h4>
 <div class="paragraph">
 <p>Pinning is the process of associating a host with their expected X509 certificate or public key.
 Once a certificate or public key is known or seen for a host, the certificate or public key is associated or 'pinned' to the host. If more than one certificate or public key is acceptable, then the program holds a pinset. In this case, the advertised identity must match one of the elements in the pinset.</p>
@@ -5761,7 +6309,7 @@ By authorizing and signing only for known measurements, the server ensures that 
 <div class="sect3">
 <h4 id="file_data_protection">2.8.2. File Data Protection</h4>
 <div class="sect4">
-<h5 id="overview_3">Overview</h5>
+<h5 id="overview_5">Overview</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -6435,7 +6983,7 @@ Applications running on the main processor will therefore delegate any operation
 <p>This is a summary of the <a href="https://developer.android.com/training/best-security.html">Android Developer Security Guide</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="overview_4">2.10.1. Overview</h4>
+<h4 id="overview_6">2.10.1. Overview</h4>
 <div class="paragraph">
 <p>The following core security features help you build secure apps:</p>
 </div>
@@ -7583,7 +8131,7 @@ startActivityForResult(intent, request_code);</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="certificate_pinning_2">2.11.3. Certificate Pinning</h4>
+<h4 id="certificate_pinning_3">2.11.3. Certificate Pinning</h4>
 <div class="paragraph">
 <p>Cordova does not support true certificate pinning. The main barrier to this is a lack of native APIs in Android for intercepting SSL connections to perform the check of the server&#8217;s certificate.
 Since Apache Cordova is meant to offer consistent APIs across multiple platforms, not having a capability in a major platform breaks that consistency.</p>
