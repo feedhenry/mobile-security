@@ -136,7 +136,7 @@ The Auth State can be read using the code below and called using `AuthHelper.rea
 .Code
 [source,java,linenum,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/AuthHelper.java[tags=readAuthState]
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/services/AuthStateService.java[tags=readAuthState]
 ....
 
 Similarly, you can write a new Auth State using the code below and can be called using `AuthHelper.writeAuthState(Authstate state)`.
@@ -144,7 +144,7 @@ Similarly, you can write a new Auth State using the code below and can be called
 .Code
 [source,java,linenum,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/AuthHelper.java[tags=writeAuthState]
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/services/AuthStateService.java[tags=writeAuthState]
 ....
 
 ==== Auth Helper Class: Getting Identity Information
@@ -153,7 +153,7 @@ This function can be used to get the users identity/access information from the 
 .Code
 [source,java,linenum,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/AuthHelper.java[tags=getIdentityInformation]
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/services/AuthStateService.java[tags=getIdentityInformation]
 ....
 
 ==== Auth Helper Class: Making Authenticated Bearer Requests
@@ -163,7 +163,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 .Code
 [source,java,linenum,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/AuthHelper.java[tags=createRequest]
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/services/AuthStateService.java[tags=createRequest]
 ....
 
 ==== Auth Helper Class: Other Helper Functions
