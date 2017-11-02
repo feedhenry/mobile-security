@@ -2207,7 +2207,9 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 <div class="listingblock">
 <div class="title">Code</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="javascript"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1</div></td><td class="code"><span class="tok-nx">Unresolved</span> <span class="tok-nx">directive</span> <span class="tok-k">in</span> <span class="tok-nx">mobileNetworkOverview</span><span class="tok-p">.</span><span class="tok-nx">adoc</span> <span class="tok-o">-</span> <span class="tok-nx">include</span><span class="tok-o">::</span><span class="tok-nx">https</span><span class="tok-o">:</span><span class="tok-c1">//raw.githubusercontent.com/feedhenry/mobile-security/blob/master/projects/api-server/index.js[tags=checkPermission]</span>
+<pre class="pygments highlight"><code data-lang="javascript"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1
+2</div></td><td class="code"><span class="tok-nx">app</span><span class="tok-p">.</span><span class="tok-nx">use</span><span class="tok-p">(</span><span class="tok-nx">keycloak</span><span class="tok-p">.</span><span class="tok-nx">middleware</span><span class="tok-p">());</span>
+<span class="tok-nx">app</span><span class="tok-p">.</span><span class="tok-nx">use</span><span class="tok-p">(</span><span class="tok-s1">&#39;/&#39;</span><span class="tok-p">,</span> <span class="tok-nx">keycloak</span><span class="tok-p">.</span><span class="tok-nx">protect</span><span class="tok-p">(</span><span class="tok-s1">&#39;realm:api-access&#39;</span><span class="tok-p">),</span> <span class="tok-nx">routes</span><span class="tok-p">);</span>
 </td></tr></table></code></pre>
 </div>
 </div>

@@ -98,7 +98,7 @@ However, just checking the permission on the client is not enough. You should al
 .Code
 [source,javascript,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security/blob/master/projects/api-server/index.js[tags=checkPermission]
+include::https://raw.githubusercontent.com/feedhenry/mobile-security/master/projects/api-server/index.js[tags=checkPermission]
 ....
 
 You should also perform certificate pinning checks when calling remote APIs:
