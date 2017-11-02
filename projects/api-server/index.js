@@ -29,9 +29,10 @@ app.use(session({
   store: memoryStore
 }));
 
+// tag::checkPermission[]
 app.use(keycloak.middleware());
-
 app.use('/', keycloak.protect('realm:api-access'), routes);
+// end::checkPermission[]
 
 app.listen(config.server.port, () => {
   console.log(`Magic happens on port ${config.server.port}`);

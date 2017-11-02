@@ -47,7 +47,7 @@
 A number of features were added to enhance the security of the channel between the Mobile App and the Authentication or API Server.
 
 === Code Examples
-The main code logic for certificate pinning is found under https://github.com/feedhenry/mobile-security-android-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/AuthHelper.java[here] in the AuthHelper class.
+The main code logic for certificate pinning is found under https://github.com/feedhenry/mobile-security-android-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/services/AuthStateService.java[here] in the AuthStateService class.
 
 ==== Certificate Pinning
 Certificate Pinning has been implemented in the Application using the SPKI technique. This ensures easier maintenance and improved security by anonymizing the certificate information in the application.
@@ -67,12 +67,12 @@ You can get the pin for a website using OpenSSL:
 openssl s_client -servername www.example.com -connect www.example.com:443 | openssl x509 -pubkey -noout | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64
 ```
 
-A centralized HTTP request function has been created to perform requests to the Authentication and API servers. The `createRequest()` functions performs pinning verification on the requests.
+A HTTP request function has been created to perform requests to the Authentication servers. The `createRequest()` functions performs pinning verification on the requests.
 
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/AuthHelper.java[tags=createRequest]
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/services/AuthStateService.java[tags=createRequest]
 ....
 
 A function has also been provided to check if the OkHTTP callback failure exception was due to a certificate validation issue.
@@ -80,5 +80,34 @@ A function has also been provided to check if the OkHTTP callback failure except
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/AuthHelper.java[tags=checkCertificateVerificationError]
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/services/AuthStateService.java[tags=checkCertificateVerificationError]
 ....
+
+==== Invoking remote APIs
+
+When remote APIs are being invoked, before sending the data, you should make sure the client does have the required permission. If the client doesn't have the required permission, the client should not perform the request at all:
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/network/presenters/UploadNotesPresenter.java[tags=checkPermission]
+....
+
+However, just checking the permission on the client is not enough. You should always check the user permission on the backend API server as well:
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security/blob/master/projects/api-server/index.js[tags=checkPermission]
+....
+
+You should also perform certificate pinning checks when calling remote APIs:
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/network/presenters/UploadNotesPresenter.java[tags=invokeAPI]
+....
+
+
+
