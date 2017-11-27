@@ -12,3 +12,4 @@ The project has the following components:
 * Sample Apps
   * [Backend API Server](./projects)
   * [Android App](https://github.com/feedhenry/mobile-security-android-template)
+  * [iOS App](https://github.com/feedhenry/mobile-security-ios-template)
