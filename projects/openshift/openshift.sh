@@ -3,7 +3,7 @@ export PROJECT_NAME=mobile-security
 
 # Create the project & services
 oc new-project $PROJECT_NAME
-oc new-app -f ./openshift/api-server.json
+oc new-app -f ./api-server.json
 sleep 1
 
 # Wait for Keycloak to run to import realm data

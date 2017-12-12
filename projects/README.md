@@ -10,10 +10,6 @@ docker-compose start
 curl http://localhost:8080/note # Should get "Access Denied" error
 ```
 
-## On OpenShift
+## On OpenShift (security.skunkhenry.com)
 
-```bash
-# Make sure you have the `oc` tool installed locally and avaiable on the path
-oc login <openshift host>
-./openshift.sh
-```
+See [this file](./openshift/README.md).
