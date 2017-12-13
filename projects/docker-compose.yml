@@ -31,7 +31,7 @@ services:
 
   keycloak:
     image: weilee/keycloak-https:latest
-    command: ["-b", "0.0.0.0", "-Dkeycloak.import=/tmp/keycloak/secure-app-realm.json"]
+    command: ["-b", "0.0.0.0", "-Dkeycloak.import=/tmp/keycloak-config/secure-app-realm.json"]
     ports:
       - "9090:8080"
       - "9443:8443"
@@ -44,5 +44,6 @@ services:
       - TRUST_KEYSTORE_PATH=/tmp/keycloak/trust.keystore
       - TRUST_KEYSTORE_PASS=Password1
     volumes:
-      - ./keycloak:/tmp/keycloak
+      - ./client-certificate-authentication/keycloak/keystores:/tmp/keycloak
+      - ./keycloak:/tmp/keycloak-config
   

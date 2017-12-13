@@ -1,48 +1,24 @@
-# Use Client Certificate Authentication
+# Overview
 
-Here are the steps to perform user authentication using X509 client certificate authentication on an Android device:
+Here you can find instructions on how to setup Client Certificate authentication using Keycloak locally.
 
-## Step 1: Import the self-signed CA file to the keychain of your local machine
+In this setup, there is no reverse proxy server in front of the Keycloak server, and the Keycloak server itself is handling the SSL traffic.
 
-* Double click on the `certificate.crt` file that is located in the `./projects/certs/ca` directory to import it into the keychain. Make sure the CA certificate is trusted.
+For more details about how to configure Keycloak, please check [here](http://www.keycloak.org/docs/latest/server_admin/index.html#enable-x-509-client-certificate-user-authentication).
 
-## Step 2: Create user certificates and add it to the trust keystore
+# Steps
 
-* Run the following commands to create the user certificate:
+## Step 1: Create a client certificate for the user
 
-  ```
-  cd ./projects/certs
+* Follow the steps in [client-certs/README.md](../client-certs/README.md) to generate a new client certificate. You can also use the ones that are already generated.
 
-  # Generate the client key & cert. You will be prompted for some questions about the certificate. Make sure the answer to `What is your first and last name` is the user's email address.
-  keytool -genkey -alias client-alias -keyalg RSA -keypass changeit  -storepass changeit -keystore client_keystore.jks
-  ```
-
-* Export the user's certificate and add it to the trust store.
-
-  ```
-  # Export the user cert
-  keytool -export -alias client-alias -storepass changeit -file client.cer -keystore client_keystore.jks
-
-  # Import the user cert into the trust.keystore file. You should change the alias value to the user's name
-  cd ../keycloak
-  keytool -import -v -trustcacerts -alias user1 -file ../certs/client.cer -keystore trust.keystore -keypass Password1 -storepass Password1
-  ```
-
-* Distribute the client certificate
-
-  To make it easier to distribute the client cert, we convert it to PKCS12 format first (password should be `changeit`):
-
-  ```
-  cd ./projects/certs
-  keytool -importkeystore -srckeystore client_keystore.jks -destkeystore client_keystore.p12 -deststoretype PKCS12
-  ```
-
-## Step 3: Start the Keycloak server
+## Step 2: Start the Keycloak server
 
 * If you have the Keycloak running before, make sure deleting the existing `secure-app` realm first.
 * Run `docker-compose up` and wait for all the services to be up and running.
+** The local Keycloak server us already configured to use SSL & enable client certificate authentication. The `trust.keystore` file already contains the CA cert that is used to sign the client certs in Step 1.
 
-## Step 4: Setup a local DNS server using dnsmasq
+## Step 3: Setup a local DNS server using dnsmasq
 
 The instructions here are for macOS only, but dnsmasq works on Linux as well.
 
@@ -71,7 +47,7 @@ The instructions here are for macOS only, but dnsmasq works on Linux as well.
   * If you are using an Android emulator running on the same machine, you don't need to do anything if the host machine's DNS server entry is updated.
   * If you are using an Android device, you will need to change the the DNS settings by following the instructions [here](http://xslab.com/2013/08/how-to-change-dns-settings-on-android/). You also need to make sure the device and your local machine are using the same network.
 
-## Step 5: Install the CA file and the user certificate on the Android device
+## Step 4: Install the CA file and the user certificate on a Mobile device
 
 ### On an Android emulator
 
@@ -89,17 +65,27 @@ The instructions here are for macOS only, but dnsmasq works on Linux as well.
 * If you have an email account on the device, just email the CA file and the p12 file as attachments to the device. You can open them on the device, and you will be prompted to install them.
 * Otherwise, you can copy the CA file and p12 to a SD card, and insert it into the device. On the device, click on `Settings -> Search`, type in certificate. You should see there is an option to `Install from SD card`. Use the option to install the certs.
 
-## Step 6: Verify you can access the Keycloak server from the emulator
+### On an iOS Simulator
+
+* Start the iOS simlator and then drag and drop the certificate file and user certificates onto the simulator. The simulator will download the files and prompt you to confirm installation.
+* After the root cert is installed, go to "Settings -> General -> About -> Certificate Trust Settings" and enable the newly installed CA cert.
+
+### On an iOS Device
+
+* Send the certificates & p12 files as email attachments, or use services like Google Drive or Dropbox to sync the files on the device. Install them on the device.
+* After the root cert is installed, go to "Settings -> General -> About -> Certificate Trust Settings" and enable the newly installed CA cert.
+
+## Step 5: Verify you can access the Keycloak server from the emulator
 
 * Go to the browser of the emulator and type in `https://www.rhdev.me:9443` in the address bar. You should see the Keycloak landing page and the certificate is valid.
 
-## Step 7: Enable client certificate authentication in Keycloak
+## Step 6: Enable client certificate authentication in Keycloak
 
 * From your local machine, login as the admin user to the Keycloak server.
 * Select the `secure-app` realm and click on `Authentication`
 * Click on `Bindings` tab. In the drop down for `Browser Flow`, choose `X.509 browser` flow and then save.
 
-## Step 8: Run the sample app and perform authentication
+## Step 7: Run the sample app and perform authentication
 
 * Run the sample Android app. Perform authentication.
 * When the system browser is loaded, you should be see that the certificate is loaded into the browser automatically.

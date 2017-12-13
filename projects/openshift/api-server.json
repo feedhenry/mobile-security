@@ -40,6 +40,7 @@
                 }
             },
             "spec": {
+                "host": "keycloak.security.feedhenry.org",
                 "to": {
                     "kind": "Service",
                     "name": "keycloak-openshift",
@@ -89,7 +90,7 @@
                     "spec": {
                         "containers": [{
                             "name": "keycloak-openshift",
-                            "image": "docker.io/jboss/keycloak-openshift:latest",
+                            "image": "docker.io/weilee/keycloak-openshift:1.0",
                             "ports": [{
                                 "containerPort": 8080,
                                 "protocol": "TCP"
@@ -101,6 +102,14 @@
                                 {
                                     "name": "KEYCLOAK_PASSWORD",
                                     "value": "${KEYCLOAK_PASSWORD}"
+                                },
+                                {
+                                    "name": "CERT_LOOKUP_PROVIDER",
+                                    "value": "haproxy"
+                                },
+                                {
+                                    "name": "PROXY_ADDRESS_FORWARDING",
+                                    "value": "true"
                                 }
                             ],
                             "resources": {},
@@ -295,6 +304,7 @@
                 }
             },
             "spec": {
+                "host": "api.security.feedhenry.org",
                 "to": {
                     "kind": "Service",
                     "name": "api-server",
@@ -351,7 +361,7 @@
                                 },
                                 {
                                     "name": "KEYCLOAK_URL",
-                                    "value": "http://keycloak-openshift-mobile-security.osm1.skunkhenry.com/auth"
+                                    "value": "https://keycloak.security.feedhenry.org/auth"
                                 }
                             ],
                             "resources": {},
