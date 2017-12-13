@@ -47,7 +47,7 @@ The instructions here are for macOS only, but dnsmasq works on Linux as well.
   * If you are using an Android emulator running on the same machine, you don't need to do anything if the host machine's DNS server entry is updated.
   * If you are using an Android device, you will need to change the the DNS settings by following the instructions [here](http://xslab.com/2013/08/how-to-change-dns-settings-on-android/). You also need to make sure the device and your local machine are using the same network.
 
-## Step 4: Install the CA file and the user certificate on the Android device
+## Step 4: Install the CA file and the user certificate on a Mobile device
 
 ### On an Android emulator
 
@@ -64,6 +64,16 @@ The instructions here are for macOS only, but dnsmasq works on Linux as well.
 
 * If you have an email account on the device, just email the CA file and the p12 file as attachments to the device. You can open them on the device, and you will be prompted to install them.
 * Otherwise, you can copy the CA file and p12 to a SD card, and insert it into the device. On the device, click on `Settings -> Search`, type in certificate. You should see there is an option to `Install from SD card`. Use the option to install the certs.
+
+### On an iOS Simulator
+
+* Start the iOS simlator and then drag and drop the certificate file and user certificates onto the simulator. The simulator will download the files and prompt you to confirm installation.
+* After the root cert is installed, go to "Settings -> General -> About -> Certificate Trust Settings" and enable the newly installed CA cert.
+
+### On an iOS Device
+
+* Send the certificates & p12 files as email attachments, or use services like Google Drive or Dropbox to sync the files on the device. Install them on the device.
+* After the root cert is installed, go to "Settings -> General -> About -> Certificate Trust Settings" and enable the newly installed CA cert.
 
 ## Step 5: Verify you can access the Keycloak server from the emulator
 
