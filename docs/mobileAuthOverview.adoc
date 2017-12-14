@@ -22,10 +22,10 @@
 |*Log user related information.* _(Personal information data leak)_
 
 |*A second factor of authentication exists and is enforced.* _(Extra layer of protection in case another authentication factor has been compromised)_.
-|*Fail authentication with a Generic Error.* _(The login screen should not show hints on the existence of a username/email address etc)_.
+|*Use OAuth1.0*. _(OAuth1.0 has been found to be vulnerable to session fixation. Use OAuth 1.0a or OAuth 2.0 instead)_.
 
 |*Step-up authentication is used for carrying out sensitive actions in an application.* _(Useful when a user's device is stolen and they have already authenticated through the app)_.
-|*Use OAuth1.0*. _(OAuth1.0 has been found to be vulnerable to session fixation. Use OAuth 1.0a or OAuth 2.0 instead)_.
+|
 
 |*Allow the user to see their current login sessions and allow them to logout of other sessions via the app.* _(The end user will be able to detect rogue sessions with the most accuracy instead of using anomaly detection)_.
 |
@@ -47,6 +47,10 @@
 
 |*Implement Secure Password Recovery Mechanism*. _(To allow a user to recover their account using security questions only they should know the answers too and sending a recovery code using a side channel such as SMS)_.
 |
+
+|*Fail authentication with a Generic Error.* _(The login screen should not show hints on the existence of a username/email address etc)_.
+|
+
 |===
 
 == References
