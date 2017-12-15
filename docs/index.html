@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.5">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>FeedHenry Mobile Security</title>
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -423,8 +423,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .listingblock .pygments .tok-err { color: #AA0000; background-color: #FFAAAA } /* Error */
 .listingblock .pygments .tok-k { color: #006699; font-weight: bold } /* Keyword */
 .listingblock .pygments .tok-o { color: #555555 } /* Operator */
+.listingblock .pygments .tok-ch { color: #0099FF; font-style: italic } /* Comment.Hashbang */
 .listingblock .pygments .tok-cm { color: #0099FF; font-style: italic } /* Comment.Multiline */
 .listingblock .pygments .tok-cp { color: #009999 } /* Comment.Preproc */
+.listingblock .pygments .tok-cpf { color: #0099FF; font-style: italic } /* Comment.PreprocFile */
 .listingblock .pygments .tok-c1 { color: #0099FF; font-style: italic } /* Comment.Single */
 .listingblock .pygments .tok-cs { color: #0099FF; font-weight: bold; font-style: italic } /* Comment.Special */
 .listingblock .pygments .tok-gd { background-color: #FFCCCC; border: 1px solid #CC0000 } /* Generic.Deleted */
@@ -464,8 +466,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .listingblock .pygments .tok-mh { color: #FF6600 } /* Literal.Number.Hex */
 .listingblock .pygments .tok-mi { color: #FF6600 } /* Literal.Number.Integer */
 .listingblock .pygments .tok-mo { color: #FF6600 } /* Literal.Number.Oct */
+.listingblock .pygments .tok-sa { color: #CC3300 } /* Literal.String.Affix */
 .listingblock .pygments .tok-sb { color: #CC3300 } /* Literal.String.Backtick */
 .listingblock .pygments .tok-sc { color: #CC3300 } /* Literal.String.Char */
+.listingblock .pygments .tok-dl { color: #CC3300 } /* Literal.String.Delimiter */
 .listingblock .pygments .tok-sd { color: #CC3300; font-style: italic } /* Literal.String.Doc */
 .listingblock .pygments .tok-s2 { color: #CC3300 } /* Literal.String.Double */
 .listingblock .pygments .tok-se { color: #CC3300; font-weight: bold } /* Literal.String.Escape */
@@ -476,9 +480,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .listingblock .pygments .tok-s1 { color: #CC3300 } /* Literal.String.Single */
 .listingblock .pygments .tok-ss { color: #FFCC33 } /* Literal.String.Symbol */
 .listingblock .pygments .tok-bp { color: #336666 } /* Name.Builtin.Pseudo */
+.listingblock .pygments .tok-fm { color: #CC00FF } /* Name.Function.Magic */
 .listingblock .pygments .tok-vc { color: #003333 } /* Name.Variable.Class */
 .listingblock .pygments .tok-vg { color: #003333 } /* Name.Variable.Global */
 .listingblock .pygments .tok-vi { color: #003333 } /* Name.Variable.Instance */
+.listingblock .pygments .tok-vm { color: #003333 } /* Name.Variable.Magic */
 .listingblock .pygments .tok-il { color: #FF6600 } /* Literal.Number.Integer.Long */
 </style>
 </head>
@@ -486,40 +492,37 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<ul class="sectlevel0">
-<li><a href="#feedhenry_mobile_security">FeedHenry Mobile Security</a>
 <ul class="sectlevel1">
-<li><a href="#mobile_security_recommendations_overview">1. Mobile Security Recommendations Overview</a>
+<li><a href="#feedhenry_mobile_security">1. FeedHenry Mobile Security</a></li>
+<li><a href="#mobile_security_recommendations_overview">2. Mobile Security Recommendations Overview</a>
 <ul class="sectlevel2">
-<li><a href="#authentication_session_management">1.1. Authentication &amp; Session Management</a></li>
-<li><a href="#data_storage_summary">1.2. Data Storage Summary</a></li>
-<li><a href="#network_security">1.3. Network Security</a></li>
-<li><a href="#mobile_app_self_defence">1.4. Mobile App Self-Defence</a></li>
-<li><a href="#handling_sensitive_data_overview">1.5. Handling Sensitive Data Overview</a></li>
-<li><a href="#cryptography_summary">1.6. Cryptography Summary</a></li>
+<li><a href="#authentication_session_management">2.1. Authentication &amp; Session Management</a></li>
+<li><a href="#data_storage_summary">2.2. Data Storage Summary</a></li>
+<li><a href="#network_security">2.3. Network Security</a></li>
+<li><a href="#mobile_app_self_defence">2.4. Mobile App Self-Defence</a></li>
+<li><a href="#handling_sensitive_data_overview">2.5. Handling Sensitive Data Overview</a></li>
+<li><a href="#cryptography_summary">2.6. Cryptography Summary</a></li>
 </ul>
 </li>
-<li><a href="#references_2">2. References</a>
+<li><a href="#references_2">3. References</a>
 <ul class="sectlevel2">
-<li><a href="#owasp_top_10_mobile_risks">2.1. OWASP Top 10 Mobile Risks</a></li>
-<li><a href="#mobile_application_security_requirements">2.2. Mobile Application Security Requirements</a></li>
-<li><a href="#secure_mobile_development_guidelines">2.3. Secure Mobile Development Guidelines</a></li>
-<li><a href="#owasp_cheat_sheet_series">2.4. OWASP Cheat Sheet Series</a></li>
-<li><a href="#owasp_mobile_verification_standard">2.5. OWASP Mobile Verification Standard</a></li>
-<li><a href="#owasp_threat_model_project">2.6. OWASP Threat Model Project</a></li>
-<li><a href="#owasp_m_tools">2.7. OWASP M-Tools</a></li>
-<li><a href="#ios_security_whitepaper">2.8. iOS Security Whitepaper</a></li>
-<li><a href="#android_security_guide">2.9. Android Security Guide</a></li>
-<li><a href="#android_developer_security_guide">2.10. Android Developer Security Guide</a></li>
-<li><a href="#cordova_security_guide">2.11. Cordova Security Guide</a></li>
-<li><a href="#vetting_the_security_of_mobile_applications">2.12. Vetting the Security of Mobile Applications</a></li>
-<li><a href="#niap_mobile_app_vetting">2.13. NIAP Mobile App Vetting</a></li>
-<li><a href="#dhs_study_on_mobile_device_security">2.14. DHS Study on Mobile Device Security</a></li>
-<li><a href="#guidelines_for_managing_the_security_of_mobile_devices_in_the_enterprise">2.15. Guidelines for Managing the Security of Mobile Devices in the Enterprise</a></li>
-<li><a href="#mobile_banking_applications_security_challenges">2.16. Mobile Banking Applications Security Challenges</a></li>
-<li><a href="#secure_mobile_development_guide">2.17. Secure Mobile Development Guide</a></li>
-</ul>
-</li>
+<li><a href="#owasp_top_10_mobile_risks">3.1. OWASP Top 10 Mobile Risks</a></li>
+<li><a href="#mobile_application_security_requirements">3.2. Mobile Application Security Requirements</a></li>
+<li><a href="#secure_mobile_development_guidelines">3.3. Secure Mobile Development Guidelines</a></li>
+<li><a href="#owasp_cheat_sheet_series">3.4. OWASP Cheat Sheet Series</a></li>
+<li><a href="#owasp_mobile_verification_standard">3.5. OWASP Mobile Verification Standard</a></li>
+<li><a href="#owasp_threat_model_project">3.6. OWASP Threat Model Project</a></li>
+<li><a href="#owasp_m_tools">3.7. OWASP M-Tools</a></li>
+<li><a href="#ios_security_whitepaper">3.8. iOS Security Whitepaper</a></li>
+<li><a href="#android_security_guide">3.9. Android Security Guide</a></li>
+<li><a href="#android_developer_security_guide">3.10. Android Developer Security Guide</a></li>
+<li><a href="#cordova_security_guide">3.11. Cordova Security Guide</a></li>
+<li><a href="#vetting_the_security_of_mobile_applications">3.12. Vetting the Security of Mobile Applications</a></li>
+<li><a href="#niap_mobile_app_vetting">3.13. NIAP Mobile App Vetting</a></li>
+<li><a href="#dhs_study_on_mobile_device_security">3.14. DHS Study on Mobile Device Security</a></li>
+<li><a href="#guidelines_for_managing_the_security_of_mobile_devices_in_the_enterprise">3.15. Guidelines for Managing the Security of Mobile Devices in the Enterprise</a></li>
+<li><a href="#mobile_banking_applications_security_challenges">3.16. Mobile Banking Applications Security Challenges</a></li>
+<li><a href="#secure_mobile_development_guide">3.17. Secure Mobile Development Guide</a></li>
 </ul>
 </li>
 </ul>
@@ -531,12 +534,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <img src="assets/fh_redhat_logo.png" alt="fh redhat logo">
 </div>
 </div>
-<h1 id="feedhenry_mobile_security" class="sect0">FeedHenry Mobile Security</h1>
+<div class="sect1 text-center">
+<h2 id="feedhenry_mobile_security">1. FeedHenry Mobile Security</h2>
+<div class="sectionbody">
+
+</div>
+</div>
 <div class="sect1">
-<h2 id="mobile_security_recommendations_overview">1. Mobile Security Recommendations Overview</h2>
+<h2 id="mobile_security_recommendations_overview">2. Mobile Security Recommendations Overview</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="authentication_session_management">1.1. Authentication &amp; Session Management</h3>
+<h3 id="authentication_session_management">2.1. Authentication &amp; Session Management</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 50%;">
@@ -575,11 +583,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>A second factor of authentication exists and is enforced.</strong> <em>(Extra layer of protection in case another authentication factor has been compromised)</em>.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Fail authentication with a Generic Error.</strong> <em>(The login screen should not show hints on the existence of a username/email address etc)</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use OAuth1.0</strong>. <em>(OAuth1.0 has been found to be vulnerable to session fixation. Use OAuth 1.0a or OAuth 2.0 instead)</em>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Step-up authentication is used for carrying out sensitive actions in an application.</strong> <em>(Useful when a user&#8217;s device is stolen and they have already authenticated through the app)</em>.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use OAuth1.0</strong>. <em>(OAuth1.0 has been found to be vulnerable to session fixation. Use OAuth 1.0a or OAuth 2.0 instead)</em>.</p></td>
+<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Allow the user to see their current login sessions and allow them to logout of other sessions via the app.</strong> <em>(The end user will be able to detect rogue sessions with the most accuracy instead of using anomaly detection)</em>.</p></td>
@@ -609,10 +617,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Implement Secure Password Recovery Mechanism</strong>. <em>(To allow a user to recover their account using security questions only they should know the answers too and sending a recovery code using a side channel such as SMS)</em>.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Fail authentication with a Generic Error.</strong> <em>(The login screen should not show hints on the existence of a username/email address etc)</em>.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
 </tbody>
 </table>
 <div class="sect3">
-<h4 id="references">1.1.1. References</h4>
+<h4 id="references">2.1.1. References</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -625,7 +637,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect3">
-<h4 id="implementation">1.1.2. Implementation</h4>
+<h4 id="implementation">2.1.2. Implementation</h4>
 <div class="sect4">
 <h5 id="overview">Overview</h5>
 <div class="paragraph">
@@ -718,7 +730,7 @@ Once we have setup the necessary AppAuth configuration, we can create the new Au
 38
 39
 40
-41</div></td><td class="code"><span class="tok-cm">/**</span>
+41</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Create the config for the initial Keycloak auth request to get a temporary token and create an intent to handle the response</span>
 <span class="tok-cm"> */</span>
 <span class="tok-nd">@Override</span>
@@ -730,21 +742,21 @@ Once we have setup the necessary AppAuth configuration, we can create the new Au
     <span class="tok-o">}</span>
     <span class="tok-c1">// Setup the config for the AuthorizationService</span>
     <span class="tok-n">serviceConfig</span> <span class="tok-o">=</span>
-            <span class="tok-k">new</span> <span class="tok-nf">AuthorizationServiceConfiguration</span><span class="tok-o">(</span>
+            <span class="tok-k">new</span> <span class="tok-n">AuthorizationServiceConfiguration</span><span class="tok-o">(</span>
                     <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">authenticationConfiguration</span><span class="tok-o">.</span><span class="tok-na">getAuthenticationEndpoint</span><span class="tok-o">(),</span> <span class="tok-c1">// the clients keycloak authorization endpoint</span>
                     <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">authenticationConfiguration</span><span class="tok-o">.</span><span class="tok-na">getTokenEndpoint</span><span class="tok-o">());</span> <span class="tok-c1">// the clients keycloak token endpoint</span>
 
     <span class="tok-c1">// Persist the AuthorizationServiceConfiguration</span>
-    <span class="tok-n">authState</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">AuthState</span><span class="tok-o">(</span><span class="tok-n">serviceConfig</span><span class="tok-o">);</span>
+    <span class="tok-n">authState</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">AuthState</span><span class="tok-o">(</span><span class="tok-n">serviceConfig</span><span class="tok-o">);</span>
 
     <span class="tok-c1">// Prevent the app opening the keycloak view in chrome custom tabs, instead open it in the native browser</span>
     <span class="tok-n">AppAuthConfiguration</span> <span class="tok-n">appAuthConfig</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">AppAuthConfiguration</span><span class="tok-o">.</span><span class="tok-na">Builder</span><span class="tok-o">()</span>
-            <span class="tok-o">.</span><span class="tok-na">setBrowserMatcher</span><span class="tok-o">(</span><span class="tok-k">new</span> <span class="tok-nf">BrowserBlacklist</span><span class="tok-o">(</span>
+            <span class="tok-o">.</span><span class="tok-na">setBrowserMatcher</span><span class="tok-o">(</span><span class="tok-k">new</span> <span class="tok-n">BrowserBlacklist</span><span class="tok-o">(</span>
                     <span class="tok-n">VersionedBrowserMatcher</span><span class="tok-o">.</span><span class="tok-na">CHROME_CUSTOM_TAB</span><span class="tok-o">))</span>
             <span class="tok-o">.</span><span class="tok-na">build</span><span class="tok-o">();</span>
 
     <span class="tok-c1">// create a new auth service with the auth config</span>
-    <span class="tok-n">authService</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">AuthorizationService</span><span class="tok-o">(</span><span class="tok-n">context</span><span class="tok-o">,</span> <span class="tok-n">appAuthConfig</span><span class="tok-o">);</span>
+    <span class="tok-n">authService</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">AuthorizationService</span><span class="tok-o">(</span><span class="tok-n">context</span><span class="tok-o">,</span> <span class="tok-n">appAuthConfig</span><span class="tok-o">);</span>
 
     <span class="tok-n">AuthorizationRequest</span><span class="tok-o">.</span><span class="tok-na">Builder</span> <span class="tok-n">authRequestBuilder</span> <span class="tok-o">=</span>
             <span class="tok-k">new</span> <span class="tok-n">AuthorizationRequest</span><span class="tok-o">.</span><span class="tok-na">Builder</span><span class="tok-o">(</span>
@@ -781,7 +793,7 @@ A check is performed in the MainActivity for incoming intents. Any incoming inte
  7
  8
  9
-10</div></td><td class="code"><span class="tok-cm">/**</span>
+10</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Checks if the incoming intent matches the Keycloak Auth response intent</span>
 <span class="tok-cm"> *</span>
 <span class="tok-cm"> * @param intent - the intent to check</span>
@@ -818,7 +830,7 @@ If the authentication was a success, we then make a call to the <code>exchangeTo
 15
 16
 17
-18</div></td><td class="code"><span class="tok-cm">/**</span>
+18</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Handles the initial auth response and create a new request to the token endpoint to get the actual tokens</span>
 <span class="tok-cm"> *</span>
 <span class="tok-cm"> * @param intent - the auth response intent</span>
@@ -877,7 +889,7 @@ We can now form an Identity for the logged in user based on the tokens being ret
 26
 27
 28
-29</div></td><td class="code"><span class="tok-cm">/**</span>
+29</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Token exchange against the token endpoint</span>
 <span class="tok-cm"> *</span>
 <span class="tok-cm"> * @param response - the auth response from the intent/server</span>
@@ -891,7 +903,7 @@ We can now form an Identity for the logged in user based on the tokens being ret
                 <span class="tok-n">authStateService</span><span class="tok-o">.</span><span class="tok-na">writeAuthState</span><span class="tok-o">(</span><span class="tok-n">authState</span><span class="tok-o">);</span>
 
                 <span class="tok-n">JSONObject</span> <span class="tok-n">decodedIdentityData</span> <span class="tok-o">=</span> <span class="tok-n">authStateService</span><span class="tok-o">.</span><span class="tok-na">getIdentityInformation</span><span class="tok-o">();</span>
-                <span class="tok-n">Identity</span> <span class="tok-n">newIdentity</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">Identity</span><span class="tok-o">(</span><span class="tok-s">&quot;&quot;</span><span class="tok-o">,</span> <span class="tok-s">&quot;&quot;</span><span class="tok-o">,</span> <span class="tok-s">&quot;&quot;</span><span class="tok-o">,</span> <span class="tok-k">new</span> <span class="tok-n">ArrayList</span><span class="tok-o">&lt;</span><span class="tok-n">String</span><span class="tok-o">&gt;());</span>
+                <span class="tok-n">Identity</span> <span class="tok-n">newIdentity</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">Identity</span><span class="tok-o">(</span><span class="tok-s">&quot;&quot;</span><span class="tok-o">,</span> <span class="tok-s">&quot;&quot;</span><span class="tok-o">,</span> <span class="tok-s">&quot;&quot;</span><span class="tok-o">,</span> <span class="tok-k">new</span> <span class="tok-n">ArrayList</span><span class="tok-o">&lt;</span><span class="tok-n">String</span><span class="tok-o">&gt;());</span>
 
                 <span class="tok-k">try</span> <span class="tok-o">{</span>
                     <span class="tok-n">newIdentity</span> <span class="tok-o">=</span> <span class="tok-n">Identity</span><span class="tok-o">.</span><span class="tok-na">fromJson</span><span class="tok-o">(</span><span class="tok-n">decodedIdentityData</span><span class="tok-o">);</span>
@@ -944,7 +956,7 @@ We can now form an Identity for the logged in user based on the tokens being ret
 24
 25
 26
-27</div></td><td class="code"><span class="tok-cm">/**</span>
+27</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Perform a logout request against the openid connect server</span>
 <span class="tok-cm"> * @param logoutCallback - the logout callback</span>
 <span class="tok-cm"> */</span>
@@ -1000,19 +1012,21 @@ We can now form an Identity for the logged in user based on the tokens being ret
 12
 13
 14
-15</div></td><td class="code"><span class="tok-cm">/**</span>
+15
+16</div></td><td class="code"><span></span>
+<span class="tok-cm">/**</span>
 <span class="tok-cm"> * Read the auth state from shared preferences</span>
 <span class="tok-cm"> */</span>
 <span class="tok-kd">private</span> <span class="tok-n">AuthState</span> <span class="tok-nf">readAuthState</span><span class="tok-o">()</span> <span class="tok-o">{</span>
     <span class="tok-n">String</span> <span class="tok-n">currentState</span> <span class="tok-o">=</span> <span class="tok-n">mPrefs</span><span class="tok-o">.</span><span class="tok-na">getString</span><span class="tok-o">(</span><span class="tok-n">KEY_STATE</span><span class="tok-o">,</span> <span class="tok-kc">null</span><span class="tok-o">);</span>
     <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">currentState</span> <span class="tok-o">==</span> <span class="tok-kc">null</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-        <span class="tok-k">return</span> <span class="tok-k">new</span> <span class="tok-nf">AuthState</span><span class="tok-o">();</span>
+        <span class="tok-k">return</span> <span class="tok-k">new</span> <span class="tok-n">AuthState</span><span class="tok-o">();</span>
     <span class="tok-o">}</span>
     <span class="tok-k">try</span> <span class="tok-o">{</span>
         <span class="tok-k">return</span> <span class="tok-n">AuthState</span><span class="tok-o">.</span><span class="tok-na">jsonDeserialize</span><span class="tok-o">(</span><span class="tok-n">currentState</span><span class="tok-o">);</span>
     <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">JSONException</span> <span class="tok-n">ex</span><span class="tok-o">)</span> <span class="tok-o">{</span>
         <span class="tok-n">Log</span><span class="tok-o">.</span><span class="tok-na">w</span><span class="tok-o">(</span><span class="tok-s">&quot;AuthState&quot;</span><span class="tok-o">,</span> <span class="tok-s">&quot;Failed to deserialize stored auth state: &quot;</span> <span class="tok-o">+</span> <span class="tok-n">ex</span><span class="tok-o">);</span>
-        <span class="tok-k">return</span> <span class="tok-k">new</span> <span class="tok-nf">AuthState</span><span class="tok-o">();</span>
+        <span class="tok-k">return</span> <span class="tok-k">new</span> <span class="tok-n">AuthState</span><span class="tok-o">();</span>
     <span class="tok-o">}</span>
 <span class="tok-o">}</span>
 </td></tr></table></code></pre>
@@ -1041,7 +1055,9 @@ We can now form an Identity for the logged in user based on the tokens being ret
 15
 16
 17
-18</div></td><td class="code"><span class="tok-cm">/**</span>
+18
+19</div></td><td class="code"><span></span>
+<span class="tok-cm">/**</span>
 <span class="tok-cm"> * Write the auth state to shared preferences</span>
 <span class="tok-cm"> *</span>
 <span class="tok-cm"> * @param state - The Authstate to write to shared preferences</span>
@@ -1049,13 +1065,13 @@ We can now form an Identity for the logged in user based on the tokens being ret
 <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">writeAuthState</span><span class="tok-o">(</span><span class="tok-nd">@Nullable</span> <span class="tok-n">AuthState</span> <span class="tok-n">state</span><span class="tok-o">)</span> <span class="tok-o">{</span>
     <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">authState</span> <span class="tok-o">=</span> <span class="tok-n">state</span><span class="tok-o">;</span>
     <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">authState</span> <span class="tok-o">==</span> <span class="tok-kc">null</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-        <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">authState</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">AuthState</span><span class="tok-o">();</span>
+        <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">authState</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">AuthState</span><span class="tok-o">();</span>
         <span class="tok-k">if</span> <span class="tok-o">(!</span><span class="tok-n">mPrefs</span><span class="tok-o">.</span><span class="tok-na">edit</span><span class="tok-o">().</span><span class="tok-na">remove</span><span class="tok-o">(</span><span class="tok-n">KEY_STATE</span><span class="tok-o">).</span><span class="tok-na">commit</span><span class="tok-o">())</span> <span class="tok-o">{</span>
-            <span class="tok-k">throw</span> <span class="tok-k">new</span> <span class="tok-nf">IllegalStateException</span><span class="tok-o">(</span><span class="tok-s">&quot;Failed to write state to shared prefs&quot;</span><span class="tok-o">);</span>
+            <span class="tok-k">throw</span> <span class="tok-k">new</span> <span class="tok-n">IllegalStateException</span><span class="tok-o">(</span><span class="tok-s">&quot;Failed to write state to shared prefs&quot;</span><span class="tok-o">);</span>
         <span class="tok-o">}</span>
     <span class="tok-o">}</span> <span class="tok-k">else</span> <span class="tok-o">{</span>
         <span class="tok-k">if</span> <span class="tok-o">(!</span><span class="tok-n">mPrefs</span><span class="tok-o">.</span><span class="tok-na">edit</span><span class="tok-o">().</span><span class="tok-na">putString</span><span class="tok-o">(</span><span class="tok-n">KEY_STATE</span><span class="tok-o">,</span> <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">authState</span><span class="tok-o">.</span><span class="tok-na">jsonSerializeString</span><span class="tok-o">()).</span><span class="tok-na">commit</span><span class="tok-o">())</span> <span class="tok-o">{</span>
-            <span class="tok-k">throw</span> <span class="tok-k">new</span> <span class="tok-nf">IllegalStateException</span><span class="tok-o">(</span><span class="tok-s">&quot;Failed to write state to shared prefs&quot;</span><span class="tok-o">);</span>
+            <span class="tok-k">throw</span> <span class="tok-k">new</span> <span class="tok-n">IllegalStateException</span><span class="tok-o">(</span><span class="tok-s">&quot;Failed to write state to shared prefs&quot;</span><span class="tok-o">);</span>
         <span class="tok-o">}</span>
     <span class="tok-o">}</span>
 <span class="tok-o">}</span>
@@ -1093,20 +1109,22 @@ We can now form an Identity for the logged in user based on the tokens being ret
 20
 21
 22
-23</div></td><td class="code"><span class="tok-cm">/**</span>
+23
+24</div></td><td class="code"><span></span>
+<span class="tok-cm">/**</span>
 <span class="tok-cm"> * Get the authenticated users identity information</span>
 <span class="tok-cm"> */</span>
 <span class="tok-kd">public</span> <span class="tok-n">JSONObject</span> <span class="tok-nf">getIdentityInformation</span><span class="tok-o">()</span> <span class="tok-o">{</span>
     <span class="tok-n">String</span> <span class="tok-n">accessToken</span> <span class="tok-o">=</span> <span class="tok-n">getAccessToken</span><span class="tok-o">();</span>
-    <span class="tok-n">JSONObject</span> <span class="tok-n">decodedIdentityData</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">JSONObject</span><span class="tok-o">();</span>
+    <span class="tok-n">JSONObject</span> <span class="tok-n">decodedIdentityData</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">JSONObject</span><span class="tok-o">();</span>
 
     <span class="tok-k">try</span> <span class="tok-o">{</span>
         <span class="tok-c1">// Decode the Access Token to Extract the Identity Information</span>
         <span class="tok-n">String</span><span class="tok-o">[]</span> <span class="tok-n">splitToken</span> <span class="tok-o">=</span> <span class="tok-n">accessToken</span><span class="tok-o">.</span><span class="tok-na">split</span><span class="tok-o">(</span><span class="tok-s">&quot;\\.&quot;</span><span class="tok-o">);</span>
         <span class="tok-kt">byte</span><span class="tok-o">[]</span> <span class="tok-n">decodedBytes</span> <span class="tok-o">=</span> <span class="tok-n">Base64</span><span class="tok-o">.</span><span class="tok-na">decode</span><span class="tok-o">(</span><span class="tok-n">splitToken</span><span class="tok-o">[</span><span class="tok-mi">1</span><span class="tok-o">],</span> <span class="tok-n">Base64</span><span class="tok-o">.</span><span class="tok-na">URL_SAFE</span><span class="tok-o">);</span>
-        <span class="tok-n">String</span> <span class="tok-n">decoded</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">String</span><span class="tok-o">(</span><span class="tok-n">decodedBytes</span><span class="tok-o">,</span> <span class="tok-s">&quot;UTF-8&quot;</span><span class="tok-o">);</span>
+        <span class="tok-n">String</span> <span class="tok-n">decoded</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">String</span><span class="tok-o">(</span><span class="tok-n">decodedBytes</span><span class="tok-o">,</span> <span class="tok-s">&quot;UTF-8&quot;</span><span class="tok-o">);</span>
         <span class="tok-k">try</span> <span class="tok-o">{</span>
-            <span class="tok-n">decodedIdentityData</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">JSONObject</span><span class="tok-o">(</span><span class="tok-n">decoded</span><span class="tok-o">);</span>
+            <span class="tok-n">decodedIdentityData</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">JSONObject</span><span class="tok-o">(</span><span class="tok-n">decoded</span><span class="tok-o">);</span>
         <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">JSONException</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
             <span class="tok-n">e</span><span class="tok-o">.</span><span class="tok-na">printStackTrace</span><span class="tok-o">();</span>
         <span class="tok-o">}</span>
@@ -1181,14 +1199,16 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 50
 51
 52
-53</div></td><td class="code"><span class="tok-cm">/**</span>
+53
+54</div></td><td class="code"><span></span>
+<span class="tok-cm">/**</span>
 <span class="tok-cm"> * Make a request to a resource that requires the access token to be sent with the request</span>
 <span class="tok-cm"> */</span>
 <span class="tok-kd">public</span> <span class="tok-n">Call</span> <span class="tok-nf">createRequest</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">requestUrl</span><span class="tok-o">,</span> <span class="tok-kt">boolean</span> <span class="tok-n">sendAccessToken</span><span class="tok-o">,</span> <span class="tok-n">okhttp3</span><span class="tok-o">.</span><span class="tok-na">Callback</span> <span class="tok-n">callback</span><span class="tok-o">)</span> <span class="tok-o">{</span>
 
     <span class="tok-n">URL</span> <span class="tok-n">url</span> <span class="tok-o">=</span> <span class="tok-kc">null</span><span class="tok-o">;</span>
     <span class="tok-k">try</span> <span class="tok-o">{</span>
-        <span class="tok-n">url</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">URL</span><span class="tok-o">(</span><span class="tok-n">requestUrl</span><span class="tok-o">);</span>
+        <span class="tok-n">url</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">URL</span><span class="tok-o">(</span><span class="tok-n">requestUrl</span><span class="tok-o">);</span>
     <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">MalformedURLException</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
         <span class="tok-n">e</span><span class="tok-o">.</span><span class="tok-na">printStackTrace</span><span class="tok-o">();</span>
     <span class="tok-o">}</span>
@@ -1267,7 +1287,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 </div>
 </div>
 <div class="sect2">
-<h3 id="data_storage_summary">1.2. Data Storage Summary</h3>
+<h3 id="data_storage_summary">2.2. Data Storage Summary</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 50%;">
@@ -1341,12 +1361,15 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 </tbody>
 </table>
 <div class="sect3">
-<h4 id="implementation_2">1.2.1. Implementation</h4>
+<h4 id="implementation_2">2.2.1. Implementation</h4>
 <div class="sect4">
 <h5 id="overview_2">Overview</h5>
 <div class="paragraph">
-<p>We have implemented a feature in the sample app to allow users to manage secret notes. This feature is used to showcase the best practices around secure data storage.</p>
+<p>We have implemented a secure storage feature in the sample mobile templates to allow users to manage secret notes. This feature is used to showcase the best practices around secure data storage.</p>
 </div>
+</div>
+<div class="sect4">
+<h5 id="native_android">Native Android</h5>
 <div class="openblock float-group">
 <div class="content">
 <div class="imageblock left">
@@ -1364,14 +1387,14 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 <div class="paragraph">
 <p>The secret notes can be saved to either file system or database (SQLite). In both cases, the notes will be encrypted automatically when persisted, and decrypted automatically when loaded into the app.</p>
 </div>
-</div>
-<div class="sect4">
-<h5 id="secret_key_management">Secret Key Management</h5>
+<div class="sect5">
+<h6 id="secret_key_management">Secret Key Management</h6>
 <div class="paragraph">
 <p>Secret keys are being used to encrypt/decrypt the notes. To make sure the secret keys are securely persisted, in most cases, the OS&#8217;s keystore should be used to persist the secret key.</p>
 </div>
 <div class="paragraph">
 <p>However, for Android, there is a difference between Android M and pre-Android M.</p>
+</div>
 </div>
 <div class="sect5">
 <h6 id="android_m_and_later">Android M and later</h6>
@@ -1399,7 +1422,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 16
 17
 18
-19</div></td><td class="code"><span class="tok-cm">/**</span>
+19</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Generate the AES key for encryption/decryption. The key will be 128bit and it can only be used with AES/GCM/NoPadding mode.</span>
 <span class="tok-cm"> * @param keyAlias the key alias</span>
 <span class="tok-cm"> * @throws GeneralSecurityException</span>
@@ -1442,7 +1465,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 3
 4
 5
-6</div></td><td class="code"><span class="tok-kd">private</span> <span class="tok-kt">byte</span><span class="tok-o">[]</span> <span class="tok-nf">generateSecretKey</span><span class="tok-o">(</span><span class="tok-kt">int</span> <span class="tok-n">size</span><span class="tok-o">)</span> <span class="tok-kd">throws</span> <span class="tok-n">NoSuchAlgorithmException</span> <span class="tok-o">{</span>
+6</div></td><td class="code"><span></span><span class="tok-kd">private</span> <span class="tok-kt">byte</span><span class="tok-o">[]</span> <span class="tok-nf">generateSecretKey</span><span class="tok-o">(</span><span class="tok-kt">int</span> <span class="tok-n">size</span><span class="tok-o">)</span> <span class="tok-kd">throws</span> <span class="tok-n">NoSuchAlgorithmException</span> <span class="tok-o">{</span>
     <span class="tok-n">KeyGenerator</span> <span class="tok-n">keyGen</span> <span class="tok-o">=</span> <span class="tok-n">KeyGenerator</span><span class="tok-o">.</span><span class="tok-na">getInstance</span><span class="tok-o">(</span><span class="tok-n">KeyProperties</span><span class="tok-o">.</span><span class="tok-na">KEY_ALGORITHM_AES</span><span class="tok-o">);</span>
     <span class="tok-n">keyGen</span><span class="tok-o">.</span><span class="tok-na">init</span><span class="tok-o">(</span><span class="tok-n">size</span><span class="tok-o">);</span>
     <span class="tok-n">SecretKey</span> <span class="tok-n">secretKey</span> <span class="tok-o">=</span> <span class="tok-n">keyGen</span><span class="tok-o">.</span><span class="tok-na">generateKey</span><span class="tok-o">();</span>
@@ -1475,7 +1498,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 16
 17
 18
-19</div></td><td class="code"><span class="tok-nd">@Override</span>
+19</div></td><td class="code"><span></span><span class="tok-nd">@Override</span>
 <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">generatePrivateKeyPair</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">keyAlias</span><span class="tok-o">)</span> <span class="tok-kd">throws</span> <span class="tok-n">GeneralSecurityException</span><span class="tok-o">,</span> <span class="tok-n">IOException</span> <span class="tok-o">{</span>
     <span class="tok-c1">//pre android-M, the keystore only support RSA key generation. So here we will generate a RSA keypair first, then generate the AES key.</span>
     <span class="tok-c1">//we then encrypt the AES key using the generated RSA public key, and save it using the SharedPreferences</span>
@@ -1485,7 +1508,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
     <span class="tok-n">KeyPairGeneratorSpec</span> <span class="tok-n">generatorSpec</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">KeyPairGeneratorSpec</span>
             <span class="tok-o">.</span><span class="tok-na">Builder</span><span class="tok-o">(</span><span class="tok-n">context</span><span class="tok-o">)</span>
             <span class="tok-o">.</span><span class="tok-na">setAlias</span><span class="tok-o">(</span><span class="tok-n">keyAlias</span><span class="tok-o">)</span>
-            <span class="tok-o">.</span><span class="tok-na">setSubject</span><span class="tok-o">(</span><span class="tok-k">new</span> <span class="tok-nf">X500Principal</span><span class="tok-o">(</span><span class="tok-s">&quot;CN=&quot;</span> <span class="tok-o">+</span> <span class="tok-n">keyAlias</span><span class="tok-o">))</span>
+            <span class="tok-o">.</span><span class="tok-na">setSubject</span><span class="tok-o">(</span><span class="tok-k">new</span> <span class="tok-n">X500Principal</span><span class="tok-o">(</span><span class="tok-s">&quot;CN=&quot;</span> <span class="tok-o">+</span> <span class="tok-n">keyAlias</span><span class="tok-o">))</span>
             <span class="tok-o">.</span><span class="tok-na">setSerialNumber</span><span class="tok-o">(</span><span class="tok-n">BigInteger</span><span class="tok-o">.</span><span class="tok-na">TEN</span><span class="tok-o">)</span>
             <span class="tok-o">.</span><span class="tok-na">setStartDate</span><span class="tok-o">(</span><span class="tok-n">start</span><span class="tok-o">.</span><span class="tok-na">getTime</span><span class="tok-o">())</span>
             <span class="tok-o">.</span><span class="tok-na">setEndDate</span><span class="tok-o">(</span><span class="tok-n">end</span><span class="tok-o">.</span><span class="tok-na">getTime</span><span class="tok-o">())</span>
@@ -1511,7 +1534,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 6
 7
 8
-9</div></td><td class="code"><span class="tok-nd">@Override</span>
+9</div></td><td class="code"><span></span><span class="tok-nd">@Override</span>
 <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">generateAESKey</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">keyAlias</span><span class="tok-o">)</span> <span class="tok-kd">throws</span> <span class="tok-n">GeneralSecurityException</span><span class="tok-o">,</span> <span class="tok-n">IOException</span> <span class="tok-o">{</span>
     <span class="tok-kt">byte</span><span class="tok-o">[]</span> <span class="tok-n">secretKey</span> <span class="tok-o">=</span> <span class="tok-n">generateSecretKey</span><span class="tok-o">(</span><span class="tok-n">AES_KEYSIZE_128</span><span class="tok-o">);</span>
     <span class="tok-kt">byte</span><span class="tok-o">[]</span> <span class="tok-n">encryptedKey</span> <span class="tok-o">=</span> <span class="tok-n">rsaEncrypt</span><span class="tok-o">(</span><span class="tok-n">secretKey</span><span class="tok-o">);</span>
@@ -1538,13 +1561,13 @@ The function accepts a URL in the form of a String, a boolean value to state if 
  7
  8
  9
-10</div></td><td class="code"><span class="tok-nd">@Override</span>
+10</div></td><td class="code"><span></span><span class="tok-nd">@Override</span>
 <span class="tok-kd">public</span> <span class="tok-n">Key</span> <span class="tok-nf">getSecretKey</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">keyAlias</span><span class="tok-o">)</span> <span class="tok-kd">throws</span> <span class="tok-n">GeneralSecurityException</span><span class="tok-o">,</span> <span class="tok-n">IOException</span> <span class="tok-o">{</span>
     <span class="tok-n">String</span> <span class="tok-n">encodedKey</span> <span class="tok-o">=</span> <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">sharedPreferences</span><span class="tok-o">.</span><span class="tok-na">getString</span><span class="tok-o">(</span><span class="tok-n">keyAlias</span><span class="tok-o">,</span> <span class="tok-kc">null</span><span class="tok-o">);</span>
     <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">encodedKey</span> <span class="tok-o">!=</span> <span class="tok-kc">null</span><span class="tok-o">)</span> <span class="tok-o">{</span>
         <span class="tok-kt">byte</span><span class="tok-o">[]</span> <span class="tok-n">encryptedKeyBytes</span> <span class="tok-o">=</span> <span class="tok-n">Base64</span><span class="tok-o">.</span><span class="tok-na">decode</span><span class="tok-o">(</span><span class="tok-n">encodedKey</span><span class="tok-o">,</span> <span class="tok-n">BASE64_FLAG</span><span class="tok-o">);</span>
         <span class="tok-kt">byte</span><span class="tok-o">[]</span> <span class="tok-n">keyBytes</span> <span class="tok-o">=</span> <span class="tok-n">rsaDecrypt</span><span class="tok-o">(</span><span class="tok-n">encryptedKeyBytes</span><span class="tok-o">);</span>
-        <span class="tok-k">return</span> <span class="tok-k">new</span> <span class="tok-nf">SecretKeySpec</span><span class="tok-o">(</span><span class="tok-n">keyBytes</span><span class="tok-o">,</span> <span class="tok-n">KeyProperties</span><span class="tok-o">.</span><span class="tok-na">KEY_ALGORITHM_AES</span><span class="tok-o">);</span>
+        <span class="tok-k">return</span> <span class="tok-k">new</span> <span class="tok-n">SecretKeySpec</span><span class="tok-o">(</span><span class="tok-n">keyBytes</span><span class="tok-o">,</span> <span class="tok-n">KeyProperties</span><span class="tok-o">.</span><span class="tok-na">KEY_ALGORITHM_AES</span><span class="tok-o">);</span>
     <span class="tok-o">}</span>
     <span class="tok-k">return</span> <span class="tok-kc">null</span><span class="tok-o">;</span>
 <span class="tok-o">}</span>
@@ -1558,9 +1581,8 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 <p>The alternative option is to ask the user to provide a password. The password will be used to encrypt/decrypt the secret key. This does mean that the user will have to remember the password and enter it everytime when using the app.</p>
 </div>
 </div>
-</div>
-<div class="sect4">
-<h5 id="encrypt_decrypt_the_secret_key">Encrypt/decrypt the secret key</h5>
+<div class="sect5">
+<h6 id="encrypt_decrypt_the_secret_key">Encrypt/decrypt the secret key</h6>
 <div class="paragraph">
 <p>RSA encryption/decryption is used to encrypt/decrypt the secret key. It can be used to encrypt/decrypt relatively small amount of data.</p>
 </div>
@@ -1591,7 +1613,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 19
 20
 21
-22</div></td><td class="code"><span class="tok-cm">/**</span>
+22</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Perform encryption using RSA</span>
 <span class="tok-cm"> * @param mode the RSA encryption alg</span>
 <span class="tok-cm"> * @param keyEntry the private/public key entry</span>
@@ -1605,8 +1627,8 @@ The function accepts a URL in the form of a String, a boolean value to state if 
     <span class="tok-n">Cipher</span> <span class="tok-n">inputCipher</span> <span class="tok-o">=</span> <span class="tok-n">Cipher</span><span class="tok-o">.</span><span class="tok-na">getInstance</span><span class="tok-o">(</span><span class="tok-n">mode</span><span class="tok-o">);</span>
     <span class="tok-n">inputCipher</span><span class="tok-o">.</span><span class="tok-na">init</span><span class="tok-o">(</span><span class="tok-n">Cipher</span><span class="tok-o">.</span><span class="tok-na">ENCRYPT_MODE</span><span class="tok-o">,</span> <span class="tok-n">keyEntry</span><span class="tok-o">.</span><span class="tok-na">getCertificate</span><span class="tok-o">().</span><span class="tok-na">getPublicKey</span><span class="tok-o">());</span>
     <span class="tok-c1">//The key to encrypt should be either 16 (128 bit) or 32 (256 bit) in size, well below the block size for RSA (should be around 214 bytes)</span>
-    <span class="tok-n">ByteArrayOutputStream</span> <span class="tok-n">outputStream</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">ByteArrayOutputStream</span><span class="tok-o">();</span>
-    <span class="tok-n">CipherOutputStream</span> <span class="tok-n">cipherOutputStream</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">CipherOutputStream</span><span class="tok-o">(</span><span class="tok-n">outputStream</span><span class="tok-o">,</span> <span class="tok-n">inputCipher</span><span class="tok-o">);</span>
+    <span class="tok-n">ByteArrayOutputStream</span> <span class="tok-n">outputStream</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">ByteArrayOutputStream</span><span class="tok-o">();</span>
+    <span class="tok-n">CipherOutputStream</span> <span class="tok-n">cipherOutputStream</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">CipherOutputStream</span><span class="tok-o">(</span><span class="tok-n">outputStream</span><span class="tok-o">,</span> <span class="tok-n">inputCipher</span><span class="tok-o">);</span>
     <span class="tok-n">cipherOutputStream</span><span class="tok-o">.</span><span class="tok-na">write</span><span class="tok-o">(</span><span class="tok-n">text</span><span class="tok-o">);</span>
     <span class="tok-n">cipherOutputStream</span><span class="tok-o">.</span><span class="tok-na">close</span><span class="tok-o">();</span>
 
@@ -1634,7 +1656,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 13
 14
 15
-16</div></td><td class="code"><span class="tok-cm">/**</span>
+16</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Perform decryption using RSA</span>
 <span class="tok-cm"> * @param mode the RSA decryption alg</span>
 <span class="tok-cm"> * @param keyEntry the private/public key entry</span>
@@ -1646,16 +1668,16 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 <span class="tok-kd">public</span> <span class="tok-kd">static</span> <span class="tok-kt">byte</span><span class="tok-o">[]</span> <span class="tok-nf">decrypt</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">mode</span><span class="tok-o">,</span> <span class="tok-n">KeyStore</span><span class="tok-o">.</span><span class="tok-na">PrivateKeyEntry</span> <span class="tok-n">keyEntry</span><span class="tok-o">,</span> <span class="tok-kt">byte</span><span class="tok-o">[]</span> <span class="tok-n">toDecrypt</span><span class="tok-o">)</span> <span class="tok-kd">throws</span> <span class="tok-n">GeneralSecurityException</span><span class="tok-o">,</span> <span class="tok-n">IOException</span> <span class="tok-o">{</span>
     <span class="tok-n">Cipher</span> <span class="tok-n">output</span> <span class="tok-o">=</span> <span class="tok-n">Cipher</span><span class="tok-o">.</span><span class="tok-na">getInstance</span><span class="tok-o">(</span><span class="tok-n">mode</span><span class="tok-o">);</span>
     <span class="tok-n">output</span><span class="tok-o">.</span><span class="tok-na">init</span><span class="tok-o">(</span><span class="tok-n">Cipher</span><span class="tok-o">.</span><span class="tok-na">DECRYPT_MODE</span><span class="tok-o">,</span> <span class="tok-n">keyEntry</span><span class="tok-o">.</span><span class="tok-na">getPrivateKey</span><span class="tok-o">());</span>
-    <span class="tok-n">ByteArrayInputStream</span> <span class="tok-n">inputStream</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">ByteArrayInputStream</span><span class="tok-o">(</span><span class="tok-n">toDecrypt</span><span class="tok-o">);</span>
-    <span class="tok-n">CipherInputStream</span> <span class="tok-n">cipherInputStream</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">CipherInputStream</span><span class="tok-o">(</span><span class="tok-n">inputStream</span><span class="tok-o">,</span> <span class="tok-n">output</span><span class="tok-o">);</span>
+    <span class="tok-n">ByteArrayInputStream</span> <span class="tok-n">inputStream</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">ByteArrayInputStream</span><span class="tok-o">(</span><span class="tok-n">toDecrypt</span><span class="tok-o">);</span>
+    <span class="tok-n">CipherInputStream</span> <span class="tok-n">cipherInputStream</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">CipherInputStream</span><span class="tok-o">(</span><span class="tok-n">inputStream</span><span class="tok-o">,</span> <span class="tok-n">output</span><span class="tok-o">);</span>
     <span class="tok-k">return</span> <span class="tok-n">StreamUtils</span><span class="tok-o">.</span><span class="tok-na">readStreamBytes</span><span class="tok-o">(</span><span class="tok-n">cipherInputStream</span><span class="tok-o">);</span>
 <span class="tok-o">}</span>
 </td></tr></table></code></pre>
 </div>
 </div>
 </div>
-<div class="sect4">
-<h5 id="encrypt_decrypt_the_content_of_notes">Encrypt/decrypt the content of notes</h5>
+<div class="sect5">
+<h6 id="encrypt_decrypt_the_content_of_notes">Encrypt/decrypt the content of notes</h6>
 <div class="paragraph">
 <p>Once we have the secret key, we can use it to encrypt/decrypt the content of the notes using AES.</p>
 </div>
@@ -1682,7 +1704,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 15
 16
 17
-18</div></td><td class="code"><span class="tok-cm">/**</span>
+18</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Encrypt the given text.</span>
 <span class="tok-cm"> * @param keyAlias The alias of the key in the keystore that will be used for the encryption.</span>
 <span class="tok-cm"> * @param plainText the text to encrypt</span>
@@ -1697,7 +1719,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
     <span class="tok-c1">//get the iv that is being used</span>
     <span class="tok-kt">byte</span><span class="tok-o">[]</span> <span class="tok-n">iv</span> <span class="tok-o">=</span> <span class="tok-n">cipher</span><span class="tok-o">.</span><span class="tok-na">getIV</span><span class="tok-o">();</span>
     <span class="tok-kt">byte</span><span class="tok-o">[]</span> <span class="tok-n">encrypted</span> <span class="tok-o">=</span> <span class="tok-n">cipher</span><span class="tok-o">.</span><span class="tok-na">doFinal</span><span class="tok-o">(</span><span class="tok-n">plainText</span><span class="tok-o">);</span>
-    <span class="tok-n">GCMEncrypted</span> <span class="tok-n">encryptedData</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">GCMEncrypted</span><span class="tok-o">(</span><span class="tok-n">iv</span><span class="tok-o">,</span> <span class="tok-n">encrypted</span><span class="tok-o">);</span>
+    <span class="tok-n">GCMEncrypted</span> <span class="tok-n">encryptedData</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">GCMEncrypted</span><span class="tok-o">(</span><span class="tok-n">iv</span><span class="tok-o">,</span> <span class="tok-n">encrypted</span><span class="tok-o">);</span>
     <span class="tok-k">return</span> <span class="tok-n">encryptedData</span><span class="tok-o">.</span><span class="tok-na">toByteArray</span><span class="tok-o">();</span>
 <span class="tok-o">}</span>
 </td></tr></table></code></pre>
@@ -1721,7 +1743,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 13
 14
 15
-16</div></td><td class="code"><span class="tok-cm">/**</span>
+16</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Decrypt the given encrypted data</span>
 <span class="tok-cm"> * @param keyAlias The alias of the key in the keystore that will be used for the decryption.</span>
 <span class="tok-cm"> * @param encryptedText the text to decrypt. The first 12 bytes should be the IV used for encryption.</span>
@@ -1733,7 +1755,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
     <span class="tok-n">GCMEncrypted</span> <span class="tok-n">encryptedData</span> <span class="tok-o">=</span> <span class="tok-n">GCMEncrypted</span><span class="tok-o">.</span><span class="tok-na">parse</span><span class="tok-o">(</span><span class="tok-n">encryptedText</span><span class="tok-o">);</span>
     <span class="tok-n">SecretKey</span> <span class="tok-n">secretKey</span> <span class="tok-o">=</span> <span class="tok-n">loadOrGenerateSecretKey</span><span class="tok-o">(</span><span class="tok-n">keyAlias</span><span class="tok-o">,</span> <span class="tok-kc">false</span><span class="tok-o">);</span>
     <span class="tok-n">Cipher</span> <span class="tok-n">cipher</span> <span class="tok-o">=</span> <span class="tok-n">Cipher</span><span class="tok-o">.</span><span class="tok-na">getInstance</span><span class="tok-o">(</span><span class="tok-n">secureKeyStore</span><span class="tok-o">.</span><span class="tok-na">getSupportedAESMode</span><span class="tok-o">());</span>
-    <span class="tok-n">cipher</span><span class="tok-o">.</span><span class="tok-na">init</span><span class="tok-o">(</span><span class="tok-n">Cipher</span><span class="tok-o">.</span><span class="tok-na">DECRYPT_MODE</span><span class="tok-o">,</span> <span class="tok-n">secretKey</span><span class="tok-o">,</span> <span class="tok-k">new</span> <span class="tok-nf">GCMParameterSpec</span><span class="tok-o">(</span><span class="tok-n">GCMEncrypted</span><span class="tok-o">.</span><span class="tok-na">GCM_TAG_LENGTH</span><span class="tok-o">,</span> <span class="tok-n">encryptedData</span><span class="tok-o">.</span><span class="tok-na">iv</span><span class="tok-o">));</span>
+    <span class="tok-n">cipher</span><span class="tok-o">.</span><span class="tok-na">init</span><span class="tok-o">(</span><span class="tok-n">Cipher</span><span class="tok-o">.</span><span class="tok-na">DECRYPT_MODE</span><span class="tok-o">,</span> <span class="tok-n">secretKey</span><span class="tok-o">,</span> <span class="tok-k">new</span> <span class="tok-n">GCMParameterSpec</span><span class="tok-o">(</span><span class="tok-n">GCMEncrypted</span><span class="tok-o">.</span><span class="tok-na">GCM_TAG_LENGTH</span><span class="tok-o">,</span> <span class="tok-n">encryptedData</span><span class="tok-o">.</span><span class="tok-na">iv</span><span class="tok-o">));</span>
     <span class="tok-kt">byte</span><span class="tok-o">[]</span> <span class="tok-n">plainText</span> <span class="tok-o">=</span> <span class="tok-n">cipher</span><span class="tok-o">.</span><span class="tok-na">doFinal</span><span class="tok-o">(</span><span class="tok-n">encryptedData</span><span class="tok-o">.</span><span class="tok-na">encryptedData</span><span class="tok-o">);</span>
     <span class="tok-k">return</span> <span class="tok-n">plainText</span><span class="tok-o">;</span>
 <span class="tok-o">}</span>
@@ -1741,8 +1763,8 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 </div>
 </div>
 </div>
-<div class="sect4">
-<h5 id="persist_data_using_file_system">Persist data using file system</h5>
+<div class="sect5">
+<h6 id="persist_data_using_file_system">Persist data using file system</h6>
 <div class="paragraph">
 <p>When a secret note is created, it can be persisted to the file system. We should encrypt the file when it is being persisted, and decrypt it when it is being loaded:</p>
 </div>
@@ -1765,7 +1787,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 14
 15
 16
-17</div></td><td class="code"><span class="tok-cm">/**</span>
+17</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Encrypt the file when saving to the file system</span>
 <span class="tok-cm"> * @param fileName the name of the file</span>
 <span class="tok-cm"> * @param fileContent the content of the file</span>
@@ -1773,11 +1795,11 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 <span class="tok-cm"> * @throws GeneralSecurityException</span>
 <span class="tok-cm"> */</span>
 <span class="tok-kd">private</span> <span class="tok-kt">void</span> <span class="tok-nf">writeFileWithEncryption</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">fileName</span><span class="tok-o">,</span> <span class="tok-n">String</span> <span class="tok-n">fileContent</span><span class="tok-o">)</span> <span class="tok-kd">throws</span> <span class="tok-n">IOException</span><span class="tok-o">,</span> <span class="tok-n">GeneralSecurityException</span> <span class="tok-o">{</span>
-    <span class="tok-n">File</span> <span class="tok-n">outputFile</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">File</span><span class="tok-o">(</span><span class="tok-n">context</span><span class="tok-o">.</span><span class="tok-na">getFilesDir</span><span class="tok-o">(),</span> <span class="tok-n">fileName</span><span class="tok-o">);</span>
+    <span class="tok-n">File</span> <span class="tok-n">outputFile</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">File</span><span class="tok-o">(</span><span class="tok-n">context</span><span class="tok-o">.</span><span class="tok-na">getFilesDir</span><span class="tok-o">(),</span> <span class="tok-n">fileName</span><span class="tok-o">);</span>
     <span class="tok-k">if</span> <span class="tok-o">(!</span><span class="tok-n">outputFile</span><span class="tok-o">.</span><span class="tok-na">exists</span><span class="tok-o">())</span> <span class="tok-o">{</span>
         <span class="tok-n">outputFile</span><span class="tok-o">.</span><span class="tok-na">createNewFile</span><span class="tok-o">();</span>
     <span class="tok-o">}</span>
-    <span class="tok-n">OutputStream</span> <span class="tok-n">outStream</span> <span class="tok-o">=</span> <span class="tok-n">aesCrypto</span><span class="tok-o">.</span><span class="tok-na">encryptStream</span><span class="tok-o">(</span><span class="tok-n">fileName</span><span class="tok-o">,</span> <span class="tok-k">new</span> <span class="tok-nf">FileOutputStream</span><span class="tok-o">(</span><span class="tok-n">outputFile</span><span class="tok-o">));</span>
+    <span class="tok-n">OutputStream</span> <span class="tok-n">outStream</span> <span class="tok-o">=</span> <span class="tok-n">aesCrypto</span><span class="tok-o">.</span><span class="tok-na">encryptStream</span><span class="tok-o">(</span><span class="tok-n">fileName</span><span class="tok-o">,</span> <span class="tok-k">new</span> <span class="tok-n">FileOutputStream</span><span class="tok-o">(</span><span class="tok-n">outputFile</span><span class="tok-o">));</span>
     <span class="tok-n">outStream</span><span class="tok-o">.</span><span class="tok-na">write</span><span class="tok-o">(</span><span class="tok-n">fileContent</span><span class="tok-o">.</span><span class="tok-na">getBytes</span><span class="tok-o">(</span><span class="tok-s">&quot;utf-8&quot;</span><span class="tok-o">));</span>
     <span class="tok-n">outStream</span><span class="tok-o">.</span><span class="tok-na">flush</span><span class="tok-o">();</span>
     <span class="tok-n">outStream</span><span class="tok-o">.</span><span class="tok-na">close</span><span class="tok-o">();</span>
@@ -1800,7 +1822,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 10
 11
 12
-13</div></td><td class="code"><span class="tok-cm">/**</span>
+13</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Read the content of the file, and decrypt it automatically</span>
 <span class="tok-cm"> * @param fileName the name of the file</span>
 <span class="tok-cm"> * @return the decrypted file content</span>
@@ -1817,8 +1839,8 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 </div>
 </div>
 </div>
-<div class="sect4">
-<h5 id="persist_data_using_database_sqlite">Persist data using database (SQLite)</h5>
+<div class="sect5">
+<h6 id="persist_data_using_database_sqlite">Persist data using database (SQLite)</h6>
 <div class="paragraph">
 <p>To securely persist data to the database, a library called <a href="https://www.zetetic.net/sqlcipher/">SqlCipher</a> is used. The library will automatically manage the encryption/decryption of the sqlite database file. It is easy to use, and requires minimum changes to the code.</p>
 </div>
@@ -1844,7 +1866,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 14
 15
 16
-17</div></td><td class="code"><span class="tok-cm">/**</span>
+17</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Get the password to protect the database</span>
 <span class="tok-cm"> * @return the password</span>
 <span class="tok-cm"> * @throws GeneralSecurityException</span>
@@ -1858,7 +1880,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
         <span class="tok-n">SharedPreferences</span><span class="tok-o">.</span><span class="tok-na">Editor</span> <span class="tok-n">editor</span> <span class="tok-o">=</span> <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">sharedPreferences</span><span class="tok-o">.</span><span class="tok-na">edit</span><span class="tok-o">();</span>
         <span class="tok-n">editor</span><span class="tok-o">.</span><span class="tok-na">putString</span><span class="tok-o">(</span><span class="tok-n">DB_KEY_PREF_NAME</span><span class="tok-o">,</span> <span class="tok-n">encryptedDbPass</span><span class="tok-o">).</span><span class="tok-na">commit</span><span class="tok-o">();</span>
     <span class="tok-o">}</span>
-    <span class="tok-n">String</span> <span class="tok-n">password</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">String</span><span class="tok-o">(</span><span class="tok-n">rsaCrypto</span><span class="tok-o">.</span><span class="tok-na">decrypt</span><span class="tok-o">(</span><span class="tok-n">ENCRYPT_KEY_ALIAS</span><span class="tok-o">,</span> <span class="tok-n">Base64</span><span class="tok-o">.</span><span class="tok-na">decode</span><span class="tok-o">(</span><span class="tok-n">encryptedDbPass</span><span class="tok-o">,</span> <span class="tok-n">Base64</span><span class="tok-o">.</span><span class="tok-na">NO_WRAP</span><span class="tok-o">)),</span> <span class="tok-s">&quot;utf-8&quot;</span><span class="tok-o">);</span>
+    <span class="tok-n">String</span> <span class="tok-n">password</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">String</span><span class="tok-o">(</span><span class="tok-n">rsaCrypto</span><span class="tok-o">.</span><span class="tok-na">decrypt</span><span class="tok-o">(</span><span class="tok-n">ENCRYPT_KEY_ALIAS</span><span class="tok-o">,</span> <span class="tok-n">Base64</span><span class="tok-o">.</span><span class="tok-na">decode</span><span class="tok-o">(</span><span class="tok-n">encryptedDbPass</span><span class="tok-o">,</span> <span class="tok-n">Base64</span><span class="tok-o">.</span><span class="tok-na">NO_WRAP</span><span class="tok-o">)),</span> <span class="tok-s">&quot;utf-8&quot;</span><span class="tok-o">);</span>
     <span class="tok-k">return</span> <span class="tok-n">password</span><span class="tok-o">;</span>
 <span class="tok-o">}</span>
 </td></tr></table></code></pre>
@@ -1866,9 +1888,583 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 </div>
 </div>
 </div>
+<div class="sect4">
+<h5 id="native_ios">Native iOS</h5>
+<div class="paragraph">
+<p>The secret notes are being persisted using an encrypted <a href="https://realm.io/docs/swift/latest/">Realm Mobile DB</a>.</p>
+</div>
+<div class="sect5">
+<h6 id="initialising_realm_db">Initialising Realm DB</h6>
+<div class="paragraph">
+<p>The Realm DB storing the notes must be initialised using the encryption key.</p>
+</div>
+<div class="listingblock">
+<div class="title">Initialise Realm</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="swift"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> - Initilise the Realm Storage Service</span>
+
+<span class="tok-cm"> - Parameter kcWrapper: the swift keychain wrapper</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">init</span><span class="tok-p">(</span><span class="tok-n">kcWrapper</span><span class="tok-p">:</span> <span class="tok-n">KeychainWrapper</span><span class="tok-p">,</span> <span class="tok-n">encryptionKey</span><span class="tok-p">:</span> <span class="tok-n">Data</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">keychainWrapper</span> <span class="tok-p">=</span> <span class="tok-n">kcWrapper</span>
+    <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">encryptionKey</span> <span class="tok-p">=</span> <span class="tok-n">encryptionKey</span>
+
+    <span class="tok-kd">let</span> <span class="tok-nv">encryptionConfig</span> <span class="tok-p">=</span> <span class="tok-n">Realm</span><span class="tok-p">.</span><span class="tok-n">Configuration</span><span class="tok-p">(</span><span class="tok-n">encryptionKey</span><span class="tok-p">:</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">encryptionKey</span><span class="tok-p">)</span>
+    <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span><span class="tok-p">!</span> <span class="tok-n">Realm</span><span class="tok-p">(</span><span class="tok-n">configuration</span><span class="tok-p">:</span> <span class="tok-n">encryptionConfig</span><span class="tok-p">)</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The encryption key is stored in the iOS Keychain.</p>
+</div>
+<div class="listingblock">
+<div class="title">Get Encryption Key</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="swift"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> - Get the encryption key for the realm db</span>
+
+<span class="tok-cm"> - Parameter kcWrapper: the keychain wrapper instance</span>
+<span class="tok-cm"> - Parameter keychainAlias: the refernence alias for the encryption key stored in the keychain</span>
+
+<span class="tok-cm"> - Returns: the encryption key</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">class</span> <span class="tok-nc">func</span> <span class="tok-n">getEncryptionKey</span><span class="tok-p">(</span><span class="tok-n">kcWrapper</span><span class="tok-p">:</span> <span class="tok-n">KeychainWrapper</span><span class="tok-p">,</span> <span class="tok-n">keychainAlias</span><span class="tok-p">:</span> <span class="tok-nb">String</span><span class="tok-p">)</span> <span class="tok-p">-&gt;</span> <span class="tok-n">Data</span><span class="tok-p">?</span> <span class="tok-p">{</span>
+    <span class="tok-k">guard</span> <span class="tok-kd">let</span> <span class="tok-nv">encryptionKey</span> <span class="tok-p">=</span> <span class="tok-n">kcWrapper</span><span class="tok-p">.</span><span class="tok-n">data</span><span class="tok-p">(</span><span class="tok-n">forKey</span><span class="tok-p">:</span> <span class="tok-n">keychainAlias</span><span class="tok-p">)</span> <span class="tok-k">else</span> <span class="tok-p">{</span>
+        <span class="tok-kd">let</span> <span class="tok-nv">newEncryptionKey</span> <span class="tok-p">=</span> <span class="tok-n">generateEncryptionKey</span><span class="tok-p">()</span>
+        <span class="tok-n">kcWrapper</span><span class="tok-p">.</span><span class="tok-kr">set</span><span class="tok-p">(</span><span class="tok-n">newEncryptionKey</span><span class="tok-p">,</span> <span class="tok-n">forKey</span><span class="tok-p">:</span> <span class="tok-n">keychainAlias</span><span class="tok-p">)</span>
+        <span class="tok-k">return</span> <span class="tok-n">newEncryptionKey</span>
+    <span class="tok-p">}</span>
+    <span class="tok-k">return</span> <span class="tok-n">encryptionKey</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When the application is initialised for the first time, a new encryption key is randomly generated.</p>
+</div>
+<div class="listingblock">
+<div class="title">Generate Encryption Key</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="swift"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> - Generate an encryption key for the realm db</span>
+
+<span class="tok-cm"> - Returns: An encryption key</span>
+<span class="tok-cm"> */</span>
+    <span class="tok-kd">class</span> <span class="tok-nc">func</span> <span class="tok-n">generateEncryptionKey</span><span class="tok-p">()</span> <span class="tok-p">-&gt;</span> <span class="tok-n">Data</span> <span class="tok-p">{</span>
+    <span class="tok-kd">let</span> <span class="tok-nv">byteLength</span> <span class="tok-p">=</span> <span class="tok-mi">64</span>
+    <span class="tok-kd">let</span> <span class="tok-nv">randomNumberSize</span> <span class="tok-p">=</span> <span class="tok-mi">1000000</span>
+    <span class="tok-kd">let</span> <span class="tok-nv">bytes</span> <span class="tok-p">=</span> <span class="tok-p">[</span><span class="tok-nb">UInt32</span><span class="tok-p">](</span><span class="tok-n">repeating</span><span class="tok-p">:</span> <span class="tok-mi">0</span><span class="tok-p">,</span> <span class="tok-bp">count</span><span class="tok-p">:</span> <span class="tok-n">byteLength</span><span class="tok-p">).</span><span class="tok-bp">map</span> <span class="tok-p">{</span> <span class="tok-kc">_</span> <span class="tok-k">in</span> <span class="tok-n">arc4random_uniform</span><span class="tok-p">(</span><span class="tok-nb">UInt32</span><span class="tok-p">(</span><span class="tok-n">randomNumberSize</span><span class="tok-p">))</span> <span class="tok-p">}</span>
+    <span class="tok-kd">let</span> <span class="tok-nv">data</span> <span class="tok-p">=</span> <span class="tok-n">Data</span><span class="tok-p">(</span><span class="tok-n">bytes</span><span class="tok-p">:</span> <span class="tok-n">bytes</span><span class="tok-p">,</span> <span class="tok-bp">count</span><span class="tok-p">:</span> <span class="tok-n">byteLength</span><span class="tok-p">)</span>
+    <span class="tok-k">return</span> <span class="tok-n">data</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="interacting_with_realm_db">Interacting with Realm DB</h6>
+<div class="paragraph">
+<p>Interactions with the Realm DB are performed on background threads. Completion handlers are used to pass information to the view controllers on the Main thread.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="listing_notes">Listing Notes</h6>
+<div class="paragraph">
+<p>List all the notes.</p>
+</div>
+<div class="listingblock">
+<div class="title">Listing Notes</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="swift"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> - List the stored entities from the realm db</span>
+
+<span class="tok-cm"> - Parameter onComplete - a closure called after retrieval</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">func</span> <span class="tok-nf">list</span><span class="tok-p">(</span><span class="tok-n">onComplete</span><span class="tok-p">:</span> <span class="tok-p">@</span><span class="tok-n">escaping</span> <span class="tok-p">(</span><span class="tok-n">Error</span><span class="tok-p">?,</span> <span class="tok-p">[</span><span class="tok-n">Note</span><span class="tok-p">]?)</span> <span class="tok-p">-&gt;</span> <span class="tok-nb">Void</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-n">DispatchQueue</span><span class="tok-p">.</span><span class="tok-n">global</span><span class="tok-p">(</span><span class="tok-n">qos</span><span class="tok-p">:</span> <span class="tok-p">.</span><span class="tok-n">background</span><span class="tok-p">).</span><span class="tok-n">async</span> <span class="tok-p">{</span>
+        <span class="tok-k">do</span> <span class="tok-p">{</span>
+            <span class="tok-c1">// create a new thread confined realm</span>
+            <span class="tok-kd">let</span> <span class="tok-nv">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span> <span class="tok-n">Realm</span><span class="tok-p">(</span><span class="tok-n">configuration</span><span class="tok-p">:</span> <span class="tok-n">Realm</span><span class="tok-p">.</span><span class="tok-n">Configuration</span><span class="tok-p">(</span><span class="tok-n">encryptionKey</span><span class="tok-p">:</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">encryptionKey</span><span class="tok-p">))</span>
+
+            <span class="tok-c1">// synchronization of Realm instance to the latest version on the background thread</span>
+            <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">refresh</span><span class="tok-p">()</span>
+
+            <span class="tok-c1">// retieve the notes from realm</span>
+            <span class="tok-kd">let</span> <span class="tok-nv">notesResult</span> <span class="tok-p">=</span> <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">objects</span><span class="tok-p">(</span><span class="tok-n">Note</span><span class="tok-p">.</span><span class="tok-kc">self</span><span class="tok-p">)</span>
+
+            <span class="tok-c1">// create a new thread safe reference for these notes</span>
+            <span class="tok-kd">let</span> <span class="tok-nv">threadSafeNotes</span> <span class="tok-p">=</span> <span class="tok-n">ThreadSafeReference</span><span class="tok-p">(</span><span class="tok-n">to</span><span class="tok-p">:</span> <span class="tok-n">notesResult</span><span class="tok-p">)</span>
+
+            <span class="tok-c1">// return note to the view controller on the main thread</span>
+            <span class="tok-n">DispatchQueue</span><span class="tok-p">.</span><span class="tok-n">main</span><span class="tok-p">.</span><span class="tok-n">async</span><span class="tok-p">()</span> <span class="tok-p">{</span>
+                <span class="tok-kd">let</span> <span class="tok-nv">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span><span class="tok-p">!</span> <span class="tok-n">Realm</span><span class="tok-p">(</span><span class="tok-n">configuration</span><span class="tok-p">:</span> <span class="tok-n">Realm</span><span class="tok-p">.</span><span class="tok-n">Configuration</span><span class="tok-p">(</span><span class="tok-n">encryptionKey</span><span class="tok-p">:</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">encryptionKey</span><span class="tok-p">))</span>
+
+                <span class="tok-c1">// get the notes using the thread safe reference</span>
+                <span class="tok-k">guard</span> <span class="tok-kd">let</span> <span class="tok-nv">notes</span> <span class="tok-p">=</span> <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">resolve</span><span class="tok-p">(</span><span class="tok-n">threadSafeNotes</span><span class="tok-p">)</span> <span class="tok-k">else</span> <span class="tok-p">{</span>
+                    <span class="tok-k">return</span>
+                <span class="tok-p">}</span>
+
+                <span class="tok-c1">// convert the notes to array format</span>
+                <span class="tok-kd">let</span> <span class="tok-nv">notesArray</span> <span class="tok-p">=</span> <span class="tok-n">notes</span><span class="tok-p">.</span><span class="tok-n">toArray</span><span class="tok-p">()</span>
+
+                <span class="tok-n">onComplete</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span> <span class="tok-n">notesArray</span><span class="tok-p">)</span>
+            <span class="tok-p">}</span>
+        <span class="tok-p">}</span> <span class="tok-k">catch</span> <span class="tok-p">{</span>
+            <span class="tok-n">onComplete</span><span class="tok-p">(</span><span class="tok-n">error</span><span class="tok-p">,</span> <span class="tok-kc">nil</span><span class="tok-p">)</span>
+        <span class="tok-p">}</span>
+    <span class="tok-p">}</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="creating_a_note">Creating a Note</h6>
+<div class="paragraph">
+<p>Create an individual note.</p>
+</div>
+<div class="listingblock">
+<div class="title">Create a Note</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="swift"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> - Create the stored entity</span>
+
+<span class="tok-cm"> - Paramater title: the title of the note</span>
+<span class="tok-cm"> - Paramater content: the content of the note</span>
+<span class="tok-cm"> - Parameter onComplete - a closure called after creation</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">func</span> <span class="tok-nf">create</span><span class="tok-p">(</span><span class="tok-n">title</span><span class="tok-p">:</span> <span class="tok-nb">String</span><span class="tok-p">,</span> <span class="tok-n">content</span><span class="tok-p">:</span> <span class="tok-nb">String</span><span class="tok-p">,</span> <span class="tok-n">onComplete</span><span class="tok-p">:</span> <span class="tok-p">@</span><span class="tok-n">escaping</span> <span class="tok-p">(</span><span class="tok-n">Error</span><span class="tok-p">?,</span> <span class="tok-n">Note</span><span class="tok-p">?)</span> <span class="tok-p">-&gt;</span> <span class="tok-nb">Void</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-kd">var</span> <span class="tok-nv">id</span> <span class="tok-p">=</span> <span class="tok-n">generateId</span><span class="tok-p">()</span>
+    <span class="tok-kd">let</span> <span class="tok-nv">createdAt</span> <span class="tok-p">=</span> <span class="tok-n">getDate</span><span class="tok-p">()</span>
+
+    <span class="tok-c1">// ensure the ID is unique</span>
+    <span class="tok-k">while</span> <span class="tok-o">!</span><span class="tok-n">isIdentifierUnique</span><span class="tok-p">(</span><span class="tok-n">identifier</span><span class="tok-p">:</span> <span class="tok-n">id</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+        <span class="tok-n">id</span> <span class="tok-p">=</span> <span class="tok-n">generateId</span><span class="tok-p">()</span>
+    <span class="tok-p">}</span>
+
+    <span class="tok-c1">// create the note object</span>
+    <span class="tok-kd">let</span> <span class="tok-nv">note</span> <span class="tok-p">=</span> <span class="tok-n">Note</span><span class="tok-p">()</span>
+    <span class="tok-n">note</span><span class="tok-p">.</span><span class="tok-n">id</span> <span class="tok-p">=</span> <span class="tok-n">id</span>
+    <span class="tok-n">note</span><span class="tok-p">.</span><span class="tok-n">title</span> <span class="tok-p">=</span> <span class="tok-n">title</span>
+    <span class="tok-n">note</span><span class="tok-p">.</span><span class="tok-n">content</span> <span class="tok-p">=</span> <span class="tok-n">content</span>
+    <span class="tok-n">note</span><span class="tok-p">.</span><span class="tok-n">createdAt</span> <span class="tok-p">=</span> <span class="tok-n">createdAt</span>
+    <span class="tok-n">note</span><span class="tok-p">.</span><span class="tok-n">storageProvider</span> <span class="tok-p">=</span> <span class="tok-s">&quot;Realm&quot;</span>
+
+    <span class="tok-n">DispatchQueue</span><span class="tok-p">.</span><span class="tok-n">global</span><span class="tok-p">(</span><span class="tok-n">qos</span><span class="tok-p">:</span> <span class="tok-p">.</span><span class="tok-n">background</span><span class="tok-p">).</span><span class="tok-n">async</span> <span class="tok-p">{</span>
+        <span class="tok-c1">// create the note in the db</span>
+        <span class="tok-k">do</span> <span class="tok-p">{</span>
+            <span class="tok-c1">// create a new thread confined realm</span>
+            <span class="tok-kd">let</span> <span class="tok-nv">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span> <span class="tok-n">Realm</span><span class="tok-p">(</span><span class="tok-n">configuration</span><span class="tok-p">:</span> <span class="tok-n">Realm</span><span class="tok-p">.</span><span class="tok-n">Configuration</span><span class="tok-p">(</span><span class="tok-n">encryptionKey</span><span class="tok-p">:</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">encryptionKey</span><span class="tok-p">))</span>
+            <span class="tok-k">try</span> <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">safeWrite</span> <span class="tok-p">{</span>
+                <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">add</span><span class="tok-p">(</span><span class="tok-n">note</span><span class="tok-p">)</span>
+
+            <span class="tok-n">onComplete</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span> <span class="tok-n">note</span><span class="tok-p">)</span>
+            <span class="tok-p">}</span>
+        <span class="tok-p">}</span> <span class="tok-k">catch</span> <span class="tok-p">{</span>
+            <span class="tok-n">onComplete</span><span class="tok-p">(</span><span class="tok-n">error</span><span class="tok-p">,</span> <span class="tok-kc">nil</span><span class="tok-p">)</span>
+        <span class="tok-p">}</span>
+    <span class="tok-p">}</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="read_a_note">Read a Note</h6>
+<div class="paragraph">
+<p>Read an individual note.</p>
+</div>
+<div class="listingblock">
+<div class="title">Read a Note</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="swift"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> - Read the stored entity</span>
+
+<span class="tok-cm"> - Parameter identifier: The identifier of the note</span>
+<span class="tok-cm"> - Parameter onComplete - a closure called after retrieval</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">func</span> <span class="tok-nf">read</span><span class="tok-p">(</span><span class="tok-n">identifier</span><span class="tok-p">:</span> <span class="tok-nb">Int</span><span class="tok-p">,</span> <span class="tok-n">onComplete</span><span class="tok-p">:</span> <span class="tok-p">@</span><span class="tok-n">escaping</span> <span class="tok-p">(</span><span class="tok-n">Error</span><span class="tok-p">?,</span> <span class="tok-n">Note</span><span class="tok-p">?)</span> <span class="tok-p">-&gt;</span> <span class="tok-nb">Void</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-n">DispatchQueue</span><span class="tok-p">.</span><span class="tok-n">global</span><span class="tok-p">(</span><span class="tok-n">qos</span><span class="tok-p">:</span> <span class="tok-p">.</span><span class="tok-n">background</span><span class="tok-p">).</span><span class="tok-n">async</span> <span class="tok-p">{</span>
+        <span class="tok-k">do</span> <span class="tok-p">{</span>
+            <span class="tok-c1">// create a new thread confined realm</span>
+            <span class="tok-kd">let</span> <span class="tok-nv">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span> <span class="tok-n">Realm</span><span class="tok-p">(</span><span class="tok-n">configuration</span><span class="tok-p">:</span> <span class="tok-n">Realm</span><span class="tok-p">.</span><span class="tok-n">Configuration</span><span class="tok-p">(</span><span class="tok-n">encryptionKey</span><span class="tok-p">:</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">encryptionKey</span><span class="tok-p">))</span>
+
+            <span class="tok-c1">// retrieve the notes from realm</span>
+            <span class="tok-kd">let</span> <span class="tok-nv">noteResult</span> <span class="tok-p">=</span> <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">objects</span><span class="tok-p">(</span><span class="tok-n">Note</span><span class="tok-p">.</span><span class="tok-kc">self</span><span class="tok-p">).</span><span class="tok-bp">filter</span><span class="tok-p">(</span><span class="tok-s">&quot;id = </span><span class="tok-si">\(</span><span class="tok-n">identifier</span><span class="tok-si">)</span><span class="tok-s">&quot;</span><span class="tok-p">)</span>
+
+            <span class="tok-c1">// create a new thread safe reference for these notes</span>
+            <span class="tok-kd">let</span> <span class="tok-nv">threadSafeNotes</span> <span class="tok-p">=</span> <span class="tok-n">ThreadSafeReference</span><span class="tok-p">(</span><span class="tok-n">to</span><span class="tok-p">:</span> <span class="tok-n">noteResult</span><span class="tok-p">)</span>
+
+            <span class="tok-c1">// return note to the view controller on the main thread</span>
+            <span class="tok-n">DispatchQueue</span><span class="tok-p">.</span><span class="tok-n">main</span><span class="tok-p">.</span><span class="tok-n">async</span><span class="tok-p">()</span> <span class="tok-p">{</span>
+                <span class="tok-kd">let</span> <span class="tok-nv">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span><span class="tok-p">!</span> <span class="tok-n">Realm</span><span class="tok-p">(</span><span class="tok-n">configuration</span><span class="tok-p">:</span> <span class="tok-n">Realm</span><span class="tok-p">.</span><span class="tok-n">Configuration</span><span class="tok-p">(</span><span class="tok-n">encryptionKey</span><span class="tok-p">:</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">encryptionKey</span><span class="tok-p">))</span>
+
+                <span class="tok-c1">// get the notes using the thread safe reference</span>
+                <span class="tok-k">guard</span> <span class="tok-kd">let</span> <span class="tok-nv">notes</span> <span class="tok-p">=</span> <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">resolve</span><span class="tok-p">(</span><span class="tok-n">threadSafeNotes</span><span class="tok-p">)</span> <span class="tok-k">else</span> <span class="tok-p">{</span>
+                    <span class="tok-k">return</span>
+                <span class="tok-p">}</span>
+
+                <span class="tok-c1">// extract the note from the list</span>
+                <span class="tok-kd">let</span> <span class="tok-nv">note</span> <span class="tok-p">=</span> <span class="tok-n">notes</span><span class="tok-p">.</span><span class="tok-bp">first</span>
+
+                <span class="tok-n">onComplete</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span> <span class="tok-n">note</span><span class="tok-p">)</span>
+            <span class="tok-p">}</span>
+        <span class="tok-p">}</span> <span class="tok-k">catch</span> <span class="tok-p">{</span>
+            <span class="tok-n">onComplete</span><span class="tok-p">(</span><span class="tok-n">error</span><span class="tok-p">,</span> <span class="tok-kc">nil</span><span class="tok-p">)</span>
+        <span class="tok-p">}</span>
+    <span class="tok-p">}</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="edit_a_note">Edit a Note</h6>
+<div class="paragraph">
+<p>Edit an individual note.</p>
+</div>
+<div class="listingblock">
+<div class="title">Edit a Note</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="swift"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> - Edit the stored entity</span>
+
+<span class="tok-cm"> - Parameter identifier: The identifier of the note</span>
+<span class="tok-cm"> - Parameter title: The title of the note</span>
+<span class="tok-cm"> - Parameter content: The content of the note</span>
+<span class="tok-cm"> - Parameter onComplete - a closure called after editing</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">func</span> <span class="tok-nf">edit</span><span class="tok-p">(</span><span class="tok-n">identifier</span><span class="tok-p">:</span> <span class="tok-nb">Int</span><span class="tok-p">,</span> <span class="tok-n">title</span><span class="tok-p">:</span> <span class="tok-nb">String</span><span class="tok-p">,</span> <span class="tok-n">content</span><span class="tok-p">:</span> <span class="tok-nb">String</span><span class="tok-p">,</span> <span class="tok-n">onComplete</span><span class="tok-p">:</span> <span class="tok-p">@</span><span class="tok-n">escaping</span> <span class="tok-p">(</span><span class="tok-n">Error</span><span class="tok-p">?,</span> <span class="tok-n">Note</span><span class="tok-p">?)</span> <span class="tok-p">-&gt;</span> <span class="tok-nb">Void</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-n">DispatchQueue</span><span class="tok-p">.</span><span class="tok-n">global</span><span class="tok-p">(</span><span class="tok-n">qos</span><span class="tok-p">:</span> <span class="tok-p">.</span><span class="tok-n">background</span><span class="tok-p">).</span><span class="tok-n">async</span> <span class="tok-p">{</span>
+        <span class="tok-k">do</span> <span class="tok-p">{</span>
+            <span class="tok-c1">// create a new thread confined realm</span>
+            <span class="tok-kd">let</span> <span class="tok-nv">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span> <span class="tok-n">Realm</span><span class="tok-p">(</span><span class="tok-n">configuration</span><span class="tok-p">:</span> <span class="tok-n">Realm</span><span class="tok-p">.</span><span class="tok-n">Configuration</span><span class="tok-p">(</span><span class="tok-n">encryptionKey</span><span class="tok-p">:</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">encryptionKey</span><span class="tok-p">))</span>
+
+            <span class="tok-c1">// get the existing note to update</span>
+            <span class="tok-kd">let</span> <span class="tok-nv">notes</span> <span class="tok-p">=</span> <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">objects</span><span class="tok-p">(</span><span class="tok-n">Note</span><span class="tok-p">.</span><span class="tok-kc">self</span><span class="tok-p">).</span><span class="tok-bp">filter</span><span class="tok-p">(</span><span class="tok-s">&quot;id = </span><span class="tok-si">\(</span><span class="tok-n">identifier</span><span class="tok-si">)</span><span class="tok-s">&quot;</span><span class="tok-p">)</span>
+            <span class="tok-kd">let</span> <span class="tok-nv">note</span> <span class="tok-p">=</span> <span class="tok-n">notes</span><span class="tok-p">.</span><span class="tok-bp">first</span>
+
+            <span class="tok-c1">// update the note with the given id</span>
+            <span class="tok-k">try</span> <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">write</span> <span class="tok-p">{</span>
+                <span class="tok-n">note</span><span class="tok-p">?.</span><span class="tok-n">title</span> <span class="tok-p">=</span> <span class="tok-n">title</span>
+                <span class="tok-n">note</span><span class="tok-p">?.</span><span class="tok-n">content</span> <span class="tok-p">=</span> <span class="tok-n">content</span>
+            <span class="tok-p">}</span>
+            <span class="tok-n">onComplete</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span> <span class="tok-n">note</span><span class="tok-p">)</span>
+        <span class="tok-p">}</span> <span class="tok-k">catch</span> <span class="tok-p">{</span>
+            <span class="tok-n">onComplete</span><span class="tok-p">(</span><span class="tok-n">error</span><span class="tok-p">,</span> <span class="tok-kc">nil</span><span class="tok-p">)</span>
+        <span class="tok-p">}</span>
+    <span class="tok-p">}</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="delete_a_note">Delete a Note</h6>
+<div class="paragraph">
+<p>Delete an individual note.</p>
+</div>
+<div class="listingblock">
+<div class="title">Delete a Note</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="swift"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> - Delete the stored entity</span>
+
+<span class="tok-cm"> - Parameter identifier: The identifier of the note</span>
+<span class="tok-cm"> - Parameter onComplete - a closure called after deletion</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">func</span> <span class="tok-nf">delete</span><span class="tok-p">(</span><span class="tok-n">identifier</span><span class="tok-p">:</span> <span class="tok-nb">Int</span><span class="tok-p">,</span> <span class="tok-n">onComplete</span><span class="tok-p">:</span> <span class="tok-p">@</span><span class="tok-n">escaping</span> <span class="tok-p">(</span><span class="tok-n">Error</span><span class="tok-p">?,</span> <span class="tok-n">Note</span><span class="tok-p">?)</span> <span class="tok-p">-&gt;</span> <span class="tok-nb">Void</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-n">DispatchQueue</span><span class="tok-p">.</span><span class="tok-n">global</span><span class="tok-p">(</span><span class="tok-n">qos</span><span class="tok-p">:</span> <span class="tok-p">.</span><span class="tok-n">background</span><span class="tok-p">).</span><span class="tok-n">async</span> <span class="tok-p">{</span>
+        <span class="tok-k">do</span> <span class="tok-p">{</span>
+            <span class="tok-c1">// create a new thread confined realm</span>
+            <span class="tok-kd">let</span> <span class="tok-nv">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span> <span class="tok-n">Realm</span><span class="tok-p">(</span><span class="tok-n">configuration</span><span class="tok-p">:</span> <span class="tok-n">Realm</span><span class="tok-p">.</span><span class="tok-n">Configuration</span><span class="tok-p">(</span><span class="tok-n">encryptionKey</span><span class="tok-p">:</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">encryptionKey</span><span class="tok-p">))</span>
+
+            <span class="tok-c1">// get the note to delete</span>
+            <span class="tok-kd">let</span> <span class="tok-nv">noteToDeleteResult</span> <span class="tok-p">=</span> <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">objects</span><span class="tok-p">(</span><span class="tok-n">Note</span><span class="tok-p">.</span><span class="tok-kc">self</span><span class="tok-p">).</span><span class="tok-bp">filter</span><span class="tok-p">(</span><span class="tok-s">&quot;id = </span><span class="tok-si">\(</span><span class="tok-n">identifier</span><span class="tok-si">)</span><span class="tok-s">&quot;</span><span class="tok-p">)</span>
+            <span class="tok-kd">let</span> <span class="tok-nv">note</span> <span class="tok-p">=</span> <span class="tok-n">noteToDeleteResult</span><span class="tok-p">.</span><span class="tok-bp">first</span>
+
+            <span class="tok-c1">// delete the note</span>
+            <span class="tok-k">try</span> <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">write</span> <span class="tok-p">{</span>
+                <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">delete</span><span class="tok-p">((</span><span class="tok-n">note</span><span class="tok-p">)</span><span class="tok-o">!</span><span class="tok-p">)</span>
+            <span class="tok-p">}</span>
+            <span class="tok-n">onComplete</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span> <span class="tok-n">note</span><span class="tok-p">)</span>
+        <span class="tok-p">}</span> <span class="tok-k">catch</span> <span class="tok-p">{</span>
+            <span class="tok-n">onComplete</span><span class="tok-p">(</span><span class="tok-n">error</span><span class="tok-p">,</span> <span class="tok-kc">nil</span><span class="tok-p">)</span>
+        <span class="tok-p">}</span>
+
+    <span class="tok-p">}</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="delete_all_notes">Delete all Notes</h6>
+<div class="paragraph">
+<p>Delete all notes.</p>
+</div>
+<div class="listingblock">
+<div class="title">Delete all Notes</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="swift"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> - Delete all stored entitities</span>
+
+<span class="tok-cm"> - Parameter onComplete - a closure called after deletion</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">func</span> <span class="tok-nf">deleteAll</span><span class="tok-p">(</span><span class="tok-n">onComplete</span><span class="tok-p">:</span> <span class="tok-p">@</span><span class="tok-n">escaping</span> <span class="tok-p">(</span><span class="tok-n">Error</span><span class="tok-p">?,</span> <span class="tok-nb">Bool</span><span class="tok-p">?)</span> <span class="tok-p">-&gt;</span> <span class="tok-nb">Void</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-n">DispatchQueue</span><span class="tok-p">.</span><span class="tok-n">global</span><span class="tok-p">(</span><span class="tok-n">qos</span><span class="tok-p">:</span> <span class="tok-p">.</span><span class="tok-n">background</span><span class="tok-p">).</span><span class="tok-n">async</span> <span class="tok-p">{</span>
+        <span class="tok-k">do</span> <span class="tok-p">{</span>
+            <span class="tok-c1">// create a new thread confined realm</span>
+            <span class="tok-kd">let</span> <span class="tok-nv">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span> <span class="tok-n">Realm</span><span class="tok-p">(</span><span class="tok-n">configuration</span><span class="tok-p">:</span> <span class="tok-n">Realm</span><span class="tok-p">.</span><span class="tok-n">Configuration</span><span class="tok-p">(</span><span class="tok-n">encryptionKey</span><span class="tok-p">:</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">encryptionKey</span><span class="tok-p">))</span>
+
+            <span class="tok-kd">let</span> <span class="tok-nv">notes</span> <span class="tok-p">=</span> <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">objects</span><span class="tok-p">(</span><span class="tok-n">Note</span><span class="tok-p">.</span><span class="tok-kc">self</span><span class="tok-p">)</span>
+
+            <span class="tok-c1">// delete all the notes</span>
+            <span class="tok-k">try</span> <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">write</span> <span class="tok-p">{</span>
+                <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">delete</span><span class="tok-p">(</span><span class="tok-n">notes</span><span class="tok-p">)</span>
+            <span class="tok-p">}</span>
+            <span class="tok-n">onComplete</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span> <span class="tok-kc">true</span><span class="tok-p">)</span>
+        <span class="tok-p">}</span> <span class="tok-k">catch</span> <span class="tok-p">{</span>
+            <span class="tok-n">onComplete</span><span class="tok-p">(</span><span class="tok-n">error</span><span class="tok-p">,</span> <span class="tok-kc">nil</span><span class="tok-p">)</span>
+        <span class="tok-p">}</span>
+    <span class="tok-p">}</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="network_security">1.3. Network Security</h3>
+<h3 id="network_security">2.3. Network Security</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 50%;">
@@ -1932,7 +2528,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 </tbody>
 </table>
 <div class="sect3">
-<h4 id="implementation_3">1.3.1. Implementation</h4>
+<h4 id="implementation_3">2.3.1. Implementation</h4>
 <div class="sect4">
 <h5 id="overview_3">Overview</h5>
 <div class="paragraph">
@@ -1978,7 +2574,9 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 20
 21
 22
-23</div></td><td class="code"><span class="tok-cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+23
+24
+25</div></td><td class="code"><span></span><span class="tok-cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
 <span class="tok-nt">&lt;network-security-config&gt;</span>
     <span class="tok-nt">&lt;domain-config</span> <span class="tok-na">cleartextTrafficPermitted=</span><span class="tok-s">&quot;false&quot;</span><span class="tok-nt">&gt;</span>
         <span class="tok-nt">&lt;domain</span> <span class="tok-na">includeSubdomains=</span><span class="tok-s">&quot;true&quot;</span><span class="tok-nt">&gt;</span>osm1.skunkhenry.com<span class="tok-nt">&lt;/domain&gt;</span>
@@ -2001,6 +2599,8 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
         <span class="tok-nt">&lt;/trust-anchors&gt;</span>
     <span class="tok-nt">&lt;/debug-overrides&gt;</span>
 <span class="tok-nt">&lt;/network-security-config&gt;</span>
+
+
 </td></tr></table></code></pre>
 </div>
 </div>
@@ -2070,14 +2670,16 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 50
 51
 52
-53</div></td><td class="code"><span class="tok-cm">/**</span>
+53
+54</div></td><td class="code"><span></span>
+<span class="tok-cm">/**</span>
 <span class="tok-cm"> * Make a request to a resource that requires the access token to be sent with the request</span>
 <span class="tok-cm"> */</span>
 <span class="tok-kd">public</span> <span class="tok-n">Call</span> <span class="tok-nf">createRequest</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">requestUrl</span><span class="tok-o">,</span> <span class="tok-kt">boolean</span> <span class="tok-n">sendAccessToken</span><span class="tok-o">,</span> <span class="tok-n">okhttp3</span><span class="tok-o">.</span><span class="tok-na">Callback</span> <span class="tok-n">callback</span><span class="tok-o">)</span> <span class="tok-o">{</span>
 
     <span class="tok-n">URL</span> <span class="tok-n">url</span> <span class="tok-o">=</span> <span class="tok-kc">null</span><span class="tok-o">;</span>
     <span class="tok-k">try</span> <span class="tok-o">{</span>
-        <span class="tok-n">url</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">URL</span><span class="tok-o">(</span><span class="tok-n">requestUrl</span><span class="tok-o">);</span>
+        <span class="tok-n">url</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">URL</span><span class="tok-o">(</span><span class="tok-n">requestUrl</span><span class="tok-o">);</span>
     <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">MalformedURLException</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
         <span class="tok-n">e</span><span class="tok-o">.</span><span class="tok-na">printStackTrace</span><span class="tok-o">();</span>
     <span class="tok-o">}</span>
@@ -2145,7 +2747,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 11
 12
 13
-14</div></td><td class="code"><span class="tok-cm">/**</span>
+14</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Check if an exception is caused by a certificate verification error</span>
 <span class="tok-cm"> * @param e</span>
 <span class="tok-cm"> * @return</span>
@@ -2184,13 +2786,13 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 11
 12
 13
-14</div></td><td class="code"><span class="tok-nd">@Override</span>
+14</div></td><td class="code"><span></span><span class="tok-nd">@Override</span>
 <span class="tok-kd">protected</span> <span class="tok-n">ClientStatus</span> <span class="tok-nf">doInBackground</span><span class="tok-o">(</span><span class="tok-n">Void</span><span class="tok-o">...</span> <span class="tok-n">voids</span><span class="tok-o">)</span> <span class="tok-o">{</span>
     <span class="tok-n">ClientStatus</span> <span class="tok-n">status</span> <span class="tok-o">=</span> <span class="tok-kc">null</span><span class="tok-o">;</span>
     <span class="tok-k">try</span> <span class="tok-o">{</span>
         <span class="tok-kt">boolean</span> <span class="tok-n">hasPermission</span> <span class="tok-o">=</span> <span class="tok-n">authStateService</span><span class="tok-o">.</span><span class="tok-na">hasRole</span><span class="tok-o">(</span><span class="tok-n">requiredRole</span><span class="tok-o">);</span>
         <span class="tok-kt">long</span> <span class="tok-n">numberOfNotes</span> <span class="tok-o">=</span> <span class="tok-n">noteRepository</span><span class="tok-o">.</span><span class="tok-na">count</span><span class="tok-o">();</span>
-        <span class="tok-n">status</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">ClientStatus</span><span class="tok-o">(</span><span class="tok-n">hasPermission</span><span class="tok-o">,</span> <span class="tok-n">numberOfNotes</span><span class="tok-o">);</span>
+        <span class="tok-n">status</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">ClientStatus</span><span class="tok-o">(</span><span class="tok-n">hasPermission</span><span class="tok-o">,</span> <span class="tok-n">numberOfNotes</span><span class="tok-o">);</span>
         <span class="tok-k">return</span> <span class="tok-n">status</span><span class="tok-o">;</span>
     <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">Exception</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
         <span class="tok-n">Log</span><span class="tok-o">.</span><span class="tok-na">e</span><span class="tok-o">(</span><span class="tok-n">TAG</span><span class="tok-o">,</span> <span class="tok-s">&quot;Error - Exception&quot;</span><span class="tok-o">,</span> <span class="tok-n">e</span><span class="tok-o">);</span>
@@ -2208,7 +2810,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 <div class="title">Code</div>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="javascript"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1
-2</div></td><td class="code"><span class="tok-nx">app</span><span class="tok-p">.</span><span class="tok-nx">use</span><span class="tok-p">(</span><span class="tok-nx">keycloak</span><span class="tok-p">.</span><span class="tok-nx">middleware</span><span class="tok-p">());</span>
+2</div></td><td class="code"><span></span><span class="tok-nx">app</span><span class="tok-p">.</span><span class="tok-nx">use</span><span class="tok-p">(</span><span class="tok-nx">keycloak</span><span class="tok-p">.</span><span class="tok-nx">middleware</span><span class="tok-p">());</span>
 <span class="tok-nx">app</span><span class="tok-p">.</span><span class="tok-nx">use</span><span class="tok-p">(</span><span class="tok-s1">&#39;/&#39;</span><span class="tok-p">,</span> <span class="tok-nx">keycloak</span><span class="tok-p">.</span><span class="tok-nx">protect</span><span class="tok-p">(</span><span class="tok-s1">&#39;realm:api-access&#39;</span><span class="tok-p">),</span> <span class="tok-nx">routes</span><span class="tok-p">);</span>
 </td></tr></table></code></pre>
 </div>
@@ -2264,13 +2866,13 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 43
 44
 45
-46</div></td><td class="code"><span class="tok-nd">@Override</span>
+46</div></td><td class="code"><span></span><span class="tok-nd">@Override</span>
 <span class="tok-kd">protected</span> <span class="tok-n">Long</span> <span class="tok-nf">doInBackground</span><span class="tok-o">(</span><span class="tok-n">Void</span><span class="tok-o">...</span> <span class="tok-n">voids</span><span class="tok-o">)</span> <span class="tok-o">{</span>
     <span class="tok-n">String</span> <span class="tok-n">apiUrl</span> <span class="tok-o">=</span> <span class="tok-n">apiServerConfiguration</span><span class="tok-o">.</span><span class="tok-na">getNoteAPIUrl</span><span class="tok-o">();</span>
     <span class="tok-n">String</span> <span class="tok-n">accessToken</span> <span class="tok-o">=</span> <span class="tok-n">authStateService</span><span class="tok-o">.</span><span class="tok-na">getAccessToken</span><span class="tok-o">();</span>
     <span class="tok-kt">long</span> <span class="tok-n">uploaded</span> <span class="tok-o">=</span> <span class="tok-mi">0</span><span class="tok-o">;</span>
     <span class="tok-k">try</span> <span class="tok-o">{</span>
-        <span class="tok-n">URL</span> <span class="tok-n">url</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">URL</span><span class="tok-o">(</span><span class="tok-n">apiUrl</span><span class="tok-o">);</span>
+        <span class="tok-n">URL</span> <span class="tok-n">url</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">URL</span><span class="tok-o">(</span><span class="tok-n">apiUrl</span><span class="tok-o">);</span>
         <span class="tok-n">String</span> <span class="tok-n">hostname</span> <span class="tok-o">=</span> <span class="tok-n">url</span><span class="tok-o">.</span><span class="tok-na">getHost</span><span class="tok-o">();</span>
 
         <span class="tok-n">SSLSocketFactory</span> <span class="tok-n">sslSocketFactory</span> <span class="tok-o">=</span> <span class="tok-n">TrustKit</span><span class="tok-o">.</span><span class="tok-na">getInstance</span><span class="tok-o">().</span><span class="tok-na">getSSLSocketFactory</span><span class="tok-o">(</span><span class="tok-n">hostname</span><span class="tok-o">);</span>
@@ -2301,7 +2903,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
             <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">res</span><span class="tok-o">.</span><span class="tok-na">isSuccessful</span><span class="tok-o">())</span> <span class="tok-o">{</span>
                 <span class="tok-n">uploaded</span><span class="tok-o">++;</span>
             <span class="tok-o">}</span> <span class="tok-k">else</span> <span class="tok-o">{</span>
-                <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">error</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">Exception</span><span class="tok-o">(</span><span class="tok-n">res</span><span class="tok-o">.</span><span class="tok-na">body</span><span class="tok-o">().</span><span class="tok-na">string</span><span class="tok-o">());</span>
+                <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">error</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">Exception</span><span class="tok-o">(</span><span class="tok-n">res</span><span class="tok-o">.</span><span class="tok-na">body</span><span class="tok-o">().</span><span class="tok-na">string</span><span class="tok-o">());</span>
             <span class="tok-o">}</span>
         <span class="tok-o">}</span>
     <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span> <span class="tok-n">Exception</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
@@ -2318,7 +2920,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect2">
-<h3 id="mobile_app_self_defence">1.4. Mobile App Self-Defence</h3>
+<h3 id="mobile_app_self_defence">2.4. Mobile App Self-Defence</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 50%;">
@@ -2410,15 +3012,15 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </tbody>
 </table>
 <div class="sect3">
-<h4 id="implementation_4">1.4.1. Implementation</h4>
+<h4 id="implementation_4">2.4.1. Implementation</h4>
 <div class="sect4">
 <h5 id="overview_4">Overview</h5>
 <div class="paragraph">
-<p>A number of checks were implemented to assess the security of the underlying device running the application.</p>
+<p>A number of checks were implemented to assess the security of the underlying device running both the Android and iOS template applications.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="code_examples_3">Code Examples</h5>
+<h5 id="android">Android</h5>
 <div class="paragraph">
 <p>The main code logic is found under <a href="https://github.com/feedhenry/mobile-security-android-template/tree/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device">here</a>.</p>
 </div>
@@ -2442,12 +3044,12 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
  7
  8
  9
-10</div></td><td class="code"><span class="tok-cm">/**</span>
+10</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Detect if the device is rooted.</span>
 <span class="tok-cm"> */</span>
 <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">detectRoot</span><span class="tok-o">()</span> <span class="tok-o">{</span>
     <span class="tok-n">totalTests</span><span class="tok-o">++;</span>
-    <span class="tok-n">RootBeer</span> <span class="tok-n">rootBeer</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">RootBeer</span><span class="tok-o">(</span><span class="tok-n">context</span><span class="tok-o">);</span>
+    <span class="tok-n">RootBeer</span> <span class="tok-n">rootBeer</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">RootBeer</span><span class="tok-o">(</span><span class="tok-n">context</span><span class="tok-o">);</span>
     <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">rootBeer</span><span class="tok-o">.</span><span class="tok-na">isRooted</span><span class="tok-o">())</span> <span class="tok-o">{</span>
         <span class="tok-n">setDetected</span><span class="tok-o">(</span><span class="tok-n">rootAccess</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">string</span><span class="tok-o">.</span><span class="tok-na">root_detected_positive</span><span class="tok-o">);</span>
     <span class="tok-o">}</span>
@@ -2477,7 +3079,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 11
 12
 13
-14</div></td><td class="code"><span class="tok-cm">/**</span>
+14</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Detect if the device has a lock screen setup (pin, password etc).</span>
 <span class="tok-cm"> */</span>
 <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">detectDeviceLock</span><span class="tok-o">()</span> <span class="tok-o">{</span>
@@ -2511,7 +3113,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 6
 7
 8
-9</div></td><td class="code"><span class="tok-cm">/**</span>
+9</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Detect if a debugger is attached to the application.</span>
 <span class="tok-cm"> */</span>
 <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">debuggerDetected</span><span class="tok-o">()</span> <span class="tok-o">{</span>
@@ -2547,7 +3149,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 13
 14
 15
-16</div></td><td class="code"><span class="tok-cm">/**</span>
+16</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Helper function to detect if the host is an emulator</span>
 <span class="tok-cm"> *</span>
 <span class="tok-cm"> * @return boolean</span>
@@ -2586,7 +3188,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
  9
 10
 11
-12</div></td><td class="code"><span class="tok-cm">/**</span>
+12</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Detect if a hooking framework application is installed on the device</span>
 <span class="tok-cm"> */</span>
 <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">detectHookingFramework</span><span class="tok-o">()</span> <span class="tok-o">{</span>
@@ -2624,7 +3226,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 12
 13
 14
-15</div></td><td class="code"><span class="tok-cm">/**</span>
+15</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Function to check if the backup flag is enabled in the application manifest file</span>
 <span class="tok-cm"> */</span>
 <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">detectBackupEnabled</span><span class="tok-o">()</span> <span class="tok-o">{</span>
@@ -2662,7 +3264,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
  9
 10
 11
-12</div></td><td class="code"><span class="tok-cm">/**</span>
+12</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Function to check if the device is running the latest Android OS</span>
 <span class="tok-cm"> */</span>
 <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">detectLatestOS</span><span class="tok-o">()</span> <span class="tok-o">{</span>
@@ -2698,7 +3300,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 10
 11
 12
-13</div></td><td class="code"><span class="tok-cm">/**</span>
+13</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Detect if the developer options mode is enabled on the device</span>
 <span class="tok-cm"> */</span>
 <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">detectDeveloperOptions</span><span class="tok-o">()</span> <span class="tok-o">{</span>
@@ -2716,10 +3318,193 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 </div>
+<div class="sect4">
+<h5 id="native_ios_2">Native iOS</h5>
+<div class="paragraph">
+<p>The following code snippets below describe the main device trust detection logic in the iOS template app.</p>
+</div>
+<div class="sect5">
+<h6 id="detecting_device_lock">Detecting Device Lock</h6>
+<div class="paragraph">
+<p>Detecting if the Device has a lock screen set.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="swift"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> - Check if a lock screen is set on the device. (iOS 9 or higher).</span>
+
+<span class="tok-cm"> - Returns: A detector object.</span>
+<span class="tok-cm"> */</span>
+<span class="tok-n">fileprivate</span> <span class="tok-kd">func</span> <span class="tok-nf">detectDeviceLock</span><span class="tok-p">()</span> <span class="tok-p">-&gt;</span> <span class="tok-n">Detector</span> <span class="tok-p">{</span>
+    <span class="tok-kd">let</span> <span class="tok-nv">deviceLockSet</span> <span class="tok-p">=</span> <span class="tok-bp">LAContext</span><span class="tok-p">().</span><span class="tok-n">canEvaluatePolicy</span><span class="tok-p">(.</span><span class="tok-n">deviceOwnerAuthentication</span><span class="tok-p">,</span> <span class="tok-n">error</span><span class="tok-p">:</span> <span class="tok-kc">nil</span><span class="tok-p">)</span>
+    <span class="tok-k">if</span> <span class="tok-n">deviceLockSet</span> <span class="tok-p">==</span> <span class="tok-kc">false</span> <span class="tok-p">{</span>
+        <span class="tok-k">return</span> <span class="tok-n">Detector</span><span class="tok-p">(</span><span class="tok-n">label</span><span class="tok-p">:</span> <span class="tok-n">DETECTION_DEVICE_LOCK_POSITIVE</span><span class="tok-p">,</span> <span class="tok-n">detected</span><span class="tok-p">:</span> <span class="tok-kc">true</span><span class="tok-p">,</span> <span class="tok-n">description</span><span class="tok-p">:</span> <span class="tok-n">DETECTION_DEVICE_LOCK_DESC</span><span class="tok-p">)</span>
+    <span class="tok-p">}</span> <span class="tok-k">else</span> <span class="tok-p">{</span>
+        <span class="tok-k">return</span> <span class="tok-n">Detector</span><span class="tok-p">(</span><span class="tok-n">label</span><span class="tok-p">:</span> <span class="tok-n">DETECTION_DEVICE_LOCK_NEGATIVE</span><span class="tok-p">,</span> <span class="tok-n">detected</span><span class="tok-p">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span> <span class="tok-n">description</span><span class="tok-p">:</span> <span class="tok-n">DETECTION_DEVICE_LOCK_DESC</span><span class="tok-p">)</span>
+    <span class="tok-p">}</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="detecting_jailbreak">Detecting Jailbreak</h6>
+<div class="paragraph">
+<p>Detecting if the Device is Jailbroken using the <a href="https://github.com/thii/DTTJailbreakDetection">DTTJailbreakDetection</a> library.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="swift"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> - Check if the device running the application is jailbroken.</span>
+
+<span class="tok-cm"> - Returns: A detector object.</span>
+<span class="tok-cm"> */</span>
+<span class="tok-n">fileprivate</span> <span class="tok-kd">func</span> <span class="tok-nf">detectJailbreak</span><span class="tok-p">()</span> <span class="tok-p">-&gt;</span> <span class="tok-n">Detector</span> <span class="tok-p">{</span>
+    <span class="tok-k">if</span> <span class="tok-p">(</span><span class="tok-n">DTTJailbreakDetection</span><span class="tok-p">.</span><span class="tok-n">isJailbroken</span><span class="tok-p">())</span> <span class="tok-p">{</span>
+        <span class="tok-k">return</span> <span class="tok-n">Detector</span><span class="tok-p">(</span><span class="tok-n">label</span><span class="tok-p">:</span> <span class="tok-n">JAILBREAK_DETECTED_POSITIVE</span><span class="tok-p">,</span> <span class="tok-n">detected</span><span class="tok-p">:</span> <span class="tok-kc">true</span><span class="tok-p">,</span> <span class="tok-n">description</span><span class="tok-p">:</span> <span class="tok-n">JAILBREAK_DETECTED_DESC</span><span class="tok-p">)</span>
+    <span class="tok-p">}</span> <span class="tok-k">else</span> <span class="tok-p">{</span>
+        <span class="tok-k">return</span> <span class="tok-n">Detector</span><span class="tok-p">(</span><span class="tok-n">label</span><span class="tok-p">:</span> <span class="tok-n">JAILBREAK_DETECTED_NEGATIVE</span><span class="tok-p">,</span> <span class="tok-n">detected</span><span class="tok-p">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span> <span class="tok-n">description</span><span class="tok-p">:</span> <span class="tok-n">JAILBREAK_DETECTED_DESC</span><span class="tok-p">)</span>
+    <span class="tok-p">}</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="detecting_debug_mode">Detecting Debug Mode</h6>
+<div class="paragraph">
+<p>Detecting if the device is running in Debug mode.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="swift"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> - Check if the device running the application is jailbroken.</span>
+
+<span class="tok-cm"> - Returns: A detector object.</span>
+<span class="tok-cm"> */</span>
+<span class="tok-n">fileprivate</span> <span class="tok-kd">func</span> <span class="tok-nf">detectDebugabble</span><span class="tok-p">()</span> <span class="tok-p">-&gt;</span> <span class="tok-n">Detector</span> <span class="tok-p">{</span>
+    <span class="tok-cp">#if</span> <span class="tok-cp">DEBUG</span>
+        <span class="tok-k">return</span> <span class="tok-n">Detector</span><span class="tok-p">(</span><span class="tok-n">label</span><span class="tok-p">:</span> <span class="tok-n">DEBUG_MODE_DETECTED_POSITIVE</span><span class="tok-p">,</span> <span class="tok-n">detected</span><span class="tok-p">:</span> <span class="tok-kc">true</span><span class="tok-p">,</span> <span class="tok-n">description</span><span class="tok-p">:</span> <span class="tok-n">DEBUG_MODE_DETECTED_DESC</span><span class="tok-p">)</span>
+    <span class="tok-cp">#else</span>
+        <span class="tok-k">return</span> <span class="tok-n">Detector</span><span class="tok-p">(</span><span class="tok-n">label</span><span class="tok-p">:</span> <span class="tok-n">DEBUG_MODE_DETECTED_NEGATIVE</span><span class="tok-p">,</span> <span class="tok-n">detected</span><span class="tok-p">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span> <span class="tok-n">description</span><span class="tok-p">:</span> <span class="tok-n">DEBUG_MODE_DETECTED_DESC</span><span class="tok-p">)</span>
+    <span class="tok-cp">#endif</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="detecting_emulator_access_2">Detecting Emulator Access</h6>
+<div class="paragraph">
+<p>Detecting if the underlying device running the mobile application is an Emulator.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="swift"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> - Check if the application is running in an emulator.</span>
+
+<span class="tok-cm"> - Returns: A detector object.</span>
+<span class="tok-cm"> */</span>
+<span class="tok-n">fileprivate</span> <span class="tok-kd">func</span> <span class="tok-nf">detectEmulator</span><span class="tok-p">()</span> <span class="tok-p">-&gt;</span> <span class="tok-n">Detector</span> <span class="tok-p">{</span>
+    <span class="tok-cp">#if</span> <span class="tok-p">(</span><span class="tok-cp">arch</span><span class="tok-p">(</span><span class="tok-cp">i386</span><span class="tok-p">)</span> <span class="tok-o">||</span> <span class="tok-cp">arch</span><span class="tok-p">(</span><span class="tok-cp">x86_64</span><span class="tok-p">))</span> <span class="tok-o">&amp;&amp;</span> <span class="tok-cp">os</span><span class="tok-p">(</span><span class="tok-cp">iOS</span><span class="tok-p">)</span>
+        <span class="tok-k">return</span> <span class="tok-n">Detector</span><span class="tok-p">(</span><span class="tok-n">label</span><span class="tok-p">:</span> <span class="tok-n">EMULATOR_DETECTED_POSITIVE</span><span class="tok-p">,</span> <span class="tok-n">detected</span><span class="tok-p">:</span> <span class="tok-kc">true</span><span class="tok-p">,</span> <span class="tok-n">description</span><span class="tok-p">:</span> <span class="tok-n">EMULATOR_DETECTED_DESC</span><span class="tok-p">)</span>
+    <span class="tok-cp">#else</span>
+        <span class="tok-k">return</span> <span class="tok-n">Detector</span><span class="tok-p">(</span><span class="tok-n">label</span><span class="tok-p">:</span> <span class="tok-n">EMULATOR_DETECTED_NEGATIVE</span><span class="tok-p">,</span> <span class="tok-n">detected</span><span class="tok-p">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span> <span class="tok-n">description</span><span class="tok-p">:</span> <span class="tok-n">EMULATOR_DETECTED_DESC</span><span class="tok-p">)</span>
+    <span class="tok-cp">#endif</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="detecting_outdated_os_versions">Detecting Outdated OS Versions</h6>
+<div class="paragraph">
+<p>Detecting if the underlying device running the mobile application is running an old version of iOS.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="swift"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> - Check if the device is running the on the latest version of iOS.</span>
+
+<span class="tok-cm"> - Returns: A detector object.</span>
+<span class="tok-cm"> */</span>
+<span class="tok-n">fileprivate</span> <span class="tok-kd">func</span> <span class="tok-nf">detectLatestOS</span><span class="tok-p">()</span> <span class="tok-p">-&gt;</span> <span class="tok-n">Detector</span> <span class="tok-p">{</span>
+    <span class="tok-k">if</span> <span class="tok-cp">#available</span><span class="tok-p">(</span><span class="tok-cp">iOS</span> <span class="tok-mf">11.0</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+        <span class="tok-k">return</span> <span class="tok-n">Detector</span><span class="tok-p">(</span><span class="tok-n">label</span><span class="tok-p">:</span> <span class="tok-n">LATEST_OS_DETECTED_NEGATIVE</span><span class="tok-p">,</span> <span class="tok-n">detected</span><span class="tok-p">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span> <span class="tok-n">description</span><span class="tok-p">:</span> <span class="tok-n">LATEST_OS_DETECTED_DESC</span><span class="tok-p">)</span>
+    <span class="tok-p">}</span> <span class="tok-k">else</span> <span class="tok-p">{</span>
+        <span class="tok-k">return</span> <span class="tok-n">Detector</span><span class="tok-p">(</span><span class="tok-n">label</span><span class="tok-p">:</span> <span class="tok-n">LATEST_OS_DETECTED_POSITIVE</span><span class="tok-p">,</span> <span class="tok-n">detected</span><span class="tok-p">:</span> <span class="tok-kc">true</span><span class="tok-p">,</span> <span class="tok-n">description</span><span class="tok-p">:</span> <span class="tok-n">LATEST_OS_DETECTED_DESC</span><span class="tok-p">)</span>
+    <span class="tok-p">}</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="handling_sensitive_data_overview">1.5. Handling Sensitive Data Overview</h3>
+<h3 id="handling_sensitive_data_overview">2.5. Handling Sensitive Data Overview</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 50%;">
@@ -2762,7 +3547,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </table>
 </div>
 <div class="sect2">
-<h3 id="cryptography_summary">1.6. Cryptography Summary</h3>
+<h3 id="cryptography_summary">2.6. Cryptography Summary</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 50%;">
@@ -2788,13 +3573,13 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 <td class="tableblock halign-left valign-top"><p class="tableblock">Creation and Use of Custom Encryption Protocols</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Recommended minimal key lengths and algorithms
-</p><p class="tableblock">Key exchange : Diffie–Hellman with a minimum of 2048 bits
-</p><p class="tableblock">Message Integrity: HMAC-SHA2 (or HMAC-SHA-256)
-</p><p class="tableblock">Message Hash: SHA2 256 bits
-</p><p class="tableblock">Assymetric encryption: RSA 2048 bits
-</p><p class="tableblock">Symmetric-key algorithm: AES 128 bits (CBC or GCM)
-</p><p class="tableblock">Password Hashing: PBKDF2, Scrypt, Bcrypt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Recommended minimal key lengths and algorithms</p>
+<p class="tableblock">Key exchange : Diffie–Hellman with a minimum of 2048 bits</p>
+<p class="tableblock">Message Integrity: HMAC-SHA2 (or HMAC-SHA-256)</p>
+<p class="tableblock">Message Hash: SHA2 256 bits</p>
+<p class="tableblock">Assymetric encryption: RSA 2048 bits</p>
+<p class="tableblock">Symmetric-key algorithm: AES 128 bits (CBC or GCM)</p>
+<p class="tableblock">Password Hashing: PBKDF2, Scrypt, Bcrypt</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use of Insecure and/or Deprecated Algorithms, like RC2, MD5, MD4, SHA1</p></td>
 </tr>
 <tr>
@@ -2811,15 +3596,15 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect1">
-<h2 id="references_2">2. References</h2>
+<h2 id="references_2">3. References</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="owasp_top_10_mobile_risks">2.1. OWASP Top 10 Mobile Risks</h3>
+<h3 id="owasp_top_10_mobile_risks">3.1. OWASP Top 10 Mobile Risks</h3>
 <div class="paragraph">
 <p>This is a summary of the <a href="https://www.owasp.org/index.php/OWASP_Mobile_Security_Project#tab=Top_10_Mobile_Risks">OWASP Top 10 Mobile Risks Project for 2017</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="m1_improper_platform_usage">2.1.1. M1 - Improper Platform Usage</h4>
+<h4 id="m1_improper_platform_usage">3.1.1. M1 - Improper Platform Usage</h4>
 <div class="sect4">
 <h5 id="threat_agents">Threat Agents</h5>
 <div class="ulist">
@@ -2871,7 +3656,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect3">
-<h4 id="m2_insecure_data_storage">2.1.2. M2 - Insecure Data Storage</h4>
+<h4 id="m2_insecure_data_storage">3.1.2. M2 - Insecure Data Storage</h4>
 <div class="sect4">
 <h5 id="threat_agents_2">Threat Agents</h5>
 <div class="ulist">
@@ -2998,7 +3783,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect3">
-<h4 id="m3_insecure_communication">2.1.3. M3 - Insecure Communication</h4>
+<h4 id="m3_insecure_communication">3.1.3. M3 - Insecure Communication</h4>
 <div class="sect4">
 <h5 id="threat_agents_3">Threat Agents</h5>
 <div class="ulist">
@@ -3149,7 +3934,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect3">
-<h4 id="m4_insecure_authentication">2.1.4. M4 - Insecure Authentication</h4>
+<h4 id="m4_insecure_authentication">3.1.4. M4 - Insecure Authentication</h4>
 <div class="sect4">
 <h5 id="threat_agents_4">Threat Agents</h5>
 <div class="ulist">
@@ -3237,7 +4022,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect3">
-<h4 id="m5_insufficient_cryptography">2.1.5. M5 - Insufficient Cryptography</h4>
+<h4 id="m5_insufficient_cryptography">3.1.5. M5 - Insufficient Cryptography</h4>
 <div class="sect4">
 <h5 id="threat_agents_5">Threat Agents</h5>
 <div class="ulist">
@@ -3333,7 +4118,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect3">
-<h4 id="m6_insecure_authorization">2.1.6. M6 - Insecure Authorization</h4>
+<h4 id="m6_insecure_authorization">3.1.6. M6 - Insecure Authorization</h4>
 <div class="sect4">
 <h5 id="threat_agents_6">Threat Agents</h5>
 <div class="ulist">
@@ -3388,7 +4173,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect3">
-<h4 id="m7_poor_code_quality">2.1.7. M7 - Poor Code Quality</h4>
+<h4 id="m7_poor_code_quality">3.1.7. M7 - Poor Code Quality</h4>
 <div class="sect4">
 <h5 id="threat_agents_7">Threat Agents</h5>
 <div class="ulist">
@@ -3446,7 +4231,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect3">
-<h4 id="m8_code_tampering">2.1.8. M8 - Code Tampering</h4>
+<h4 id="m8_code_tampering">3.1.8. M8 - Code Tampering</h4>
 <div class="sect4">
 <h5 id="threat_agents_8">Threat Agents</h5>
 <div class="ulist">
@@ -3495,7 +4280,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect3">
-<h4 id="m9_reverse_engineering">2.1.9. M9 - Reverse Engineering</h4>
+<h4 id="m9_reverse_engineering">3.1.9. M9 - Reverse Engineering</h4>
 <div class="sect4">
 <h5 id="threat_agents_9">Threat Agents</h5>
 <div class="ulist">
@@ -3573,7 +4358,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect3">
-<h4 id="m10_extraneous_functionality">2.1.10. M10 - Extraneous Functionality</h4>
+<h4 id="m10_extraneous_functionality">3.1.10. M10 - Extraneous Functionality</h4>
 <div class="sect4">
 <h5 id="threat_agents_10">Threat Agents</h5>
 <div class="ulist">
@@ -3632,12 +4417,12 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect2">
-<h3 id="mobile_application_security_requirements">2.2. Mobile Application Security Requirements</h3>
+<h3 id="mobile_application_security_requirements">3.2. Mobile Application Security Requirements</h3>
 <div class="paragraph">
 <p>This is a review this the <a href="https://www.stigviewer.com/stig/mobile_application_security_requirements_guide/">Mobile Application Security Requirements</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="requirements_in_categories">2.2.1. Requirements in Categories</h4>
+<h4 id="requirements_in_categories">3.2.1. Requirements in Categories</h4>
 <div class="paragraph">
 <p>The requirements can be grouped in the following categories</p>
 </div>
@@ -3819,7 +4604,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect2">
-<h3 id="secure_mobile_development_guidelines">2.3. Secure Mobile Development Guidelines</h3>
+<h3 id="secure_mobile_development_guidelines">3.3. Secure Mobile Development Guidelines</h3>
 <div class="paragraph">
 <p>This is a summary of how to develop secure mobile applications. It is generated based on the contents form the following sources:</p>
 </div>
@@ -3837,7 +4622,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </ul>
 </div>
 <div class="sect3">
-<h4 id="authentication_and_password_management">2.3.1. Authentication and Password Management</h4>
+<h4 id="authentication_and_password_management">3.3.1. Authentication and Password Management</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3889,7 +4674,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect3">
-<h4 id="communication_security">2.3.2. Communication Security</h4>
+<h4 id="communication_security">3.3.2. Communication Security</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3926,7 +4711,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect3">
-<h4 id="data_storage_and_protection">2.3.3. Data Storage and Protection</h4>
+<h4 id="data_storage_and_protection">3.3.3. Data Storage and Protection</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4053,7 +4838,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect3">
-<h4 id="session_management">2.3.4. Session Management</h4>
+<h4 id="session_management">3.3.4. Session Management</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4084,7 +4869,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect3">
-<h4 id="secure_the_backend_services_and_the_platform_server_and_apis">2.3.5. Secure the backend services and the platform server and APIs</h4>
+<h4 id="secure_the_backend_services_and_the_platform_server_and_apis">3.3.5. Secure the backend services and the platform server and APIs</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4112,7 +4897,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect3">
-<h4 id="3rd_party_libraries">2.3.6. 3rd Party libraries</h4>
+<h4 id="3rd_party_libraries">3.3.6. 3rd Party libraries</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4134,7 +4919,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect3">
-<h4 id="consent_and_privacy_protection">2.3.7. Consent and privacy protection</h4>
+<h4 id="consent_and_privacy_protection">3.3.7. Consent and privacy protection</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4199,7 +4984,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect3">
-<h4 id="protect_paid_resources">2.3.8. Protect paid resources</h4>
+<h4 id="protect_paid_resources">3.3.8. Protect paid resources</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4231,7 +5016,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect3">
-<h4 id="secure_software_distribution">2.3.9. Secure software distribution</h4>
+<h4 id="secure_software_distribution">3.3.9. Secure software distribution</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4262,7 +5047,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect3">
-<h4 id="handle_runtime_code_interpretation_correctly">2.3.10. Handle runtime code interpretation correctly</h4>
+<h4 id="handle_runtime_code_interpretation_correctly">3.3.10. Handle runtime code interpretation correctly</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4287,7 +5072,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect3">
-<h4 id="check_device_and_application_integrity">2.3.11. Check device and application integrity</h4>
+<h4 id="check_device_and_application_integrity">3.3.11. Check device and application integrity</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4316,7 +5101,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect3">
-<h4 id="code_obfuscation">2.3.12. Code Obfuscation</h4>
+<h4 id="code_obfuscation">3.3.12. Code Obfuscation</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4332,7 +5117,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect3">
-<h4 id="protect_the_application_from_client_side_injections">2.3.13. Protect the application from client side injections</h4>
+<h4 id="protect_the_application_from_client_side_injections">3.3.13. Protect the application from client side injections</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4387,7 +5172,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect3">
-<h4 id="ensure_correct_usage_of_biometric_sensors_and_secure_hardware">2.3.14. Ensure correct usage of biometric sensors and secure hardware</h4>
+<h4 id="ensure_correct_usage_of_biometric_sensors_and_secure_hardware">3.3.14. Ensure correct usage of biometric sensors and secure hardware</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4422,12 +5207,12 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect2">
-<h3 id="owasp_cheat_sheet_series">2.4. OWASP Cheat Sheet Series</h3>
+<h3 id="owasp_cheat_sheet_series">3.4. OWASP Cheat Sheet Series</h3>
 <div class="paragraph">
 <p>This is a summary of notes taken from the <a href="https://www.owasp.org/index.php/OWASP_Cheat_">OWASP Cheat Sheet Series</a></p>
 </div>
 <div class="sect3">
-<h4 id="cryptographic_requirements">2.4.1. Cryptographic Requirements</h4>
+<h4 id="cryptographic_requirements">3.4.1. Cryptographic Requirements</h4>
 <div class="paragraph">
 <p>The recommended minimal key lengths and algorithms by OWASP are outlined below.</p>
 </div>
@@ -4465,7 +5250,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </table>
 </div>
 <div class="sect3">
-<h4 id="certificate_pinning_2">2.4.2. Certificate Pinning</h4>
+<h4 id="certificate_pinning_2">3.4.2. Certificate Pinning</h4>
 <div class="paragraph">
 <p>Pinning is the process of associating a host with their expected X509 certificate or public key.
 Once a certificate or public key is known or seen for a host, the certificate or public key is associated or 'pinned' to the host. If more than one certificate or public key is acceptable, then the program holds a pinset. In this case, the advertised identity must match one of the elements in the pinset.</p>
@@ -4503,7 +5288,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="javascript"><span class="tok-nx">Public</span><span class="tok-o">-</span><span class="tok-nx">Key</span><span class="tok-o">-</span><span class="tok-nx">Pins</span><span class="tok-o">:</span>
+<pre class="pygments highlight"><code data-lang="javascript"><span></span><span class="tok-nx">Public</span><span class="tok-o">-</span><span class="tok-nx">Key</span><span class="tok-o">-</span><span class="tok-nx">Pins</span><span class="tok-o">:</span>
   <span class="tok-nx">pin</span><span class="tok-o">-</span><span class="tok-nx">sha256</span><span class="tok-o">=</span><span class="tok-s2">&quot;cUPcTAZWKaASuYWhhneDttWpY3oBAkE3h2+soZS7sWs=&quot;</span><span class="tok-p">;</span>
   <span class="tok-nx">pin</span><span class="tok-o">-</span><span class="tok-nx">sha256</span><span class="tok-o">=</span><span class="tok-s2">&quot;M8HztCzM3elUxkcjR2S5P4hhyBNf6lHkmjAHKhpGPWE=&quot;</span><span class="tok-p">;</span>
   <span class="tok-nx">max</span><span class="tok-o">-</span><span class="tok-nx">age</span><span class="tok-o">=</span><span class="tok-mi">5184000</span><span class="tok-p">;</span> <span class="tok-nx">includeSubDomains</span><span class="tok-p">;</span>
@@ -4545,12 +5330,12 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </div>
 </div>
 <div class="sect3">
-<h4 id="jailbreaking">2.4.3. Jailbreaking</h4>
+<h4 id="jailbreaking">3.4.3. Jailbreaking</h4>
 <div class="paragraph">
 <p>Jailbreaking or rooting is the process of gaining unauthorized access or elevated privileges on a system.</p>
 </div>
 <div class="sect4">
-<h5 id="detecting_jailbreak">Detecting Jailbreak</h5>
+<h5 id="detecting_jailbreak_2">Detecting Jailbreak</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -4570,7 +5355,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </div>
 </div>
 <div class="sect3">
-<h4 id="mobile_testing">2.4.4. Mobile Testing</h4>
+<h4 id="mobile_testing">3.4.4. Mobile Testing</h4>
 <div class="paragraph">
 <p>The OWASP cheat sheet series also provides in-depth guides on how to analyse a mobile app for security risks.</p>
 </div>
@@ -4587,12 +5372,12 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </div>
 </div>
 <div class="sect2">
-<h3 id="owasp_mobile_verification_standard">2.5. OWASP Mobile Verification Standard</h3>
+<h3 id="owasp_mobile_verification_standard">3.5. OWASP Mobile Verification Standard</h3>
 <div class="paragraph">
 <p>This is a fork of the <a href="https://www.owasp.org/images/f/fe/MASVS_v0.9.3.pdf">OWASP Mobile Verification Standard</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="verification_levels">2.5.1. Verification Levels</h4>
+<h4 id="verification_levels">3.5.1. Verification Levels</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -4638,7 +5423,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </div>
 </div>
 <div class="sect3">
-<h4 id="table_keys">2.5.2. Table Keys</h4>
+<h4 id="table_keys">3.5.2. Table Keys</h4>
 <div class="paragraph">
 <p><em>Category</em> - The type of work required for each item. Some enhancements have been made.</p>
 </div>
@@ -4666,7 +5451,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </div>
 </div>
 <div class="sect3">
-<h4 id="architecture_design_and_threat_modelling">2.5.3. Architecture, Design and Threat Modelling</h4>
+<h4 id="architecture_design_and_threat_modelling">3.5.3. Architecture, Design and Threat Modelling</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 12.5%;">
@@ -4825,7 +5610,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </table>
 </div>
 <div class="sect3">
-<h4 id="data_storage_and_privacy">2.5.4. Data Storage and Privacy</h4>
+<h4 id="data_storage_and_privacy">3.5.4. Data Storage and Privacy</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 12.5%;">
@@ -4974,7 +5759,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </table>
 </div>
 <div class="sect3">
-<h4 id="cryptography">2.5.5. Cryptography</h4>
+<h4 id="cryptography">3.5.5. Cryptography</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 12.5%;">
@@ -5063,7 +5848,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </table>
 </div>
 <div class="sect3">
-<h4 id="authentication_and_session_management">2.5.6. Authentication and Session Management</h4>
+<h4 id="authentication_and_session_management">3.5.6. Authentication and Session Management</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 12.5%;">
@@ -5192,7 +5977,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </table>
 </div>
 <div class="sect3">
-<h4 id="network_communication">2.5.7. Network Communication</h4>
+<h4 id="network_communication">3.5.7. Network Communication</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 12.5%;">
@@ -5281,7 +6066,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </table>
 </div>
 <div class="sect3">
-<h4 id="environmental_interaction">2.5.8. Environmental Interaction</h4>
+<h4 id="environmental_interaction">3.5.8. Environmental Interaction</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 12.5%;">
@@ -5410,7 +6195,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </table>
 </div>
 <div class="sect3">
-<h4 id="code_quality_and_build_settings">2.5.9. Code Quality and Build Settings</h4>
+<h4 id="code_quality_and_build_settings">3.5.9. Code Quality and Build Settings</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 12.5%;">
@@ -5519,7 +6304,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </table>
 </div>
 <div class="sect3">
-<h4 id="resiliency_against_reverse_engineering_requirements">2.5.10. Resiliency Against Reverse Engineering Requirements</h4>
+<h4 id="resiliency_against_reverse_engineering_requirements">3.5.10. Resiliency Against Reverse Engineering Requirements</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 12.5%;">
@@ -5678,7 +6463,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </table>
 </div>
 <div class="sect3">
-<h4 id="other_mobile_vulnerabilities">2.5.11. Other Mobile Vulnerabilities</h4>
+<h4 id="other_mobile_vulnerabilities">3.5.11. Other Mobile Vulnerabilities</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 14.2857%;">
@@ -5724,12 +6509,12 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </div>
 </div>
 <div class="sect2">
-<h3 id="owasp_threat_model_project">2.6. OWASP Threat Model Project</h3>
+<h3 id="owasp_threat_model_project">3.6. OWASP Threat Model Project</h3>
 <div class="paragraph">
 <p>This is a summary of notes taken from the <a href="https://www.owasp.org/index.php/OWASP_Mobile_Security_Project#tab=M-Threat_Model_Project">OWASP Threat Model Project</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="mobile_threat_model_overview">2.6.1. Mobile Threat Model Overview</h4>
+<h4 id="mobile_threat_model_overview">3.6.1. Mobile Threat Model Overview</h4>
 <div class="paragraph">
 <p>To carry out threat modelling, you will need to have a clear understanding of the underlying system. Its important to define the following areas to understand possible threat to the mobile application.</p>
 </div>
@@ -5770,7 +6555,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </div>
 </div>
 <div class="sect3">
-<h4 id="mobile_architecture">2.6.2. Mobile Architecture</h4>
+<h4 id="mobile_architecture">3.6.2. Mobile Architecture</h4>
 <div class="paragraph">
 <p>The mobile application architecture should, at the very least, describe device specific features used by the application such as:</p>
 </div>
@@ -5817,7 +6602,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </div>
 </div>
 <div class="sect3">
-<h4 id="mobile_data">2.6.3. Mobile Data</h4>
+<h4 id="mobile_data">3.6.3. Mobile Data</h4>
 <div class="paragraph">
 <p>Its important to know what purpose does the app serve from a business perspective and what data the app stores, transmits and receives.
 It’s also important to review data flow diagrams to determine exactly how data in the mobile app is handled.</p>
@@ -5858,7 +6643,7 @@ It’s also important to review data flow diagrams to determine exactly how data
 </div>
 </div>
 <div class="sect3">
-<h4 id="threat_agent_identification">2.6.4. Threat Agent Identification</h4>
+<h4 id="threat_agent_identification">3.6.4. Threat Agent Identification</h4>
 <div class="paragraph">
 <p>This area covers what the threats to the mobile application are and who are the threat agents.</p>
 </div>
@@ -5959,12 +6744,12 @@ It’s also important to review data flow diagrams to determine exactly how data
 </div>
 </div>
 <div class="sect2">
-<h3 id="owasp_m_tools">2.7. OWASP M-Tools</h3>
+<h3 id="owasp_m_tools">3.7. OWASP M-Tools</h3>
 <div class="paragraph">
 <p>This is a summary of the tools that are described in <a href="https://www.owasp.org/index.php/OWASP_Mobile_Security_Project#tab=M-Tools">OWASP Mobile Security M Tools</a> page.</p>
 </div>
 <div class="sect3">
-<h4 id="imas">2.7.1. iMAS</h4>
+<h4 id="imas">3.7.1. iMAS</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -6067,7 +6852,7 @@ It’s also important to review data flow diagrams to determine exactly how data
 </div>
 </div>
 <div class="sect3">
-<h4 id="goatdroid">2.7.2. GoatDroid</h4>
+<h4 id="goatdroid">3.7.2. GoatDroid</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -6103,7 +6888,7 @@ It’s also important to review data flow diagrams to determine exactly how data
 </div>
 </div>
 <div class="sect3">
-<h4 id="igoat">2.7.3. iGoat</h4>
+<h4 id="igoat">3.7.3. iGoat</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -6139,7 +6924,7 @@ It’s also important to review data flow diagrams to determine exactly how data
 </div>
 </div>
 <div class="sect3">
-<h4 id="damn_vulnerable_ios_application">2.7.4. Damn Vulnerable iOS Application</h4>
+<h4 id="damn_vulnerable_ios_application">3.7.4. Damn Vulnerable iOS Application</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -6176,7 +6961,7 @@ Especially the websit has a "Learn" section provides a series of very good blog 
 </div>
 </div>
 <div class="sect3">
-<h4 id="mobisec">2.7.5. MobiSec</h4>
+<h4 id="mobisec">3.7.5. MobiSec</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -6202,7 +6987,7 @@ Especially the websit has a "Learn" section provides a series of very good blog 
 </div>
 </div>
 <div class="sect3">
-<h4 id="androick">2.7.6. Androick</h4>
+<h4 id="androick">3.7.6. Androick</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -6235,7 +7020,7 @@ Especially the websit has a "Learn" section provides a series of very good blog 
 </div>
 </div>
 <div class="sect3">
-<h4 id="nowsecure_app_testing_community_edition">2.7.7. NowSecure App Testing Community Edition</h4>
+<h4 id="nowsecure_app_testing_community_edition">3.7.7. NowSecure App Testing Community Edition</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -6324,7 +7109,7 @@ Especially the websit has a "Learn" section provides a series of very good blog 
 </div>
 </div>
 <div class="sect3">
-<h4 id="conclusion">2.7.8. Conclusion</h4>
+<h4 id="conclusion">3.7.8. Conclusion</h4>
 <div class="paragraph">
 <p>I think the tools we should try are:</p>
 </div>
@@ -6377,12 +7162,12 @@ Especially the websit has a "Learn" section provides a series of very good blog 
 </div>
 </div>
 <div class="sect2">
-<h3 id="ios_security_whitepaper">2.8. iOS Security Whitepaper</h3>
+<h3 id="ios_security_whitepaper">3.8. iOS Security Whitepaper</h3>
 <div class="paragraph">
 <p>This is a summary of the <a href="https://www.apple.com/business/docs/iOS_Security_Guide.pdf">iOS security whitepaper</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="system_security">2.8.1. System Security</h4>
+<h4 id="system_security">3.8.1. System Security</h4>
 <div class="sect4">
 <h5 id="secure_boot_chain">Secure boot chain</h5>
 <div class="paragraph">
@@ -6442,7 +7227,7 @@ By authorizing and signing only for known measurements, the server ensures that 
 </div>
 </div>
 <div class="sect3">
-<h4 id="file_data_protection">2.8.2. File Data Protection</h4>
+<h4 id="file_data_protection">3.8.2. File Data Protection</h4>
 <div class="sect4">
 <h5 id="overview_5">Overview</h5>
 <div class="ulist">
@@ -6654,7 +7439,7 @@ By authorizing and signing only for known measurements, the server ensures that 
 </div>
 </div>
 <div class="sect3">
-<h4 id="app_security">2.8.3. App Security</h4>
+<h4 id="app_security">3.8.3. App Security</h4>
 <div class="sect4">
 <h5 id="app_code_signing">App code signing</h5>
 <div class="ulist">
@@ -6827,7 +7612,7 @@ By authorizing and signing only for known measurements, the server ensures that 
 </div>
 </div>
 <div class="sect3">
-<h4 id="network_security_2">2.8.4. Network Security</h4>
+<h4 id="network_security_2">3.8.4. Network Security</h4>
 <div class="sect4">
 <h5 id="tls">TLS</h5>
 <div class="ulist">
@@ -6889,12 +7674,12 @@ By authorizing and signing only for known measurements, the server ensures that 
 </div>
 </div>
 <div class="sect2">
-<h3 id="android_security_guide">2.9. Android Security Guide</h3>
+<h3 id="android_security_guide">3.9. Android Security Guide</h3>
 <div class="paragraph">
 <p>This is a summary of the <a href="https://source.android.com/security/">Android Security Guide</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="kernel_security">2.9.1. Kernel Security</h4>
+<h4 id="kernel_security">3.9.1. Kernel Security</h4>
 <div class="sect4">
 <h5 id="application_sandbox">Application Sandbox</h5>
 <div class="paragraph">
@@ -6976,7 +7761,7 @@ At some point the key must be provided to the application and it then becomes ac
 </div>
 </div>
 <div class="sect3">
-<h4 id="application_security">2.9.2. Application Security</h4>
+<h4 id="application_security">3.9.2. Application Security</h4>
 <div class="sect4">
 <h5 id="certificate_authorities">Certificate Authorities</h5>
 <div class="paragraph">
@@ -6994,7 +7779,7 @@ The application signing ensures that applications cannot access each other excep
 </div>
 </div>
 <div class="sect3">
-<h4 id="authentication">2.9.3. Authentication</h4>
+<h4 id="authentication">3.9.3. Authentication</h4>
 <div class="paragraph">
 <p>Two key pieces make up Authentication &amp; Key Storage from Android 6.0.</p>
 </div>
@@ -7093,14 +7878,14 @@ The <code>keymaster</code> trusts the timestamp in the token as the last authent
 </div>
 </div>
 <div class="sect3">
-<h4 id="keystore">2.9.4. Keystore</h4>
+<h4 id="keystore">3.9.4. Keystore</h4>
 <div class="paragraph">
 <p>The Android Keystore system allows storage of cryptographic keys inside a container to make it more difficult to extract them from a device.
 Once keys are in the keystore, they can be used for cryptographic operations with the key material remaining non-exportable.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="trusted_execution_environment">2.9.5. Trusted Execution Environment</h4>
+<h4 id="trusted_execution_environment">3.9.5. Trusted Execution Environment</h4>
 <div class="paragraph">
 <p>A TEE processor is generally a separate microprocessor or a virtualized instance of the main processor.
 The TEE processor is isolated from the rest of the system using memory and I/O protection mechanisms supported by the hardware.</p>
@@ -7113,12 +7898,12 @@ Applications running on the main processor will therefore delegate any operation
 </div>
 </div>
 <div class="sect2">
-<h3 id="android_developer_security_guide">2.10. Android Developer Security Guide</h3>
+<h3 id="android_developer_security_guide">3.10. Android Developer Security Guide</h3>
 <div class="paragraph">
 <p>This is a summary of the <a href="https://developer.android.com/training/best-security.html">Android Developer Security Guide</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="overview_6">2.10.1. Overview</h4>
+<h4 id="overview_6">3.10.1. Overview</h4>
 <div class="paragraph">
 <p>The following core security features help you build secure apps:</p>
 </div>
@@ -7474,7 +8259,7 @@ This prevents applications without appropriate permissions from sending an inten
 </div>
 </div>
 <div class="sect3">
-<h4 id="security_with_https_and_ssl">2.10.2. Security with HTTPS and SSL</h4>
+<h4 id="security_with_https_and_ssl">3.10.2. Security with HTTPS and SSL</h4>
 <div class="paragraph">
 <p>This is a summary of the <a href="https://developer.android.com/training/articles/security-ssl.html">Android Developer Security with HTTPS and SSL Guide</a>.</p>
 </div>
@@ -7650,7 +8435,7 @@ It&#8217;s an automated, powerful, and scalable tool for testing network securit
 </div>
 </div>
 <div class="sect3">
-<h4 id="network_security_configuration">2.10.3. Network Security Configuration</h4>
+<h4 id="network_security_configuration">3.10.3. Network Security Configuration</h4>
 <div class="paragraph">
 <p>This is a summary of the <a href="https://developer.android.com/training/articles/security-ssl.html">Android Developer Network Security Configuration Guide</a>.</p>
 </div>
@@ -7842,7 +8627,7 @@ It&#8217;s an automated, powerful, and scalable tool for testing network securit
 </div>
 </div>
 <div class="sect3">
-<h4 id="safetynet">2.10.4. SafetyNet</h4>
+<h4 id="safetynet">3.10.4. SafetyNet</h4>
 <div class="paragraph">
 <p>SafetyNet provides a set of services and APIs that help protect your app against security threats, including device tampering, bad URLs, potentially harmful apps, and fake users.</p>
 </div>
@@ -7875,7 +8660,7 @@ It&#8217;s an automated, powerful, and scalable tool for testing network securit
 </div>
 </div>
 <div class="sect3">
-<h4 id="key_attestation">2.10.5. Key Attestation</h4>
+<h4 id="key_attestation">3.10.5. Key Attestation</h4>
 <div class="paragraph">
 <p>This is a summary of the <a href="https://developer.android.com/training/articles/security-key-attestation.html">Android Developer Key Attestation Security Guide</a> and the <a href="https://www.androidcentral.com/how-android-n-addresses-security">Android 7.0: "Security Benefits that Truly Matter"</a> post.</p>
 </div>
@@ -7932,7 +8717,7 @@ It&#8217;s an automated, powerful, and scalable tool for testing network securit
 </div>
 </div>
 <div class="sect3">
-<h4 id="device_management_policies">2.10.6. Device Management Policies</h4>
+<h4 id="device_management_policies">3.10.6. Device Management Policies</h4>
 <div class="paragraph">
 <p>It allows developers to create an application that manages access to its content by enforcing device management policies.
 Specifically, the application can be configured such that it ensures a screen-lock password of sufficient strength is set up before displaying restricted content to the user.</p>
@@ -8085,7 +8870,7 @@ if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.HONEYCOMB) {
 </div>
 </div>
 <div class="sect3">
-<h4 id="supporting_direct_boot">2.10.7. Supporting Direct Boot</h4>
+<h4 id="supporting_direct_boot">3.10.7. Supporting Direct Boot</h4>
 <div class="paragraph">
 <p>Android 7.0 runs in a secure, Direct Boot mode when the device has been powered on but the user has not unlocked the device.</p>
 </div>
@@ -8180,7 +8965,7 @@ FileInputStream inStream = directBootContext.openFileInput(appDataFilename);
 </div>
 </div>
 <div class="sect3">
-<h4 id="using_scoped_directory_access">2.10.8. Using Scoped Directory Access</h4>
+<h4 id="using_scoped_directory_access">3.10.8. Using Scoped Directory Access</h4>
 <div class="paragraph">
 <p>This function make it easier for apps that just need access to specific directories. For example, photo apps only need to access the <code>Pictures</code> directory.</p>
 </div>
@@ -8243,12 +9028,12 @@ startActivityForResult(intent, request_code);</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cordova_security_guide">2.11. Cordova Security Guide</h3>
+<h3 id="cordova_security_guide">3.11. Cordova Security Guide</h3>
 <div class="paragraph">
 <p>This is a summary of the <a href="https://cordova.apache.org/docs/en/latest/guide/appdev/security/">Cordova Security Guide</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="whitelist">2.11.1. Whitelist</h4>
+<h4 id="whitelist">3.11.1. Whitelist</h4>
 <div class="paragraph">
 <p>Domain whitelisting is a security model that controls access to external domains over which your application has no control. Cordova provides a configurable security policy to define which external sites may be accessed. By default, new apps are configured to allow access to any site. Before moving your application to production, you should formulate a whitelist and allow access to specific network domains and subdomains.</p>
 </div>
@@ -8260,13 +9045,13 @@ startActivityForResult(intent, request_code);</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="iframes_calback_id_mechanism">2.11.2. Iframes &amp; Calback ID Mechanism</h4>
+<h4 id="iframes_calback_id_mechanism">3.11.2. Iframes &amp; Calback ID Mechanism</h4>
 <div class="paragraph">
 <p>If content is served in an iframe from a whitelisted domain, that domain will have access to the native Cordova bridge. This means that if you whitelist a third-party advertising network and serve those ads through an iframe, it is possible that a malicious ad will be able to break out of the iframe and perform malicious actions. Because of this, you should generally not use iframes unless you control the server that hosts the iframe content.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="certificate_pinning_3">2.11.3. Certificate Pinning</h4>
+<h4 id="certificate_pinning_3">3.11.3. Certificate Pinning</h4>
 <div class="paragraph">
 <p>Cordova does not support true certificate pinning. The main barrier to this is a lack of native APIs in Android for intercepting SSL connections to perform the check of the server&#8217;s certificate.
 Since Apache Cordova is meant to offer consistent APIs across multiple platforms, not having a capability in a major platform breaks that consistency.</p>
@@ -8276,7 +9061,7 @@ Since Apache Cordova is meant to offer consistent APIs across multiple platforms
 </div>
 </div>
 <div class="sect3">
-<h4 id="self_signed_certificates">2.11.4. Self-signed Certificates</h4>
+<h4 id="self_signed_certificates">3.11.4. Self-signed Certificates</h4>
 <div class="paragraph">
 <p>Using self-signed certificates on your server is not recommended.
 If you desire SSL, then it is highly recommended that your server have a certificate that has been properly signed by a well-known CA (certificate authority).
@@ -8285,14 +9070,14 @@ The reason is that accepting self-signed certificates bypasses the certificate c
 </div>
 </div>
 <div class="sect3">
-<h4 id="encrypted_storage">2.11.5. Encrypted storage</h4>
+<h4 id="encrypted_storage">3.11.5. Encrypted storage</h4>
 <div class="paragraph">
 <p>For encrypted storage, you could consider using one of a number of secure storage plugins for Cordova.
 The <a href="https://www.npmjs.com/package/cordova-plugin-secure-key-store">cordova-plugin-secure-key-store</a> plugin uses the Android Keystore and the iOS Keychain for stores sensitive data.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="general_tips">2.11.6. General Tips</h4>
+<h4 id="general_tips">3.11.6. General Tips</h4>
 <div class="sect4">
 <h5 id="use_inappbrowser_for_outside_links">Use InAppBrowser for outside links</h5>
 <div class="paragraph">
@@ -8368,12 +9153,12 @@ It is possible to reverse engineer a Cordova application to recover sensitive ap
 </div>
 </div>
 <div class="sect2">
-<h3 id="vetting_the_security_of_mobile_applications">2.12. Vetting the Security of Mobile Applications</h3>
+<h3 id="vetting_the_security_of_mobile_applications">3.12. Vetting the Security of Mobile Applications</h3>
 <div class="paragraph">
 <p>This is a summary of notes taken from the <a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-163.pdf">NIST Vetting the Security of Mobile Applications</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="app_vetting_process">2.12.1. App Vetting Process</h4>
+<h4 id="app_vetting_process">3.12.1. App Vetting Process</h4>
 <div class="sect4">
 <h5 id="general_process">General Process</h5>
 <div class="paragraph">
@@ -8465,7 +9250,7 @@ Based on the reports the auditor will then submit the recommendation to the appr
 </div>
 </div>
 <div class="sect3">
-<h4 id="app_testing">2.12.2. App Testing</h4>
+<h4 id="app_testing">3.12.2. App Testing</h4>
 <div class="paragraph">
 <p>General app security requirements include:</p>
 </div>
@@ -8892,7 +9677,7 @@ product names, and impact metrics.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="app_approval_rejection">2.12.3. App Approval/Rejection</h4>
+<h4 id="app_approval_rejection">3.12.3. App Approval/Rejection</h4>
 <div class="sect4">
 <h5 id="report_and_risk_auditing">Report and Risk Auditing</h5>
 <div class="ulist">
@@ -8985,12 +9770,12 @@ product names, and impact metrics.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="niap_mobile_app_vetting">2.13. NIAP Mobile App Vetting</h3>
+<h3 id="niap_mobile_app_vetting">3.13. NIAP Mobile App Vetting</h3>
 <div class="paragraph">
 <p>This is a summary of the <a href="https://www.niap-ccevs.org/pp/pp_app_v1.2_table-reqs.htm">NIAP Mobile App Vetting</a> Guidelines.</p>
 </div>
 <div class="sect3">
-<h4 id="security_functional_requirements">2.13.1. Security Functional Requirements</h4>
+<h4 id="security_functional_requirements">3.13.1. Security Functional Requirements</h4>
 <div class="sect4">
 <h5 id="random_bit_generation_services">Random Bit Generation Services</h5>
 <div class="paragraph">
@@ -9325,7 +10110,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="security_assurance_requirements">2.13.2. Security Assurance Requirements</h4>
+<h4 id="security_assurance_requirements">3.13.2. Security Assurance Requirements</h4>
 <div class="paragraph">
 <p>The application shall be labeled with a unique references:</p>
 </div>
@@ -9350,7 +10135,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="selection_based_security_functional_requirements">2.13.3. Selection-Based Security Functional Requirements</h4>
+<h4 id="selection_based_security_functional_requirements">3.13.3. Selection-Based Security Functional Requirements</h4>
 <div class="sect4">
 <h5 id="random_bit_generation_from_application">Random Bit Generation from Application</h5>
 <div class="paragraph">
@@ -10052,7 +10837,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="objective_security_functional_requirements">2.13.4. Objective Security Functional Requirements</h4>
+<h4 id="objective_security_functional_requirements">3.13.4. Objective Security Functional Requirements</h4>
 <div class="sect4">
 <h5 id="tls_client_protocol_2">TLS Client Protocol</h5>
 <div class="paragraph">
@@ -10117,7 +10902,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="optional_security_functional_requirements">2.13.5. Optional Security Functional Requirements</h4>
+<h4 id="optional_security_functional_requirements">3.13.5. Optional Security Functional Requirements</h4>
 <div class="sect4">
 <h5 id="cryptographic_symmetric_key_generation">Cryptographic Symmetric Key Generation</h5>
 <div class="paragraph">
@@ -10157,12 +10942,12 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect2">
-<h3 id="dhs_study_on_mobile_device_security">2.14. DHS Study on Mobile Device Security</h3>
+<h3 id="dhs_study_on_mobile_device_security">3.14. DHS Study on Mobile Device Security</h3>
 <div class="paragraph">
 <p>This is a review of the <a href="https://www.dhs.gov/sites/default/files/publications/DHS%20Study%20on%20Mobile%20Device%20Security%20-%20April%202017-FINAL.pdf">DHS Study on Mobile Device Security</a></p>
 </div>
 <div class="sect3">
-<h4 id="mobile_security_threats_and_defenses">2.14.1. Mobile Security Threats and Defenses</h4>
+<h4 id="mobile_security_threats_and_defenses">3.14.1. Mobile Security Threats and Defenses</h4>
 <div class="sect4">
 <h5 id="mobile_security_threats_categories">Mobile Security Threats Categories</h5>
 <table class="tableblock frame-all grid-all spread">
@@ -11069,12 +11854,12 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect2">
-<h3 id="guidelines_for_managing_the_security_of_mobile_devices_in_the_enterprise">2.15. Guidelines for Managing the Security of Mobile Devices in the Enterprise</h3>
+<h3 id="guidelines_for_managing_the_security_of_mobile_devices_in_the_enterprise">3.15. Guidelines for Managing the Security of Mobile Devices in the Enterprise</h3>
 <div class="paragraph">
 <p>This is a summary of notes taken from the <a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-124r1.pdf">NIST Guidelines for Managing the Security of Mobile Devices in the Enterprise</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="high_level_threats_and_vulnerabilities_for_mobile_devices">2.15.1. High-Level Threats and Vulnerabilities for Mobile Devices</h4>
+<h4 id="high_level_threats_and_vulnerabilities_for_mobile_devices">3.15.1. High-Level Threats and Vulnerabilities for Mobile Devices</h4>
 <div class="sect4">
 <h5 id="lack_of_physical_security_controls">Lack of Physical Security Controls</h5>
 <div class="sect5">
@@ -11216,7 +12001,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="technologies_for_mobile_device_management">2.15.2. Technologies for Mobile Device Management</h4>
+<h4 id="technologies_for_mobile_device_management">3.15.2. Technologies for Mobile Device Management</h4>
 <div class="paragraph">
 <p>The MDM system should have the following capabilities:</p>
 </div>
@@ -11318,12 +12103,12 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect2">
-<h3 id="mobile_banking_applications_security_challenges">2.16. Mobile Banking Applications Security Challenges</h3>
+<h3 id="mobile_banking_applications_security_challenges">3.16. Mobile Banking Applications Security Challenges</h3>
 <div class="paragraph">
 <p>This is a summary of the <a href="http://info.nowsecure.com/rs/201-XEW-873/images/NowSecure-Accenture-Mobile-Banking-Apps-Security-Challenges.pdf?utm_source=mkto&amp;utm_medium=email&amp;utm_campaign=Mobile+Bank+Apps+Security+Challenges&amp;utm_content=Delivery+Email&amp;mkt_tok=eyJpIjoiWmpRMk16UTNNRGhoTjJJMiIsInQiOiJBcmZGXC9TXC8rTUJya0tZNlNxd21TdDk2K3pSK1JHelg2M1ZcL09vUm9cL2NvZmMrK01hQktMeDl4K21LV3NSWnEyZXM3YU0wUFYyTjd1Rng4dVZcL0NWQU5laWNqTlZ6eGlSU3NzVjZJZDM1WmhzN2RvVTdadE9HT082c2ZLSkxQckxhIn0%3D">Mobile Banking Applications Security Challenges</a> report.</p>
 </div>
 <div class="sect3">
-<h4 id="vulnerabilities_11">2.16.1. Vulnerabilities</h4>
+<h4 id="vulnerabilities_11">3.16.1. Vulnerabilities</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -11434,12 +12219,12 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect2">
-<h3 id="secure_mobile_development_guide">2.17. Secure Mobile Development Guide</h3>
+<h3 id="secure_mobile_development_guide">3.17. Secure Mobile Development Guide</h3>
 <div class="paragraph">
 <p>This is a summary of <a href="https://books.nowsecure.com/secure-mobile-development/en/">Secure Mobile Development Guide</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="coding_practices">2.17.1. CODING PRACTICES</h4>
+<h4 id="coding_practices">3.17.1. CODING PRACTICES</h4>
 <div class="sect4">
 <h5 id="increase_code_complexity_and_use_obfuscation">Increase Code Complexity and Use Obfuscation</h5>
 <div class="ulist">
@@ -11582,7 +12367,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="handling_sensitive_data">2.17.2. HANDLING SENSITIVE DATA</h4>
+<h4 id="handling_sensitive_data">3.17.2. HANDLING SENSITIVE DATA</h4>
 <div class="sect4">
 <h5 id="implement_secure_data_storage">Implement Secure Data Storage</h5>
 <div class="ulist">
@@ -11838,7 +12623,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="caching_and_logging">2.17.3. CACHING AND LOGGING</h4>
+<h4 id="caching_and_logging">3.17.3. CACHING AND LOGGING</h4>
 <div class="sect4">
 <h5 id="avoid_caching_app_data">Avoid Caching App Data</h5>
 <div class="ulist">
@@ -11925,7 +12710,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="webviews">2.17.4. WEBVIEWS</h4>
+<h4 id="webviews">3.17.4. WEBVIEWS</h4>
 <div class="sect4">
 <h5 id="prevent_framing_and_clickjacking">Prevent Framing and Clickjacking</h5>
 <div class="ulist">
@@ -11963,7 +12748,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="ios">2.17.5. IOS</h4>
+<h4 id="ios">3.17.5. IOS</h4>
 <div class="sect4">
 <h5 id="use_the_keychain_carefully">Use the Keychain Carefully</h5>
 <div class="ulist">
@@ -12066,7 +12851,7 @@ This method should be overridden and all the sensitive information in the user i
 </div>
 </div>
 <div class="sect3">
-<h4 id="android">2.17.6. Android</h4>
+<h4 id="android_2">3.17.6. Android</h4>
 <div class="sect4">
 <h5 id="implement_file_permissions_carefully">Implement File Permissions Carefully</h5>
 <div class="ulist">
@@ -12257,7 +13042,7 @@ This method should be overridden and all the sensitive information in the user i
 </div>
 </div>
 <div class="sect3">
-<h4 id="servers">2.17.7. Servers</h4>
+<h4 id="servers">3.17.7. Servers</h4>
 <div class="sect4">
 <h5 id="implement_proper_web_server_configuration">Implement Proper Web Server Configuration</h5>
 <div class="ulist">
@@ -12377,7 +13162,7 @@ This method should be overridden and all the sensitive information in the user i
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-10-18 09:46:44 IST
+Last updated 2017-12-15 14:46:35 GMT
 </div>
 </div>
 </body>

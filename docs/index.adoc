@@ -9,7 +9,7 @@
 image::assets/fh_redhat_logo.png[align="center"]
 
 [.text-center]
-= FeedHenry Mobile Security
+== FeedHenry Mobile Security
 
 == Mobile Security Recommendations Overview
 
