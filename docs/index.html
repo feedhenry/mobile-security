@@ -640,6 +640,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h4 id="implementation">2.1.2. Implementation</h4>
 <div class="sect4">
 <h5 id="overview">Overview</h5>
+
+</div>
+<div class="sect4">
+<h5 id="android">Android</h5>
 <div class="paragraph">
 <p>An Authentication &amp; Session Management implementation has been provided in our <a href="https://github.com/feedhenry/mobile-security-android-template">Mobile Security Android Template</a> App.</p>
 </div>
@@ -1901,18 +1905,15 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 <div class="listingblock">
 <div class="title">Initialise Realm</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="swift"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<pre class="pygments highlight"><code data-lang="swift"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1
+2
+3
+4
+5
+6
+7
+8
+9</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> - Initilise the Realm Storage Service</span>
 
 <span class="tok-cm"> - Parameter kcWrapper: the swift keychain wrapper</span>
@@ -1920,9 +1921,6 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 <span class="tok-kd">init</span><span class="tok-p">(</span><span class="tok-n">kcWrapper</span><span class="tok-p">:</span> <span class="tok-n">KeychainWrapper</span><span class="tok-p">,</span> <span class="tok-n">encryptionKey</span><span class="tok-p">:</span> <span class="tok-n">Data</span><span class="tok-p">)</span> <span class="tok-p">{</span>
     <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">keychainWrapper</span> <span class="tok-p">=</span> <span class="tok-n">kcWrapper</span>
     <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">encryptionKey</span> <span class="tok-p">=</span> <span class="tok-n">encryptionKey</span>
-
-    <span class="tok-kd">let</span> <span class="tok-nv">encryptionConfig</span> <span class="tok-p">=</span> <span class="tok-n">Realm</span><span class="tok-p">.</span><span class="tok-n">Configuration</span><span class="tok-p">(</span><span class="tok-n">encryptionKey</span><span class="tok-p">:</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">encryptionKey</span><span class="tok-p">)</span>
-    <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span><span class="tok-p">!</span> <span class="tok-n">Realm</span><span class="tok-p">(</span><span class="tok-n">configuration</span><span class="tok-p">:</span> <span class="tok-n">encryptionConfig</span><span class="tok-p">)</span>
 <span class="tok-p">}</span>
 </td></tr></table></code></pre>
 </div>
@@ -2061,7 +2059,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
     <span class="tok-n">DispatchQueue</span><span class="tok-p">.</span><span class="tok-n">global</span><span class="tok-p">(</span><span class="tok-n">qos</span><span class="tok-p">:</span> <span class="tok-p">.</span><span class="tok-n">background</span><span class="tok-p">).</span><span class="tok-n">async</span> <span class="tok-p">{</span>
         <span class="tok-k">do</span> <span class="tok-p">{</span>
             <span class="tok-c1">// create a new thread confined realm</span>
-            <span class="tok-kd">let</span> <span class="tok-nv">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span> <span class="tok-n">Realm</span><span class="tok-p">(</span><span class="tok-n">configuration</span><span class="tok-p">:</span> <span class="tok-n">Realm</span><span class="tok-p">.</span><span class="tok-n">Configuration</span><span class="tok-p">(</span><span class="tok-n">encryptionKey</span><span class="tok-p">:</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">encryptionKey</span><span class="tok-p">))</span>
+            <span class="tok-kd">let</span> <span class="tok-nv">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">getRealmInstance</span><span class="tok-p">()</span>
 
             <span class="tok-c1">// synchronization of Realm instance to the latest version on the background thread</span>
             <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">refresh</span><span class="tok-p">()</span>
@@ -2074,7 +2072,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 
             <span class="tok-c1">// return note to the view controller on the main thread</span>
             <span class="tok-n">DispatchQueue</span><span class="tok-p">.</span><span class="tok-n">main</span><span class="tok-p">.</span><span class="tok-n">async</span><span class="tok-p">()</span> <span class="tok-p">{</span>
-                <span class="tok-kd">let</span> <span class="tok-nv">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span><span class="tok-p">!</span> <span class="tok-n">Realm</span><span class="tok-p">(</span><span class="tok-n">configuration</span><span class="tok-p">:</span> <span class="tok-n">Realm</span><span class="tok-p">.</span><span class="tok-n">Configuration</span><span class="tok-p">(</span><span class="tok-n">encryptionKey</span><span class="tok-p">:</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">encryptionKey</span><span class="tok-p">))</span>
+                <span class="tok-kd">let</span> <span class="tok-nv">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span><span class="tok-p">!</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">getRealmInstance</span><span class="tok-p">()</span>
 
                 <span class="tok-c1">// get the notes using the thread safe reference</span>
                 <span class="tok-k">guard</span> <span class="tok-kd">let</span> <span class="tok-nv">notes</span> <span class="tok-p">=</span> <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">resolve</span><span class="tok-p">(</span><span class="tok-n">threadSafeNotes</span><span class="tok-p">)</span> <span class="tok-k">else</span> <span class="tok-p">{</span>
@@ -2169,11 +2167,11 @@ The function accepts a URL in the form of a String, a boolean value to state if 
         <span class="tok-c1">// create the note in the db</span>
         <span class="tok-k">do</span> <span class="tok-p">{</span>
             <span class="tok-c1">// create a new thread confined realm</span>
-            <span class="tok-kd">let</span> <span class="tok-nv">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span> <span class="tok-n">Realm</span><span class="tok-p">(</span><span class="tok-n">configuration</span><span class="tok-p">:</span> <span class="tok-n">Realm</span><span class="tok-p">.</span><span class="tok-n">Configuration</span><span class="tok-p">(</span><span class="tok-n">encryptionKey</span><span class="tok-p">:</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">encryptionKey</span><span class="tok-p">))</span>
+            <span class="tok-kd">let</span> <span class="tok-nv">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">getRealmInstance</span><span class="tok-p">()</span>
             <span class="tok-k">try</span> <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">safeWrite</span> <span class="tok-p">{</span>
                 <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">add</span><span class="tok-p">(</span><span class="tok-n">note</span><span class="tok-p">)</span>
 
-            <span class="tok-n">onComplete</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span> <span class="tok-n">note</span><span class="tok-p">)</span>
+            <span class="tok-n">onComplete</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span> <span class="tok-n">note</span><span class="tok-p">.</span><span class="tok-n">clone</span><span class="tok-p">())</span>
             <span class="tok-p">}</span>
         <span class="tok-p">}</span> <span class="tok-k">catch</span> <span class="tok-p">{</span>
             <span class="tok-n">onComplete</span><span class="tok-p">(</span><span class="tok-n">error</span><span class="tok-p">,</span> <span class="tok-kc">nil</span><span class="tok-p">)</span>
@@ -2238,7 +2236,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
     <span class="tok-n">DispatchQueue</span><span class="tok-p">.</span><span class="tok-n">global</span><span class="tok-p">(</span><span class="tok-n">qos</span><span class="tok-p">:</span> <span class="tok-p">.</span><span class="tok-n">background</span><span class="tok-p">).</span><span class="tok-n">async</span> <span class="tok-p">{</span>
         <span class="tok-k">do</span> <span class="tok-p">{</span>
             <span class="tok-c1">// create a new thread confined realm</span>
-            <span class="tok-kd">let</span> <span class="tok-nv">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span> <span class="tok-n">Realm</span><span class="tok-p">(</span><span class="tok-n">configuration</span><span class="tok-p">:</span> <span class="tok-n">Realm</span><span class="tok-p">.</span><span class="tok-n">Configuration</span><span class="tok-p">(</span><span class="tok-n">encryptionKey</span><span class="tok-p">:</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">encryptionKey</span><span class="tok-p">))</span>
+            <span class="tok-kd">let</span> <span class="tok-nv">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">getRealmInstance</span><span class="tok-p">()</span>
 
             <span class="tok-c1">// retrieve the notes from realm</span>
             <span class="tok-kd">let</span> <span class="tok-nv">noteResult</span> <span class="tok-p">=</span> <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">objects</span><span class="tok-p">(</span><span class="tok-n">Note</span><span class="tok-p">.</span><span class="tok-kc">self</span><span class="tok-p">).</span><span class="tok-bp">filter</span><span class="tok-p">(</span><span class="tok-s">&quot;id = </span><span class="tok-si">\(</span><span class="tok-n">identifier</span><span class="tok-si">)</span><span class="tok-s">&quot;</span><span class="tok-p">)</span>
@@ -2248,7 +2246,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 
             <span class="tok-c1">// return note to the view controller on the main thread</span>
             <span class="tok-n">DispatchQueue</span><span class="tok-p">.</span><span class="tok-n">main</span><span class="tok-p">.</span><span class="tok-n">async</span><span class="tok-p">()</span> <span class="tok-p">{</span>
-                <span class="tok-kd">let</span> <span class="tok-nv">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span><span class="tok-p">!</span> <span class="tok-n">Realm</span><span class="tok-p">(</span><span class="tok-n">configuration</span><span class="tok-p">:</span> <span class="tok-n">Realm</span><span class="tok-p">.</span><span class="tok-n">Configuration</span><span class="tok-p">(</span><span class="tok-n">encryptionKey</span><span class="tok-p">:</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">encryptionKey</span><span class="tok-p">))</span>
+                <span class="tok-kd">let</span> <span class="tok-nv">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span><span class="tok-p">!</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">getRealmInstance</span><span class="tok-p">()</span>
 
                 <span class="tok-c1">// get the notes using the thread safe reference</span>
                 <span class="tok-k">guard</span> <span class="tok-kd">let</span> <span class="tok-nv">notes</span> <span class="tok-p">=</span> <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">resolve</span><span class="tok-p">(</span><span class="tok-n">threadSafeNotes</span><span class="tok-p">)</span> <span class="tok-k">else</span> <span class="tok-p">{</span>
@@ -2258,7 +2256,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
                 <span class="tok-c1">// extract the note from the list</span>
                 <span class="tok-kd">let</span> <span class="tok-nv">note</span> <span class="tok-p">=</span> <span class="tok-n">notes</span><span class="tok-p">.</span><span class="tok-bp">first</span>
 
-                <span class="tok-n">onComplete</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span> <span class="tok-n">note</span><span class="tok-p">)</span>
+                <span class="tok-n">onComplete</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span> <span class="tok-n">note</span><span class="tok-p">?.</span><span class="tok-n">clone</span><span class="tok-p">())</span>
             <span class="tok-p">}</span>
         <span class="tok-p">}</span> <span class="tok-k">catch</span> <span class="tok-p">{</span>
             <span class="tok-n">onComplete</span><span class="tok-p">(</span><span class="tok-n">error</span><span class="tok-p">,</span> <span class="tok-kc">nil</span><span class="tok-p">)</span>
@@ -2317,7 +2315,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
     <span class="tok-n">DispatchQueue</span><span class="tok-p">.</span><span class="tok-n">global</span><span class="tok-p">(</span><span class="tok-n">qos</span><span class="tok-p">:</span> <span class="tok-p">.</span><span class="tok-n">background</span><span class="tok-p">).</span><span class="tok-n">async</span> <span class="tok-p">{</span>
         <span class="tok-k">do</span> <span class="tok-p">{</span>
             <span class="tok-c1">// create a new thread confined realm</span>
-            <span class="tok-kd">let</span> <span class="tok-nv">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span> <span class="tok-n">Realm</span><span class="tok-p">(</span><span class="tok-n">configuration</span><span class="tok-p">:</span> <span class="tok-n">Realm</span><span class="tok-p">.</span><span class="tok-n">Configuration</span><span class="tok-p">(</span><span class="tok-n">encryptionKey</span><span class="tok-p">:</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">encryptionKey</span><span class="tok-p">))</span>
+            <span class="tok-kd">let</span> <span class="tok-nv">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">getRealmInstance</span><span class="tok-p">()</span>
 
             <span class="tok-c1">// get the existing note to update</span>
             <span class="tok-kd">let</span> <span class="tok-nv">notes</span> <span class="tok-p">=</span> <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">objects</span><span class="tok-p">(</span><span class="tok-n">Note</span><span class="tok-p">.</span><span class="tok-kc">self</span><span class="tok-p">).</span><span class="tok-bp">filter</span><span class="tok-p">(</span><span class="tok-s">&quot;id = </span><span class="tok-si">\(</span><span class="tok-n">identifier</span><span class="tok-si">)</span><span class="tok-s">&quot;</span><span class="tok-p">)</span>
@@ -2328,7 +2326,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
                 <span class="tok-n">note</span><span class="tok-p">?.</span><span class="tok-n">title</span> <span class="tok-p">=</span> <span class="tok-n">title</span>
                 <span class="tok-n">note</span><span class="tok-p">?.</span><span class="tok-n">content</span> <span class="tok-p">=</span> <span class="tok-n">content</span>
             <span class="tok-p">}</span>
-            <span class="tok-n">onComplete</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span> <span class="tok-n">note</span><span class="tok-p">)</span>
+            <span class="tok-n">onComplete</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span> <span class="tok-n">note</span><span class="tok-p">?.</span><span class="tok-n">clone</span><span class="tok-p">())</span>
         <span class="tok-p">}</span> <span class="tok-k">catch</span> <span class="tok-p">{</span>
             <span class="tok-n">onComplete</span><span class="tok-p">(</span><span class="tok-n">error</span><span class="tok-p">,</span> <span class="tok-kc">nil</span><span class="tok-p">)</span>
         <span class="tok-p">}</span>
@@ -2372,7 +2370,8 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 24
 25
 26
-27</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+27
+28</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> - Delete the stored entity</span>
 
 <span class="tok-cm"> - Parameter identifier: The identifier of the note</span>
@@ -2382,17 +2381,18 @@ The function accepts a URL in the form of a String, a boolean value to state if 
     <span class="tok-n">DispatchQueue</span><span class="tok-p">.</span><span class="tok-n">global</span><span class="tok-p">(</span><span class="tok-n">qos</span><span class="tok-p">:</span> <span class="tok-p">.</span><span class="tok-n">background</span><span class="tok-p">).</span><span class="tok-n">async</span> <span class="tok-p">{</span>
         <span class="tok-k">do</span> <span class="tok-p">{</span>
             <span class="tok-c1">// create a new thread confined realm</span>
-            <span class="tok-kd">let</span> <span class="tok-nv">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span> <span class="tok-n">Realm</span><span class="tok-p">(</span><span class="tok-n">configuration</span><span class="tok-p">:</span> <span class="tok-n">Realm</span><span class="tok-p">.</span><span class="tok-n">Configuration</span><span class="tok-p">(</span><span class="tok-n">encryptionKey</span><span class="tok-p">:</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">encryptionKey</span><span class="tok-p">))</span>
+            <span class="tok-kd">let</span> <span class="tok-nv">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">getRealmInstance</span><span class="tok-p">()</span>
 
             <span class="tok-c1">// get the note to delete</span>
             <span class="tok-kd">let</span> <span class="tok-nv">noteToDeleteResult</span> <span class="tok-p">=</span> <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">objects</span><span class="tok-p">(</span><span class="tok-n">Note</span><span class="tok-p">.</span><span class="tok-kc">self</span><span class="tok-p">).</span><span class="tok-bp">filter</span><span class="tok-p">(</span><span class="tok-s">&quot;id = </span><span class="tok-si">\(</span><span class="tok-n">identifier</span><span class="tok-si">)</span><span class="tok-s">&quot;</span><span class="tok-p">)</span>
             <span class="tok-kd">let</span> <span class="tok-nv">note</span> <span class="tok-p">=</span> <span class="tok-n">noteToDeleteResult</span><span class="tok-p">.</span><span class="tok-bp">first</span>
+            <span class="tok-kd">let</span> <span class="tok-nv">returnNote</span> <span class="tok-p">=</span> <span class="tok-n">note</span><span class="tok-p">?.</span><span class="tok-n">clone</span><span class="tok-p">()</span>
 
             <span class="tok-c1">// delete the note</span>
             <span class="tok-k">try</span> <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">write</span> <span class="tok-p">{</span>
                 <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">delete</span><span class="tok-p">((</span><span class="tok-n">note</span><span class="tok-p">)</span><span class="tok-o">!</span><span class="tok-p">)</span>
             <span class="tok-p">}</span>
-            <span class="tok-n">onComplete</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span> <span class="tok-n">note</span><span class="tok-p">)</span>
+            <span class="tok-n">onComplete</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span> <span class="tok-n">returnNote</span><span class="tok-p">)</span>
         <span class="tok-p">}</span> <span class="tok-k">catch</span> <span class="tok-p">{</span>
             <span class="tok-n">onComplete</span><span class="tok-p">(</span><span class="tok-n">error</span><span class="tok-p">,</span> <span class="tok-kc">nil</span><span class="tok-p">)</span>
         <span class="tok-p">}</span>
@@ -2442,7 +2442,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
     <span class="tok-n">DispatchQueue</span><span class="tok-p">.</span><span class="tok-n">global</span><span class="tok-p">(</span><span class="tok-n">qos</span><span class="tok-p">:</span> <span class="tok-p">.</span><span class="tok-n">background</span><span class="tok-p">).</span><span class="tok-n">async</span> <span class="tok-p">{</span>
         <span class="tok-k">do</span> <span class="tok-p">{</span>
             <span class="tok-c1">// create a new thread confined realm</span>
-            <span class="tok-kd">let</span> <span class="tok-nv">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span> <span class="tok-n">Realm</span><span class="tok-p">(</span><span class="tok-n">configuration</span><span class="tok-p">:</span> <span class="tok-n">Realm</span><span class="tok-p">.</span><span class="tok-n">Configuration</span><span class="tok-p">(</span><span class="tok-n">encryptionKey</span><span class="tok-p">:</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">encryptionKey</span><span class="tok-p">))</span>
+            <span class="tok-kd">let</span> <span class="tok-nv">realm</span> <span class="tok-p">=</span> <span class="tok-k">try</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">getRealmInstance</span><span class="tok-p">()</span>
 
             <span class="tok-kd">let</span> <span class="tok-nv">notes</span> <span class="tok-p">=</span> <span class="tok-n">realm</span><span class="tok-p">.</span><span class="tok-n">objects</span><span class="tok-p">(</span><span class="tok-n">Note</span><span class="tok-p">.</span><span class="tok-kc">self</span><span class="tok-p">)</span>
 
@@ -2536,12 +2536,12 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 </div>
 </div>
 <div class="sect4">
-<h5 id="code_examples_2">Code Examples</h5>
+<h5 id="android_2">Android</h5>
+<div class="sect5">
+<h6 id="certificate_pinning">Certificate Pinning</h6>
 <div class="paragraph">
 <p>The main code logic for certificate pinning is found under <a href="https://github.com/feedhenry/mobile-security-android-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/services/AuthStateService.java">here</a> in the AuthStateService class.</p>
 </div>
-<div class="sect5">
-<h6 id="certificate_pinning">Certificate Pinning</h6>
 <div class="paragraph">
 <p>Certificate Pinning has been implemented in the Application using the SPKI technique. This ensures easier maintenance and improved security by anonymizing the certificate information in the application.
 The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</a> library is being utilised to allow certificate pinning to work with older API levels.</p>
@@ -2574,17 +2574,15 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 20
 21
 22
-23
-24
-25</div></td><td class="code"><span></span><span class="tok-cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+23</div></td><td class="code"><span></span><span class="tok-cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
 <span class="tok-nt">&lt;network-security-config&gt;</span>
     <span class="tok-nt">&lt;domain-config</span> <span class="tok-na">cleartextTrafficPermitted=</span><span class="tok-s">&quot;false&quot;</span><span class="tok-nt">&gt;</span>
-        <span class="tok-nt">&lt;domain</span> <span class="tok-na">includeSubdomains=</span><span class="tok-s">&quot;true&quot;</span><span class="tok-nt">&gt;</span>osm1.skunkhenry.com<span class="tok-nt">&lt;/domain&gt;</span>
+        <span class="tok-nt">&lt;domain</span> <span class="tok-na">includeSubdomains=</span><span class="tok-s">&quot;true&quot;</span><span class="tok-nt">&gt;</span>security.feedhenry.org<span class="tok-nt">&lt;/domain&gt;</span>
         <span class="tok-nt">&lt;pin-set&gt;</span>
             // primary
-            <span class="tok-nt">&lt;pin</span> <span class="tok-na">digest=</span><span class="tok-s">&quot;SHA-256&quot;</span><span class="tok-nt">&gt;</span>jAoDAV3WG9IKcu0YJ1ZVTuEVqdcglfiQRqmfy3+ieoc=<span class="tok-nt">&lt;/pin&gt;</span>
+            <span class="tok-nt">&lt;pin</span> <span class="tok-na">digest=</span><span class="tok-s">&quot;SHA-256&quot;</span><span class="tok-nt">&gt;</span>trENjoQnbWupnAtu1/WagBE0RgJ+p7ke2ppWML8vAl0=<span class="tok-nt">&lt;/pin&gt;</span>
             // backup
-            <span class="tok-nt">&lt;pin</span> <span class="tok-na">digest=</span><span class="tok-s">&quot;SHA-256&quot;</span><span class="tok-nt">&gt;</span>XAoDAV3WG9IKcu0YJ1ZVTuEVqdcglfiQRqmfy3+ieoc=<span class="tok-nt">&lt;/pin&gt;</span>
+            <span class="tok-nt">&lt;pin</span> <span class="tok-na">digest=</span><span class="tok-s">&quot;SHA-256&quot;</span><span class="tok-nt">&gt;</span>arENjoQnbWupnAtu1/WagBE0RgJ+p7ke2ppWML8vAl0=<span class="tok-nt">&lt;/pin&gt;</span>
         <span class="tok-nt">&lt;/pin-set&gt;</span>
 
         // Set this to true for production, at least 2 unique pins must be provided above!
@@ -2592,8 +2590,6 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
     <span class="tok-nt">&lt;/domain-config&gt;</span>
     <span class="tok-nt">&lt;debug-overrides&gt;</span>
         <span class="tok-nt">&lt;trust-anchors&gt;</span>
-            <span class="tok-c">&lt;!-- Trust preinstalled CAs --&gt;</span>
-            <span class="tok-nt">&lt;certificates</span> <span class="tok-na">src=</span><span class="tok-s">&quot;system&quot;</span> <span class="tok-nt">/&gt;</span>
             <span class="tok-c">&lt;!-- Additionally trust user added CAs --&gt;</span>
             <span class="tok-nt">&lt;certificates</span> <span class="tok-na">src=</span><span class="tok-s">&quot;user&quot;</span> <span class="tok-nt">/&gt;</span>
         <span class="tok-nt">&lt;/trust-anchors&gt;</span>
@@ -2917,6 +2913,165 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 </div>
+<div class="sect4">
+<h5 id="ios">iOS</h5>
+<div class="sect5">
+<h6 id="certificate_pinning_2">Certificate Pinning</h6>
+<div class="paragraph">
+<p>The <a href="https://github.com/feedhenry/mobile-security-ios-template/blob/master/secure-ios-app/services/CertPinningService.swift">Certificate Pinning Service</a> and the <a href="https://github.com/feedhenry/mobile-security-ios-template/blob/master/secure-ios-app/AppDelegate.swift">AppDelegate</a> contain the main code for configuring and performing certificate pinning.
+The <a href="https://github.com/datatheorem/TrustKit">TrustKit</a> library is being used to perform SPKI Certificate Pinning. The pin is a Base64 encoded Subject Public Key Information fingerprint from an X.509 Certificate.</p>
+</div>
+<div class="paragraph">
+<p>You can get the pin for a website using OpenSSL:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code>openssl s_client -servername www.example.com -connect www.example.com:443 | openssl x509 -pubkey -noout | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>TrustKit can be configured and initialised from the <a href="https://developer.apple.com/documentation/uikit/uiapplicationdelegate">AppDelegate</a> file.
+TrustKit is configured below to perform swizzling of the App&#8217;s <a href="https://developer.apple.com/documentation/foundation/nsurlconnection">NSURLConnection</a> and <a href="https://developer.apple.com/documentation/foundation/nsurlsession">NSURLSession</a> delegates in order to automatically add pinning validation to the App&#8217;s HTTPS connections.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="swift"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</div></td><td class="code"><span></span><span class="tok-c1">// Define TrustKit configuration</span>
+<span class="tok-kd">let</span> <span class="tok-nv">trustKitConfig</span> <span class="tok-p">=</span> <span class="tok-p">[</span>
+    <span class="tok-n">kTSKSwizzleNetworkDelegates</span><span class="tok-p">:</span> <span class="tok-kc">true</span><span class="tok-p">,</span>
+    <span class="tok-n">kTSKPinnedDomains</span><span class="tok-p">:</span> <span class="tok-p">[</span>
+        <span class="tok-s">&quot;security.feedhenry.org&quot;</span><span class="tok-p">:</span> <span class="tok-p">[</span>
+            <span class="tok-n">kTSKIncludeSubdomains</span> <span class="tok-p">:</span> <span class="tok-kc">true</span><span class="tok-p">,</span>
+            <span class="tok-n">kTSKEnforcePinning</span> <span class="tok-p">:</span> <span class="tok-kc">true</span><span class="tok-p">,</span>
+            <span class="tok-n">kTSKPublicKeyAlgorithms</span><span class="tok-p">:</span> <span class="tok-p">[</span><span class="tok-n">kTSKAlgorithmRsa2048</span><span class="tok-p">],</span>
+            <span class="tok-n">kTSKPublicKeyHashes</span><span class="tok-p">:</span> <span class="tok-p">[</span>
+                <span class="tok-s">&quot;trENjoQnbWupnAtu1/WagBE0RgJ+p7ke2ppWML8vAl0=&quot;</span><span class="tok-p">,</span>
+                <span class="tok-s">&quot;arENjoQnbWupnAtu1/WagBE0RgJ+p7ke2ppWML8vAl0=&quot;</span>
+            <span class="tok-p">],]]]</span> <span class="tok-k">as</span> <span class="tok-p">[</span><span class="tok-nb">String</span> <span class="tok-p">:</span> <span class="tok-nb">Any</span><span class="tok-p">]</span>
+
+<span class="tok-c1">// Init TrustKit with the above config</span>
+<span class="tok-n">TrustKit</span><span class="tok-p">.</span><span class="tok-n">initSharedInstance</span><span class="tok-p">(</span><span class="tok-n">withConfiguration</span><span class="tok-p">:</span> <span class="tok-n">trustKitConfig</span><span class="tok-p">)</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>performValidCertCheck()</code> function in the <a href="https://github.com/feedhenry/mobile-security-ios-template/blob/master/secure-ios-app/services/CertPinningService.swift">Certificate Pinning Service</a> can be used to manually check if a request to a host fails due to certificate pinning validation issues.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="swift"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24</div></td><td class="code"><span></span><span class="tok-cm">/*</span>
+<span class="tok-cm"> - Checks if the servers presented cert matches a pin from the pinset</span>
+
+<span class="tok-cm"> - Parameter url - the url of the host to check. If no URL is provided, the auth server will be tested by default.</span>
+
+<span class="tok-cm"> - Parameter onCompleted - a completion handler that returns the result of the cert check. A true value means that the cert pinning validated successfully. A false value means there was a validation issue which resulted in a pin verification failure.</span>
+<span class="tok-cm"> */</span>
+<span class="tok-kd">func</span> <span class="tok-nf">performValidCertCheck</span><span class="tok-p">(</span><span class="tok-n">url</span><span class="tok-p">:</span><span class="tok-nb">String</span><span class="tok-p">?</span> <span class="tok-p">=</span> <span class="tok-kc">nil</span><span class="tok-p">,</span> <span class="tok-n">onCompleted</span><span class="tok-p">:</span> <span class="tok-p">@</span><span class="tok-n">escaping</span> <span class="tok-p">(</span><span class="tok-nb">Bool</span><span class="tok-p">)</span> <span class="tok-p">-&gt;</span> <span class="tok-nb">Void</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-kd">let</span> <span class="tok-nv">requestURL</span> <span class="tok-p">=</span> <span class="tok-n">url</span> <span class="tok-p">??</span> <span class="tok-s">&quot;</span><span class="tok-si">\(</span><span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">appConfiguration</span><span class="tok-p">.</span><span class="tok-n">authServerConf</span><span class="tok-p">.</span><span class="tok-n">authServerUrl</span><span class="tok-si">)</span><span class="tok-s">/auth/&quot;</span>
+
+    <span class="tok-n">Alamofire</span><span class="tok-p">.</span><span class="tok-n">request</span><span class="tok-p">(</span><span class="tok-n">requestURL</span><span class="tok-p">).</span><span class="tok-n">validate</span><span class="tok-p">(</span><span class="tok-n">statusCode</span><span class="tok-p">:</span> <span class="tok-mf">200.</span><span class="tok-p">.&lt;</span><span class="tok-mi">300</span><span class="tok-p">).</span><span class="tok-n">responseData</span><span class="tok-p">(</span><span class="tok-n">completionHandler</span><span class="tok-p">:</span> <span class="tok-p">{</span><span class="tok-n">response</span> <span class="tok-k">in</span>
+        <span class="tok-k">switch</span> <span class="tok-n">response</span><span class="tok-p">.</span><span class="tok-n">result</span> <span class="tok-p">{</span>
+        <span class="tok-k">case</span> <span class="tok-p">.</span><span class="tok-n">success</span><span class="tok-p">:</span>
+            <span class="tok-n">onCompleted</span><span class="tok-p">(</span><span class="tok-kc">true</span><span class="tok-p">)</span>
+        <span class="tok-k">case</span> <span class="tok-p">.</span><span class="tok-n">failure</span><span class="tok-p">(</span><span class="tok-kd">let</span> <span class="tok-nv">error</span><span class="tok-p">):</span>
+            <span class="tok-k">if</span><span class="tok-p">(</span><span class="tok-o">!</span><span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">checkPinningFailed</span><span class="tok-p">(</span><span class="tok-n">error</span><span class="tok-p">:</span> <span class="tok-n">error</span><span class="tok-p">))</span> <span class="tok-p">{</span>
+                <span class="tok-c1">// error is not cert pinning related</span>
+                <span class="tok-n">onCompleted</span><span class="tok-p">(</span><span class="tok-kc">true</span><span class="tok-p">)</span>
+            <span class="tok-p">}</span> <span class="tok-k">else</span> <span class="tok-p">{</span>
+                <span class="tok-n">onCompleted</span><span class="tok-p">(</span><span class="tok-kc">false</span><span class="tok-p">)</span>
+            <span class="tok-p">}</span>
+        <span class="tok-p">}</span>
+    <span class="tok-p">})</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The outcome of the certificate checks can then be used to warn the user if a secure channel is not available. In the example below, pinning is performed when the authentication button is pressed. If there are certificate validation issues, the end user will not be allowed to authenticate and the UI is updated to warn them that their connection to the remote server is not secure.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="swift"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</div></td><td class="code"><span></span><span class="tok-kr">@IBAction</span> <span class="tok-kd">func</span> <span class="tok-nf">onAuthButtonTapped</span><span class="tok-p">(</span><span class="tok-kc">_</span> <span class="tok-n">sender</span><span class="tok-p">:</span> <span class="tok-bp">UIButton</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-c1">// perform cert pinning on the auth server when the auth button is pressed</span>
+    <span class="tok-k">if</span> <span class="tok-kd">let</span> <span class="tok-nv">listener</span> <span class="tok-p">=</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">authListener</span> <span class="tok-p">{</span>
+        <span class="tok-n">listener</span><span class="tok-p">.</span><span class="tok-n">performPreCertCheck</span><span class="tok-p">()</span> <span class="tok-p">{</span>
+            <span class="tok-n">validCert</span> <span class="tok-k">in</span>
+            <span class="tok-k">if</span><span class="tok-p">(</span><span class="tok-n">validCert</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+                <span class="tok-c1">// cert is valid, continue with login</span>
+                <span class="tok-n">listener</span><span class="tok-p">.</span><span class="tok-n">startAuth</span><span class="tok-p">(</span><span class="tok-n">presentingViewController</span><span class="tok-p">:</span> <span class="tok-kc">self</span><span class="tok-p">)</span>
+            <span class="tok-p">}</span> <span class="tok-k">else</span> <span class="tok-p">{</span>
+                <span class="tok-c1">// pin validation issues, update the UI to notify the user and prevent authentication.</span>
+                <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">authenticationButton</span><span class="tok-p">.</span><span class="tok-n">isHidden</span> <span class="tok-p">=</span> <span class="tok-kc">true</span>
+                <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">certPinningError</span><span class="tok-p">.</span><span class="tok-n">isHidden</span> <span class="tok-p">=</span> <span class="tok-kc">false</span>
+                <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">logoImage</span><span class="tok-p">.</span><span class="tok-n">isHidden</span> <span class="tok-p">=</span> <span class="tok-kc">true</span>
+                <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">dangerLogo</span><span class="tok-p">.</span><span class="tok-n">isHidden</span> <span class="tok-p">=</span> <span class="tok-kc">false</span>
+                <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">backgroundImage</span><span class="tok-p">.</span><span class="tok-n">image</span> <span class="tok-p">=</span> <span class="tok-bp">UIImage</span><span class="tok-p">(</span><span class="tok-n">named</span><span class="tok-p">:</span> <span class="tok-s">&quot;ic_error_background&quot;</span><span class="tok-p">)</span>
+            <span class="tok-p">}</span>
+        <span class="tok-p">}</span>
+    <span class="tok-p">}</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -3020,7 +3175,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </div>
 </div>
 <div class="sect4">
-<h5 id="android">Android</h5>
+<h5 id="android_3">Android</h5>
 <div class="paragraph">
 <p>The main code logic is found under <a href="https://github.com/feedhenry/mobile-security-android-template/tree/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device">here</a>.</p>
 </div>
@@ -5250,7 +5405,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 </table>
 </div>
 <div class="sect3">
-<h4 id="certificate_pinning_2">3.4.2. Certificate Pinning</h4>
+<h4 id="certificate_pinning_3">3.4.2. Certificate Pinning</h4>
 <div class="paragraph">
 <p>Pinning is the process of associating a host with their expected X509 certificate or public key.
 Once a certificate or public key is known or seen for a host, the certificate or public key is associated or 'pinned' to the host. If more than one certificate or public key is acceptable, then the program holds a pinset. In this case, the advertised identity must match one of the elements in the pinset.</p>
@@ -9051,7 +9206,7 @@ startActivityForResult(intent, request_code);</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="certificate_pinning_3">3.11.3. Certificate Pinning</h4>
+<h4 id="certificate_pinning_4">3.11.3. Certificate Pinning</h4>
 <div class="paragraph">
 <p>Cordova does not support true certificate pinning. The main barrier to this is a lack of native APIs in Android for intercepting SSL connections to perform the check of the server&#8217;s certificate.
 Since Apache Cordova is meant to offer consistent APIs across multiple platforms, not having a capability in a major platform breaks that consistency.</p>
@@ -12748,7 +12903,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </div>
 </div>
 <div class="sect3">
-<h4 id="ios">3.17.5. IOS</h4>
+<h4 id="ios_2">3.17.5. IOS</h4>
 <div class="sect4">
 <h5 id="use_the_keychain_carefully">Use the Keychain Carefully</h5>
 <div class="ulist">
@@ -12851,7 +13006,7 @@ This method should be overridden and all the sensitive information in the user i
 </div>
 </div>
 <div class="sect3">
-<h4 id="android_2">3.17.6. Android</h4>
+<h4 id="android_4">3.17.6. Android</h4>
 <div class="sect4">
 <h5 id="implement_file_permissions_carefully">Implement File Permissions Carefully</h5>
 <div class="ulist">
@@ -13162,7 +13317,7 @@ This method should be overridden and all the sensitive information in the user i
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-12-15 14:46:35 GMT
+Last updated 2018-01-09 09:06:27 GMT
 </div>
 </div>
 </body>

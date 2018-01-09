@@ -46,10 +46,11 @@
 === Overview
 A number of features were added to enhance the security of the channel between the Mobile App and the Authentication or API Server.
 
-=== Code Examples
-The main code logic for certificate pinning is found under https://github.com/feedhenry/mobile-security-android-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/services/AuthStateService.java[here] in the AuthStateService class.
+=== Android
 
 ==== Certificate Pinning
+The main code logic for certificate pinning is found under https://github.com/feedhenry/mobile-security-android-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/services/AuthStateService.java[here] in the AuthStateService class.
+
 Certificate Pinning has been implemented in the Application using the SPKI technique. This ensures easier maintenance and improved security by anonymizing the certificate information in the application.
 The https://github.com/datatheorem/TrustKit-Android[TrustKit Android] library is being utilised to allow certificate pinning to work with older API levels.
 
@@ -58,7 +59,7 @@ The Android https://developer.android.com/training/articles/security-config.html
 .Code
 [source,xml,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/f237645fa504b584172a6d60d63f15da8c9fcd4d/app/src/main/res/xml/network_security_config.xml[]
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/res/xml/network_security_config.xml[]
 ....
 
 You can get the pin for a website using OpenSSL:
@@ -109,5 +110,39 @@ You should also perform certificate pinning checks when calling remote APIs:
 include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/network/presenters/UploadNotesPresenter.java[tags=invokeAPI]
 ....
 
+=== iOS
 
+==== Certificate Pinning
+The https://github.com/feedhenry/mobile-security-ios-template/blob/master/secure-ios-app/services/CertPinningService.swift[Certificate Pinning Service] and the https://github.com/feedhenry/mobile-security-ios-template/blob/master/secure-ios-app/AppDelegate.swift[AppDelegate] contain the main code for configuring and performing certificate pinning.
+The https://github.com/datatheorem/TrustKit[TrustKit] library is being used to perform SPKI Certificate Pinning. The pin is a Base64 encoded Subject Public Key Information fingerprint from an X.509 Certificate.
 
+You can get the pin for a website using OpenSSL:
+
+```
+openssl s_client -servername www.example.com -connect www.example.com:443 | openssl x509 -pubkey -noout | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64
+```
+
+TrustKit can be configured and initialised from the https://developer.apple.com/documentation/uikit/uiapplicationdelegate[AppDelegate] file.
+TrustKit is configured below to perform swizzling of the App's https://developer.apple.com/documentation/foundation/nsurlconnection[NSURLConnection] and https://developer.apple.com/documentation/foundation/nsurlsession[NSURLSession] delegates in order to automatically add pinning validation to the App's HTTPS connections.
+
+.Code
+[source,swift,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/AppDelegate.swift[tags=trustkitConfig]
+....
+
+The `performValidCertCheck()` function in the https://github.com/feedhenry/mobile-security-ios-template/blob/master/secure-ios-app/services/CertPinningService.swift[Certificate Pinning Service] can be used to manually check if a request to a host fails due to certificate pinning validation issues.
+
+.Code
+[source,swift,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/CertPinningService.swift[tags=performValidCertCheck]
+....
+
+The outcome of the certificate checks can then be used to warn the user if a secure channel is not available. In the example below, pinning is performed when the authentication button is pressed. If there are certificate validation issues, the end user will not be allowed to authenticate and the UI is updated to warn them that their connection to the remote server is not secure.
+
+.Code
+[source,swift,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/authentication/AuthenticationViewController.swift[tags=onAuthButtonTapped]
+....

@@ -61,6 +61,8 @@
 == Implementation
 === Overview
 
+=== Android
+
 An Authentication & Session Management implementation has been provided in our https://github.com/feedhenry/mobile-security-android-template[Mobile Security Android Template] App.
 
 The Application uses http://openid.net/connect/[OpenID Connect] for authentication and access control. The Open Source Identity and Access Management server, http://www.keycloak.org[Keycloak], is being used as an Identity Broker.
