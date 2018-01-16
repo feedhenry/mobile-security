@@ -63,9 +63,9 @@
 
 == Implementation
 === Overview
-A number of checks were implemented to assess the security of the underlying device running the application.
+A number of checks were implemented to assess the security of the underlying device running both the Android and iOS template applications.
 
-=== Code Examples
+=== Android
 The main code logic is found under https://github.com/feedhenry/mobile-security-android-template/tree/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device[here].
 
 The following code snippets below describe the main device trust detection logic in the mobile app.
@@ -140,4 +140,53 @@ The Developer Mode status can be checked using the https://developer.android.com
 [source,java,linenums,indent=0]
 ....
 include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device/DeviceFragment.java[tags=detectDeveloperOptions]
+....
+
+=== Native iOS
+
+The following code snippets below describe the main device trust detection logic in the iOS template app.
+
+==== Detecting Device Lock
+Detecting if the Device has a lock screen set.
+
+.Code
+[source,swift,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/DevicetrustService.swift[tags=detectDeviceLock]
+....
+
+==== Detecting Jailbreak
+Detecting if the Device is Jailbroken using the https://github.com/thii/DTTJailbreakDetection[DTTJailbreakDetection] library.
+
+.Code
+[source,swift,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/DevicetrustService.swift[tags=detectJailbreak]
+....
+
+==== Detecting Debug Mode
+Detecting if the device is running in Debug mode.
+
+.Code
+[source,swift,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/DevicetrustService.swift[tags=detectDebugabble]
+....
+
+==== Detecting Emulator Access
+Detecting if the underlying device running the mobile application is an Emulator.
+
+.Code
+[source,swift,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/DevicetrustService.swift[tags=detectEmulator]
+....
+
+==== Detecting Outdated OS Versions
+Detecting if the underlying device running the mobile application is running an old version of iOS.
+
+.Code
+[source,swift,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/DevicetrustService.swift[tags=detectLatestOS]
 ....

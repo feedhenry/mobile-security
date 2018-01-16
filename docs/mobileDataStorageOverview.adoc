@@ -5,14 +5,14 @@
 | *Classify data storage according to sensitivity and apply controls accordingly* _(To understand what information should be protected)_
 | *Store any sensitive data on a mobile device where possible* _(Prevent data leak)_.
 
-| *When storing sensitive data on the device, use a file encryption API provided by the OS or other trusted source* _(Secure Cryptography)_ 
-| *Write data to persistent memory accessible to other applications without encryption* _(Shared storage is untrusted)_ 
+| *When storing sensitive data on the device, use a file encryption API provided by the OS or other trusted source* _(Secure Cryptography)_
+| *Write data to persistent memory accessible to other applications without encryption* _(Shared storage is untrusted)_
 
 | *Use file encryption API’s which use a secret key protected by the device unlock code and deletable on remote wipe if available* _(Protect secret key)_
 | *Including the keys in the same attacker-readable directory as the encrypted content* _(Can be used to decrypt data)_
 
 | *Make use of remote wipe and kill switch APIs to remove sensitive information from the device in the event of theft or loss* _(Prevent data leak if the device is lost)_
-| *Take screeenshots contain sensitive data* _(Avoid sensitive data is exposed through screenshots)_ 
+| *Take screeenshots contain sensitive data* _(Avoid sensitive data is exposed through screenshots)_
 
 | *Use a time based (expiry) type of control which will wipe sensitive data from the mobile device once the application has not communicated with its servers for a given period of time* _(Less chance to decrypt data by using brute force)_
 | *Leak permission-protected data to other applications* _(Prevent other apps access sensitive data)_
@@ -33,7 +33,7 @@
 |
 
 | *Disable Auto Correction and Autosuggestion for inputs that contain sensitive data* _(Prevent data leak)_
-| 
+|
 
 | *Disable cut, copy and paste functionalities for inputs that may contain sensitive data or restrict the pasteboard to be accessible only from this application* _(Prevent data leak)_
 |
@@ -45,7 +45,7 @@
 |
 
 | *Remove sesitive data from views when in background* _(Prevent data leak)_
-| 
+|
 
 
 |===
@@ -54,7 +54,9 @@
 
 === Overview
 
-We have implemented a feature in the sample app to allow users to manage secret notes. This feature is used to showcase the best practices around secure data storage.
+We have implemented a secure storage feature in the sample mobile templates to allow users to manage secret notes. This feature is used to showcase the best practices around secure data storage.
+
+=== Native Android
 
 [.float-group]
 --
@@ -67,7 +69,7 @@ image::https://raw.githubusercontent.com/feedhenry/mobile-security-android-templ
 
 The secret notes can be saved to either file system or database (SQLite). In both cases, the notes will be encrypted automatically when persisted, and decrypted automatically when loaded into the app.
 
-=== Secret Key Management
+==== Secret Key Management
 
 Secret keys are being used to encrypt/decrypt the notes. To make sure the secret keys are securely persisted, in most cases, the OS's keystore should be used to persist the secret key.
 
@@ -85,7 +87,7 @@ include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-tem
 
 ==== Pre-Android M
 
-However, in pre-Android M, the KeyStore API only supports generating public/private key pairs, so we can't persist the secret key using the keystore. 
+However, in pre-Android M, the KeyStore API only supports generating public/private key pairs, so we can't persist the secret key using the keystore.
 
 Instead, we will have to:
 
@@ -123,7 +125,7 @@ include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-tem
 
 The alternative option is to ask the user to provide a password. The password will be used to encrypt/decrypt the secret key. This does mean that the user will have to remember the password and enter it everytime when using the app.
 
-=== Encrypt/decrypt the secret key
+==== Encrypt/decrypt the secret key
 
 RSA encryption/decryption is used to encrypt/decrypt the secret key. It can be used to encrypt/decrypt relatively small amount of data.
 
@@ -141,7 +143,7 @@ include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-tem
 include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/crypto/RsaHelper.java[tags=decrypt]
 ....
 
-=== Encrypt/decrypt the content of notes
+==== Encrypt/decrypt the content of notes
 
 Once we have the secret key, we can use it to encrypt/decrypt the content of the notes using AES.
 
@@ -159,7 +161,7 @@ include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-tem
 include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/crypto/AesCrypto.java[tags=decrypt]
 ....
 
-=== Persist data using file system
+==== Persist data using file system
 
 When a secret note is created, it can be persisted to the file system. We should encrypt the file when it is being persisted, and decrypt it when it is being loaded:
 
@@ -175,7 +177,7 @@ include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-tem
 include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/store/SecureFileNoteStore.java[tags=readFileWithDecryption]
 ....
 
-=== Persist data using database (SQLite)
+==== Persist data using database (SQLite)
 
 To securely persist data to the database, a library called https://www.zetetic.net/sqlcipher/[SqlCipher] is used. The library will automatically manage the encryption/decryption of the sqlite database file. It is easy to use, and requires minimum changes to the code.
 
@@ -185,4 +187,93 @@ To encrypt/decrypt the database, a password is required. You can ask the user to
 [source,java,linenums,indent=0]
 ....
 include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/store/sqlite/SqliteNoteStore.java[tags=getDbPassword]
+....
+
+=== Native iOS
+
+The secret notes are being persisted using an encrypted https://realm.io/docs/swift/latest/[Realm Mobile DB].
+
+==== Initialising Realm DB
+
+The Realm DB storing the notes must be initialised using the encryption key.
+
+.Initialise Realm
+[source,swift,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/StorageService.swift[tags=init]
+....
+
+The encryption key is stored in the iOS Keychain.
+
+.Get Encryption Key
+[source,swift,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/StorageService.swift[tags=getEncryptionKey]
+....
+
+
+When the application is initialised for the first time, a new encryption key is randomly generated.
+
+.Generate Encryption Key
+[source,swift,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/StorageService.swift[tags=generateEncryptionKey]
+....
+
+==== Interacting with Realm DB
+
+Interactions with the Realm DB are performed on background threads. Completion handlers are used to pass information to the view controllers on the Main thread.
+
+==== Listing Notes
+List all the notes.
+
+.Listing Notes
+[source,swift,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/StorageService.swift[tags=list]
+....
+
+==== Creating a Note
+Create an individual note.
+
+.Create a Note
+[source,swift,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/StorageService.swift[tags=create]
+....
+
+==== Read a Note
+Read an individual note.
+
+.Read a Note
+[source,swift,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/StorageService.swift[tags=read]
+....
+
+==== Edit a Note
+Edit an individual note.
+
+.Edit a Note
+[source,swift,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/StorageService.swift[tags=edit]
+....
+
+==== Delete a Note
+Delete an individual note.
+
+.Delete a Note
+[source,swift,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/StorageService.swift[tags=delete]
+....
+
+==== Delete all Notes
+Delete all notes.
+
+.Delete all Notes
+[source,swift,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/StorageService.swift[tags=deleteAll]
 ....

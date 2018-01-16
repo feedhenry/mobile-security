@@ -12,7 +12,7 @@ Threat, Definition, Examples
 Denial of Service, Deny or degrade service to users, "Jamming of wireless communications, overloading networks with bogus traffic, ransomware, theft of mobile device or mobile services."
 Geolocation, Physical tracking of user., "Passively or actively obtaining accurate three-dimensional coordinates of target, possibly including speed and direction."
 Information Disclosure, Unauthorized access to information or services., "Interception of data in transit, leakage or exfiltration of user, app, or enterprise data, tracking of user location, eavesdropping on voice or data communications, surreptitiously activating the phone’s microphone or camera to spy on the user."
-Spoofing, Impersonating something or someone, "Email or SMS message pretending to be from boss or colleague (social engineering); fraudulent Wi-Fi access point or cellular base station mimicking a legitimate one. " 
+Spoofing, Impersonating something or someone, "Email or SMS message pretending to be from boss or colleague (social engineering); fraudulent Wi-Fi access point or cellular base station mimicking a legitimate one. "
 Tampering, "Modifying data, software, firmware, or hardware without authorization. ", "Modifying data in transit, inserting tampered hardware or software into supply chain, repackaging legitimate app with malware, modifying network or device configuration (e.g., jailbreaking or rooting a phone)."
 |===
 
@@ -52,7 +52,7 @@ Tampering, "Modifying data, software, firmware, or hardware without authorizatio
 * The inattention to software assurance best practices during the development of some mobile device components.
 * The failure to use strong authentication mechanisms—even when available—for cloud services on which the device depends for secure functionality.
 * Much effort has gone into increasing the resilience of mobile device components against exploitation, but continued effort is required in this area and should focus not only on the mobile operating system but also on lower-level components such as TEEs and baseband processors and the software/firmware used to operate them.
-* Software or firmware installed by the MNO or OEM is typically outside the purview of the mobile operating system provider, making it difficult to detect. 
+* Software or firmware installed by the MNO or OEM is typically outside the purview of the mobile operating system provider, making it difficult to detect.
 
 === Threats in Mobile Applications
 
@@ -96,7 +96,7 @@ Tampering, "Modifying data, software, firmware, or hardware without authorizatio
 ** Exploiting Public Mobile Application Stores
 ** Attempting to Root/Jailbreak a Mobile Device
 ** Manipulation of Trusted Apps.
-** Sharing of Data Between Trusted Apps. 
+** Sharing of Data Between Trusted Apps.
 * Defenses
 ** Best Practices
 ** App Vetting
@@ -124,13 +124,13 @@ Tampering, "Modifying data, software, firmware, or hardware without authorizatio
 ==== Key Components in Mobile Networks
 
 * the Radio Access Network (RAN)
-** Part of the mobile network that connects mobile subscribers to their service provider network using Radio Frequency (RF) signaling over an “air interface,” i.e., wirelessly. 
+** Part of the mobile network that connects mobile subscribers to their service provider network using Radio Frequency (RF) signaling over an “air interface,” i.e., wirelessly.
 ** Includes tower antennas, RF transceivers and RF controllers.
 ** Part of the service is typically encrypted, although the level of encryption varies from network type to network type and by decisions the carrier makes in implementing this capability.
 * the Core Network (CN)
 ** Is always out of band; the cellular mobile device has no access to it and it runs on different channels.
 ** The data between the RAN and the operator’s core network is handled by the backhaul network
-** Holds network logic and is responsible for creating and maintaining the connection between cellular mobile devices and external service networks (e.g., Internet, wireline phones, other carriers and private enterprises) as well as physically tracking all user equipment at all times to enable routing of calls and data streams as users and their devices move throughout the landscape. 
+** Holds network logic and is responsible for creating and maintaining the connection between cellular mobile devices and external service networks (e.g., Internet, wireline phones, other carriers and private enterprises) as well as physically tracking all user equipment at all times to enable routing of calls and data streams as users and their devices move throughout the landscape.
 * External Services
 ** Contain additional end-user services
 ** May or may not be provided by the mobile network operator
@@ -209,14 +209,14 @@ Communicates directly with the carrier’s core network to authenticate itself, 
 
 === Mobile Enterprise
 
-The mobile enterprise consists of systems, applications, processes, and people that work together to control, manage, and integrate the use of mobile devices and related technologies into business and mission operations. 
+The mobile enterprise consists of systems, applications, processes, and people that work together to control, manage, and integrate the use of mobile devices and related technologies into business and mission operations.
 
 ==== Enterprise Mobility Management
 
 * Threats
 ** Unauthorized access to EMM administrative console
 ** Impersonation of EMM server
-** Bypass or subvert EMM agent on mobile device 
+** Bypass or subvert EMM agent on mobile device
 * Defenses
 ** Enterprise security audit
 ** Mobile device security audit
@@ -228,7 +228,7 @@ The mobile enterprise consists of systems, applications, processes, and people t
 
 ==== Enterprise Mobile Application Stores
 * Threats
-** Impersonation or unauthorized use of administrator credentials, app developer credentials, or distribution certificates. 
+** Impersonation or unauthorized use of administrator credentials, app developer credentials, or distribution certificates.
 ** Bypass or subvert application security analysis or vetting techniques.
 * Defenses
 ** Enterprise security audit
@@ -248,7 +248,7 @@ The mobile enterprise consists of systems, applications, processes, and people t
 * Stronger mechanisms for data security and data authorization decisions need to be developed
 * The lack of standards for interfacing with TEE has limited use of the technology
 
-=== Emerging Threats 
+=== Emerging Threats
 
 * Open Source Signals Intelligence
 ** Unfortunately, much of the software and protocols used in RF devices are insecure
@@ -277,11 +277,9 @@ The mobile enterprise consists of systems, applications, processes, and people t
 * Execute
 * Maintain
 
-=== New or Updated Policy, Standards, and Best Practices 
+=== New or Updated Policy, Standards, and Best Practices
 
 ==== Mobile Applications
 
 * There is a need to create security guidelines for mobile application development.
 * Developer-focused guidance that communicates best practices on how to securely code, package and release applications is still lacking.
-
-
