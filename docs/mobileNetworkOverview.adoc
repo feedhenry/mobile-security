@@ -146,3 +146,23 @@ The outcome of the certificate checks can then be used to warn the user if a sec
 ....
 include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/authentication/AuthenticationViewController.swift[tags=onAuthButtonTapped]
 ....
+
+=== Apache Cordova
+
+==== Certificate Pinning
+
+Certificate Pinning is being performed on preflight requests to ensure that the channel is secure before sending sensitive data.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/c24297cda240efa40aca292e7d0657d7432d1eba/src/pages/auth/auth.ts[tags=certPinning]
+....
+
+The pinning fingerprint is defined in the https://github.com/feedhenry/mobile-security-cordova-template/blob/c24297cda240efa40aca292e7d0657d7432d1eba/src/config/keycloak.json[/config/keycloak.json] file.
+
+.Code
+[source,json,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/c24297cda240efa40aca292e7d0657d7432d1eba/src/config/keycloak.json[]
+....
