@@ -61,7 +61,7 @@
 == Implementation
 === Overview
 
-=== Android
+=== Native Android
 
 [.float-group]
 --
@@ -199,6 +199,49 @@ There are also a number of other functions in the helper class to get some auth 
 * `getIdentityToken()` - Returns a String of the Identity Token.
 * `getNeedsTokenRefresh()` - Returns a boolean value for if a new access token needs to be required.
 * `setNeedsTokenRefresh()` - Set a flag to say that a new access token is required.
+
+=== Native iOS
+
+[.float-group]
+--
+[.left]
+image::assets/ios-auth-1.png[,270,480]
+
+[.left]
+image::assets/ios-auth-2.png[,270,480]
+--
+
+The Keycloak server config is defined in the https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/AppConfig.plist[secure-ios-app/AppConfig.plist] file.
+
+.Code
+[source,swift,linenum,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/AppConfig.plist[]
+....
+
+The `performAuthentication()` function handles the user authentication flow and the backchannel token exchange.
+
+.Code
+[source,swift,linenum,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/AuthenticationService.swift[tags=performAuthentication]
+....
+
+The `isLoggedIn()` can be used to check if the user is authenticated.
+
+.Code
+[source,swift,linenum,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/AuthenticationService.swift[tags=isLoggedIn]
+....
+
+The `performLogout()` can be used to logout the user.
+
+.Code
+[source,swift,linenum,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/AuthenticationService.swift[tags=performLogout]
+....
 
 === Apache Cordova
 

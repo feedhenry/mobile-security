@@ -643,7 +643,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 </div>
 <div class="sect4">
-<h5 id="android">Android</h5>
+<h5 id="native_android">Native Android</h5>
 <div class="openblock float-group">
 <div class="content">
 <div class="imageblock left">
@@ -1318,6 +1318,165 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 </div>
 </div>
 <div class="sect4">
+<h5 id="native_ios">Native iOS</h5>
+<div class="openblock float-group">
+<div class="content">
+<div class="imageblock left">
+<div class="content">
+<img src="assets/ios-auth-1.png" alt="ios auth 1" width="270" height="480">
+</div>
+</div>
+<div class="imageblock left">
+<div class="content">
+<img src="assets/ios-auth-2.png" alt="ios auth 2" width="270" height="480">
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The Keycloak server config is defined in the <a href="https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/AppConfig.plist">secure-ios-app/AppConfig.plist</a> file.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="swift"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</div></td><td class="code"><span></span><span class="tok-o">&lt;?</span><span class="tok-n">xml</span> <span class="tok-n">version</span><span class="tok-p">=</span><span class="tok-s">&quot;1.0&quot;</span> <span class="tok-n">encoding</span><span class="tok-p">=</span><span class="tok-s">&quot;UTF-8&quot;</span><span class="tok-p">?</span><span class="tok-o">&gt;</span>
+<span class="tok-o">&lt;!</span><span class="tok-n">DOCTYPE</span> <span class="tok-n">plist</span> <span class="tok-n">PUBLIC</span> <span class="tok-s">&quot;-//Apple//DTD PLIST 1.0//EN&quot;</span> <span class="tok-s">&quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;</span><span class="tok-o">&gt;</span>
+<span class="tok-p">&lt;</span><span class="tok-n">plist</span> <span class="tok-n">version</span><span class="tok-p">=</span><span class="tok-s">&quot;1.0&quot;</span><span class="tok-o">&gt;</span>
+<span class="tok-p">&lt;</span><span class="tok-n">dict</span><span class="tok-p">&gt;</span>
+	<span class="tok-p">&lt;</span><span class="tok-n">key</span><span class="tok-p">&gt;</span><span class="tok-n">api</span><span class="tok-o">-</span><span class="tok-n">server</span><span class="tok-o">&lt;/</span><span class="tok-n">key</span><span class="tok-p">&gt;</span>
+	<span class="tok-p">&lt;</span><span class="tok-n">dict</span><span class="tok-p">&gt;</span>
+		<span class="tok-p">&lt;</span><span class="tok-n">key</span><span class="tok-p">&gt;</span><span class="tok-n">server</span><span class="tok-o">-</span><span class="tok-n">url</span><span class="tok-o">&lt;/</span><span class="tok-n">key</span><span class="tok-p">&gt;</span>
+		<span class="tok-p">&lt;</span><span class="tok-n">string</span><span class="tok-p">&gt;</span><span class="tok-n">https</span><span class="tok-p">:</span><span class="tok-c1">//api.security.feedhenry.org&lt;/string&gt;</span>
+	<span class="tok-o">&lt;/</span><span class="tok-n">dict</span><span class="tok-p">&gt;</span>
+	<span class="tok-p">&lt;</span><span class="tok-n">key</span><span class="tok-p">&gt;</span><span class="tok-n">auth</span><span class="tok-o">-</span><span class="tok-n">server</span><span class="tok-o">&lt;/</span><span class="tok-n">key</span><span class="tok-p">&gt;</span>
+	<span class="tok-p">&lt;</span><span class="tok-n">dict</span><span class="tok-p">&gt;</span>
+		<span class="tok-p">&lt;</span><span class="tok-n">key</span><span class="tok-p">&gt;</span><span class="tok-n">auth</span><span class="tok-o">-</span><span class="tok-n">server</span><span class="tok-o">-</span><span class="tok-n">url</span><span class="tok-o">&lt;/</span><span class="tok-n">key</span><span class="tok-p">&gt;</span>
+		<span class="tok-p">&lt;</span><span class="tok-n">string</span><span class="tok-p">&gt;</span><span class="tok-n">https</span><span class="tok-p">:</span><span class="tok-c1">//keycloak.security.feedhenry.org&lt;/string&gt;</span>
+		<span class="tok-p">&lt;</span><span class="tok-n">key</span><span class="tok-p">&gt;</span><span class="tok-n">realm</span><span class="tok-o">-</span><span class="tok-n">id</span><span class="tok-o">&lt;/</span><span class="tok-n">key</span><span class="tok-p">&gt;</span>
+		<span class="tok-p">&lt;</span><span class="tok-n">string</span><span class="tok-p">&gt;</span><span class="tok-n">secure</span><span class="tok-o">-</span><span class="tok-n">app</span><span class="tok-o">&lt;/</span><span class="tok-n">string</span><span class="tok-p">&gt;</span>
+		<span class="tok-p">&lt;</span><span class="tok-n">key</span><span class="tok-p">&gt;</span><span class="tok-n">client</span><span class="tok-o">-</span><span class="tok-n">id</span><span class="tok-o">&lt;/</span><span class="tok-n">key</span><span class="tok-p">&gt;</span>
+		<span class="tok-p">&lt;</span><span class="tok-n">string</span><span class="tok-p">&gt;</span><span class="tok-n">client</span><span class="tok-o">-</span><span class="tok-n">app</span><span class="tok-o">&lt;/</span><span class="tok-n">string</span><span class="tok-p">&gt;</span>
+	<span class="tok-o">&lt;/</span><span class="tok-n">dict</span><span class="tok-p">&gt;</span>
+<span class="tok-o">&lt;/</span><span class="tok-n">dict</span><span class="tok-p">&gt;</span>
+<span class="tok-o">&lt;/</span><span class="tok-n">plist</span><span class="tok-p">&gt;</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>performAuthentication()</code> function handles the user authentication flow and the backchannel token exchange.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="swift"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</div></td><td class="code"><span></span><span class="tok-kd">func</span> <span class="tok-nf">performAuthentication</span><span class="tok-p">(</span><span class="tok-n">presentingViewController</span> <span class="tok-n">viewController</span><span class="tok-p">:</span><span class="tok-bp">UIViewController</span><span class="tok-p">,</span> <span class="tok-n">onCompleted</span><span class="tok-p">:</span> <span class="tok-p">@</span><span class="tok-n">escaping</span> <span class="tok-p">(</span><span class="tok-n">Identity</span><span class="tok-p">?,</span> <span class="tok-n">Error</span><span class="tok-p">?)</span> <span class="tok-p">-&gt;</span> <span class="tok-nb">Void</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">onCompleted</span> <span class="tok-p">=</span> <span class="tok-n">onCompleted</span>
+
+    <span class="tok-kd">let</span> <span class="tok-nv">oidServiceConfiguration</span> <span class="tok-p">=</span> <span class="tok-n">OIDServiceConfiguration</span><span class="tok-p">(</span><span class="tok-n">authorizationEndpoint</span><span class="tok-p">:</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">authServerConfiguration</span><span class="tok-p">.</span><span class="tok-n">authEndpoint</span><span class="tok-p">,</span> <span class="tok-n">tokenEndpoint</span><span class="tok-p">:</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">authServerConfiguration</span><span class="tok-p">.</span><span class="tok-n">tokenEndpoint</span><span class="tok-p">)</span>
+    <span class="tok-kd">let</span> <span class="tok-nv">oidAuthRequest</span> <span class="tok-p">=</span> <span class="tok-n">OIDAuthorizationRequest</span><span class="tok-p">(</span><span class="tok-n">configuration</span><span class="tok-p">:</span> <span class="tok-n">oidServiceConfiguration</span><span class="tok-p">,</span> <span class="tok-n">clientId</span><span class="tok-p">:</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">authServerConfiguration</span><span class="tok-p">.</span><span class="tok-n">clientId</span><span class="tok-p">,</span> <span class="tok-n">scopes</span><span class="tok-p">:</span> <span class="tok-p">[</span><span class="tok-n">OIDScopeOpenID</span><span class="tok-p">,</span> <span class="tok-n">OIDScopeProfile</span><span class="tok-p">],</span> <span class="tok-n">redirectURL</span><span class="tok-p">:</span> <span class="tok-n">REDIRECT_URL</span><span class="tok-p">!,</span> <span class="tok-n">responseType</span><span class="tok-p">:</span> <span class="tok-n">OIDResponseTypeCode</span><span class="tok-p">,</span> <span class="tok-n">additionalParameters</span><span class="tok-p">:</span> <span class="tok-kc">nil</span><span class="tok-p">)</span>
+
+    <span class="tok-kd">let</span> <span class="tok-nv">appDelegate</span> <span class="tok-p">=</span> <span class="tok-bp">UIApplication</span><span class="tok-p">.</span><span class="tok-n">shared</span><span class="tok-p">.</span><span class="tok-n">delegate</span> <span class="tok-k">as</span><span class="tok-p">!</span> <span class="tok-n">AppDelegate</span>
+    <span class="tok-n">appDelegate</span><span class="tok-p">.</span><span class="tok-n">authService</span> <span class="tok-p">=</span> <span class="tok-kc">self</span><span class="tok-p">;</span>
+    <span class="tok-c1">//this will automatically exchange the token to get the user info</span>
+    <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">currentAuthorisationFlow</span> <span class="tok-p">=</span> <span class="tok-n">OIDAuthState</span><span class="tok-p">.</span><span class="tok-n">authState</span><span class="tok-p">(</span><span class="tok-n">byPresenting</span><span class="tok-p">:</span> <span class="tok-n">oidAuthRequest</span><span class="tok-p">,</span> <span class="tok-n">presenting</span><span class="tok-p">:</span> <span class="tok-n">viewController</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+        <span class="tok-n">authState</span><span class="tok-p">,</span><span class="tok-n">error</span> <span class="tok-k">in</span>
+        <span class="tok-k">if</span> <span class="tok-n">authState</span> <span class="tok-o">!=</span> <span class="tok-kc">nil</span> <span class="tok-o">&amp;&amp;</span> <span class="tok-n">authState</span><span class="tok-p">?.</span><span class="tok-n">authorizationError</span> <span class="tok-p">==</span> <span class="tok-kc">nil</span> <span class="tok-p">{</span>
+            <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">authSuccess</span><span class="tok-p">(</span><span class="tok-n">authState</span><span class="tok-p">:</span> <span class="tok-n">authState</span><span class="tok-p">!)</span>
+        <span class="tok-p">}</span> <span class="tok-k">else</span> <span class="tok-p">{</span>
+            <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">authFailure</span><span class="tok-p">(</span><span class="tok-n">authState</span><span class="tok-p">:</span> <span class="tok-n">authState</span><span class="tok-p">,</span> <span class="tok-n">error</span><span class="tok-p">:</span> <span class="tok-n">error</span><span class="tok-p">)</span>
+        <span class="tok-p">}</span>
+    <span class="tok-p">}</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>isLoggedIn()</code> can be used to check if the user is authenticated.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="swift"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1
+2
+3</div></td><td class="code"><span></span><span class="tok-kd">func</span> <span class="tok-nf">isLoggedIn</span><span class="tok-p">()</span> <span class="tok-p">-&gt;</span> <span class="tok-nb">Bool</span> <span class="tok-p">{</span>
+    <span class="tok-k">return</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">identify</span> <span class="tok-o">!=</span> <span class="tok-kc">nil</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>performLogout()</code> can be used to logout the user.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="swift"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</div></td><td class="code"><span></span><span class="tok-kd">func</span> <span class="tok-nf">performLogout</span><span class="tok-p">(</span><span class="tok-n">onCompleted</span><span class="tok-p">:</span> <span class="tok-p">@</span><span class="tok-n">escaping</span> <span class="tok-p">(</span><span class="tok-n">Error</span><span class="tok-p">?)</span> <span class="tok-p">-&gt;</span> <span class="tok-nb">Void</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-k">if</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">isLoggedIn</span><span class="tok-p">()</span> <span class="tok-p">{</span>
+        <span class="tok-kd">let</span> <span class="tok-nv">logoutUrl</span> <span class="tok-p">=</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">authServerConfiguration</span><span class="tok-p">.</span><span class="tok-n">getLogoutUrl</span><span class="tok-p">(</span><span class="tok-n">identityToken</span><span class="tok-p">:</span> <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">authState</span><span class="tok-p">!.</span><span class="tok-n">lastTokenResponse</span><span class="tok-p">!.</span><span class="tok-n">idToken</span><span class="tok-p">!)</span>
+        <span class="tok-n">Alamofire</span><span class="tok-p">.</span><span class="tok-n">request</span><span class="tok-p">(</span><span class="tok-n">logoutUrl</span><span class="tok-p">).</span><span class="tok-n">validate</span><span class="tok-p">(</span><span class="tok-n">statusCode</span><span class="tok-p">:</span> <span class="tok-mf">200.</span><span class="tok-p">.&lt;</span><span class="tok-mi">300</span><span class="tok-p">).</span><span class="tok-n">responseData</span><span class="tok-p">(</span><span class="tok-n">completionHandler</span><span class="tok-p">:</span> <span class="tok-p">{</span><span class="tok-n">response</span> <span class="tok-k">in</span>
+            <span class="tok-k">switch</span> <span class="tok-n">response</span><span class="tok-p">.</span><span class="tok-n">result</span> <span class="tok-p">{</span>
+            <span class="tok-k">case</span> <span class="tok-p">.</span><span class="tok-n">success</span><span class="tok-p">:</span>
+                <span class="tok-kc">self</span><span class="tok-p">.</span><span class="tok-n">assignAuthState</span><span class="tok-p">(</span><span class="tok-n">authState</span><span class="tok-p">:</span> <span class="tok-kc">nil</span><span class="tok-p">)</span>
+                <span class="tok-n">onCompleted</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">)</span>
+            <span class="tok-k">case</span> <span class="tok-p">.</span><span class="tok-n">failure</span><span class="tok-p">(</span><span class="tok-kd">let</span> <span class="tok-nv">error</span><span class="tok-p">):</span>
+                <span class="tok-n">onCompleted</span><span class="tok-p">(</span><span class="tok-n">error</span><span class="tok-p">)</span>
+            <span class="tok-p">}</span>
+        <span class="tok-p">})</span>
+    <span class="tok-p">}</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
 <h5 id="apache_cordova">Apache Cordova</h5>
 <div class="openblock float-group">
 <div class="content">
@@ -1750,7 +1909,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 </div>
 </div>
 <div class="sect4">
-<h5 id="native_android">Native Android</h5>
+<h5 id="native_android_2">Native Android</h5>
 <div class="openblock float-group">
 <div class="content">
 <div class="imageblock left">
@@ -2270,7 +2429,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 </div>
 </div>
 <div class="sect4">
-<h5 id="native_ios">Native iOS</h5>
+<h5 id="native_ios_2">Native iOS</h5>
 <div class="openblock float-group">
 <div class="content">
 <div class="imageblock left">
@@ -2922,7 +3081,7 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 </div>
 </div>
 <div class="sect4">
-<h5 id="android_2">Android</h5>
+<h5 id="android">Android</h5>
 <div class="openblock float-group">
 <div class="content">
 <div class="imageblock left">
@@ -3659,7 +3818,16 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
 </div>
 </div>
 <div class="sect4">
-<h5 id="android_3">Android</h5>
+<h5 id="android_2">Android</h5>
+<div class="openblock float-group">
+<div class="content">
+<div class="imageblock left">
+<div class="content">
+<img src="assets/android-trust-1.png" alt="android trust 1" width="270" height="480">
+</div>
+</div>
+</div>
+</div>
 <div class="paragraph">
 <p>The main code logic is found under <a href="https://github.com/feedhenry/mobile-security-android-template/tree/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device">here</a>.</p>
 </div>
@@ -3958,7 +4126,7 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
 </div>
 </div>
 <div class="sect4">
-<h5 id="native_ios_2">Native iOS</h5>
+<h5 id="native_ios_3">Native iOS</h5>
 <div class="openblock float-group">
 <div class="content">
 <div class="imageblock left">
@@ -13715,7 +13883,7 @@ This method should be overridden and all the sensitive information in the user i
 </div>
 </div>
 <div class="sect3">
-<h4 id="android_4">3.17.6. Android</h4>
+<h4 id="android_3">3.17.6. Android</h4>
 <div class="sect4">
 <h5 id="implement_file_permissions_carefully">Implement File Permissions Carefully</h5>
 <div class="ulist">
