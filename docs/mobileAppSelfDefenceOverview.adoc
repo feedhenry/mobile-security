@@ -190,3 +190,52 @@ Detecting if the underlying device running the mobile application is running an 
 ....
 include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/DevicetrustService.swift[tags=detectLatestOS]
 ....
+
+=== Apache Cordova
+
+The following code snippets below describe the main device trust detection logic in the Cordova template app.
+
+==== Detecting Emulator Access
+Detecting if the underlying device running the mobile application is an Emulator.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/pages/deviceTrust/deviceTrust.ts[tags=detectEmulator]
+....
+
+==== Detecting Root/Jailbreak
+Detecting if the underlying device is Jailbroken or has Root Access.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/pages/deviceTrust/deviceTrust.ts[tags=detectRoot]
+....
+
+==== Detecting Debug Access
+Detecting if the application is built in debug mode.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/pages/deviceTrust/deviceTrust.ts[tags=detectDebug]
+....
+
+==== Detecting Latest OS
+Detecting if the application is running the latest version of Android or iOS.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/pages/deviceTrust/deviceTrust.ts[tags=detectLatestOS]
+....
+
+==== Detecting Device Lock Set
+Detecting if the underlying device has the device lock set.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/pages/deviceTrust/deviceTrust.ts[tags=detectDeviceLock]
+....

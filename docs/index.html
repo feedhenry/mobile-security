@@ -3656,6 +3656,183 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
 </div>
 </div>
 </div>
+<div class="sect4">
+<h5 id="apache_cordova">Apache Cordova</h5>
+<div class="paragraph">
+<p>The following code snippets below describe the main device trust detection logic in the Cordova template app.</p>
+</div>
+<div class="sect5">
+<h6 id="detecting_emulator_access_3">Detecting Emulator Access</h6>
+<div class="paragraph">
+<p>Detecting if the underlying device running the mobile application is an Emulator.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="javascript"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1
+2
+3
+4
+5
+6
+7</div></td><td class="code"><span></span><span class="tok-nx">detectEmulator</span><span class="tok-p">()</span><span class="tok-o">:</span> <span class="tok-k">void</span> <span class="tok-p">{</span>
+  <span class="tok-k">if</span><span class="tok-p">(</span><span class="tok-nx">device</span><span class="tok-p">.</span><span class="tok-nx">isVirtual</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-k">this</span><span class="tok-p">.</span><span class="tok-nx">addDetection</span><span class="tok-p">(</span><span class="tok-s2">&quot;Emulator Access Detected&quot;</span><span class="tok-p">,</span> <span class="tok-kc">true</span><span class="tok-p">);</span>
+  <span class="tok-p">}</span> <span class="tok-k">else</span> <span class="tok-p">{</span>
+    <span class="tok-k">this</span><span class="tok-p">.</span><span class="tok-nx">addDetection</span><span class="tok-p">(</span><span class="tok-s2">&quot;Emulator Access Not Detected&quot;</span><span class="tok-p">,</span> <span class="tok-kc">false</span><span class="tok-p">);</span>
+  <span class="tok-p">}</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="detecting_root_jailbreak">Detecting Root/Jailbreak</h6>
+<div class="paragraph">
+<p>Detecting if the underlying device is Jailbroken or has Root Access.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="javascript"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</div></td><td class="code"><span></span><span class="tok-nx">detectRoot</span><span class="tok-p">()</span><span class="tok-o">:</span> <span class="tok-k">void</span> <span class="tok-p">{</span>
+  <span class="tok-kd">var</span> <span class="tok-nx">self</span> <span class="tok-o">=</span> <span class="tok-k">this</span><span class="tok-p">;</span>
+    <span class="tok-nx">IRoot</span><span class="tok-p">.</span><span class="tok-nx">isRooted</span><span class="tok-p">(</span><span class="tok-kd">function</span><span class="tok-p">(</span><span class="tok-nx">rooted</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+      <span class="tok-k">if</span><span class="tok-p">(</span><span class="tok-nx">rooted</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+        <span class="tok-nx">self</span><span class="tok-p">.</span><span class="tok-nx">addDetection</span><span class="tok-p">(</span><span class="tok-s2">&quot;Root Access Detected&quot;</span><span class="tok-p">,</span> <span class="tok-kc">true</span><span class="tok-p">);</span>
+      <span class="tok-p">}</span> <span class="tok-k">else</span> <span class="tok-p">{</span>
+        <span class="tok-nx">self</span><span class="tok-p">.</span><span class="tok-nx">addDetection</span><span class="tok-p">(</span><span class="tok-s2">&quot;Root Access Not Detected&quot;</span><span class="tok-p">,</span> <span class="tok-kc">false</span><span class="tok-p">);</span>
+      <span class="tok-p">}</span>
+    <span class="tok-p">},</span> <span class="tok-kd">function</span><span class="tok-p">(</span><span class="tok-nx">error</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+      <span class="tok-nx">console</span><span class="tok-p">.</span><span class="tok-nx">log</span><span class="tok-p">(</span><span class="tok-nx">error</span><span class="tok-p">);</span>
+    <span class="tok-p">});</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="detecting_debug_access">Detecting Debug Access</h6>
+<div class="paragraph">
+<p>Detecting if the application is built in debug mode.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="javascript"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</div></td><td class="code"><span></span><span class="tok-nx">detectDebug</span><span class="tok-p">()</span><span class="tok-o">:</span> <span class="tok-k">void</span> <span class="tok-p">{</span>
+  <span class="tok-kd">var</span> <span class="tok-nx">self</span> <span class="tok-o">=</span> <span class="tok-k">this</span><span class="tok-p">;</span>
+  <span class="tok-nx">cordova</span><span class="tok-p">.</span><span class="tok-nx">plugins</span><span class="tok-p">.</span><span class="tok-nx">IsDebug</span><span class="tok-p">.</span><span class="tok-nx">getIsDebug</span><span class="tok-p">(</span><span class="tok-kd">function</span><span class="tok-p">(</span><span class="tok-nx">isDebug</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-k">if</span><span class="tok-p">(</span><span class="tok-nx">isDebug</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+      <span class="tok-nx">self</span><span class="tok-p">.</span><span class="tok-nx">addDetection</span><span class="tok-p">(</span><span class="tok-s2">&quot;Debug Access Detected&quot;</span><span class="tok-p">,</span> <span class="tok-kc">true</span><span class="tok-p">);</span>
+    <span class="tok-p">}</span> <span class="tok-k">else</span> <span class="tok-p">{</span>
+      <span class="tok-nx">self</span><span class="tok-p">.</span><span class="tok-nx">addDetection</span><span class="tok-p">(</span><span class="tok-s2">&quot;Debug Access Not Detected&quot;</span><span class="tok-p">,</span> <span class="tok-kc">false</span><span class="tok-p">);</span>
+    <span class="tok-p">}</span>
+  <span class="tok-p">},</span> <span class="tok-kd">function</span><span class="tok-p">(</span><span class="tok-nx">err</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+      <span class="tok-nx">console</span><span class="tok-p">.</span><span class="tok-nx">error</span><span class="tok-p">(</span><span class="tok-nx">err</span><span class="tok-p">);</span>
+  <span class="tok-p">});</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="detecting_latest_os">Detecting Latest OS</h6>
+<div class="paragraph">
+<p>Detecting if the application is running the latest version of Android or iOS.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="javascript"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</div></td><td class="code"><span></span><span class="tok-nx">detectLatestOS</span><span class="tok-p">()</span> <span class="tok-p">{</span>
+  <span class="tok-kd">var</span> <span class="tok-nx">platform</span> <span class="tok-o">=</span> <span class="tok-nx">device</span><span class="tok-p">.</span><span class="tok-nx">platform</span><span class="tok-p">;</span>
+  <span class="tok-kd">var</span> <span class="tok-nx">deviceVersion</span> <span class="tok-o">=</span> <span class="tok-nx">device</span><span class="tok-p">.</span><span class="tok-nx">version</span><span class="tok-p">;</span>
+
+  <span class="tok-k">if</span><span class="tok-p">(</span><span class="tok-nx">platform</span> <span class="tok-o">===</span> <span class="tok-s2">&quot;Android&quot;</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-kd">var</span> <span class="tok-nx">latestAndroidVersion</span> <span class="tok-o">=</span> <span class="tok-mf">8.0</span><span class="tok-p">;</span>
+    <span class="tok-k">if</span> <span class="tok-p">(</span><span class="tok-nx">deviceVersion</span> <span class="tok-o">&lt;</span> <span class="tok-nx">latestAndroidVersion</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+      <span class="tok-k">this</span><span class="tok-p">.</span><span class="tok-nx">addDetection</span><span class="tok-p">(</span><span class="tok-s2">&quot;Outdated OS Version Detected&quot;</span><span class="tok-p">,</span> <span class="tok-kc">true</span><span class="tok-p">);</span>
+    <span class="tok-p">}</span> <span class="tok-k">else</span> <span class="tok-p">{</span>
+      <span class="tok-k">this</span><span class="tok-p">.</span><span class="tok-nx">addDetection</span><span class="tok-p">(</span><span class="tok-s2">&quot;Latest OS Version Detected&quot;</span><span class="tok-p">,</span> <span class="tok-kc">false</span><span class="tok-p">);</span>
+    <span class="tok-p">}</span>
+  <span class="tok-p">}</span> <span class="tok-k">else</span> <span class="tok-k">if</span><span class="tok-p">(</span><span class="tok-nx">platform</span> <span class="tok-o">===</span> <span class="tok-s2">&quot;iOS&quot;</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-kd">var</span> <span class="tok-nx">latestIosVersion</span> <span class="tok-o">=</span> <span class="tok-mf">11.0</span><span class="tok-p">;</span>
+    <span class="tok-k">if</span> <span class="tok-p">(</span><span class="tok-nx">deviceVersion</span> <span class="tok-o">&lt;</span> <span class="tok-nx">latestIosVersion</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+      <span class="tok-k">this</span><span class="tok-p">.</span><span class="tok-nx">addDetection</span><span class="tok-p">(</span><span class="tok-s2">&quot;Outdated OS Version Detected&quot;</span><span class="tok-p">,</span> <span class="tok-kc">true</span><span class="tok-p">);</span>
+    <span class="tok-p">}</span> <span class="tok-k">else</span> <span class="tok-p">{</span>
+      <span class="tok-k">this</span><span class="tok-p">.</span><span class="tok-nx">addDetection</span><span class="tok-p">(</span><span class="tok-s2">&quot;Latest OS Version Detected&quot;</span><span class="tok-p">,</span> <span class="tok-kc">false</span><span class="tok-p">);</span>
+    <span class="tok-p">}</span>
+  <span class="tok-p">}</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="detecting_device_lock_set">Detecting Device Lock Set</h6>
+<div class="paragraph">
+<p>Detecting if the underlying device has the device lock set.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="javascript"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1
+2
+3
+4
+5
+6
+7</div></td><td class="code"><span></span><span class="tok-nx">detectDeviceLock</span><span class="tok-p">()</span> <span class="tok-p">{</span>
+  <span class="tok-k">this</span><span class="tok-p">.</span><span class="tok-nx">pinCheck</span><span class="tok-p">.</span><span class="tok-nx">isPinSetup</span><span class="tok-p">()</span>
+  <span class="tok-p">.</span><span class="tok-nx">then</span><span class="tok-p">(</span>
+    <span class="tok-p">(</span><span class="tok-nx">success</span><span class="tok-p">)</span> <span class="tok-p">=&gt;</span>  <span class="tok-p">{</span> <span class="tok-k">this</span><span class="tok-p">.</span><span class="tok-nx">addDetection</span><span class="tok-p">(</span><span class="tok-s2">&quot;Device Lock Enabled&quot;</span><span class="tok-p">,</span> <span class="tok-kc">false</span><span class="tok-p">)},</span>
+    <span class="tok-p">(</span><span class="tok-nx">error</span><span class="tok-p">)</span> <span class="tok-p">=&gt;</span>  <span class="tok-p">{</span><span class="tok-k">this</span><span class="tok-p">.</span><span class="tok-nx">addDetection</span><span class="tok-p">(</span><span class="tok-s2">&quot;Device Lock Not Enabled&quot;</span><span class="tok-p">,</span> <span class="tok-kc">true</span><span class="tok-p">)}</span>
+  <span class="tok-p">);</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
