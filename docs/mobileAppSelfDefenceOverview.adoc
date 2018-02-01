@@ -66,6 +66,13 @@
 A number of checks were implemented to assess the security of the underlying device running both the Android and iOS template applications.
 
 === Android
+
+[.float-group]
+--
+[.left]
+image::assets/android-trust-1.png[,270,480]
+--
+
 The main code logic is found under https://github.com/feedhenry/mobile-security-android-template/tree/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device[here].
 
 The following code snippets below describe the main device trust detection logic in the mobile app.
@@ -144,6 +151,12 @@ include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-tem
 
 === Native iOS
 
+[.float-group]
+--
+[.left]
+image::assets/ios-trust-1.png[,270,480]
+--
+
 The following code snippets below describe the main device trust detection logic in the iOS template app.
 
 ==== Detecting Device Lock
@@ -192,6 +205,12 @@ include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-templat
 ....
 
 === Apache Cordova
+
+[.float-group]
+--
+[.left]
+image::assets/cordova-trust-1.png[,270,480]
+--
 
 The following code snippets below describe the main device trust detection logic in the Cordova template app.
 

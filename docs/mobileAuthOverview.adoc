@@ -63,6 +63,24 @@
 
 === Android
 
+[.float-group]
+--
+[.left]
+image::assets/android-auth-1.png[,270,480]
+
+[.left]
+image::assets/android-auth-2.png[,270,480]
+
+[.left]
+image::assets/android-auth-3.png[,270,480]
+
+[.left]
+image::assets/android-auth-4.png[,270,480]
+
+[.left]
+image::assets/android-auth-5.png[,270,480]
+--
+
 An Authentication & Session Management implementation has been provided in our https://github.com/feedhenry/mobile-security-android-template[Mobile Security Android Template] App.
 
 The Application uses http://openid.net/connect/[OpenID Connect] for authentication and access control. The Open Source Identity and Access Management server, http://www.keycloak.org[Keycloak], is being used as an Identity Broker.
@@ -183,6 +201,18 @@ There are also a number of other functions in the helper class to get some auth 
 * `setNeedsTokenRefresh()` - Set a flag to say that a new access token is required.
 
 === Apache Cordova
+
+[.float-group]
+--
+[.left]
+image::assets/cordova-auth-1.png[,270,480]
+
+[.left]
+image::assets/cordova-auth-2.png[,270,480]
+
+[.left]
+image::assets/cordova-auth-3.png[,270,480]
+--
 
 The https://www.npmjs.com/package/keycloak-js[Keycloak JS] library is being used to perform the OpenID Connect based authentication.
 

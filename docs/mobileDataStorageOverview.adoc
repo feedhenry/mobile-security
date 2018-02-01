@@ -191,6 +191,12 @@ include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-tem
 
 === Native iOS
 
+[.float-group]
+--
+[.left]
+image::assets/ios-storage-1.png[,270,480]
+--
+
 The secret notes are being persisted using an encrypted https://realm.io/docs/swift/latest/[Realm Mobile DB].
 
 ==== Initialising Realm DB

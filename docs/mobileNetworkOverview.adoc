@@ -48,6 +48,12 @@ A number of features were added to enhance the security of the channel between t
 
 === Android
 
+[.float-group]
+--
+[.left]
+image::assets/android-pinning-1.png[,270,480]
+--
+
 ==== Certificate Pinning
 The main code logic for certificate pinning is found under https://github.com/feedhenry/mobile-security-android-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/services/AuthStateService.java[here] in the AuthStateService class.
 
@@ -111,6 +117,12 @@ include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-tem
 ....
 
 === iOS
+
+[.float-group]
+--
+[.left]
+image::assets/ios-pinning-1.png[,270,480]
+--
 
 ==== Certificate Pinning
 The https://github.com/feedhenry/mobile-security-ios-template/blob/master/secure-ios-app/services/CertPinningService.swift[Certificate Pinning Service] and the https://github.com/feedhenry/mobile-security-ios-template/blob/master/secure-ios-app/AppDelegate.swift[AppDelegate] contain the main code for configuring and performing certificate pinning.
