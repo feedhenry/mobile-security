@@ -1288,6 +1288,335 @@ The function accepts a URL in the form of a String, a boolean value to state if 
 </div>
 </div>
 </div>
+<div class="sect4">
+<h5 id="apache_cordova">Apache Cordova</h5>
+<div class="paragraph">
+<p>The <a href="https://www.npmjs.com/package/keycloak-js">Keycloak JS</a> library is being used to perform the OpenID Connect based authentication.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="javascript"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1
+2
+3
+4
+5
+6
+7
+8</div></td><td class="code"><span></span><span class="tok-c1">// Ensure that Keycloak is Initialised before Angular to prevent Redirect looping issues</span>
+<span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">init</span><span class="tok-p">()</span>
+<span class="tok-p">.</span><span class="tok-nx">then</span><span class="tok-p">(()</span> <span class="tok-p">=&gt;</span> <span class="tok-p">{</span>
+  <span class="tok-kr">const</span> <span class="tok-nx">platform</span> <span class="tok-o">=</span> <span class="tok-nx">platformBrowserDynamic</span><span class="tok-p">();</span>
+  <span class="tok-c1">// Mamually intiliase angular</span>
+  <span class="tok-nx">platform</span><span class="tok-p">.</span><span class="tok-nx">bootstrapModule</span><span class="tok-p">(</span><span class="tok-nx">AppModule</span><span class="tok-p">);</span>
+<span class="tok-p">})</span>
+<span class="tok-p">.</span><span class="tok-k">catch</span><span class="tok-p">((</span><span class="tok-nx">err</span><span class="tok-p">)</span> <span class="tok-p">=&gt;</span> <span class="tok-nx">console</span><span class="tok-p">.</span><span class="tok-nx">error</span><span class="tok-p">(</span><span class="tok-s2">&quot;Error Initalizing Keycloak&quot;</span><span class="tok-p">,</span> <span class="tok-nx">err</span><span class="tok-p">));</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The OpenID Connect Configuration can be found in the <a href="https://github.com/feedhenry/mobile-security-cordova-template/blob/c24297cda240efa40aca292e7d0657d7432d1eba/src/config/keycloak.json">/config/keycloak.json</a> file.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="json"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</div></td><td class="code"><span></span><span class="tok-p">{</span>
+  <span class="tok-nt">&quot;realm&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;secure-app&quot;</span><span class="tok-p">,</span>
+  <span class="tok-nt">&quot;url&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;https://keycloak.security.feedhenry.org/auth/&quot;</span><span class="tok-p">,</span>
+  <span class="tok-nt">&quot;ssl-required&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;external&quot;</span><span class="tok-p">,</span>
+  <span class="tok-nt">&quot;clientId&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;client-app&quot;</span><span class="tok-p">,</span>
+  <span class="tok-nt">&quot;public-client&quot;</span><span class="tok-p">:</span> <span class="tok-kc">true</span><span class="tok-p">,</span>
+  <span class="tok-nt">&quot;use-resource-role-mappings&quot;</span><span class="tok-p">:</span> <span class="tok-kc">true</span><span class="tok-p">,</span>
+  <span class="tok-nt">&quot;pinningFingerprint&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;44 C8 9A 60 4E 29 82 85 8E 4F 75 1F 78 46 CD B3 0A 08 66 3F&quot;</span><span class="tok-p">,</span>
+  <span class="tok-nt">&quot;apiServerUrl&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;https://api.security.feedhenry.org&quot;</span><span class="tok-p">,</span>
+  <span class="tok-nt">&quot;apiEndpoint&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;/&quot;</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Keycloak JS adapter is initialised with the <code>check-sso</code> config to automatically detect and authenticate the user if there is a valid session on app resume.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="javascript"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm">* Initialise the Keycloak Client Adapter</span>
+<span class="tok-cm">*/</span>
+<span class="tok-kr">static</span> <span class="tok-nx">init</span><span class="tok-p">()</span><span class="tok-o">:</span> <span class="tok-nb">Promise</span><span class="tok-o">&lt;</span><span class="tok-nx">any</span><span class="tok-o">&gt;</span> <span class="tok-p">{</span>
+  <span class="tok-c1">// Create a new Keycloak Client Instance</span>
+  <span class="tok-kd">let</span> <span class="tok-nx">keycloakAuth</span><span class="tok-o">:</span> <span class="tok-nx">any</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nx">Keycloak</span><span class="tok-p">(</span><span class="tok-nx">keycloakConfig</span><span class="tok-p">);</span>
+
+    <span class="tok-k">return</span> <span class="tok-k">new</span> <span class="tok-nb">Promise</span><span class="tok-p">((</span><span class="tok-nx">resolve</span><span class="tok-p">,</span> <span class="tok-nx">reject</span><span class="tok-p">)</span> <span class="tok-p">=&gt;</span> <span class="tok-p">{</span>
+      <span class="tok-nx">keycloakAuth</span><span class="tok-p">.</span><span class="tok-nx">init</span><span class="tok-p">({</span><span class="tok-nx">onLoad</span><span class="tok-o">:</span> <span class="tok-s1">&#39;check-sso&#39;</span><span class="tok-p">}).</span><span class="tok-nx">success</span><span class="tok-p">(()</span> <span class="tok-p">=&gt;</span> <span class="tok-p">{</span>
+          <span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">auth</span><span class="tok-p">.</span><span class="tok-nx">authz</span> <span class="tok-o">=</span> <span class="tok-nx">keycloakAuth</span><span class="tok-p">;</span>
+          <span class="tok-nx">resolve</span><span class="tok-p">();</span>
+        <span class="tok-p">}).</span><span class="tok-nx">error</span><span class="tok-p">((</span><span class="tok-nx">err</span><span class="tok-p">)</span> <span class="tok-p">=&gt;</span> <span class="tok-p">{</span>
+          <span class="tok-nx">reject</span><span class="tok-p">(</span><span class="tok-nx">err</span><span class="tok-p">);</span>
+        <span class="tok-p">});</span>
+    <span class="tok-p">});</span>
+  <span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The access token can be retrieved using the <code>getToken()</code> function.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="javascript"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1
+2
+3
+4
+5
+6</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm">* Get Access Token</span>
+<span class="tok-cm">*/</span>
+<span class="tok-nx">getToken</span><span class="tok-p">()</span><span class="tok-o">:</span> <span class="tok-nx">string</span> <span class="tok-p">{</span>
+<span class="tok-k">return</span> <span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">auth</span><span class="tok-p">.</span><span class="tok-nx">authz</span><span class="tok-p">.</span><span class="tok-nx">token</span><span class="tok-p">;</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The user can logout using the <code>logout()</code> function.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="javascript"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1
+2
+3
+4
+5
+6</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm">* Redirect to logout</span>
+<span class="tok-cm">*/</span>
+<span class="tok-nx">logout</span><span class="tok-p">()</span><span class="tok-o">:</span> <span class="tok-k">void</span> <span class="tok-p">{</span>
+  <span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">auth</span><span class="tok-p">.</span><span class="tok-nx">authz</span><span class="tok-p">.</span><span class="tok-nx">logout</span><span class="tok-p">();</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The user can be redirected to the login screen using the <code>login()</code> function.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="javascript"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1
+2
+3
+4
+5
+6</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Redirect to Login</span>
+<span class="tok-cm"> */</span>
+<span class="tok-nx">login</span><span class="tok-p">()</span><span class="tok-o">:</span> <span class="tok-k">void</span> <span class="tok-p">{</span>
+  <span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">auth</span><span class="tok-p">.</span><span class="tok-nx">authz</span><span class="tok-p">.</span><span class="tok-nx">login</span><span class="tok-p">();</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The authentication state can ve cleared using the <code>clearToken()</code> function.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="javascript"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1
+2
+3
+4
+5
+6</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Clears Authentication State</span>
+<span class="tok-cm"> */</span>
+<span class="tok-nx">clearToken</span><span class="tok-p">()</span><span class="tok-o">:</span> <span class="tok-k">void</span> <span class="tok-p">{</span>
+  <span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">auth</span><span class="tok-p">.</span><span class="tok-nx">authz</span><span class="tok-p">.</span><span class="tok-nx">clearToken</span><span class="tok-p">();</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The end users realm level roles can be retrieved using the <code>getRealmRoles()</code> function.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="javascript"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1
+2
+3
+4
+5
+6</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Return the users realm level roles</span>
+<span class="tok-cm"> */</span>
+<span class="tok-nx">getRealmRoles</span><span class="tok-p">()</span><span class="tok-o">:</span> <span class="tok-k">void</span> <span class="tok-p">{</span>
+  <span class="tok-k">return</span> <span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">auth</span><span class="tok-p">.</span><span class="tok-nx">authz</span><span class="tok-p">.</span><span class="tok-nx">realmAccess</span><span class="tok-p">.</span><span class="tok-nx">roles</span><span class="tok-p">;</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can perform a check to see if the user has a given role using the <code>hasRealmRole()</code> function.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="javascript"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1
+2
+3
+4
+5
+6</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Check if the user has a specified realm role</span>
+<span class="tok-cm"> */</span>
+<span class="tok-nx">hasRealmRole</span><span class="tok-p">(</span><span class="tok-nx">role</span><span class="tok-o">:</span> <span class="tok-nb">String</span><span class="tok-p">)</span><span class="tok-o">:</span> <span class="tok-kr">boolean</span> <span class="tok-p">{</span>
+  <span class="tok-k">return</span> <span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">auth</span><span class="tok-p">.</span><span class="tok-nx">authz</span><span class="tok-p">.</span><span class="tok-nx">hasRealmRole</span><span class="tok-p">(</span><span class="tok-nx">role</span><span class="tok-p">);</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Information about the authentication server can be carried out using the <code>getConfiguration()</code> function.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="javascript"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Get Server/Open ID Connect specific server info</span>
+<span class="tok-cm"> */</span>
+<span class="tok-nx">getConfiguration</span><span class="tok-p">()</span><span class="tok-o">:</span> <span class="tok-nx">object</span> <span class="tok-p">{</span>
+  <span class="tok-kd">var</span> <span class="tok-nx">notAvailable</span> <span class="tok-o">=</span> <span class="tok-s2">&quot;N/A&quot;</span><span class="tok-p">;</span>
+  <span class="tok-k">return</span> <span class="tok-p">{</span>
+    <span class="tok-s2">&quot;authServerUrl&quot;</span><span class="tok-o">:</span> <span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">auth</span><span class="tok-p">.</span><span class="tok-nx">authz</span><span class="tok-p">.</span><span class="tok-nx">authServerUrl</span> <span class="tok-o">?</span> <span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">auth</span><span class="tok-p">.</span><span class="tok-nx">authz</span><span class="tok-p">.</span><span class="tok-nx">authServerUrl</span> <span class="tok-o">:</span> <span class="tok-nx">notAvailable</span><span class="tok-p">,</span>
+    <span class="tok-s2">&quot;openIdFlow&quot;</span><span class="tok-o">:</span> <span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">auth</span><span class="tok-p">.</span><span class="tok-nx">authz</span><span class="tok-p">.</span><span class="tok-nx">flow</span> <span class="tok-o">?</span> <span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">auth</span><span class="tok-p">.</span><span class="tok-nx">authz</span><span class="tok-p">.</span><span class="tok-nx">flow</span> <span class="tok-o">:</span> <span class="tok-nx">notAvailable</span><span class="tok-p">,</span>
+    <span class="tok-s2">&quot;openIdResponseMode&quot;</span><span class="tok-o">:</span> <span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">auth</span><span class="tok-p">.</span><span class="tok-nx">authz</span><span class="tok-p">.</span><span class="tok-nx">responseMode</span> <span class="tok-o">?</span> <span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">auth</span><span class="tok-p">.</span><span class="tok-nx">authz</span><span class="tok-p">.</span><span class="tok-nx">responseMode</span> <span class="tok-o">:</span> <span class="tok-nx">notAvailable</span><span class="tok-p">,</span>
+    <span class="tok-s2">&quot;openIdResponseType&quot;</span><span class="tok-o">:</span> <span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">auth</span><span class="tok-p">.</span><span class="tok-nx">authz</span><span class="tok-p">.</span><span class="tok-nx">responseType</span> <span class="tok-o">?</span> <span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">auth</span><span class="tok-p">.</span><span class="tok-nx">authz</span><span class="tok-p">.</span><span class="tok-nx">responseType</span> <span class="tok-o">:</span> <span class="tok-nx">notAvailable</span><span class="tok-p">,</span>
+    <span class="tok-s2">&quot;realm&quot;</span><span class="tok-o">:</span> <span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">auth</span><span class="tok-p">.</span><span class="tok-nx">authz</span><span class="tok-p">.</span><span class="tok-nx">realm</span> <span class="tok-o">?</span> <span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">auth</span><span class="tok-p">.</span><span class="tok-nx">authz</span><span class="tok-p">.</span><span class="tok-nx">realm</span> <span class="tok-o">:</span> <span class="tok-nx">notAvailable</span><span class="tok-p">,</span>
+    <span class="tok-s2">&quot;clientId&quot;</span><span class="tok-o">:</span> <span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">auth</span><span class="tok-p">.</span><span class="tok-nx">authz</span><span class="tok-p">.</span><span class="tok-nx">clientId</span> <span class="tok-o">?</span> <span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">auth</span><span class="tok-p">.</span><span class="tok-nx">authz</span><span class="tok-p">.</span><span class="tok-nx">clientId</span> <span class="tok-o">:</span> <span class="tok-nx">notAvailable</span><span class="tok-p">,</span>
+    <span class="tok-s2">&quot;timeSkew&quot;</span><span class="tok-o">:</span> <span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">auth</span><span class="tok-p">.</span><span class="tok-nx">authz</span><span class="tok-p">.</span><span class="tok-nx">timeSkew</span> <span class="tok-o">?</span> <span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">auth</span><span class="tok-p">.</span><span class="tok-nx">authz</span><span class="tok-p">.</span><span class="tok-nx">timeSkew</span> <span class="tok-o">:</span> <span class="tok-nx">notAvailable</span>
+  <span class="tok-p">};</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The user can be redirected to the Keycloak account management screen using the <code>accountManagement()</code> function.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="javascript"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1
+2
+3
+4
+5
+6</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Redirects to the Account Management Console</span>
+<span class="tok-cm"> */</span>
+<span class="tok-nx">accountManagement</span><span class="tok-p">()</span><span class="tok-o">:</span> <span class="tok-k">void</span> <span class="tok-p">{</span>
+  <span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">auth</span><span class="tok-p">.</span><span class="tok-nx">authz</span><span class="tok-p">.</span><span class="tok-nx">accountManagement</span><span class="tok-p">();</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The users profile data can be retrieved using the <code>loadUserProfile()</code> function.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="javascript"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Get the users profile</span>
+<span class="tok-cm"> */</span>
+<span class="tok-nx">loadUserProfile</span><span class="tok-p">()</span><span class="tok-o">:</span> <span class="tok-nx">any</span> <span class="tok-p">{</span>
+  <span class="tok-c1">// Retrieve User Profile</span>
+  <span class="tok-k">return</span> <span class="tok-k">new</span> <span class="tok-nb">Promise</span><span class="tok-p">((</span><span class="tok-nx">resolve</span><span class="tok-p">,</span> <span class="tok-nx">reject</span><span class="tok-p">)</span> <span class="tok-p">=&gt;</span> <span class="tok-p">{</span>
+    <span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">auth</span><span class="tok-p">.</span><span class="tok-nx">authz</span><span class="tok-p">.</span><span class="tok-nx">loadUserProfile</span><span class="tok-p">().</span><span class="tok-nx">success</span><span class="tok-p">((</span><span class="tok-nx">profile</span><span class="tok-p">)</span> <span class="tok-p">=&gt;</span> <span class="tok-p">{</span>
+      <span class="tok-nx">resolve</span><span class="tok-p">(</span><span class="tok-o">&lt;</span><span class="tok-nx">object</span><span class="tok-o">&gt;</span><span class="tok-nx">profile</span><span class="tok-p">);</span>
+    <span class="tok-p">}).</span><span class="tok-nx">error</span><span class="tok-p">(()</span> <span class="tok-p">=&gt;</span> <span class="tok-p">{</span>
+      <span class="tok-nx">reject</span><span class="tok-p">(</span><span class="tok-s1">&#39;Failed to retrieve user profile&#39;</span><span class="tok-p">);</span>
+    <span class="tok-p">});</span>
+  <span class="tok-p">});</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can check if the user is authenticated using the <code>isAuthenticated()</code> function.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="javascript"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1
+2
+3
+4
+5
+6</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Check if the user is authenticated</span>
+<span class="tok-cm"> */</span>
+<span class="tok-nx">isAuthenticated</span><span class="tok-p">()</span><span class="tok-o">:</span> <span class="tok-kr">boolean</span> <span class="tok-p">{</span>
+    <span class="tok-k">return</span> <span class="tok-nx">KeycloakService</span><span class="tok-p">.</span><span class="tok-nx">auth</span><span class="tok-p">.</span><span class="tok-nx">authz</span><span class="tok-p">.</span><span class="tok-nx">authenticated</span><span class="tok-p">;</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -3073,11 +3402,11 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
 </div>
 </div>
 <div class="sect4">
-<h5 id="apache_cordova">Apache Cordova</h5>
+<h5 id="apache_cordova_2">Apache Cordova</h5>
 <div class="sect5">
 <h6 id="certificate_pinning_3">Certificate Pinning</h6>
 <div class="paragraph">
-<p>Certificate Pinning is being performed on preflight requests to ensure that the channel is secure before sending sensitive data..</p>
+<p>Certificate Pinning is being performed on preflight requests to ensure that the channel is secure before sending sensitive data.</p>
 </div>
 <div class="listingblock">
 <div class="title">Code</div>
@@ -3121,7 +3450,7 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
 </div>
 </div>
 <div class="paragraph">
-<p>The pinning fingerprint is defined in the /config/keycloak.json[<a href="https://github.com/feedhenry/mobile-security-cordova-template/blob/c24297cda240efa40aca292e7d0657d7432d1eba/src/config/keycloak.json" class="bare">https://github.com/feedhenry/mobile-security-cordova-template/blob/c24297cda240efa40aca292e7d0657d7432d1eba/src/config/keycloak.json</a>].</p>
+<p>The pinning fingerprint is defined in the <a href="https://github.com/feedhenry/mobile-security-cordova-template/blob/c24297cda240efa40aca292e7d0657d7432d1eba/src/config/keycloak.json">/config/keycloak.json</a> file.</p>
 </div>
 <div class="listingblock">
 <div class="title">Code</div>
@@ -3737,7 +4066,7 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
 </div>
 </div>
 <div class="sect4">
-<h5 id="apache_cordova_2">Apache Cordova</h5>
+<h5 id="apache_cordova_3">Apache Cordova</h5>
 <div class="paragraph">
 <p>The following code snippets below describe the main device trust detection logic in the Cordova template app.</p>
 </div>

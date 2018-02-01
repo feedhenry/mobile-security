@@ -181,3 +181,110 @@ There are also a number of other functions in the helper class to get some auth 
 * `getIdentityToken()` - Returns a String of the Identity Token.
 * `getNeedsTokenRefresh()` - Returns a boolean value for if a new access token needs to be required.
 * `setNeedsTokenRefresh()` - Set a flag to say that a new access token is required.
+
+=== Apache Cordova
+
+The https://www.npmjs.com/package/keycloak-js[Keycloak JS] library is being used to perform the OpenID Connect based authentication.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/app/main.ts[tags=appInit]
+....
+
+The OpenID Connect Configuration can be found in the https://github.com/feedhenry/mobile-security-cordova-template/blob/c24297cda240efa40aca292e7d0657d7432d1eba/src/config/keycloak.json[/config/keycloak.json] file.
+
+.Code
+[source,json,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/c24297cda240efa40aca292e7d0657d7432d1eba/src/config/keycloak.json[]
+....
+
+The Keycloak JS adapter is initialised with the `check-sso` config to automatically detect and authenticate the user if there is a valid session on app resume.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/services/auth.service.ts[tags=init]
+....
+
+The access token can be retrieved using the `getToken()` function.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/services/auth.service.ts[tags=getToken]
+....
+
+The user can logout using the `logout()` function.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/services/auth.service.ts[tags=logout]
+....
+
+The user can be redirected to the login screen using the `login()` function.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/services/auth.service.ts[tags=login]
+....
+
+The authentication state can ve cleared using the `clearToken()` function.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/services/auth.service.ts[tags=clearToken]
+....
+
+The end users realm level roles can be retrieved using the `getRealmRoles()` function.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/services/auth.service.ts[tags=getRealmRoles]
+....
+
+You can perform a check to see if the user has a given role using the `hasRealmRole()` function.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/services/auth.service.ts[tags=hasRealmRole]
+....
+
+Information about the authentication server can be carried out using the `getConfiguration()` function.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/services/auth.service.ts[tags=getConfiguration]
+....
+
+
+The user can be redirected to the Keycloak account management screen using the `accountManagement()` function.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/services/auth.service.ts[tags=accountManagement]
+....
+
+The users profile data can be retrieved using the `loadUserProfile()` function.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/services/auth.service.ts[tags=loadUserProfile]
+....
+
+You can check if the user is authenticated using the `isAuthenticated()` function.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/services/auth.service.ts[tags=isAuthenticated]
+....
