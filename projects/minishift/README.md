@@ -1,8 +1,10 @@
+## Minishift Deployment Guide
+
 Use the files in this folder to create the applications using Minishift.
 
 - Ensure that you have configured Minishift to have enough memory. You can set the memory resources using:
 
- `$ minishift config set memory 9000`
+  `$ minishift config set memory 9000`
 
 - Once this is set, you can start Minishift using the following command:
 
