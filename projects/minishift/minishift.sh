@@ -1,9 +1,11 @@
 #!/bin/bash
 export PROJECT_NAME=mobile-security
+export APP_ROUTES_SUFFIX=nip.io
+export APP_ROUTES_SERVER_IP=192.168.42.115
 
 # Create the project & services
 oc new-project $PROJECT_NAME
-oc new-app -f ./minishift.json
+oc new-app -f ./minishift.json --param APP_ROUTES_SUFFIX=$APP_ROUTES_SUFFIX --param APP_ROUTES_SERVER_IP=$APP_ROUTES_SERVER_IP
 sleep 1
 
 # Wait for Keycloak to run to import realm data

@@ -40,7 +40,7 @@
                 }
             },
             "spec": {
-                "host": "keycloak.192.168.42.115.nip.io",
+                "host": "keycloak.${APP_ROUTES_SERVER_IP}.${APP_ROUTES_SUFFIX}",
                 "to": {
                     "kind": "Service",
                     "name": "keycloak-openshift",
@@ -304,7 +304,7 @@
                 }
             },
             "spec": {
-                "host": "api.192.168.42.115.nip.io",
+                "host": "api.${APP_ROUTES_SERVER_IP}.${APP_ROUTES_SUFFIX}",
                 "to": {
                     "kind": "Service",
                     "name": "api-server",
@@ -361,7 +361,7 @@
                                 },
                                 {
                                     "name": "KEYCLOAK_URL",
-                                    "value": "https://keycloak.192.168.42.115.nip.io:8080/auth"
+                                    "value": "https://keycloak.${APP_ROUTES_SERVER_IP}.${APP_ROUTES_SUFFIX}:8080/auth"
                                 }
                             ],
                             "resources": {},
@@ -413,6 +413,16 @@
             "generate": "expression",
             "from": "[a-zA-Z0-9]{40}",
             "required": true
+        },
+        {
+            "name": "APP_ROUTES_SUFFIX",
+            "displayName": "App Routes Suffix",
+            "description": "The Suffix for the App Routes"
+        },
+        {
+            "name": "APP_ROUTES_SERVER_IP",
+            "displayName": "App Routes IP Address",
+            "description": "The IP Address of the App Routes"
         }
     ]
 }

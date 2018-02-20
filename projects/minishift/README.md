@@ -37,12 +37,11 @@ Use the files in this folder to create the applications using Minishift.
 
   `$ oc new-project <project_name>`
 
-- The last step before creating the projects in Openshift is to update the `minishift.json` file to ensure that the routes for the Keycloak and API Server as exposed on your Openshift instance. You will need to update the following `192.168.x.x` address to match your server URL provided above.
+- The last step before creating the projects in Openshift is to update the `minishift.sh` file to ensure that the routes for the Keycloak and API Server as exposed on your Openshift instance. You will need to update the following `192.168.42.115` address to match your server URL provided above. You can also provide a different address suffix.
 
   ```
-    Line 43: "host": "keycloak.192.168.42.115.nip.io"
-    Line 307: "host": "api.192.168.42.115.nip.io"
-    Line 364: "value": "https://keycloak.192.168.42.115.nip.io:8080/auth"
+    export APP_ROUTES_SUFFIX=nip.io
+    export APP_ROUTES_SERVER_IP=192.168.42.115
   ```
 
 - Once this is done, run `$ ./minishift.sh` and wait for it to complete. This will create a project called `mobile-security` (or the project you created) and it will create both a Keycloak and a NodeJS API Server app in that project. The `secure-app` realm will be created automatically in the Keycloak server also.
