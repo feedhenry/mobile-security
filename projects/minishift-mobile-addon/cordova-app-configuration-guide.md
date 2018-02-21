@@ -1,1 +1,0 @@
-# Configure and Build the Cordova Template App

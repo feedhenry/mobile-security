@@ -1,8 +1,40 @@
-# Installion Guide for Backend Services
+# Installation and Configuration Guide
+
+## Overview
+
+The mobile security project contains the following services and applications:
+
+* Backend Services
+  * Authentication/Authorisation serivce backed by [Keycloak](http://www.keycloak.org/)
+  * [An API service](../api-server) protected by Keycloak
+* Mobile Applications
+  * [Android template app](https://github.com/feedhenry/mobile-security-android-template)
+  * [iOS template app](https://github.com/feedhenry/mobile-security-ios-template)
+  * [Cordova template app](https://github.com/feedhenry/mobile-security-cordova-template)
+
+This document outlines the required steps to install and configure these services and applications using Minishift with mobile core addon.
+
+## Operational Environment
+
+### Backend Services
+
+[Minishift](https://github.com/minishift/minishift) is used to run the backend services. Please make sure your environment meets the [prerequisites](https://docs.openshift.org/latest/minishift/getting-started/installing.html#install-prerequisites) to run Minishift.
+
+This document is using Minishift version v1.13.1.
+
+### Mobile Applications
+
+In order to build and run the mobile applications, please make sure your environment has the required toolchain installed.
+
+* To build and run the Android template, please make sure [Android Studio and SDK](https://developer.android.com/studio/index.html) is installed.
+* To build and run the iOS template, please make sure you have a Mac with [XCode](https://developer.apple.com/xcode/) installed.
+* To build the Cordova template, you need to install [nodejs](https://nodejs.org/en/). Since it is a cross-platform application, you can build it against either Android or iOS. However, you need to make sure the corresponding build tools are installed based on the requirement above.
+
+## Installion Guide for Backend Services
 
 1. Install Minishift
 
-    1.1 Download the latest release from [Minishift release page](https://github.com/minishift/minishift/releases). Please ensure choose the right package for the operation system.
+    1.1 Download the right release from [Minishift release page](https://github.com/minishift/minishift/releases). Please ensure choose the right package for the operation system.
 
     1.2 Follow the [Minishift installation instructions](https://docs.openshift.org/latest/minishift/getting-started/installing.html) to install minishift.
 
@@ -104,11 +136,23 @@
 
 Now the backend services are up and running. You can now configure and build the client applications.
 
+## Configure and Build the Android Template App
 
+1. Clone the [Android mobile security template](https://github.com/feedhenry/mobile-security-android-template)
+2. Follow the instructions in the README file of the repo and make necessary changes to make sure the app will work with services that are running on Minishift.
+3. It is likely services running on Minishift use self-signed certificates. If this is the case you also need to follow the instructions in the README file to support it.
+4. You can now build the app using Android Studio or the command line tool and install it onto a device or emulator. If you are running the app on a device or emulator that is not on the same machine as Minishift, please make sure the device or emulator can resolve the hostname of the backend services correctly.
 
+## Configure and Build the iOS Template App
 
+1. Clone the [iOS mobile security template](https://github.com/feedhenry/mobile-security-ios-template)
+2. Follow the instructions in the README file of the repo and make necessary changes to make sure the app will work with services that are running on Minishift.
+3. It is likely services running on Minishift use self-signed certificates. If this is the case you also need to follow the instructions in the README file to support it.
+4. You can now build and install the app onto devices using Xcode. If you are running the app on a device or emulator that is not on the same machine as Minishift, please make sure the device or emulator can resolve the hostname of the backend services correctly.
 
+## Configure and Build the Cordova Template App
 
+Add content here.
 
 
 
