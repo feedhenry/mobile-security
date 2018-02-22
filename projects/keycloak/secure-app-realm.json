@@ -156,7 +156,8 @@
          "enabled":true,
          "publicClient":true,
          "redirectUris":[
-            "com.feedhenry.securenativeandroidtemplate:/callback"
+            "com.feedhenry.securenativeandroidtemplate:/callback",
+            "http://localhost"
          ],
          "webOrigins":[
             "*"
