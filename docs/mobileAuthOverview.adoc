@@ -83,8 +83,8 @@ image::assets/android-auth-5.png[,270,480]
 
 An Authentication & Session Management implementation has been provided in our https://github.com/feedhenry/mobile-security-android-template[Mobile Security Android Template] App.
 
-The Application uses http://openid.net/connect/[OpenID Connect] for authentication and access control. The Open Source Identity and Access Management server, http://www.keycloak.org[Keycloak], is being used as an Identity Broker.
-The OpenID library https://github.com/openid/AppAuth-Android[AppAuth-Android] is being used for communicating with an OpenID Connect Provider/Broker.
+The Application uses http://openid.net/connect/[OpenID Connect] for authentication and access control. The Open Source Identity and Access Management server, http://www.keycloak.org[Keycloak], is being used as an Identity Provider.
+The https://github.com/aerogear/aerogear-android-sdk/blob/master/docs/getting-started/auth.adoc[Aerogear Auth SDK] is being used for communicating with the Keycloak server.
 
 The Keycloak server is enforcing a number of Security Controls on the mobile app.
 
@@ -99,37 +99,45 @@ The main code logic is found under https://github.com/feedhenry/mobile-security-
 
 The following code snippets below describe the main authentication code logic in the mobile app.
 
-==== OpenID Connect: Performing the Authentication Request
+==== Configuration
+The Keycloak configuration is saved in the https://github.com/feedhenry/mobile-security-android-template/tree/master/app/src/main/assets/mobile-services.json[mobile-services.json] file.
 
-This function is used to perform a redirect to the Identity Providers login screen. The OpenID Connect Auth and Token endpoints must be specified to make AppAuth aware of the URI used to perform the authentication on, as well as the URI used to perform the token exchange.
-Once we have setup the necessary AppAuth configuration, we can create the new Authorization Request. Here, we provide the endpoints for the OpenID Connect provider as well as the client ID, response type and redirect URI. We then perform the auth request and create a new intent which will handle the auth response from the system browser. The authentication phase will occur in a system browser in a safe context outside of the application.
+.Code
+[source,json,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/assets/mobile-services.json[]
+....
+
+The redirect url of the application is defined in `android.defaultConfig.manifestPlaceholders` of the apps build.gradle[https://github.com/feedhenry/mobile-security-android-template/blob/master/app/build.gradle] file.
+
+You will also need to define the URL in the https://github.com/feedhenry/mobile-security-android-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/di/SecureApplicationModule.java[SecureApplicationModule].
 
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/authentication/providers/KeycloakAuthenticateProviderImpl.java[tags=performAuthRequest]
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/di/SecureApplicationModule.java[tags=login]
 ....
 
-==== OpenID Connect: Handling the Authentication Response
+==== Authentication
+We can then perform the auth request and create a new intent which will handle the auth response from the system browser. The authentication phase will occur in a system browser in a safe context outside of the application.
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/authentication/providers/KeycloakAuthenticateProviderImpl.java[tags=login]
+....
+
+==== Handling the Authentication Response
 Once the Authentication phase has ended, the user will be redirected back to the mobile app from the system browser.
-A check is performed in the MainActivity for incoming intents. Any incoming intents that match the Android auth response intent will be directed to the below function.
+A check is performed in the MainActivity for incoming intents so the result can be handled by the authentication service.
 
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/authentication/providers/KeycloakAuthenticateProviderImpl.java[tags=onAuthResult]
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/MainActivity.java[tags=onActivityResult]
 ....
 
-Once the intent is not null, we inspect it to check whether the authentication was successful or not. If the authentication failed, we are handling this in another function which will display a failure message to the user.
-If the authentication was a success, we then make a call to the `exchangeToken()` function to swap our temporary token for the identity, access and refresh tokens.
-
-.Code
-[source,java,linenums,indent=0]
-....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/authentication/providers/KeycloakAuthenticateProviderImpl.java[tags=handleAuthorizationResponse]
-....
-
-==== OpenID Connect: Logout
+==== Logout
 
 To logout of the application, we must make a call to the logout endpoint on the OpenID Connect provider along with providing the identity token and a redirect URI.
 
@@ -138,26 +146,6 @@ To logout of the application, we must make a call to the logout endpoint on the 
 ....
 include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/authentication/providers/KeycloakAuthenticateProviderImpl.java[tags=logout]
 ....
-
-==== Auth Helper Class: Making Authenticated Bearer Requests
-The `createRequest()` function allows you to make HTTP calls against resources that require a valid Access Token (Such as a cloud app protected by Keycloak).
-The function accepts a URL in the form of a String, a boolean value to state if you want the access token to be sent with the request, along with a http://square.github.io/okhttp/[OkHttp] callback.
-
-.Code
-[source,java,linenum,indent=0]
-....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/services/AuthStateService.java[tags=createRequest]
-....
-
-==== Auth Helper Class: Other Helper Functions
-
-There are also a number of other functions in the helper class to get some auth related information:
-
-* `isAuthorized()` - Returns a boolean value for if the user is authenticated or authorized (for OAuth).
-* `getAccessToken()` - Returns a String of the Access Token.
-* `getIdentityToken()` - Returns a String of the Identity Token.
-* `getNeedsTokenRefresh()` - Returns a boolean value for if a new access token needs to be required.
-* `setNeedsTokenRefresh()` - Set a flag to say that a new access token is required.
 
 === Native iOS
 

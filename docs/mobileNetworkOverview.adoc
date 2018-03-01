@@ -76,11 +76,15 @@ openssl s_client -servername www.example.com -connect www.example.com:443 | open
 
 A HTTP request function has been created to perform requests to the Authentication servers. The `createRequest()` functions performs pinning verification on the requests.
 
+// TODO Revise
+
 .Code
 [source,java,linenums,indent=0]
 ....
 include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/services/AuthStateService.java[tags=createRequest]
 ....
+
+// TODO Revise
 
 A function has also been provided to check if the OkHTTP callback failure exception was due to a certificate validation issue.
 
