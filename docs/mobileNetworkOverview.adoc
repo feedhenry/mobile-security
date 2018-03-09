@@ -55,7 +55,7 @@ image::assets/android-pinning-1.png[,270,480]
 --
 
 ==== Certificate Pinning
-The main code logic for certificate pinning is found under https://github.com/feedhenry/mobile-security-android-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/services/AuthStateService.java[here] in the AuthStateService class.
+The main code logic for certificate pinning is found under https://github.com/feedhenry/mobile-security-android-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/CertPinningHelper.java[here] in the CertPinningHelper class.
 
 Certificate Pinning has been implemented in the Application using the SPKI technique. This ensures easier maintenance and improved security by anonymizing the certificate information in the application.
 The https://github.com/datatheorem/TrustKit-Android[TrustKit Android] library is being utilised to allow certificate pinning to work with older API levels.
@@ -79,7 +79,7 @@ A HTTP request function has been created to perform requests to the Authenticati
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/services/AuthStateService.java[tags=createRequest]
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/CertPinningHelper.java[tags=createRequest]
 ....
 
 A function has also been provided to check if the OkHTTP callback failure exception was due to a certificate validation issue.
@@ -87,7 +87,7 @@ A function has also been provided to check if the OkHTTP callback failure except
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/services/AuthStateService.java[tags=checkCertificateVerificationError]
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/CertPinningHelper.java[tags=checkCertificateVerificationError]
 ....
 
 ==== Invoking remote APIs
