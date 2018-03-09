@@ -764,7 +764,7 @@ The <a href="https://github.com/aerogear/aerogear-android-sdk/blob/master/docs/g
 </div>
 </div>
 <div class="paragraph">
-<p>The redirect url of the application is defined in <code>android.defaultConfig.manifestPlaceholders</code> of the apps build.gradle[<a href="https://github.com/feedhenry/mobile-security-android-template/blob/master/app/build.gradle" class="bare">https://github.com/feedhenry/mobile-security-android-template/blob/master/app/build.gradle</a>] file.</p>
+<p>The redirect url of the application is defined in <code>android.defaultConfig.manifestPlaceholders</code> of the apps <a href="https://github.com/feedhenry/mobile-security-android-template/blob/master/app/build.gradle">build.gradle</a> file.</p>
 </div>
 <div class="paragraph">
 <p>You will also need to define the URL in the <a href="https://github.com/feedhenry/mobile-security-android-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/di/SecureApplicationModule.java">SecureApplicationModule</a>.</p>
@@ -3440,7 +3440,26 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
 </div>
 </div>
 <div class="paragraph">
+<p>The Android Template App is using the <a href="https://github.com/aerogear/aerogear-android-sdk/blob/master/docs/getting-started/auth-self-defence-checks.adoc">App Self-Defense Checks</a> that are included in the <a href="https://github.com/aerogear/aerogear-android-sdk">AeroGear Android SDK</a>.</p>
+</div>
+<div class="paragraph">
 <p>The main code logic is found under <a href="https://github.com/feedhenry/mobile-security-android-template/tree/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device">here</a>.</p>
+</div>
+<div class="paragraph">
+<p>The Security Service is being initialised in the <a href="https://github.com/feedhenry/mobile-security-android-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/di/SecureApplicationModule.java">SecureApplicationModule</a>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Code</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1
+2
+3
+4</div></td><td class="code"><span></span><span class="tok-nd">@Provides</span> <span class="tok-nd">@Singleton</span>
+<span class="tok-n">SecurityService</span> <span class="tok-nf">provideSecurityService</span><span class="tok-o">(</span><span class="tok-n">Context</span> <span class="tok-n">context</span><span class="tok-o">,</span> <span class="tok-n">MobileCore</span> <span class="tok-n">mobileCore</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+    <span class="tok-k">return</span> <span class="tok-n">mobileCore</span><span class="tok-o">.</span><span class="tok-na">getInstance</span><span class="tok-o">(</span><span class="tok-n">SecurityService</span><span class="tok-o">.</span><span class="tok-na">class</span><span class="tok-o">);</span>
+<span class="tok-o">}</span>
+</td></tr></table></code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>The following code snippets below describe the main device trust detection logic in the mobile app.</p>
@@ -3448,7 +3467,7 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
 <div class="sect5">
 <h6 id="detecting_root_access">Detecting Root Access</h6>
 <div class="paragraph">
-<p>Device Root Access detection has been added using the <a href="https://github.com/scottyab/rootbeer">Rootbeer</a> library. This library uses a number of different checks to check if root access is present on the device.</p>
+<p>A number of different checks are being used to check if root access is present on the device.</p>
 </div>
 <div class="listingblock">
 <div class="title">Code</div>
@@ -3467,8 +3486,8 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
 <span class="tok-cm"> */</span>
 <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">detectRoot</span><span class="tok-o">()</span> <span class="tok-o">{</span>
     <span class="tok-n">totalTests</span><span class="tok-o">++;</span>
-    <span class="tok-n">RootBeer</span> <span class="tok-n">rootBeer</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">RootBeer</span><span class="tok-o">(</span><span class="tok-n">context</span><span class="tok-o">);</span>
-    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">rootBeer</span><span class="tok-o">.</span><span class="tok-na">isRooted</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+    <span class="tok-n">SecurityCheckResult</span> <span class="tok-n">result</span> <span class="tok-o">=</span> <span class="tok-n">securityService</span><span class="tok-o">.</span><span class="tok-na">check</span><span class="tok-o">(</span><span class="tok-n">SecurityCheckType</span><span class="tok-o">.</span><span class="tok-na">IS_ROOTED</span><span class="tok-o">);</span>
+    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">result</span><span class="tok-o">.</span><span class="tok-na">passed</span><span class="tok-o">())</span> <span class="tok-o">{</span>
         <span class="tok-n">setDetected</span><span class="tok-o">(</span><span class="tok-n">rootAccess</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">string</span><span class="tok-o">.</span><span class="tok-na">root_detected_positive</span><span class="tok-o">);</span>
     <span class="tok-o">}</span>
 <span class="tok-o">}</span>
@@ -3479,7 +3498,7 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
 <div class="sect5">
 <h6 id="detecting_if_lock_screen_set">Detecting if Lock Screen Set</h6>
 <div class="paragraph">
-<p>Detecting if the Android device has a lock screen set (with pin, fingerprint, pattern etc) can be checked using the <a href="https://developer.android.com/reference/android/app/KeyguardManager.html">KeyguardManager</a> class in Android M or higher.</p>
+<p>Detecting if the Android device has a lock screen set (with pin, fingerprint, pattern etc).</p>
 </div>
 <div class="listingblock">
 <div class="title">Code</div>
@@ -3493,22 +3512,14 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
  7
  8
  9
-10
-11
-12
-13
-14</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+10</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Detect if the device has a lock screen setup (pin, password etc).</span>
 <span class="tok-cm"> */</span>
 <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">detectDeviceLock</span><span class="tok-o">()</span> <span class="tok-o">{</span>
-    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">VERSION</span><span class="tok-o">.</span><span class="tok-na">SDK_INT</span> <span class="tok-o">&gt;=</span> <span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">VERSION_CODES</span><span class="tok-o">.</span><span class="tok-na">M</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-        <span class="tok-n">totalTests</span><span class="tok-o">++;</span>
-        <span class="tok-n">KeyguardManager</span> <span class="tok-n">keyguardManager</span> <span class="tok-o">=</span> <span class="tok-o">(</span><span class="tok-n">KeyguardManager</span><span class="tok-o">)</span> <span class="tok-n">context</span><span class="tok-o">.</span><span class="tok-na">getSystemService</span><span class="tok-o">(</span><span class="tok-n">KEYGUARD_SERVICE</span><span class="tok-o">);</span>
-        <span class="tok-k">if</span> <span class="tok-o">(!</span><span class="tok-n">keyguardManager</span><span class="tok-o">.</span><span class="tok-na">isDeviceSecure</span><span class="tok-o">())</span> <span class="tok-o">{</span>
-            <span class="tok-n">setDetected</span><span class="tok-o">(</span><span class="tok-n">lockScreenSetup</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">string</span><span class="tok-o">.</span><span class="tok-na">device_lock_detected_negative</span><span class="tok-o">);</span>
-        <span class="tok-o">}</span>
-    <span class="tok-o">}</span> <span class="tok-k">else</span> <span class="tok-o">{</span>
-        <span class="tok-n">lockScreenSetup</span><span class="tok-o">.</span><span class="tok-na">setVisibility</span><span class="tok-o">(</span><span class="tok-n">View</span><span class="tok-o">.</span><span class="tok-na">GONE</span><span class="tok-o">);</span>
+    <span class="tok-n">totalTests</span><span class="tok-o">++;</span>
+    <span class="tok-n">SecurityCheckResult</span> <span class="tok-n">result</span> <span class="tok-o">=</span> <span class="tok-n">securityService</span><span class="tok-o">.</span><span class="tok-na">check</span><span class="tok-o">(</span><span class="tok-n">SecurityCheckType</span><span class="tok-o">.</span><span class="tok-na">SCREEN_LOCK_ENABLED</span><span class="tok-o">);</span>
+    <span class="tok-k">if</span> <span class="tok-o">(!</span><span class="tok-n">result</span><span class="tok-o">.</span><span class="tok-na">passed</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+        <span class="tok-n">setDetected</span><span class="tok-o">(</span><span class="tok-n">lockScreenSetup</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">string</span><span class="tok-o">.</span><span class="tok-na">device_lock_detected_negative</span><span class="tok-o">);</span>
     <span class="tok-o">}</span>
 <span class="tok-o">}</span>
 </td></tr></table></code></pre>
@@ -3518,25 +3529,27 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
 <div class="sect5">
 <h6 id="detecting_if_debugger_is_attached">Detecting if Debugger is Attached</h6>
 <div class="paragraph">
-<p>Detecting if an Android debugger is attached to the application can be checked using the <a href="https://developer.android.com/reference/android/os/Debug.html">Debug</a> class.</p>
+<p>Detecting if an Android debugger is attached to the application.</p>
 </div>
 <div class="listingblock">
 <div class="title">Code</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1
-2
-3
-4
-5
-6
-7
-8
-9</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<pre class="pygments highlight"><code data-lang="java"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Detect if a debugger is attached to the application.</span>
 <span class="tok-cm"> */</span>
 <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">debuggerDetected</span><span class="tok-o">()</span> <span class="tok-o">{</span>
     <span class="tok-n">totalTests</span><span class="tok-o">++;</span>
-    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">Debug</span><span class="tok-o">.</span><span class="tok-na">isDebuggerConnected</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+    <span class="tok-n">SecurityCheckResult</span> <span class="tok-n">result</span> <span class="tok-o">=</span> <span class="tok-n">securityService</span><span class="tok-o">.</span><span class="tok-na">check</span><span class="tok-o">(</span><span class="tok-n">SecurityCheckType</span><span class="tok-o">.</span><span class="tok-na">IS_DEBUGGER</span><span class="tok-o">);</span>
+    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">result</span><span class="tok-o">.</span><span class="tok-na">passed</span><span class="tok-o">())</span> <span class="tok-o">{</span>
         <span class="tok-n">setDetected</span><span class="tok-o">(</span><span class="tok-n">debuggerAccess</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">string</span><span class="tok-o">.</span><span class="tok-na">debugger_detected_positive</span><span class="tok-o">);</span>
     <span class="tok-o">}</span>
 <span class="tok-o">}</span>
@@ -3547,7 +3560,7 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
 <div class="sect5">
 <h6 id="detecting_emulator_access">Detecting Emulator Access</h6>
 <div class="paragraph">
-<p>Detecting if the Application is being run on an emulator can be performed by checking a number of sources for evidence of emulator access.</p>
+<p>Detecting if the Application is being run on an emulator.</p>
 </div>
 <div class="listingblock">
 <div class="title">Code</div>
@@ -3561,27 +3574,15 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
  7
  8
  9
-10
-11
-12
-13
-14
-15
-16</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
-<span class="tok-cm"> * Helper function to detect if the host is an emulator</span>
-<span class="tok-cm"> *</span>
-<span class="tok-cm"> * @return boolean</span>
+10</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+<span class="tok-cm"> * Detect if the application is being run in an emulator.</span>
 <span class="tok-cm"> */</span>
-<span class="tok-kd">private</span> <span class="tok-kt">boolean</span> <span class="tok-nf">isEmulator</span><span class="tok-o">()</span> <span class="tok-o">{</span>
-    <span class="tok-k">return</span> <span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">FINGERPRINT</span><span class="tok-o">.</span><span class="tok-na">startsWith</span><span class="tok-o">(</span><span class="tok-s">&quot;generic&quot;</span><span class="tok-o">)</span>
-            <span class="tok-o">||</span> <span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">FINGERPRINT</span><span class="tok-o">.</span><span class="tok-na">startsWith</span><span class="tok-o">(</span><span class="tok-s">&quot;unknown&quot;</span><span class="tok-o">)</span>
-            <span class="tok-o">||</span> <span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">MODEL</span><span class="tok-o">.</span><span class="tok-na">contains</span><span class="tok-o">(</span><span class="tok-s">&quot;google_sdk&quot;</span><span class="tok-o">)</span>
-            <span class="tok-o">||</span> <span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">MODEL</span><span class="tok-o">.</span><span class="tok-na">contains</span><span class="tok-o">(</span><span class="tok-s">&quot;Emulator&quot;</span><span class="tok-o">)</span>
-            <span class="tok-o">||</span> <span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">MODEL</span><span class="tok-o">.</span><span class="tok-na">contains</span><span class="tok-o">(</span><span class="tok-s">&quot;Android SDK built for x86&quot;</span><span class="tok-o">)</span>
-            <span class="tok-o">||</span> <span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">SERIAL</span> <span class="tok-o">==</span> <span class="tok-kc">null</span>
-            <span class="tok-o">||</span> <span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">MANUFACTURER</span><span class="tok-o">.</span><span class="tok-na">contains</span><span class="tok-o">(</span><span class="tok-s">&quot;Genymotion&quot;</span><span class="tok-o">)</span>
-            <span class="tok-o">||</span> <span class="tok-o">(</span><span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">BRAND</span><span class="tok-o">.</span><span class="tok-na">startsWith</span><span class="tok-o">(</span><span class="tok-s">&quot;generic&quot;</span><span class="tok-o">)</span> <span class="tok-o">&amp;&amp;</span> <span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">DEVICE</span><span class="tok-o">.</span><span class="tok-na">startsWith</span><span class="tok-o">(</span><span class="tok-s">&quot;generic&quot;</span><span class="tok-o">))</span>
-            <span class="tok-o">||</span> <span class="tok-s">&quot;google_sdk&quot;</span><span class="tok-o">.</span><span class="tok-na">equals</span><span class="tok-o">(</span><span class="tok-n">Build</span><span class="tok-o">.</span><span class="tok-na">PRODUCT</span><span class="tok-o">);</span>
+<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">detectEmulator</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+    <span class="tok-n">totalTests</span><span class="tok-o">++;</span>
+    <span class="tok-n">SecurityCheckResult</span> <span class="tok-n">result</span> <span class="tok-o">=</span> <span class="tok-n">securityService</span><span class="tok-o">.</span><span class="tok-na">check</span><span class="tok-o">(</span><span class="tok-n">SecurityCheckType</span><span class="tok-o">.</span><span class="tok-na">IS_EMULATOR</span><span class="tok-o">);</span>
+    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">result</span><span class="tok-o">.</span><span class="tok-na">passed</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+        <span class="tok-n">setDetected</span><span class="tok-o">(</span><span class="tok-n">emulatorAccess</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">string</span><span class="tok-o">.</span><span class="tok-na">emulator_detected_positive</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
 <span class="tok-o">}</span>
 </td></tr></table></code></pre>
 </div>
@@ -3639,24 +3640,14 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
  7
  8
  9
-10
-11
-12
-13
-14
-15</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+10</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Function to check if the backup flag is enabled in the application manifest file</span>
 <span class="tok-cm"> */</span>
 <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">detectBackupEnabled</span><span class="tok-o">()</span> <span class="tok-o">{</span>
     <span class="tok-n">totalTests</span><span class="tok-o">++;</span>
-    <span class="tok-k">try</span> <span class="tok-o">{</span>
-        <span class="tok-n">PackageInfo</span> <span class="tok-n">packageInfo</span><span class="tok-o">;</span>
-        <span class="tok-n">packageInfo</span> <span class="tok-o">=</span> <span class="tok-n">context</span><span class="tok-o">.</span><span class="tok-na">getPackageManager</span><span class="tok-o">().</span><span class="tok-na">getPackageInfo</span><span class="tok-o">(</span><span class="tok-n">context</span><span class="tok-o">.</span><span class="tok-na">getPackageName</span><span class="tok-o">(),</span> <span class="tok-mi">0</span><span class="tok-o">);</span>
-        <span class="tok-k">if</span> <span class="tok-o">((</span><span class="tok-n">packageInfo</span><span class="tok-o">.</span><span class="tok-na">applicationInfo</span><span class="tok-o">.</span><span class="tok-na">flags</span> <span class="tok-o">&amp;</span> <span class="tok-n">ApplicationInfo</span><span class="tok-o">.</span><span class="tok-na">FLAG_ALLOW_BACKUP</span><span class="tok-o">)</span> <span class="tok-o">!=</span> <span class="tok-mi">0</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-            <span class="tok-n">setDetected</span><span class="tok-o">(</span><span class="tok-n">allowBackup</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">string</span><span class="tok-o">.</span><span class="tok-na">allow_backup_detected_positive</span><span class="tok-o">);</span>
-        <span class="tok-o">}</span>
-    <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">PackageManager</span><span class="tok-o">.</span><span class="tok-na">NameNotFoundException</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-        <span class="tok-n">e</span><span class="tok-o">.</span><span class="tok-na">printStackTrace</span><span class="tok-o">();</span>
+    <span class="tok-n">SecurityCheckResult</span> <span class="tok-n">result</span> <span class="tok-o">=</span> <span class="tok-n">securityService</span><span class="tok-o">.</span><span class="tok-na">check</span><span class="tok-o">(</span><span class="tok-n">SecurityCheckType</span><span class="tok-o">.</span><span class="tok-na">ALLOW_BACKUP_ENABLED</span><span class="tok-o">);</span>
+    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">result</span><span class="tok-o">.</span><span class="tok-na">passed</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+        <span class="tok-n">setDetected</span><span class="tok-o">(</span><span class="tok-n">allowBackup</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">string</span><span class="tok-o">.</span><span class="tok-na">allow_backup_detected_positive</span><span class="tok-o">);</span>
     <span class="tok-o">}</span>
 <span class="tok-o">}</span>
 </td></tr></table></code></pre>
@@ -3701,7 +3692,7 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
 <div class="sect5">
 <h6 id="detecting_developer_mode_enabled">Detecting Developer Mode Enabled</h6>
 <div class="paragraph">
-<p>The Developer Mode status can be checked using the <a href="https://developer.android.com/reference/android/provider/Settings.html">Settings</a> class in Android.</p>
+<p>The Developer Mode status can be checked to see if this is enabled.</p>
 </div>
 <div class="listingblock">
 <div class="title">Code</div>
@@ -3715,19 +3706,13 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
  7
  8
  9
-10
-11
-12
-13</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
+10</div></td><td class="code"><span></span><span class="tok-cm">/**</span>
 <span class="tok-cm"> * Detect if the developer options mode is enabled on the device</span>
 <span class="tok-cm"> */</span>
 <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">detectDeveloperOptions</span><span class="tok-o">()</span> <span class="tok-o">{</span>
     <span class="tok-n">totalTests</span><span class="tok-o">++;</span>
-    <span class="tok-kt">int</span> <span class="tok-n">devOptionsEnabled</span> <span class="tok-o">=</span> <span class="tok-n">Settings</span><span class="tok-o">.</span><span class="tok-na">Secure</span><span class="tok-o">.</span><span class="tok-na">getInt</span><span class="tok-o">(</span><span class="tok-n">context</span><span class="tok-o">.</span><span class="tok-na">getContentResolver</span><span class="tok-o">(),</span>
-            <span class="tok-n">Settings</span><span class="tok-o">.</span><span class="tok-na">Global</span><span class="tok-o">.</span><span class="tok-na">DEVELOPMENT_SETTINGS_ENABLED</span><span class="tok-o">,</span>
-            <span class="tok-mi">0</span><span class="tok-o">);</span>
-
-    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">devOptionsEnabled</span> <span class="tok-o">&gt;</span> <span class="tok-mi">0</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+    <span class="tok-n">SecurityCheckResult</span> <span class="tok-n">result</span> <span class="tok-o">=</span> <span class="tok-n">securityService</span><span class="tok-o">.</span><span class="tok-na">check</span><span class="tok-o">(</span><span class="tok-n">SecurityCheckType</span><span class="tok-o">.</span><span class="tok-na">IS_DEVELOPER_MODE</span><span class="tok-o">);</span>
+    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">result</span><span class="tok-o">.</span><span class="tok-na">passed</span><span class="tok-o">())</span> <span class="tok-o">{</span>
         <span class="tok-n">setDetected</span><span class="tok-o">(</span><span class="tok-n">developerOptions</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">string</span><span class="tok-o">.</span><span class="tok-na">developer_options_positive</span><span class="tok-o">);</span>
     <span class="tok-o">}</span>
 <span class="tok-o">}</span>

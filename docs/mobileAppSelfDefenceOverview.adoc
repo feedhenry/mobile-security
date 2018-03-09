@@ -73,12 +73,22 @@ A number of checks were implemented to assess the security of the underlying dev
 image::assets/android-trust-1.png[,270,480]
 --
 
+The Android Template App is using the https://github.com/aerogear/aerogear-android-sdk/blob/master/docs/getting-started/auth-self-defence-checks.adoc[App Self-Defense Checks] that are included in the https://github.com/aerogear/aerogear-android-sdk[AeroGear Android SDK].
+
 The main code logic is found under https://github.com/feedhenry/mobile-security-android-template/tree/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device[here].
+
+The Security Service is being initialised in the https://github.com/feedhenry/mobile-security-android-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/di/SecureApplicationModule.java[SecureApplicationModule].
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/di/SecureApplicationModule.java[tags=securityServiceInit]
+....
 
 The following code snippets below describe the main device trust detection logic in the mobile app.
 
 ==== Detecting Root Access
-Device Root Access detection has been added using the https://github.com/scottyab/rootbeer[Rootbeer] library. This library uses a number of different checks to check if root access is present on the device.
+A number of different checks are being used to check if root access is present on the device.
 
 .Code
 [source,java,linenums,indent=0]
@@ -87,7 +97,7 @@ include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-tem
 ....
 
 ==== Detecting if Lock Screen Set
-Detecting if the Android device has a lock screen set (with pin, fingerprint, pattern etc) can be checked using the https://developer.android.com/reference/android/app/KeyguardManager.html[KeyguardManager] class in Android M or higher.
+Detecting if the Android device has a lock screen set (with pin, fingerprint, pattern etc).
 
 .Code
 [source,java,linenums,indent=0]
@@ -96,7 +106,7 @@ include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-tem
 ....
 
 ==== Detecting if Debugger is Attached
-Detecting if an Android debugger is attached to the application can be checked using the https://developer.android.com/reference/android/os/Debug.html[Debug] class.
+Detecting if an Android debugger is attached to the application.
 
 .Code
 [source,java,linenums,indent=0]
@@ -105,12 +115,12 @@ include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-tem
 ....
 
 ==== Detecting Emulator Access
-Detecting if the Application is being run on an emulator can be performed by checking a number of sources for evidence of emulator access.
+Detecting if the Application is being run on an emulator.
 
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device/DeviceFragment.java[tags=isEmulator]
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device/DeviceFragment.java[tags=detectEmulator]
 ....
 
 ==== Detecting Hooking Framework Apps
@@ -141,7 +151,7 @@ include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-tem
 ....
 
 ==== Detecting Developer Mode Enabled
-The Developer Mode status can be checked using the https://developer.android.com/reference/android/provider/Settings.html[Settings] class in Android.
+The Developer Mode status can be checked to see if this is enabled.
 
 .Code
 [source,java,linenums,indent=0]
