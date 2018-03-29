@@ -158,15 +158,20 @@ image::assets/ios-auth-1.png[,270,480]
 image::assets/ios-auth-2.png[,270,480]
 --
 
-The Keycloak server config is defined in the https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/AppConfig.plist[secure-ios-app/AppConfig.plist] file.
+An Authentication & Session Management implementation has been provided in our https://github.com/feedhenry/mobile-security-ios-template[Mobile Security iOS Template] App.
+
+The Application uses http://openid.net/connect/[OpenID Connect] for authentication and access control. The Open Source Identity and Access Management server, http://www.keycloak.org[Keycloak], is being used as an Identity Provider.
+The https://github.com/aerogear/aerogear-ios-sdk/tree/master/docs/auth[Aerogear Auth SDK] is being used for communicating with the Keycloak server.
+
+The Keycloak server config is defined in the https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/mobile-services.json[mobile-services.json] file.
 
 .Code
 [source,swift,linenum,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/AppConfig.plist[]
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/mobile-services.json[]
 ....
 
-The `performAuthentication()` function handles the user authentication flow and the backchannel token exchange.
+The `performAuthentication()` function handles the user authentication flow and the back-channel token exchange.
 
 .Code
 [source,swift,linenum,indent=0]
