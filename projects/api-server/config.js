@@ -1,3 +1,7 @@
+const fs = require('fs');
+
+const keycloakConfigPath = process.env.KEYCLOAK_CONFIG_PATH;
+
 const config = {
   environment: process.env.NODE_ENV || 'dev',
   server: {
@@ -15,5 +19,15 @@ const config = {
     resource: 'api-server'
   }
 };
+
+// read from file if the KEYCLOAK_CONFIG_PATH env variable is supplied
+if (keycloakConfigPath) {
+  try {
+    config.keycloak = JSON.parse(fs.readFileSync(keycloakConfigPath, 'utf8'));
+  } catch (e) {
+    console.error(`Error reading keycloak config at ${keycloakConfigPath}\n${e}`);
+    process.exit(1);
+  }
+}
 
 module.exports = config;
