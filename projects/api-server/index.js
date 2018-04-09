@@ -13,7 +13,6 @@ const routes = require('./routes');
 const app  = express();
 
 const memoryStore = new session.MemoryStore();
-const keycloak = new Keycloak({ store: memoryStore }, config.keycloak);
 
 mongoose.Promise = bluebird;
 mongoose.connect(config.mongo.url);
@@ -29,10 +28,17 @@ app.use(session({
   store: memoryStore
 }));
 
-// tag::checkPermission[]
-app.use(keycloak.middleware());
-app.use('/', keycloak.protect('realm:api-access'), routes);
-// end::checkPermission[]
+if (config.keycloak) {
+  // tag::checkPermission[]
+  const keycloak = new Keycloak({ store: memoryStore }, config.keycloak);
+
+  app.use(keycloak.middleware());
+  app.use('/', keycloak.protect('realm:api-access'), routes);
+  // end::checkPermission[]
+} else {
+  console.log('keycloak config not found, keycloak protection will not be enabled');
+  app.use('/', routes);
+}
 
 app.listen(config.server.port, () => {
   console.log(`Magic happens on port ${config.server.port}`);
