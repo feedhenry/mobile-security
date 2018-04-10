@@ -1,0 +1,8 @@
+{
+  "realm": "secure-app",
+  "clientId": "api-server",
+  "bearerOnly": true,
+  "serverUrl": "http://keycloak:9090/auth",
+  "ssl-required": "external",
+  "resource": "api-server"
+}
