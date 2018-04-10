@@ -15,7 +15,7 @@ services:
       - keycloak
     environment:
       - MONGO_DB_URI=mongodb://mongo:27017/secure-backend
-      - KEYCLOAK_URL=http://keycloak:8080/auth
+      - KEYCLOAK_CONFIG_PATH=./config/keycloak-docker-compose.json
 
   mongo:
     image: mongo

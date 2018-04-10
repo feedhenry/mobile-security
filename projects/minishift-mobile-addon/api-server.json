@@ -263,7 +263,7 @@
             "name": "API_SERVER_HOST",
             "displayName": "Host value of the API server",
             "description": "Host value of the Route to access the API server. Does not include protocol.",
-            "required": true
+            "required": false
         },
         {
             "name": "KEYCLOAK_URL",
