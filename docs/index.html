@@ -933,7 +933,7 @@ A check is performed in the MainActivity for incoming intents so the result can 
 </div>
 <div class="paragraph">
 <p>The Application uses <a href="http://openid.net/connect/">OpenID Connect</a> for authentication and access control. The Open Source Identity and Access Management server, <a href="http://www.keycloak.org">Keycloak</a>, is being used as an Identity Provider.
-The <a href="https://github.com/aerogear/aerogear-ios-sdk/tree/master/docs/auth">Aerogear Auth SDK</a> is being used for communicating with the Keycloak server.</p>
+The <a href="https://github.com/aerogear/aerogear-ios-sdk/tree/master/docs/auth">Aerogear Auth SDK</a> is being used to communicate with the Keycloak server.</p>
 </div>
 <div class="paragraph">
 <p>The Keycloak server config is defined in the <a href="https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/mobile-services.json">mobile-services.json</a> file.</p>
@@ -946,7 +946,7 @@ The <a href="https://github.com/aerogear/aerogear-ios-sdk/tree/master/docs/auth"
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>login()</code> function handles the user authentication flow and the back-channel token exchange.</p>
+<p>The <code>login()</code> function handles the user authentication browser flow and the back-channel token exchange.</p>
 </div>
 <div class="listingblock">
 <div class="title">Code</div>
@@ -955,7 +955,7 @@ The <a href="https://github.com/aerogear/aerogear-ios-sdk/tree/master/docs/auth"
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>resolveCurrentUser()</code> returns the user profile, which can be used to get user information.</p>
+<p>The <code>resolveCurrentUser()</code> returns the user profile, which can be used to retrieve user information and the auth tokens.</p>
 </div>
 <div class="listingblock">
 <div class="title">Code</div>
@@ -964,7 +964,7 @@ The <a href="https://github.com/aerogear/aerogear-ios-sdk/tree/master/docs/auth"
 </div>
 </div>
 <div class="paragraph">
-<p>The following information can be retrieved from the user:</p>
+<p>The following information can be retrieved from an authenticated user:</p>
 </div>
 <div class="listingblock">
 <div class="title">Code</div>
@@ -1000,7 +1000,7 @@ The <a href="https://github.com/aerogear/aerogear-ios-sdk/tree/master/docs/auth"
 </div>
 </div>
 <div class="paragraph">
-<p>Access Control is carried out by checking the roles of the user.</p>
+<p>Access Control is carried out by checking the access roles of the authenticated user.</p>
 </div>
 <div class="listingblock">
 <div class="title">Code</div>
@@ -1009,7 +1009,7 @@ The <a href="https://github.com/aerogear/aerogear-ios-sdk/tree/master/docs/auth"
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>logout()</code> function is used to logout the user.</p>
+<p>The <code>logout()</code> function is used to logout the user from the Keycloak server. The local auth tokens are also deleted.</p>
 </div>
 <div class="listingblock">
 <div class="title">Code</div>
@@ -2910,7 +2910,11 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 <div class="title">Code</div>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="javascript"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1
-2</div></td><td class="code"><span></span><span class="tok-nx">app</span><span class="tok-p">.</span><span class="tok-nx">use</span><span class="tok-p">(</span><span class="tok-nx">keycloak</span><span class="tok-p">.</span><span class="tok-nx">middleware</span><span class="tok-p">());</span>
+2
+3
+4</div></td><td class="code"><span></span><span class="tok-kr">const</span> <span class="tok-nx">keycloak</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nx">Keycloak</span><span class="tok-p">({</span> <span class="tok-nx">store</span><span class="tok-o">:</span> <span class="tok-nx">memoryStore</span> <span class="tok-p">},</span> <span class="tok-nx">config</span><span class="tok-p">.</span><span class="tok-nx">keycloak</span><span class="tok-p">);</span>
+
+<span class="tok-nx">app</span><span class="tok-p">.</span><span class="tok-nx">use</span><span class="tok-p">(</span><span class="tok-nx">keycloak</span><span class="tok-p">.</span><span class="tok-nx">middleware</span><span class="tok-p">());</span>
 <span class="tok-nx">app</span><span class="tok-p">.</span><span class="tok-nx">use</span><span class="tok-p">(</span><span class="tok-s1">&#39;/&#39;</span><span class="tok-p">,</span> <span class="tok-nx">keycloak</span><span class="tok-p">.</span><span class="tok-nx">protect</span><span class="tok-p">(</span><span class="tok-s1">&#39;realm:api-access&#39;</span><span class="tok-p">),</span> <span class="tok-nx">routes</span><span class="tok-p">);</span>
 </td></tr></table></code></pre>
 </div>
