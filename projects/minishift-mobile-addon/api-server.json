@@ -244,10 +244,6 @@
                             "env": [{
                                     "name": "MONGO_DB_URI",
                                     "value": "mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@mongodb/${MONGODB_DATABASE}"
-                                },
-                                {
-                                    "name": "KEYCLOAK_URL",
-                                    "value": "${KEYCLOAK_URL}/auth"
                                 }
                             ],
                             "resources": {},
@@ -264,12 +260,6 @@
             "displayName": "Host value of the API server",
             "description": "Host value of the Route to access the API server. Does not include protocol.",
             "required": false
-        },
-        {
-            "name": "KEYCLOAK_URL",
-            "displayName": "Full URL of the Keycloak server",
-            "description": "Full URL of the Route to access the Keycloak server, including protocol",
-            "required": true
         },
         {
             "name": "MONGODB_USER",
