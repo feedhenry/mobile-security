@@ -1,0 +1,112 @@
+{
+  "id":"secure-app",
+  "realm":"secure-app",
+  "enabled":true,
+  "sslRequired":"external",
+  "bruteForceProtected" : true,
+  "permanentLockout": true,
+  "maxFailureWaitSeconds" : 900,
+  "minimumQuickLoginWaitSeconds" : 60,
+  "waitIncrementSeconds" : 60,
+  "quickLoginCheckMilliSeconds" : 1000,
+  "maxDeltaTimeSeconds" : 43200,
+  "failureFactor" : 3,
+  "eventsEnabled" : true,
+  "eventsListeners" : [ "jboss-logging" ],
+  "enabledEventTypes" : [ "SEND_RESET_PASSWORD", "UPDATE_TOTP", "REMOVE_TOTP", "REVOKE_GRANT", "LOGIN_ERROR", "CLIENT_LOGIN", "RESET_PASSWORD_ERROR", "IMPERSONATE_ERROR", "CODE_TO_TOKEN_ERROR", "CUSTOM_REQUIRED_ACTION", "RESTART_AUTHENTICATION", "UPDATE_PROFILE_ERROR", "IMPERSONATE", "LOGIN", "UPDATE_PASSWORD_ERROR", "CLIENT_INITIATED_ACCOUNT_LINKING", "REGISTER", "LOGOUT", "CLIENT_REGISTER", "IDENTITY_PROVIDER_LINK_ACCOUNT", "UPDATE_PASSWORD", "FEDERATED_IDENTITY_LINK_ERROR", "CLIENT_DELETE", "IDENTITY_PROVIDER_FIRST_LOGIN", "VERIFY_EMAIL", "CLIENT_DELETE_ERROR", "CLIENT_LOGIN_ERROR", "RESTART_AUTHENTICATION_ERROR", "REMOVE_FEDERATED_IDENTITY_ERROR", "EXECUTE_ACTIONS", "SEND_IDENTITY_PROVIDER_LINK_ERROR", "EXECUTE_ACTION_TOKEN_ERROR", "SEND_VERIFY_EMAIL", "EXECUTE_ACTIONS_ERROR", "REMOVE_FEDERATED_IDENTITY", "IDENTITY_PROVIDER_POST_LOGIN", "IDENTITY_PROVIDER_LINK_ACCOUNT_ERROR", "UPDATE_EMAIL", "REGISTER_ERROR", "REVOKE_GRANT_ERROR", "LOGOUT_ERROR", "UPDATE_EMAIL_ERROR", "EXECUTE_ACTION_TOKEN", "CLIENT_UPDATE_ERROR", "UPDATE_PROFILE", "FEDERATED_IDENTITY_LINK", "CLIENT_REGISTER_ERROR", "SEND_VERIFY_EMAIL_ERROR", "SEND_IDENTITY_PROVIDER_LINK", "RESET_PASSWORD", "CLIENT_INITIATED_ACCOUNT_LINKING_ERROR", "REMOVE_TOTP_ERROR", "VERIFY_EMAIL_ERROR", "SEND_RESET_PASSWORD_ERROR", "CLIENT_UPDATE", "IDENTITY_PROVIDER_POST_LOGIN_ERROR", "CUSTOM_REQUIRED_ACTION_ERROR", "UPDATE_TOTP_ERROR", "CODE_TO_TOKEN", "IDENTITY_PROVIDER_FIRST_LOGIN_ERROR" ],
+  "adminEventsEnabled" : true,
+  "adminEventsDetailsEnabled" : true,
+  "requiredCredentials":[
+     "password"
+  ],
+  "roles": {
+    "realm": [
+      {
+        "name": "mobile-user",
+        "clientRole": false
+      },
+      {
+        "name": "api-access",
+        "clientRole": false
+      },
+      {
+        "name": "superuser",
+        "clientRole": false
+      }
+    ]
+  },
+  "groups": [
+    {
+      "id": "11429456-aad1-4555-b1d9-2904ce0bd80f",
+      "name": "API Access",
+      "path": "/API Access",
+      "attributes": {},
+      "realmRoles": [
+        "mobile-user",
+        "api-access"
+      ],
+      "clientRoles": {},
+      "subGroups": []
+    },
+    {
+      "id": "bbda1948-406a-498c-8fac-a660b0dea149",
+      "name": "Mobile Users",
+      "path": "/Mobile Users",
+      "attributes": {},
+      "realmRoles": [
+        "mobile-user"
+      ],
+      "clientRoles": {},
+      "subGroups": []
+    },
+    {
+      "id": "78b72033-57b9-47bd-89d3-814f492c0abd",
+      "name": "Superuser",
+      "path": "/Superuser",
+      "attributes": {},
+      "realmRoles": [
+        "mobile-user",
+        "api-access",
+        "superuser"
+      ],
+      "clientRoles": {},
+      "subGroups": []
+    }
+  ],
+  "clients":[
+     {
+        "clientId":"api-server",
+        "enabled":true,
+        "bearerOnly":true,
+        "adminUrl":"http://localhost:8080"
+     },
+     {
+        "clientId":"client-app",
+        "enabled":true,
+        "publicClient":true,
+        "redirectUris":[
+           "com.feedhenry.securenativeandroidtemplate:/callback",
+           "http://localhost"
+        ],
+        "webOrigins":[
+           "*"
+        ]
+     }
+  ],
+  "clientScopeMappings":{
+     "account":[
+        {
+           "client":"api-server",
+           "roles":[
+              "view-profile"
+           ]
+        },
+        {
+           "client":"client-app",
+           "roles":[
+              "view-profile"
+           ]
+        }
+     ]
+  }
+}
