@@ -158,36 +158,70 @@ image::assets/ios-auth-1.png[,270,480]
 image::assets/ios-auth-2.png[,270,480]
 --
 
-The Keycloak server config is defined in the https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/AppConfig.plist[secure-ios-app/AppConfig.plist] file.
+An Authentication & Session Management implementation has been provided in our https://github.com/feedhenry/mobile-security-ios-template[Mobile Security iOS Template] App.
+
+The Application uses http://openid.net/connect/[OpenID Connect] for authentication and access control. The Open Source Identity and Access Management server, http://www.keycloak.org[Keycloak], is being used as an Identity Provider.
+The https://github.com/aerogear/aerogear-ios-sdk/tree/master/docs/auth[Aerogear Auth SDK] is being used to communicate with the Keycloak server.
+
+The Keycloak server config is defined in the https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/mobile-services.json[mobile-services.json] file.
 
 .Code
 [source,swift,linenum,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/AppConfig.plist[]
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/mobile-services.json[]
 ....
 
-The `performAuthentication()` function handles the user authentication flow and the backchannel token exchange.
-
-.Code
-[source,swift,linenum,indent=0]
-....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/AuthenticationService.swift[tags=performAuthentication]
-....
-
-The `isLoggedIn()` can be used to check if the user is authenticated.
+The `startAuth()` function handles the user authentication browser flow and the back-channel token exchange.
 
 .Code
 [source,swift,linenum,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/AuthenticationService.swift[tags=isLoggedIn]
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/authentication/AuthenticationInteractor.swift[tags=login]
 ....
 
-The `performLogout()` can be used to logout the user.
+The `resolveCurrentUser()` returns the user profile, which can be used to retrieve user information and the auth tokens.
 
 .Code
 [source,swift,linenum,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/AuthenticationService.swift[tags=performLogout]
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/accesscontrol/AccessControlBuilder.swift[tags=resolveCurrentUser]
+....
+
+The following information can be retrieved from an authenticated user:
+
+.Code
+[source,swift,linenum,indent=0]
+....
+// Get the users username
+let username = currentUser.userName
+// Get the users first name
+let firstName = currentUser.firstName
+// Get the users last name
+let lastName = currentUser.lastName
+// Get the users full name
+let fullName = currentUser.fullName
+// Get the users email address
+let emailAddress = currentUser.email
+// Get the users access token
+let accessToken = currentUser.accessToken
+// Get the users identity token
+let identityToken = currentUser.identityToken
+....
+
+Access Control is carried out by checking the access roles of the authenticated user.
+
+.Code
+[source,swift,linenum,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/accesscontrol/AccessControlViewController.swift[tags=highlightUserRealmRoles]
+....
+
+The `logout()` function is used to logout the user from the Keycloak server. The local auth tokens are also deleted.
+
+.Code
+[source,swift,linenum,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/authentication/AuthenticationInteractor.swift[tags=logout]
 ....
 
 === Apache Cordova
