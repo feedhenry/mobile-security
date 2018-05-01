@@ -91,6 +91,7 @@
         ],
         "webOrigins":[
            "http://localhost:8100",
+           "http://localhost:8080",
            "com.redhat.secure-ios-app.secureapp",
            "com.feedhenry.securenativeandroidtemplate"
         ]
