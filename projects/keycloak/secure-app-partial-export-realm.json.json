@@ -85,15 +85,15 @@
         "enabled":true,
         "publicClient":true,
         "redirectUris":[
-           "com.feedhenry.securenativeandroidtemplate:/callback",
-           "http://localhost/*",
-           "com.redhat.secure-ios-app.secureapp:/callback"
-        ],
-        "webOrigins":[
-           "http://localhost:8100",
-           "http://localhost:8080",
-           "com.redhat.secure-ios-app.secureapp",
-           "com.feedhenry.securenativeandroidtemplate"
+          "com.aerogear.androidshowcase:/callback",
+          "http://localhost/*",
+          "com.redhat.secure-ios-app.secureapp:/callback"
+       ],
+       "webOrigins":[
+          "http://localhost:8100",
+          "http://localhost:8080",
+          "com.redhat.secure-ios-app.secureapp",
+          "com.aerogear.androidshowcase"
         ]
      }
   ],
