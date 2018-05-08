@@ -11,6 +11,6 @@ The project has the following components:
 * [Mobile Security Developer Guide](./docs)
 * Sample Apps
   * [Backend API Server Template](./projects)
-  * [Android Template App](https://github.com/feedhenry/mobile-security-android-template)
+  * [Android Template App](https://github.com/aerogear/android-showcase-template)
   * [iOS Template App](https://github.com/feedhenry/mobile-security-ios-template)
   * [Apache Cordova Template App](https://github.com/feedhenry/mobile-security-cordova-template)

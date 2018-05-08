@@ -668,7 +668,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>An Authentication &amp; Session Management implementation has been provided in our <a href="https://github.com/feedhenry/mobile-security-android-template">Mobile Security Android Template</a> App.</p>
+<p>An Authentication &amp; Session Management implementation has been provided in our <a href="https://github.com/aerogear/android-showcase-template">Mobile Security Android Template</a> App.</p>
 </div>
 <div class="paragraph">
 <p>The Application uses <a href="http://openid.net/connect/">OpenID Connect</a> for authentication and access control. The Open Source Identity and Access Management server, <a href="http://www.keycloak.org">Keycloak</a>, is being used as an Identity Provider.
@@ -700,7 +700,7 @@ The <a href="https://github.com/aerogear/aerogear-android-sdk/blob/master/docs/g
 <div class="sect4">
 <h5 id="code_examples">Code Examples</h5>
 <div class="paragraph">
-<p>The main code logic is found under <a href="https://github.com/feedhenry/mobile-security-android-template/tree/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/authentication">mobile-security-android-template/&#8230;&#8203;/authentication</a>.</p>
+<p>The main code logic is found under <a href="https://github.com/aerogear/android-showcase-template/tree/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/authentication">mobile-security-android-template/&#8230;&#8203;/authentication</a>.</p>
 </div>
 <div class="paragraph">
 <p>The following code snippets below describe the main authentication code logic in the mobile app.</p>
@@ -708,7 +708,7 @@ The <a href="https://github.com/aerogear/aerogear-android-sdk/blob/master/docs/g
 <div class="sect5">
 <h6 id="configuration">Configuration</h6>
 <div class="paragraph">
-<p>The Keycloak configuration is saved in the <a href="https://github.com/feedhenry/mobile-security-android-template/tree/master/app/src/main/assets/mobile-services.json">mobile-services.json</a> file.</p>
+<p>The Keycloak configuration is saved in the <a href="https://github.com/aerogear/android-showcase-template/tree/master/app/src/main/assets/mobile-services.json">mobile-services.json</a> file.</p>
 </div>
 <div class="listingblock">
 <div class="title">Code</div>
@@ -774,10 +774,10 @@ The <a href="https://github.com/aerogear/aerogear-android-sdk/blob/master/docs/g
 </div>
 </div>
 <div class="paragraph">
-<p>The redirect url of the application is defined in <code>android.defaultConfig.manifestPlaceholders</code> of the apps <a href="https://github.com/feedhenry/mobile-security-android-template/blob/master/app/build.gradle">build.gradle</a> file.</p>
+<p>The redirect url of the application is defined in <code>android.defaultConfig.manifestPlaceholders</code> of the apps <a href="https://github.com/aerogear/android-showcase-template/blob/master/app/build.gradle">build.gradle</a> file.</p>
 </div>
 <div class="paragraph">
-<p>You will also need to define the URL in the <a href="https://github.com/feedhenry/mobile-security-android-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/di/SecureApplicationModule.java">SecureApplicationModule</a>.</p>
+<p>You will also need to define the URL in the <a href="https://github.com/aerogear/android-showcase-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/di/SecureApplicationModule.java">SecureApplicationModule</a>.</p>
 </div>
 <div class="listingblock">
 <div class="title">Code</div>
@@ -1588,12 +1588,12 @@ The <a href="https://github.com/aerogear/aerogear-ios-sdk/tree/master/docs/auth"
 <div class="content">
 <div class="imageblock left">
 <div class="content">
-<img src="https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/screenshots/storage_menu.png" alt="storage menu" width="270" height="480">
+<img src="https://raw.githubusercontent.com/aerogear/android-showcase-template/master/screenshots/storage_menu.png" alt="storage menu" width="270" height="480">
 </div>
 </div>
 <div class="imageblock left">
 <div class="content">
-<img src="https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/screenshots/storage_main.png" alt="storage main" width="270" height="480">
+<img src="https://raw.githubusercontent.com/aerogear/android-showcase-template/master/screenshots/storage_main.png" alt="storage main" width="270" height="480">
 </div>
 </div>
 </div>
@@ -2768,7 +2768,7 @@ The <a href="https://github.com/aerogear/aerogear-ios-sdk/tree/master/docs/auth"
 <div class="sect5">
 <h6 id="certificate_pinning">Certificate Pinning</h6>
 <div class="paragraph">
-<p>The main code logic for certificate pinning is found under <a href="https://github.com/feedhenry/mobile-security-android-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/CertPinningHelper.java">here</a> in the CertPinningHelper class.</p>
+<p>The main code logic for certificate pinning is found under <a href="https://github.com/aerogear/android-showcase-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/CertPinningHelper.java">here</a> in the CertPinningHelper class.</p>
 </div>
 <div class="paragraph">
 <p>Certificate Pinning has been implemented in the Application using the SPKI technique. This ensures easier maintenance and improved security by anonymizing the certificate information in the application.
@@ -3510,10 +3510,10 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
 <p>The Android Template App is using the <a href="https://github.com/aerogear/aerogear-android-sdk/blob/master/docs/getting-started/auth-self-defence-checks.adoc">App Self-Defense Checks</a> that are included in the <a href="https://github.com/aerogear/aerogear-android-sdk">AeroGear Android SDK</a>.</p>
 </div>
 <div class="paragraph">
-<p>The main code logic is found under <a href="https://github.com/feedhenry/mobile-security-android-template/tree/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device">here</a>.</p>
+<p>The main code logic is found under <a href="https://github.com/aerogear/android-showcase-template/tree/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device">here</a>.</p>
 </div>
 <div class="paragraph">
-<p>The Security Service is being initialised in the <a href="https://github.com/feedhenry/mobile-security-android-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/di/SecureApplicationModule.java">SecureApplicationModule</a>.</p>
+<p>The Security Service is being initialised in the <a href="https://github.com/aerogear/android-showcase-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/di/SecureApplicationModule.java">SecureApplicationModule</a>.</p>
 </div>
 <div class="listingblock">
 <div class="title">Code</div>

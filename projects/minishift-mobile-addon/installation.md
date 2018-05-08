@@ -8,7 +8,7 @@ The mobile security project contains the following services and applications:
   * Authentication/Authorisation serivce backed by [Keycloak](http://www.keycloak.org/)
   * [An API service](../api-server) protected by Keycloak
 * Mobile Applications
-  * [Android template app](https://github.com/feedhenry/mobile-security-android-template)
+  * [Android template app](https://github.com/aerogear/android-showcase-template)
   * [iOS template app](https://github.com/feedhenry/mobile-security-ios-template)
   * [Cordova template app](https://github.com/feedhenry/mobile-security-cordova-template)
 
@@ -138,7 +138,7 @@ Now the backend services are up and running. You can now configure and build the
 
 ## Configure and Build the Android Template App
 
-1. Clone the [Android mobile security template](https://github.com/feedhenry/mobile-security-android-template)
+1. Clone the [Android mobile security template](https://github.com/aerogear/android-showcase-template)
 2. Follow the instructions in the README file of the repo and make necessary changes to make sure the app will work with services that are running on Minishift.
 3. It is likely services running on Minishift use self-signed certificates. If this is the case you also need to follow the instructions in the README file to support it.
 4. You can now build the app using Android Studio or the command line tool and install it onto a device or emulator. If you are running the app on a device or emulator that is not on the same machine as Minishift, please make sure the device or emulator can resolve the hostname of the backend services correctly.
@@ -156,11 +156,3 @@ Now the backend services are up and running. You can now configure and build the
 2. Follow the instructions in the README file of the repo and make necessary changes to make sure the app will work with services that are running on Minishift.
 3. It is likely services running on Minishift use self-signed certificates. If this is the case you also need to follow the instructions in the README file to support it.
 4. You can now build and install the app onto devices using Xcode for iOS or Android Studio for Android. If you are running the app on a device or emulator that is not on the same machine as Minishift, please make sure the device or emulator can resolve the hostname of the backend services correctly.
-
-
-
-
-
-
-
-
