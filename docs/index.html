@@ -700,7 +700,7 @@ The <a href="https://github.com/aerogear/aerogear-android-sdk/blob/master/docs/g
 <div class="sect4">
 <h5 id="code_examples">Code Examples</h5>
 <div class="paragraph">
-<p>The main code logic is found under <a href="https://github.com/aerogear/android-showcase-template/tree/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/authentication">mobile-security-android-template/&#8230;&#8203;/authentication</a>.</p>
+<p>The main code logic is found under <a href="https://github.com/aerogear/android-showcase-template/tree/master/app/src/main/java/com/aerogear/androidshowcase/features/authentication">mobile-security-android-template/&#8230;&#8203;/authentication</a>.</p>
 </div>
 <div class="paragraph">
 <p>The following code snippets below describe the main authentication code logic in the mobile app.</p>
@@ -741,7 +741,28 @@ The <a href="https://github.com/aerogear/aerogear-android-sdk/blob/master/docs/g
 26
 27
 28
-29</div></td><td class="code"><span class="tok-p">{</span>
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50</div></td><td class="code"><span class="tok-p">{</span>
   <span class="tok-nt">&quot;version&quot;</span><span class="tok-p">:</span> <span class="tok-mi">1</span><span class="tok-p">,</span>
   <span class="tok-nt">&quot;clusterName&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;https://192.168.37.1:8443&quot;</span><span class="tok-p">,</span>
   <span class="tok-nt">&quot;namespace&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;myproject&quot;</span><span class="tok-p">,</span>
@@ -767,6 +788,27 @@ The <a href="https://github.com/aerogear/aerogear-android-sdk/blob/master/docs/g
         <span class="tok-nt">&quot;ssl-required&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;external&quot;</span><span class="tok-p">,</span>
         <span class="tok-nt">&quot;url&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;https://keycloak.security.feedhenry.org/auth&quot;</span>
       <span class="tok-p">}</span>
+    <span class="tok-p">},</span>
+    <span class="tok-p">{</span>
+      <span class="tok-nt">&quot;id&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;metrics&quot;</span><span class="tok-p">,</span>
+      <span class="tok-nt">&quot;name&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;metrics&quot;</span><span class="tok-p">,</span>
+      <span class="tok-nt">&quot;url&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;http://192.168.0.101:3000/metrics&quot;</span><span class="tok-p">,</span>
+      <span class="tok-nt">&quot;type&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;metrics&quot;</span><span class="tok-p">,</span>
+      <span class="tok-nt">&quot;config&quot;</span><span class="tok-p">:</span> <span class="tok-p">{</span>
+      <span class="tok-p">}</span>
+    <span class="tok-p">},</span>
+    <span class="tok-p">{</span>
+      <span class="tok-nt">&quot;id&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;push&quot;</span><span class="tok-p">,</span>
+      <span class="tok-nt">&quot;name&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;push&quot;</span><span class="tok-p">,</span>
+      <span class="tok-nt">&quot;url&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;https://ups-dm-myproject-1.193b.starter-ca-central-1.openshiftapps.com/&quot;</span><span class="tok-p">,</span>
+      <span class="tok-nt">&quot;type&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;push&quot;</span><span class="tok-p">,</span>
+      <span class="tok-nt">&quot;config&quot;</span><span class="tok-p">:</span> <span class="tok-p">{</span>
+        <span class="tok-nt">&quot;android&quot;</span><span class="tok-p">:</span> <span class="tok-p">{</span>
+          <span class="tok-nt">&quot;variantId&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;9351f86d-9531-4ba3-beac-b73dc3c8764b&quot;</span><span class="tok-p">,</span>
+          <span class="tok-nt">&quot;variantSecret&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;22784d6d-9526-4826-bbed-b18e977fc38c&quot;</span><span class="tok-p">,</span>
+          <span class="tok-nt">&quot;senderId&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;56938872708&quot;</span>
+        <span class="tok-p">}</span>
+      <span class="tok-p">}</span>
     <span class="tok-p">}</span>
   <span class="tok-p">]</span>
 <span class="tok-p">}</span>
@@ -777,7 +819,7 @@ The <a href="https://github.com/aerogear/aerogear-android-sdk/blob/master/docs/g
 <p>The redirect url of the application is defined in <code>android.defaultConfig.manifestPlaceholders</code> of the apps <a href="https://github.com/aerogear/android-showcase-template/blob/master/app/build.gradle">build.gradle</a> file.</p>
 </div>
 <div class="paragraph">
-<p>You will also need to define the URL in the <a href="https://github.com/aerogear/android-showcase-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/di/SecureApplicationModule.java">SecureApplicationModule</a>.</p>
+<p>You will also need to define the URL in the <a href="https://github.com/aerogear/android-showcase-template/blob/master/app/src/main/java/com/aerogear/androidshowcase/di/SecureApplicationModule.java">SecureApplicationModule</a>.</p>
 </div>
 <div class="listingblock">
 <div class="title">Code</div>
@@ -792,10 +834,10 @@ The <a href="https://github.com/aerogear/aerogear-android-sdk/blob/master/docs/g
  8
  9
 10</div></td><td class="code"><span class="tok-nd">@Provides</span> <span class="tok-nd">@Singleton</span>
-<span class="tok-n">AuthService</span> <span class="tok-nf">provideAuthService</span><span class="tok-o">(</span><span class="tok-n">Context</span> <span class="tok-n">context</span><span class="tok-o">,</span> <span class="tok-n">MobileCore</span> <span class="tok-n">mobileCore</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-    <span class="tok-n">AuthService</span> <span class="tok-n">authService</span> <span class="tok-o">=</span> <span class="tok-n">mobileCore</span><span class="tok-o">.</span><span class="tok-na">getInstance</span><span class="tok-o">(</span><span class="tok-n">AuthService</span><span class="tok-o">.</span><span class="tok-na">class</span><span class="tok-o">);</span>
+<span class="tok-n">AuthService</span> <span class="tok-nf">provideAuthService</span><span class="tok-o">(</span><span class="tok-n">Context</span> <span class="tok-n">context</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+    <span class="tok-n">AuthService</span> <span class="tok-n">authService</span> <span class="tok-o">=</span> <span class="tok-n">MobileCore</span><span class="tok-o">.</span><span class="tok-na">getInstance</span><span class="tok-o">().</span><span class="tok-na">getService</span><span class="tok-o">(</span><span class="tok-n">AuthService</span><span class="tok-o">.</span><span class="tok-na">class</span><span class="tok-o">);</span>
     <span class="tok-n">AuthServiceConfiguration</span> <span class="tok-n">authServiceConfig</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">AuthServiceConfiguration</span><span class="tok-o">.</span><span class="tok-na">AuthConfigurationBuilder</span><span class="tok-o">()</span>
-            <span class="tok-o">.</span><span class="tok-na">withRedirectUri</span><span class="tok-o">(</span><span class="tok-s">&quot;com.feedhenry.securenativeandroidtemplate:/callback&quot;</span><span class="tok-o">)</span>
+            <span class="tok-o">.</span><span class="tok-na">withRedirectUri</span><span class="tok-o">(</span><span class="tok-s">&quot;com.aerogear.androidshowcase:/callback&quot;</span><span class="tok-o">)</span>
             <span class="tok-o">.</span><span class="tok-na">build</span><span class="tok-o">();</span>
 
     <span class="tok-n">authService</span><span class="tok-o">.</span><span class="tok-na">init</span><span class="tok-o">(</span><span class="tok-n">context</span><span class="tok-o">,</span> <span class="tok-n">authServiceConfig</span><span class="tok-o">);</span>
@@ -862,7 +904,7 @@ A check is performed in the MainActivity for incoming intents so the result can 
 <span class="tok-kd">protected</span> <span class="tok-kt">void</span> <span class="tok-nf">onActivityResult</span><span class="tok-o">(</span><span class="tok-kt">int</span> <span class="tok-n">requestCode</span><span class="tok-o">,</span> <span class="tok-kt">int</span> <span class="tok-n">resultCode</span><span class="tok-o">,</span> <span class="tok-n">Intent</span> <span class="tok-n">data</span><span class="tok-o">)</span> <span class="tok-o">{</span>
     <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">requestCode</span> <span class="tok-o">==</span> <span class="tok-n">KeycloakAuthenticateProviderImpl</span><span class="tok-o">.</span><span class="tok-na">LOGIN_RESULT_CODE</span><span class="tok-o">)</span> <span class="tok-o">{</span>
         <span class="tok-c1">// The core will return the same instance of the auth service as before</span>
-        <span class="tok-n">AuthService</span> <span class="tok-n">authService</span> <span class="tok-o">=</span> <span class="tok-n">mobileCore</span><span class="tok-o">.</span><span class="tok-na">getInstance</span><span class="tok-o">(</span><span class="tok-n">AuthService</span><span class="tok-o">.</span><span class="tok-na">class</span><span class="tok-o">);</span>
+        <span class="tok-n">AuthService</span> <span class="tok-n">authService</span> <span class="tok-o">=</span> <span class="tok-n">MobileCore</span><span class="tok-o">.</span><span class="tok-na">getInstance</span><span class="tok-o">().</span><span class="tok-na">getService</span><span class="tok-o">(</span><span class="tok-n">AuthService</span><span class="tok-o">.</span><span class="tok-na">class</span><span class="tok-o">);</span>
         <span class="tok-n">authService</span><span class="tok-o">.</span><span class="tok-na">handleAuthResult</span><span class="tok-o">(</span><span class="tok-n">data</span><span class="tok-o">);</span>
     <span class="tok-o">}</span>
 <span class="tok-o">}</span>
@@ -902,7 +944,7 @@ A check is performed in the MainActivity for incoming intents so the result can 
 <span class="tok-cm"> *</span>
 <span class="tok-cm"> * @param logoutCallback the logout callback</span>
 <span class="tok-cm"> */</span>
-<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">logout</span><span class="tok-o">(</span><span class="tok-kd">final</span> <span class="tok-n">CallbackHandler</span> <span class="tok-n">logoutCallback</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">logout</span><span class="tok-o">(</span><span class="tok-kd">final</span> <span class="tok-n">Callback</span> <span class="tok-n">logoutCallback</span><span class="tok-o">)</span> <span class="tok-o">{</span>
     <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">logoutCallback</span> <span class="tok-o">=</span> <span class="tok-n">logoutCallback</span><span class="tok-o">;</span>
     <span class="tok-n">UserPrincipal</span> <span class="tok-n">currentUser</span> <span class="tok-o">=</span> <span class="tok-n">authService</span><span class="tok-o">.</span><span class="tok-na">currentUser</span><span class="tok-o">();</span>
     <span class="tok-n">authService</span><span class="tok-o">.</span><span class="tok-na">logout</span><span class="tok-o">(</span><span class="tok-n">currentUser</span><span class="tok-o">,</span> <span class="tok-k">new</span> <span class="tok-n">Callback</span><span class="tok-o">&lt;</span><span class="tok-n">UserPrincipal</span><span class="tok-o">&gt;()</span> <span class="tok-o">{</span>
@@ -2768,7 +2810,7 @@ The <a href="https://github.com/aerogear/aerogear-ios-sdk/tree/master/docs/auth"
 <div class="sect5">
 <h6 id="certificate_pinning">Certificate Pinning</h6>
 <div class="paragraph">
-<p>The main code logic for certificate pinning is found under <a href="https://github.com/aerogear/android-showcase-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/CertPinningHelper.java">here</a> in the CertPinningHelper class.</p>
+<p>The main code logic for certificate pinning is found under <a href="https://github.com/aerogear/android-showcase-template/blob/master/app/src/main/java/com/aerogear/androidshowcase/mvp/components/CertPinningHelper.java">here</a> in the CertPinningHelper class.</p>
 </div>
 <div class="paragraph">
 <p>Certificate Pinning has been implemented in the Application using the SPKI technique. This ensures easier maintenance and improved security by anonymizing the certificate information in the application.
@@ -3097,7 +3139,9 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 38
 39
 40
-41</div></td><td class="code"><span class="tok-nd">@Override</span>
+41
+42
+43</div></td><td class="code"><span class="tok-nd">@Override</span>
 <span class="tok-kd">protected</span> <span class="tok-n">Long</span> <span class="tok-nf">doInBackground</span><span class="tok-o">(</span><span class="tok-n">Void</span><span class="tok-o">...</span> <span class="tok-n">voids</span><span class="tok-o">)</span> <span class="tok-o">{</span>
     <span class="tok-n">String</span> <span class="tok-n">apiUrl</span> <span class="tok-o">=</span> <span class="tok-n">apiServerConfiguration</span><span class="tok-o">.</span><span class="tok-na">getNoteAPIUrl</span><span class="tok-o">();</span>
 
@@ -3113,23 +3157,25 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
                     <span class="tok-k">break</span><span class="tok-o">;</span>
                 <span class="tok-o">}</span>
                 <span class="tok-n">Note</span> <span class="tok-n">readNote</span> <span class="tok-o">=</span> <span class="tok-n">noteRepository</span><span class="tok-o">.</span><span class="tok-na">readNote</span><span class="tok-o">(</span><span class="tok-n">note</span><span class="tok-o">.</span><span class="tok-na">getId</span><span class="tok-o">());</span>
-                <span class="tok-n">HttpRequest</span> <span class="tok-n">httpRequest</span> <span class="tok-o">=</span> <span class="tok-n">mobileCore</span><span class="tok-o">.</span><span class="tok-na">getHttpLayer</span><span class="tok-o">().</span><span class="tok-na">newRequest</span><span class="tok-o">();</span>
+                <span class="tok-n">HttpRequest</span> <span class="tok-n">httpRequest</span> <span class="tok-o">=</span> <span class="tok-n">MobileCore</span><span class="tok-o">.</span><span class="tok-na">getInstance</span><span class="tok-o">().</span><span class="tok-na">getHttpLayer</span><span class="tok-o">().</span><span class="tok-na">newRequest</span><span class="tok-o">();</span>
                 <span class="tok-n">httpRequest</span><span class="tok-o">.</span><span class="tok-na">addHeader</span><span class="tok-o">(</span><span class="tok-s">&quot;Authorization&quot;</span><span class="tok-o">,</span> <span class="tok-n">String</span><span class="tok-o">.</span><span class="tok-na">format</span><span class="tok-o">(</span><span class="tok-s">&quot;Bearer %s&quot;</span><span class="tok-o">,</span> <span class="tok-n">accessToken</span><span class="tok-o">));</span>
-                <span class="tok-n">httpRequest</span><span class="tok-o">.</span><span class="tok-na">post</span><span class="tok-o">(</span><span class="tok-n">apiUrl</span><span class="tok-o">,</span> <span class="tok-n">readNote</span><span class="tok-o">.</span><span class="tok-na">toJson</span><span class="tok-o">(</span><span class="tok-kc">true</span><span class="tok-o">).</span><span class="tok-na">toString</span><span class="tok-o">().</span><span class="tok-na">getBytes</span><span class="tok-o">(</span><span class="tok-s">&quot;UTF-8&quot;</span><span class="tok-o">));</span>
-                <span class="tok-n">HttpResponse</span> <span class="tok-n">httpResponse</span> <span class="tok-o">=</span> <span class="tok-n">httpRequest</span><span class="tok-o">.</span><span class="tok-na">execute</span><span class="tok-o">();</span>
 
-                <span class="tok-n">httpResponse</span><span class="tok-o">.</span><span class="tok-na">onError</span><span class="tok-o">(()</span> <span class="tok-o">-&gt;</span> <span class="tok-o">{</span>
-                    <span class="tok-n">UploadNotesTask</span><span class="tok-o">.</span><span class="tok-na">this</span><span class="tok-o">.</span><span class="tok-na">error</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">Exception</span><span class="tok-o">(</span><span class="tok-n">httpResponse</span><span class="tok-o">.</span><span class="tok-na">stringBody</span><span class="tok-o">());</span>
-                <span class="tok-o">});</span>
-                <span class="tok-n">httpResponse</span><span class="tok-o">.</span><span class="tok-na">onSuccess</span><span class="tok-o">(()</span> <span class="tok-o">-&gt;</span> <span class="tok-o">{</span>
-                    <span class="tok-n">uploaded</span><span class="tok-o">.</span><span class="tok-na">incrementAndGet</span><span class="tok-o">();</span>
-                <span class="tok-o">});</span>
-                <span class="tok-n">httpResponse</span><span class="tok-o">.</span><span class="tok-na">onComplete</span><span class="tok-o">(()</span> <span class="tok-o">-&gt;</span> <span class="tok-o">{</span>
-                    <span class="tok-kt">long</span> <span class="tok-n">progress</span> <span class="tok-o">=</span> <span class="tok-n">currentCount</span><span class="tok-o">.</span><span class="tok-na">incrementAndGet</span><span class="tok-o">();</span>
-                    <span class="tok-n">publishProgress</span><span class="tok-o">(</span><span class="tok-n">progress</span><span class="tok-o">,</span> <span class="tok-n">totalNumber</span><span class="tok-o">);</span>
-                <span class="tok-o">});</span>
+                <span class="tok-n">httpRequest</span><span class="tok-o">.</span><span class="tok-na">post</span><span class="tok-o">(</span><span class="tok-n">apiUrl</span><span class="tok-o">,</span> <span class="tok-n">readNote</span><span class="tok-o">.</span><span class="tok-na">toJson</span><span class="tok-o">(</span><span class="tok-kc">true</span><span class="tok-o">).</span><span class="tok-na">toString</span><span class="tok-o">().</span><span class="tok-na">getBytes</span><span class="tok-o">(</span><span class="tok-s">&quot;UTF-8&quot;</span><span class="tok-o">))</span>
+                        <span class="tok-o">.</span><span class="tok-na">respondWith</span><span class="tok-o">(</span><span class="tok-k">new</span> <span class="tok-n">Responder</span><span class="tok-o">&lt;</span><span class="tok-n">HttpResponse</span><span class="tok-o">&gt;()</span> <span class="tok-o">{</span>
+                            <span class="tok-nd">@Override</span>
+                            <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">onResult</span><span class="tok-o">(</span><span class="tok-n">HttpResponse</span> <span class="tok-n">value</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+                                <span class="tok-n">uploaded</span><span class="tok-o">.</span><span class="tok-na">incrementAndGet</span><span class="tok-o">();</span>
+                            <span class="tok-o">}</span>
 
-                <span class="tok-n">httpResponse</span><span class="tok-o">.</span><span class="tok-na">waitForCompletionAndClose</span><span class="tok-o">();</span>
+                            <span class="tok-nd">@Override</span>
+                            <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">onException</span><span class="tok-o">(</span><span class="tok-n">Exception</span> <span class="tok-n">exception</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+                                <span class="tok-n">Log</span><span class="tok-o">.</span><span class="tok-na">e</span><span class="tok-o">(</span><span class="tok-n">TAG</span><span class="tok-o">,</span> <span class="tok-s">&quot;Error - Exception&quot;</span><span class="tok-o">,</span> <span class="tok-n">exception</span><span class="tok-o">);</span>
+                                <span class="tok-n">error</span> <span class="tok-o">=</span> <span class="tok-n">exception</span><span class="tok-o">;</span>
+                            <span class="tok-o">}</span>
+                        <span class="tok-o">});</span>
+
+                <span class="tok-kt">long</span> <span class="tok-n">progress</span> <span class="tok-o">=</span> <span class="tok-n">currentCount</span><span class="tok-o">.</span><span class="tok-na">incrementAndGet</span><span class="tok-o">();</span>
+                <span class="tok-n">publishProgress</span><span class="tok-o">(</span><span class="tok-n">progress</span><span class="tok-o">,</span> <span class="tok-n">totalNumber</span><span class="tok-o">);</span>
             <span class="tok-o">}</span>
         <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">Exception</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
             <span class="tok-n">Log</span><span class="tok-o">.</span><span class="tok-na">e</span><span class="tok-o">(</span><span class="tok-n">TAG</span><span class="tok-o">,</span> <span class="tok-s">&quot;Error - Exception&quot;</span><span class="tok-o">,</span> <span class="tok-n">e</span><span class="tok-o">);</span>
@@ -3510,10 +3556,10 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
 <p>The Android Template App is using the <a href="https://github.com/aerogear/aerogear-android-sdk/blob/master/docs/getting-started/auth-self-defence-checks.adoc">App Self-Defense Checks</a> that are included in the <a href="https://github.com/aerogear/aerogear-android-sdk">AeroGear Android SDK</a>.</p>
 </div>
 <div class="paragraph">
-<p>The main code logic is found under <a href="https://github.com/aerogear/android-showcase-template/tree/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device">here</a>.</p>
+<p>The main code logic is found under <a href="https://github.com/aerogear/android-showcase-template/tree/master/app/src/main/java/com/aerogear/androidshowcase/features/device">here</a>.</p>
 </div>
 <div class="paragraph">
-<p>The Security Service is being initialised in the <a href="https://github.com/aerogear/android-showcase-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/di/SecureApplicationModule.java">SecureApplicationModule</a>.</p>
+<p>The Security Service is being initialised in the <a href="https://github.com/aerogear/android-showcase-template/blob/master/app/src/main/java/com/aerogear/androidshowcase/di/SecureApplicationModule.java">SecureApplicationModule</a>.</p>
 </div>
 <div class="listingblock">
 <div class="title">Code</div>
@@ -3522,8 +3568,8 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
 2
 3
 4</div></td><td class="code"><span class="tok-nd">@Provides</span> <span class="tok-nd">@Singleton</span>
-<span class="tok-n">SecurityService</span> <span class="tok-nf">provideSecurityService</span><span class="tok-o">(</span><span class="tok-n">Context</span> <span class="tok-n">context</span><span class="tok-o">,</span> <span class="tok-n">MobileCore</span> <span class="tok-n">mobileCore</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-    <span class="tok-k">return</span> <span class="tok-n">mobileCore</span><span class="tok-o">.</span><span class="tok-na">getInstance</span><span class="tok-o">(</span><span class="tok-n">SecurityService</span><span class="tok-o">.</span><span class="tok-na">class</span><span class="tok-o">);</span>
+<span class="tok-n">SecurityService</span> <span class="tok-nf">provideSecurityService</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+    <span class="tok-k">return</span> <span class="tok-n">MobileCore</span><span class="tok-o">.</span><span class="tok-na">getInstance</span><span class="tok-o">().</span><span class="tok-na">getService</span><span class="tok-o">(</span><span class="tok-n">SecurityService</span><span class="tok-o">.</span><span class="tok-na">class</span><span class="tok-o">);</span>
 <span class="tok-o">}</span>
 </td></tr></table></code></pre>
 </div>
@@ -3553,8 +3599,8 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
 <span class="tok-cm"> */</span>
 <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">detectRoot</span><span class="tok-o">()</span> <span class="tok-o">{</span>
     <span class="tok-n">totalTests</span><span class="tok-o">++;</span>
-    <span class="tok-n">SecurityCheckResult</span> <span class="tok-n">result</span> <span class="tok-o">=</span> <span class="tok-n">securityService</span><span class="tok-o">.</span><span class="tok-na">check</span><span class="tok-o">(</span><span class="tok-n">SecurityCheckType</span><span class="tok-o">.</span><span class="tok-na">IS_ROOTED</span><span class="tok-o">);</span>
-    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">result</span><span class="tok-o">.</span><span class="tok-na">passed</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+    <span class="tok-n">SecurityCheckResult</span> <span class="tok-n">result</span> <span class="tok-o">=</span> <span class="tok-n">securityService</span><span class="tok-o">.</span><span class="tok-na">check</span><span class="tok-o">(</span><span class="tok-n">SecurityCheckType</span><span class="tok-o">.</span><span class="tok-na">NOT_ROOTED</span><span class="tok-o">);</span>
+    <span class="tok-k">if</span> <span class="tok-o">(!</span><span class="tok-n">result</span><span class="tok-o">.</span><span class="tok-na">passed</span><span class="tok-o">())</span> <span class="tok-o">{</span>
         <span class="tok-n">setDetected</span><span class="tok-o">(</span><span class="tok-n">rootAccess</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">string</span><span class="tok-o">.</span><span class="tok-na">root_detected_positive</span><span class="tok-o">);</span>
     <span class="tok-o">}</span>
 <span class="tok-o">}</span>
@@ -3615,8 +3661,8 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
 <span class="tok-cm"> */</span>
 <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">debuggerDetected</span><span class="tok-o">()</span> <span class="tok-o">{</span>
     <span class="tok-n">totalTests</span><span class="tok-o">++;</span>
-    <span class="tok-n">SecurityCheckResult</span> <span class="tok-n">result</span> <span class="tok-o">=</span> <span class="tok-n">securityService</span><span class="tok-o">.</span><span class="tok-na">check</span><span class="tok-o">(</span><span class="tok-n">SecurityCheckType</span><span class="tok-o">.</span><span class="tok-na">IS_DEBUGGER</span><span class="tok-o">);</span>
-    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">result</span><span class="tok-o">.</span><span class="tok-na">passed</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+    <span class="tok-n">SecurityCheckResult</span> <span class="tok-n">result</span> <span class="tok-o">=</span> <span class="tok-n">securityService</span><span class="tok-o">.</span><span class="tok-na">check</span><span class="tok-o">(</span><span class="tok-n">SecurityCheckType</span><span class="tok-o">.</span><span class="tok-na">NO_DEBUGGER</span><span class="tok-o">);</span>
+    <span class="tok-k">if</span> <span class="tok-o">(!</span><span class="tok-n">result</span><span class="tok-o">.</span><span class="tok-na">passed</span><span class="tok-o">())</span> <span class="tok-o">{</span>
         <span class="tok-n">setDetected</span><span class="tok-o">(</span><span class="tok-n">debuggerAccess</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">string</span><span class="tok-o">.</span><span class="tok-na">debugger_detected_positive</span><span class="tok-o">);</span>
     <span class="tok-o">}</span>
 <span class="tok-o">}</span>
@@ -3646,8 +3692,8 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
 <span class="tok-cm"> */</span>
 <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">detectEmulator</span><span class="tok-o">()</span> <span class="tok-o">{</span>
     <span class="tok-n">totalTests</span><span class="tok-o">++;</span>
-    <span class="tok-n">SecurityCheckResult</span> <span class="tok-n">result</span> <span class="tok-o">=</span> <span class="tok-n">securityService</span><span class="tok-o">.</span><span class="tok-na">check</span><span class="tok-o">(</span><span class="tok-n">SecurityCheckType</span><span class="tok-o">.</span><span class="tok-na">IS_EMULATOR</span><span class="tok-o">);</span>
-    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">result</span><span class="tok-o">.</span><span class="tok-na">passed</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+    <span class="tok-n">SecurityCheckResult</span> <span class="tok-n">result</span> <span class="tok-o">=</span> <span class="tok-n">securityService</span><span class="tok-o">.</span><span class="tok-na">check</span><span class="tok-o">(</span><span class="tok-n">SecurityCheckType</span><span class="tok-o">.</span><span class="tok-na">NOT_IN_EMULATOR</span><span class="tok-o">);</span>
+    <span class="tok-k">if</span> <span class="tok-o">(!</span><span class="tok-n">result</span><span class="tok-o">.</span><span class="tok-na">passed</span><span class="tok-o">())</span> <span class="tok-o">{</span>
         <span class="tok-n">setDetected</span><span class="tok-o">(</span><span class="tok-n">emulatorAccess</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">string</span><span class="tok-o">.</span><span class="tok-na">emulator_detected_positive</span><span class="tok-o">);</span>
     <span class="tok-o">}</span>
 <span class="tok-o">}</span>
@@ -3712,8 +3758,8 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
 <span class="tok-cm"> */</span>
 <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">detectBackupEnabled</span><span class="tok-o">()</span> <span class="tok-o">{</span>
     <span class="tok-n">totalTests</span><span class="tok-o">++;</span>
-    <span class="tok-n">SecurityCheckResult</span> <span class="tok-n">result</span> <span class="tok-o">=</span> <span class="tok-n">securityService</span><span class="tok-o">.</span><span class="tok-na">check</span><span class="tok-o">(</span><span class="tok-n">SecurityCheckType</span><span class="tok-o">.</span><span class="tok-na">ALLOW_BACKUP_ENABLED</span><span class="tok-o">);</span>
-    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">result</span><span class="tok-o">.</span><span class="tok-na">passed</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+    <span class="tok-n">SecurityCheckResult</span> <span class="tok-n">result</span> <span class="tok-o">=</span> <span class="tok-n">securityService</span><span class="tok-o">.</span><span class="tok-na">check</span><span class="tok-o">(</span><span class="tok-n">SecurityCheckType</span><span class="tok-o">.</span><span class="tok-na">ALLOW_BACKUP_DISABLED</span><span class="tok-o">);</span>
+    <span class="tok-k">if</span> <span class="tok-o">(!</span><span class="tok-n">result</span><span class="tok-o">.</span><span class="tok-na">passed</span><span class="tok-o">())</span> <span class="tok-o">{</span>
         <span class="tok-n">setDetected</span><span class="tok-o">(</span><span class="tok-n">allowBackup</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">string</span><span class="tok-o">.</span><span class="tok-na">allow_backup_detected_positive</span><span class="tok-o">);</span>
     <span class="tok-o">}</span>
 <span class="tok-o">}</span>
@@ -3778,8 +3824,8 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
 <span class="tok-cm"> */</span>
 <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">detectDeveloperOptions</span><span class="tok-o">()</span> <span class="tok-o">{</span>
     <span class="tok-n">totalTests</span><span class="tok-o">++;</span>
-    <span class="tok-n">SecurityCheckResult</span> <span class="tok-n">result</span> <span class="tok-o">=</span> <span class="tok-n">securityService</span><span class="tok-o">.</span><span class="tok-na">check</span><span class="tok-o">(</span><span class="tok-n">SecurityCheckType</span><span class="tok-o">.</span><span class="tok-na">IS_DEVELOPER_MODE</span><span class="tok-o">);</span>
-    <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">result</span><span class="tok-o">.</span><span class="tok-na">passed</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+    <span class="tok-n">SecurityCheckResult</span> <span class="tok-n">result</span> <span class="tok-o">=</span> <span class="tok-n">securityService</span><span class="tok-o">.</span><span class="tok-na">check</span><span class="tok-o">(</span><span class="tok-n">SecurityCheckType</span><span class="tok-o">.</span><span class="tok-na">NO_DEVELOPER_MODE</span><span class="tok-o">);</span>
+    <span class="tok-k">if</span> <span class="tok-o">(!</span><span class="tok-n">result</span><span class="tok-o">.</span><span class="tok-na">passed</span><span class="tok-o">())</span> <span class="tok-o">{</span>
         <span class="tok-n">setDetected</span><span class="tok-o">(</span><span class="tok-n">developerOptions</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">string</span><span class="tok-o">.</span><span class="tok-na">developer_options_positive</span><span class="tok-o">);</span>
     <span class="tok-o">}</span>
 <span class="tok-o">}</span>

@@ -95,7 +95,7 @@ The Keycloak server is enforcing a number of Security Controls on the mobile app
 . https://github.com/feedhenry/mobile-security/blob/master/projects/keycloak/secure-app-realm.json#L13-L17[Audit tracing] of auth events.
 
 === Code Examples
-The main code logic is found under https://github.com/aerogear/android-showcase-template/tree/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/authentication[mobile-security-android-template/.../authentication].
+The main code logic is found under https://github.com/aerogear/android-showcase-template/tree/master/app/src/main/java/com/aerogear/androidshowcase/features/authentication[mobile-security-android-template/.../authentication].
 
 The following code snippets below describe the main authentication code logic in the mobile app.
 
@@ -110,12 +110,12 @@ include::https://raw.githubusercontent.com/aerogear/android-showcase-template/ma
 
 The redirect url of the application is defined in `android.defaultConfig.manifestPlaceholders` of the apps https://github.com/aerogear/android-showcase-template/blob/master/app/build.gradle[build.gradle] file.
 
-You will also need to define the URL in the https://github.com/aerogear/android-showcase-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/di/SecureApplicationModule.java[SecureApplicationModule].
+You will also need to define the URL in the https://github.com/aerogear/android-showcase-template/blob/master/app/src/main/java/com/aerogear/androidshowcase/di/SecureApplicationModule.java[SecureApplicationModule].
 
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/di/SecureApplicationModule.java[tags=authServiceInit]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/di/SecureApplicationModule.java[tags=authServiceInit]
 ....
 
 ==== Authentication
@@ -124,7 +124,7 @@ We can then perform the auth request and create a new intent which will handle t
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/authentication/providers/KeycloakAuthenticateProviderImpl.java[tags=login]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/features/authentication/providers/KeycloakAuthenticateProviderImpl.java[tags=login]
 ....
 
 ==== Handling the Authentication Response
@@ -134,7 +134,7 @@ A check is performed in the MainActivity for incoming intents so the result can 
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/MainActivity.java[tags=onActivityResult]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/MainActivity.java[tags=onActivityResult]
 ....
 
 ==== Logout
@@ -144,7 +144,7 @@ To logout of the application, we must make a call to the logout endpoint on the 
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/authentication/providers/KeycloakAuthenticateProviderImpl.java[tags=logout]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/features/authentication/providers/KeycloakAuthenticateProviderImpl.java[tags=logout]
 ....
 
 === Native iOS
