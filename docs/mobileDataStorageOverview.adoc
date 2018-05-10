@@ -61,10 +61,10 @@ We have implemented a secure storage feature in the sample mobile templates to a
 [.float-group]
 --
 [.left]
-image::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/screenshots/storage_menu.png[,270,480]
+image::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/screenshots/storage_menu.png[,270,480]
 
 [.left]
-image::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/screenshots/storage_main.png[,270,480]
+image::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/screenshots/storage_main.png[,270,480]
 --
 
 The secret notes can be saved to either file system or database (SQLite). In both cases, the notes will be encrypted automatically when persisted, and decrypted automatically when loaded into the app.
@@ -82,7 +82,7 @@ In Android M and later versions, the KeyStore API supports generating and persis
 .Generate Secret Key
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/crypto/AndroidMSecureKeyStore.java[tags=generateAESKey]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/domain/crypto/AndroidMSecureKeyStore.java[tags=generateAESKey]
 ....
 
 ==== Pre-Android M
@@ -96,7 +96,7 @@ Instead, we will have to:
 .Generate Secret
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/crypto/PreAndroidMSecureKeyStore.java[tags=generateSecretKey]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/domain/crypto/PreAndroidMSecureKeyStore.java[tags=generateSecretKey]
 ....
 
 2. Generate a public/private key pair using the KeyStore
@@ -104,7 +104,7 @@ include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-tem
 .Generate Keypair
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/crypto/PreAndroidMSecureKeyStore.java[tags=generatePrivateKeyPair]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/domain/crypto/PreAndroidMSecureKeyStore.java[tags=generatePrivateKeyPair]
 ....
 
 3. Encrypt the generated secret key with the generated public key and persist the encrypted secret key using private SharedPreferences.
@@ -112,7 +112,7 @@ include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-tem
 .Encrypt Secret
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/crypto/PreAndroidMSecureKeyStore.java[tags=generateAESKey]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/domain/crypto/PreAndroidMSecureKeyStore.java[tags=generateAESKey]
 ....
 
 4. To load the secret key, the generated key pair needs to be loaded first, and then use the private key to decrypt the encrypted secret key.
@@ -120,7 +120,7 @@ include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-tem
 .Decrypt Secret
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/crypto/PreAndroidMSecureKeyStore.java[tags=getSecretKey]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/domain/crypto/PreAndroidMSecureKeyStore.java[tags=getSecretKey]
 ....
 
 The alternative option is to ask the user to provide a password. The password will be used to encrypt/decrypt the secret key. This does mean that the user will have to remember the password and enter it everytime when using the app.
@@ -134,13 +134,13 @@ You can perform RSA encryption/decryption in Android like this:
 .RSA Encryption
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/crypto/RsaHelper.java[tags=encrypt]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/domain/crypto/RsaHelper.java[tags=encrypt]
 ....
 
 .RSA Decryption
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/crypto/RsaHelper.java[tags=decrypt]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/domain/crypto/RsaHelper.java[tags=decrypt]
 ....
 
 ==== Encrypt/decrypt the content of notes
@@ -152,13 +152,13 @@ You can perform data encryption/decryption in Android like this:
 .Encryption
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/crypto/AesCrypto.java[tags=encrypt]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/domain/crypto/AesCrypto.java[tags=encrypt]
 ....
 
 .Decryption
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/crypto/AesCrypto.java[tags=decrypt]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/domain/crypto/AesCrypto.java[tags=decrypt]
 ....
 
 ==== Persist data using file system
@@ -168,13 +168,13 @@ When a secret note is created, it can be persisted to the file system. We should
 .File Encryption
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/store/SecureFileNoteStore.java[tags=writeFileWithEncryption]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/domain/store/SecureFileNoteStore.java[tags=writeFileWithEncryption]
 ....
 
 .File Decryption
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/store/SecureFileNoteStore.java[tags=readFileWithDecryption]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/domain/store/SecureFileNoteStore.java[tags=readFileWithDecryption]
 ....
 
 ==== Persist data using database (SQLite)
@@ -186,7 +186,7 @@ To encrypt/decrypt the database, a password is required. You can ask the user to
 .SqlCipher Password
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/domain/store/sqlite/SqliteNoteStore.java[tags=getDbPassword]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/domain/store/sqlite/SqliteNoteStore.java[tags=getDbPassword]
 ....
 
 === Native iOS

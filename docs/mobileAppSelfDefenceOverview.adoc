@@ -75,14 +75,14 @@ image::assets/android-trust-1.png[,270,480]
 
 The Android Template App is using the https://github.com/aerogear/aerogear-android-sdk/blob/master/docs/getting-started/auth-self-defence-checks.adoc[App Self-Defense Checks] that are included in the https://github.com/aerogear/aerogear-android-sdk[AeroGear Android SDK].
 
-The main code logic is found under https://github.com/feedhenry/mobile-security-android-template/tree/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device[here].
+The main code logic is found under https://github.com/aerogear/android-showcase-template/tree/master/app/src/main/java/com/aerogear/androidshowcase/features/device[here].
 
-The Security Service is being initialised in the https://github.com/feedhenry/mobile-security-android-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/di/SecureApplicationModule.java[SecureApplicationModule].
+The Security Service is being initialised in the https://github.com/aerogear/android-showcase-template/blob/master/app/src/main/java/com/aerogear/androidshowcase/di/SecureApplicationModule.java[SecureApplicationModule].
 
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/di/SecureApplicationModule.java[tags=securityServiceInit]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/di/SecureApplicationModule.java[tags=securityServiceInit]
 ....
 
 The following code snippets below describe the main device trust detection logic in the mobile app.
@@ -93,7 +93,7 @@ A number of different checks are being used to check if root access is present o
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device/DeviceFragment.java[tags=detectRoot]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/features/device/DeviceFragment.java[tags=detectRoot]
 ....
 
 ==== Detecting if Lock Screen Set
@@ -102,7 +102,7 @@ Detecting if the Android device has a lock screen set (with pin, fingerprint, pa
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device/DeviceFragment.java[tags=detectDeviceLock]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/features/device/DeviceFragment.java[tags=detectDeviceLock]
 ....
 
 ==== Detecting if Debugger is Attached
@@ -111,7 +111,7 @@ Detecting if an Android debugger is attached to the application.
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device/DeviceFragment.java[tags=debuggerDetected]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/features/device/DeviceFragment.java[tags=debuggerDetected]
 ....
 
 ==== Detecting Emulator Access
@@ -120,7 +120,7 @@ Detecting if the Application is being run on an emulator.
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device/DeviceFragment.java[tags=detectEmulator]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/features/device/DeviceFragment.java[tags=detectEmulator]
 ....
 
 ==== Detecting Hooking Framework Apps
@@ -129,7 +129,7 @@ There are some simple checks added to the application to check if the http://rep
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device/DeviceFragment.java[tags=detectHookingFramework]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/features/device/DeviceFragment.java[tags=detectHookingFramework]
 ....
 
 ==== Detecting App Data Backup Enabled
@@ -138,7 +138,7 @@ The application can check if the `allowBackup` flag in the applications `Android
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device/DeviceFragment.java[tags=detectBackupEnabled]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/features/device/DeviceFragment.java[tags=detectBackupEnabled]
 ....
 
 ==== Detecting Out of Date OS Version
@@ -147,7 +147,7 @@ The devices OS version can be checked using the https://developer.android.com/re
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device/DeviceFragment.java[tags=detectLatestOS]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/features/device/DeviceFragment.java[tags=detectLatestOS]
 ....
 
 ==== Detecting Developer Mode Enabled
@@ -156,7 +156,7 @@ The Developer Mode status can be checked to see if this is enabled.
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/device/DeviceFragment.java[tags=detectDeveloperOptions]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/features/device/DeviceFragment.java[tags=detectDeveloperOptions]
 ....
 
 === Native iOS

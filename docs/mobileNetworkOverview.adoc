@@ -55,7 +55,7 @@ image::assets/android-pinning-1.png[,270,480]
 --
 
 ==== Certificate Pinning
-The main code logic for certificate pinning is found under https://github.com/feedhenry/mobile-security-android-template/blob/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/CertPinningHelper.java[here] in the CertPinningHelper class.
+The main code logic for certificate pinning is found under https://github.com/aerogear/android-showcase-template/blob/master/app/src/main/java/com/aerogear/androidshowcase/mvp/components/CertPinningHelper.java[here] in the CertPinningHelper class.
 
 Certificate Pinning has been implemented in the Application using the SPKI technique. This ensures easier maintenance and improved security by anonymizing the certificate information in the application.
 The https://github.com/datatheorem/TrustKit-Android[TrustKit Android] library is being utilised to allow certificate pinning to work with older API levels.
@@ -65,7 +65,7 @@ The Android https://developer.android.com/training/articles/security-config.html
 .Code
 [source,xml,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/res/xml/network_security_config.xml[]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/res/xml/network_security_config.xml[]
 ....
 
 You can get the pin for a website using OpenSSL:
@@ -79,7 +79,7 @@ A HTTP request function has been created to perform requests to the Authenticati
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/CertPinningHelper.java[tags=createRequest]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/mvp/components/CertPinningHelper.java[tags=createRequest]
 ....
 
 A function has also been provided to check if the OkHTTP callback failure exception was due to a certificate validation issue.
@@ -87,7 +87,7 @@ A function has also been provided to check if the OkHTTP callback failure except
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/mvp/components/CertPinningHelper.java[tags=checkCertificateVerificationError]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/mvp/components/CertPinningHelper.java[tags=checkCertificateVerificationError]
 ....
 
 ==== Invoking remote APIs
@@ -97,7 +97,7 @@ When remote APIs are being invoked, before sending the data, you should make sur
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/network/presenters/UploadNotesPresenter.java[tags=checkPermission]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/features/network/presenters/UploadNotesPresenter.java[tags=checkPermission]
 ....
 
 However, just checking the permission on the client is not enough. You should always check the user permission on the backend API server as well:
@@ -113,7 +113,7 @@ You should also perform certificate pinning checks when calling remote APIs:
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/master/app/src/main/java/com/feedhenry/securenativeandroidtemplate/features/network/presenters/UploadNotesPresenter.java[tags=invokeAPI]
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/features/network/presenters/UploadNotesPresenter.java[tags=invokeAPI]
 ....
 
 === iOS
