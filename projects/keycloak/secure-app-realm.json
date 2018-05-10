@@ -156,15 +156,17 @@
          "enabled":true,
          "publicClient":true,
          "redirectUris":[
-            "com.aerogear.androidshowcase:/callback",
-            "http://localhost/*",
-            "com.redhat.secure-ios-app.secureapp:/callback"
-         ],
-         "webOrigins":[
-            "http://localhost:8100",
-            "http://localhost:8080",
-            "com.redhat.secure-ios-app.secureapp",
-            "com.aerogear.androidshowcase"
+           "com.aerogear.androidshowcase:/callback",
+           "http://localhost/*",
+           "com.redhat.secure-ios-app.secureapp:/callback",
+           "org.aerogear.ios-showcase-template:/callback"
+           ],
+           "webOrigins":[
+           "http://localhost:8100",
+           "http://localhost:8080",
+           "com.redhat.secure-ios-app.secureapp",
+           "com.aerogear.androidshowcase",
+           "org.aerogear.ios-showcase-template"
          ]
       }
    ],
