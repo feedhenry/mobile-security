@@ -158,17 +158,17 @@ image::assets/ios-auth-1.png[,270,480]
 image::assets/ios-auth-2.png[,270,480]
 --
 
-An Authentication & Session Management implementation has been provided in our https://github.com/feedhenry/mobile-security-ios-template[Mobile Security iOS Template] App.
+An Authentication & Session Management implementation has been provided in our https://github.com/aerogear/ios-showcase-template[Mobile Security iOS Template] App.
 
 The Application uses http://openid.net/connect/[OpenID Connect] for authentication and access control. The Open Source Identity and Access Management server, http://www.keycloak.org[Keycloak], is being used as an Identity Provider.
 The https://github.com/aerogear/aerogear-ios-sdk/tree/master/docs/auth[Aerogear Auth SDK] is being used to communicate with the Keycloak server.
 
-The Keycloak server config is defined in the https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/mobile-services.json[mobile-services.json] file.
+The Keycloak server config is defined in the https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/mobile-services.json[mobile-services.json] file.
 
 .Code
 [source,swift,linenum,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/mobile-services.json[]
+include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/mobile-services.json[]
 ....
 
 The `startAuth()` function handles the user authentication browser flow and the back-channel token exchange.
@@ -176,7 +176,7 @@ The `startAuth()` function handles the user authentication browser flow and the 
 .Code
 [source,swift,linenum,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/authentication/AuthenticationInteractor.swift[tags=login]
+include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/authentication/AuthenticationInteractor.swift[tags=login]
 ....
 
 The `resolveCurrentUser()` returns the user profile, which can be used to retrieve user information and the auth tokens.
@@ -184,7 +184,7 @@ The `resolveCurrentUser()` returns the user profile, which can be used to retrie
 .Code
 [source,swift,linenum,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/accesscontrol/AccessControlBuilder.swift[tags=resolveCurrentUser]
+include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/accesscontrol/AccessControlBuilder.swift[tags=resolveCurrentUser]
 ....
 
 The following information can be retrieved from an authenticated user:
@@ -213,7 +213,7 @@ Access Control is carried out by checking the access roles of the authenticated 
 .Code
 [source,swift,linenum,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/accesscontrol/AccessControlViewController.swift[tags=highlightUserRealmRoles]
+include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/accesscontrol/AccessControlViewController.swift[tags=highlightUserRealmRoles]
 ....
 
 The `logout()` function is used to logout the user from the Keycloak server. The local auth tokens are also deleted.
@@ -221,7 +221,7 @@ The `logout()` function is used to logout the user from the Keycloak server. The
 .Code
 [source,swift,linenum,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/authentication/AuthenticationInteractor.swift[tags=logout]
+include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/authentication/AuthenticationInteractor.swift[tags=logout]
 ....
 
 === Apache Cordova

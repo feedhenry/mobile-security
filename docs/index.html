@@ -981,14 +981,14 @@ A check is performed in the MainActivity for incoming intents so the result can 
 </div>
 </div>
 <div class="paragraph">
-<p>An Authentication &amp; Session Management implementation has been provided in our <a href="https://github.com/feedhenry/mobile-security-ios-template">Mobile Security iOS Template</a> App.</p>
+<p>An Authentication &amp; Session Management implementation has been provided in our <a href="https://github.com/aerogear/ios-showcase-template">Mobile Security iOS Template</a> App.</p>
 </div>
 <div class="paragraph">
 <p>The Application uses <a href="http://openid.net/connect/">OpenID Connect</a> for authentication and access control. The Open Source Identity and Access Management server, <a href="http://www.keycloak.org">Keycloak</a>, is being used as an Identity Provider.
 The <a href="https://github.com/aerogear/aerogear-ios-sdk/tree/master/docs/auth">Aerogear Auth SDK</a> is being used to communicate with the Keycloak server.</p>
 </div>
 <div class="paragraph">
-<p>The Keycloak server config is defined in the <a href="https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/mobile-services.json">mobile-services.json</a> file.</p>
+<p>The Keycloak server config is defined in the <a href="https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/mobile-services.json">mobile-services.json</a> file.</p>
 </div>
 <div class="listingblock">
 <div class="title">Code</div>
@@ -3203,7 +3203,7 @@ The <a href="https://github.com/datatheorem/TrustKit-Android">TrustKit Android</
 <div class="sect5">
 <h6 id="certificate_pinning_2">Certificate Pinning</h6>
 <div class="paragraph">
-<p>The <a href="https://github.com/feedhenry/mobile-security-ios-template/blob/master/secure-ios-app/services/CertPinningService.swift">Certificate Pinning Service</a> and the <a href="https://github.com/feedhenry/mobile-security-ios-template/blob/master/secure-ios-app/AppDelegate.swift">AppDelegate</a> contain the main code for configuring and performing certificate pinning.
+<p>The <a href="https://github.com/aerogear/ios-showcase-template/blob/master/secure-ios-app/services/CertPinningService.swift">Certificate Pinning Service</a> and the <a href="https://github.com/aerogear/ios-showcase-template/blob/master/secure-ios-app/AppDelegate.swift">AppDelegate</a> contain the main code for configuring and performing certificate pinning.
 The <a href="https://github.com/datatheorem/TrustKit">TrustKit</a> library is being used to perform SPKI Certificate Pinning. The pin is a Base64 encoded Subject Public Key Information fingerprint from an X.509 Certificate.</p>
 </div>
 <div class="paragraph">
@@ -3254,7 +3254,7 @@ TrustKit is configured below to perform swizzling of the App&#8217;s <a href="ht
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>performValidCertCheck()</code> function in the <a href="https://github.com/feedhenry/mobile-security-ios-template/blob/master/secure-ios-app/services/CertPinningService.swift">Certificate Pinning Service</a> can be used to manually check if a request to a host fails due to certificate pinning validation issues.</p>
+<p>The <code>performValidCertCheck()</code> function in the <a href="https://github.com/aerogear/ios-showcase-template/blob/master/secure-ios-app/services/CertPinningService.swift">Certificate Pinning Service</a> can be used to manually check if a request to a host fails due to certificate pinning validation issues.</p>
 </div>
 <div class="listingblock">
 <div class="title">Code</div>

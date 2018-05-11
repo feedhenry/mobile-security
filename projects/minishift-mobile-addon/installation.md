@@ -9,7 +9,7 @@ The mobile security project contains the following services and applications:
   * [An API service](../api-server) protected by Keycloak
 * Mobile Applications
   * [Android template app](https://github.com/aerogear/android-showcase-template)
-  * [iOS template app](https://github.com/feedhenry/mobile-security-ios-template)
+  * [iOS template app](https://github.com/aerogear/ios-showcase-template)
   * [Cordova template app](https://github.com/feedhenry/mobile-security-cordova-template)
 
 This document outlines the required steps to install and configure these services and applications using Minishift with mobile core addon.
@@ -145,7 +145,7 @@ Now the backend services are up and running. You can now configure and build the
 
 ## Configure and Build the iOS Template App
 
-1. Clone the [iOS mobile security template](https://github.com/feedhenry/mobile-security-ios-template)
+1. Clone the [iOS mobile security template](https://github.com/aerogear/ios-showcase-template)
 2. Follow the instructions in the README file of the repo and make necessary changes to make sure the app will work with services that are running on Minishift.
 3. It is likely services running on Minishift use self-signed certificates. If this is the case you also need to follow the instructions in the README file to support it.
 4. You can now build and install the app onto devices using Xcode. If you are running the app on a device or emulator that is not on the same machine as Minishift, please make sure the device or emulator can resolve the hostname of the backend services correctly.
