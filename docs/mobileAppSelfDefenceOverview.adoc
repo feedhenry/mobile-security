@@ -175,7 +175,7 @@ Detecting if the Device has a lock screen set.
 .Code
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/DevicetrustService.swift[tags=detectDeviceLock]
+include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/DevicetrustService.swift[tags=detectDeviceLock]
 ....
 
 ==== Detecting Jailbreak
@@ -184,7 +184,7 @@ Detecting if the Device is Jailbroken using the https://github.com/thii/DTTJailb
 .Code
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/DevicetrustService.swift[tags=detectJailbreak]
+include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/DevicetrustService.swift[tags=detectJailbreak]
 ....
 
 ==== Detecting Debug Mode
@@ -193,7 +193,7 @@ Detecting if the device is running in Debug mode.
 .Code
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/DevicetrustService.swift[tags=detectDebugabble]
+include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/DevicetrustService.swift[tags=detectDebugabble]
 ....
 
 ==== Detecting Emulator Access
@@ -202,7 +202,7 @@ Detecting if the underlying device running the mobile application is an Emulator
 .Code
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/DevicetrustService.swift[tags=detectEmulator]
+include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/DevicetrustService.swift[tags=detectEmulator]
 ....
 
 ==== Detecting Outdated OS Versions
@@ -211,7 +211,7 @@ Detecting if the underlying device running the mobile application is running an 
 .Code
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/DevicetrustService.swift[tags=detectLatestOS]
+include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/DevicetrustService.swift[tags=detectLatestOS]
 ....
 
 === Apache Cordova

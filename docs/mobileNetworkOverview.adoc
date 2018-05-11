@@ -125,7 +125,7 @@ image::assets/ios-pinning-1.png[,270,480]
 --
 
 ==== Certificate Pinning
-The https://github.com/feedhenry/mobile-security-ios-template/blob/master/secure-ios-app/services/CertPinningService.swift[Certificate Pinning Service] and the https://github.com/feedhenry/mobile-security-ios-template/blob/master/secure-ios-app/AppDelegate.swift[AppDelegate] contain the main code for configuring and performing certificate pinning.
+The https://github.com/aerogear/ios-showcase-template/blob/master/secure-ios-app/services/CertPinningService.swift[Certificate Pinning Service] and the https://github.com/aerogear/ios-showcase-template/blob/master/secure-ios-app/AppDelegate.swift[AppDelegate] contain the main code for configuring and performing certificate pinning.
 The https://github.com/datatheorem/TrustKit[TrustKit] library is being used to perform SPKI Certificate Pinning. The pin is a Base64 encoded Subject Public Key Information fingerprint from an X.509 Certificate.
 
 You can get the pin for a website using OpenSSL:
@@ -140,15 +140,15 @@ TrustKit is configured below to perform swizzling of the App's https://developer
 .Code
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/AppDelegate.swift[tags=trustkitConfig]
+include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/AppDelegate.swift[tags=trustkitConfig]
 ....
 
-The `performValidCertCheck()` function in the https://github.com/feedhenry/mobile-security-ios-template/blob/master/secure-ios-app/services/CertPinningService.swift[Certificate Pinning Service] can be used to manually check if a request to a host fails due to certificate pinning validation issues.
+The `performValidCertCheck()` function in the https://github.com/aerogear/ios-showcase-template/blob/master/secure-ios-app/services/CertPinningService.swift[Certificate Pinning Service] can be used to manually check if a request to a host fails due to certificate pinning validation issues.
 
 .Code
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/CertPinningService.swift[tags=performValidCertCheck]
+include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/CertPinningService.swift[tags=performValidCertCheck]
 ....
 
 The outcome of the certificate checks can then be used to warn the user if a secure channel is not available. In the example below, pinning is performed when the authentication button is pressed. If there are certificate validation issues, the end user will not be allowed to authenticate and the UI is updated to warn them that their connection to the remote server is not secure.
@@ -156,7 +156,7 @@ The outcome of the certificate checks can then be used to warn the user if a sec
 .Code
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/authentication/AuthenticationViewController.swift[tags=onAuthButtonTapped]
+include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/authentication/AuthenticationViewController.swift[tags=onAuthButtonTapped]
 ....
 
 === Apache Cordova

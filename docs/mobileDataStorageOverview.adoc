@@ -206,7 +206,7 @@ The Realm DB storing the notes must be initialised using the encryption key.
 .Initialise Realm
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/StorageService.swift[tags=init]
+include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/StorageService.swift[tags=init]
 ....
 
 The encryption key is stored in the iOS Keychain.
@@ -214,7 +214,7 @@ The encryption key is stored in the iOS Keychain.
 .Get Encryption Key
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/StorageService.swift[tags=getEncryptionKey]
+include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/StorageService.swift[tags=getEncryptionKey]
 ....
 
 
@@ -223,7 +223,7 @@ When the application is initialised for the first time, a new encryption key is 
 .Generate Encryption Key
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/StorageService.swift[tags=generateEncryptionKey]
+include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/StorageService.swift[tags=generateEncryptionKey]
 ....
 
 ==== Interacting with Realm DB
@@ -236,7 +236,7 @@ List all the notes.
 .Listing Notes
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/StorageService.swift[tags=list]
+include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/StorageService.swift[tags=list]
 ....
 
 ==== Creating a Note
@@ -245,7 +245,7 @@ Create an individual note.
 .Create a Note
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/StorageService.swift[tags=create]
+include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/StorageService.swift[tags=create]
 ....
 
 ==== Read a Note
@@ -254,7 +254,7 @@ Read an individual note.
 .Read a Note
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/StorageService.swift[tags=read]
+include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/StorageService.swift[tags=read]
 ....
 
 ==== Edit a Note
@@ -263,7 +263,7 @@ Edit an individual note.
 .Edit a Note
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/StorageService.swift[tags=edit]
+include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/StorageService.swift[tags=edit]
 ....
 
 ==== Delete a Note
@@ -272,7 +272,7 @@ Delete an individual note.
 .Delete a Note
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/StorageService.swift[tags=delete]
+include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/StorageService.swift[tags=delete]
 ....
 
 ==== Delete all Notes
@@ -281,5 +281,5 @@ Delete all notes.
 .Delete all Notes
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-ios-template/master/secure-ios-app/services/StorageService.swift[tags=deleteAll]
+include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/StorageService.swift[tags=deleteAll]
 ....
