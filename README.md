@@ -13,4 +13,4 @@ The project has the following components:
   * [Backend API Server Template](./projects)
   * [Android Template App](https://github.com/aerogear/android-showcase-template)
   * [iOS Template App](https://github.com/aerogear/ios-showcase-template)
-  * [Apache Cordova Template App](https://github.com/feedhenry/mobile-security-cordova-template)
+  * [Apache Cordova Template App](https://github.com/aerogear/cordova-showcase-template)
