@@ -74,7 +74,7 @@ As part of Android authentication, an operating system (known as Trusty OS) runs
 
 .Android Authentication Process
 [caption="Figure 1: "]
-image::assets/android-authentication-flow.png[600, 600]
+image::android-authentication-flow.png[600, 600]
 
 . Authentication begins when a user enters a Gatekeeper credential (eg. a Pin, Pattern, Password) or a Fingerprint.
 . The next step involves either the Gatekeeper daemon (gatekeeperd) or the Fingerprint daemon (fingerprintd) depending on what authentication credential is used.

@@ -1,15 +1,13 @@
-:library: Asciidoctor
-:idprefix:
-:numbered:
-:stylesheet: assets/asciidoctor.css
-:toc: left
-:source-highlighter: pygments
-:pygments-style: manni
-
-image::assets/fh_redhat_logo.png[align="center"]
-
+//:library: Asciidoctor
+//:idprefix:
+//:numbered:
+//:stylesheet: assets/asciidoctor.css
+:toc: 1
+//:source-highlighter: pygments
+//:pygments-style: manni
 [.text-center]
-== FeedHenry Mobile Security
+
+== AeroGear Mobile Security
 
 == Mobile Security Recommendations Overview
 

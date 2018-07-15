@@ -194,7 +194,7 @@ include::https://raw.githubusercontent.com/aerogear/android-showcase-template/ma
 [.float-group]
 --
 [.left]
-image::assets/ios-storage-1.png[,270,480]
+image::ios-storage-1.png[,270,480]
 --
 
 The secret notes are being persisted using an encrypted https://realm.io/docs/swift/latest/[Realm Mobile DB].

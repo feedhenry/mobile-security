@@ -66,19 +66,19 @@
 [.float-group]
 --
 [.left]
-image::assets/android-auth-1.png[,270,480]
+image::android-auth-1.png[,270,480]
 
 [.left]
-image::assets/android-auth-2.png[,270,480]
+image::android-auth-2.png[,270,480]
 
 [.left]
-image::assets/android-auth-3.png[,270,480]
+image::android-auth-3.png[,270,480]
 
 [.left]
-image::assets/android-auth-4.png[,270,480]
+image::android-auth-4.png[,270,480]
 
 [.left]
-image::assets/android-auth-5.png[,270,480]
+image::android-auth-5.png[,270,480]
 --
 
 An Authentication & Session Management implementation has been provided in our https://github.com/aerogear/android-showcase-template[Mobile Security Android Template] App.
@@ -152,10 +152,10 @@ include::https://raw.githubusercontent.com/aerogear/android-showcase-template/ma
 [.float-group]
 --
 [.left]
-image::assets/ios-auth-1.png[,270,480]
+image::ios-auth-1.png[,270,480]
 
 [.left]
-image::assets/ios-auth-2.png[,270,480]
+image::ios-auth-2.png[,270,480]
 --
 
 An Authentication & Session Management implementation has been provided in our https://github.com/aerogear/ios-showcase-template[Mobile Security iOS Template] App.
@@ -229,13 +229,13 @@ include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master
 [.float-group]
 --
 [.left]
-image::assets/cordova-auth-1.png[,270,480]
+image::cordova-auth-1.png[,270,480]
 
 [.left]
-image::assets/cordova-auth-2.png[,270,480]
+image::cordova-auth-2.png[,270,480]
 
 [.left]
-image::assets/cordova-auth-3.png[,270,480]
+image::cordova-auth-3.png[,270,480]
 --
 
 The https://www.npmjs.com/package/keycloak-js[Keycloak JS] library is being used to perform the OpenID Connect based authentication.

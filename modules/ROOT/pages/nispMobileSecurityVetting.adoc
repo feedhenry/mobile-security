@@ -20,7 +20,7 @@ Based on the reports the auditor will then submit the recommendation to the appr
 The following diagram can be used to describe the process:
 
 [caption="Figure 1: "]
-image::assets/mobile-app-vetting.png[600, 600]
+image::mobile-app-vetting.png[600, 600]
 
 Further note that although app vetting processes may vary among organizations, organizations should strive to implement a process that is repeatable, efficient, consistent, and that limits errors.
 

@@ -70,7 +70,7 @@ A number of checks were implemented to assess the security of the underlying dev
 [.float-group]
 --
 [.left]
-image::assets/android-trust-1.png[,270,480]
+image::android-trust-1.png[,270,480]
 --
 
 The Android Template App is using the https://github.com/aerogear/aerogear-android-sdk/blob/master/docs/getting-started/auth-self-defence-checks.adoc[App Self-Defense Checks] that are included in the https://github.com/aerogear/aerogear-android-sdk[AeroGear Android SDK].
@@ -164,7 +164,7 @@ include::https://raw.githubusercontent.com/aerogear/android-showcase-template/ma
 [.float-group]
 --
 [.left]
-image::assets/ios-trust-1.png[,270,480]
+image::ios-trust-1.png[,270,480]
 --
 
 The following code snippets below describe the main device trust detection logic in the iOS template app.
@@ -219,7 +219,7 @@ include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master
 [.float-group]
 --
 [.left]
-image::assets/cordova-trust-1.png[,270,480]
+image::cordova-trust-1.png[,270,480]
 --
 
 The following code snippets below describe the main device trust detection logic in the Cordova template app.

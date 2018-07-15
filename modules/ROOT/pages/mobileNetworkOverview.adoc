@@ -51,7 +51,7 @@ A number of features were added to enhance the security of the channel between t
 [.float-group]
 --
 [.left]
-image::assets/android-pinning-1.png[,270,480]
+image::android-pinning-1.png[,270,480]
 --
 
 ==== Certificate Pinning
@@ -121,7 +121,7 @@ include::https://raw.githubusercontent.com/aerogear/android-showcase-template/ma
 [.float-group]
 --
 [.left]
-image::assets/ios-pinning-1.png[,270,480]
+image::ios-pinning-1.png[,270,480]
 --
 
 ==== Certificate Pinning
