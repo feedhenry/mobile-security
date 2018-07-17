@@ -7,33 +7,14 @@
 //:pygments-style: manni
 [.text-center]
 
-== AeroGear Mobile Security
+= AeroGear Mobile Security
 
 == Mobile Security Recommendations Overview
 
-include::mobileAuthOverview.adoc[leveloffset=+2]
-include::mobileDataStorageOverview.adoc[leveloffset=+2]
-include::mobileNetworkOverview.adoc[leveloffset=+2]
-include::mobileAppSelfDefenceOverview.adoc[leveloffset=+2]
-include::mobileHandleSensitiveDataOverview.adoc[leveloffset=+2]
-include::mobileCryptographyOverview.adoc[leveloffset=+2]
+include::mobileAuthOverview.adoc[leveloffset=+1]
+include::mobileDataStorageOverview.adoc[leveloffset=+1]
+include::mobileNetworkOverview.adoc[leveloffset=+1]
+include::mobileAppSelfDefenceOverview.adoc[leveloffset=+1]
+include::mobileHandleSensitiveDataOverview.adoc[leveloffset=+1]
+include::mobileCryptographyOverview.adoc[leveloffset=+1]
 
-== References
-
-include::owaspTopMobileRisks.adoc[leveloffset=+2]
-include::mobileSecurityRequirements.adoc[leveloffset=+2]
-include::owaspMobileDevelopmentGuidelines.adoc[leveloffset=+2]
-include::owaspCheatSheetSeries.adoc[leveloffset=+2]
-include::owaspMobileVerificationStandard.adoc[leveloffset=2]
-include::owaspMobileThreatModelProject.adoc[leveloffset=+2]
-include::owaspMobileMTools.adoc[leveloffset=+2]
-include::iosSecurityGuide.adoc[leveloffset=+2]
-include::androidSecurityGuide.adoc[leveloffset=+2]
-include::androidDeveloperSecurityGuide.adoc[leveloffset=+2]
-include::cordovaSecurityGuide.adoc[leveloffset=+2]
-include::nispMobileSecurityVetting.adoc[leveloffset=+2]
-include::niapMobileAppVetting.adoc[leveloffset=+2]
-include::dhsMobileDeviceSecurity.adoc[leveloffset=+2]
-include::nispMobileDeviceSecurityGuides.adoc[leveloffset=+2]
-include::mobileBankingSecurity.adoc[leveloffset=+2]
-include::mobileSecureDevelopmentGuide.adoc[leveloffset=+2]

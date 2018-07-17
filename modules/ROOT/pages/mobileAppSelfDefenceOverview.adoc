@@ -82,7 +82,7 @@ The Security Service is being initialised in the https://github.com/aerogear/and
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/di/SecureApplicationModule.java[tags=securityServiceInit]
+include::{partialsdir}/securityServiceInit.adoc[]
 ....
 
 The following code snippets below describe the main device trust detection logic in the mobile app.

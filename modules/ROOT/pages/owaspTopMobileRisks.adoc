@@ -8,7 +8,7 @@ This is a summary of the https://www.owasp.org/index.php/OWASP_Mobile_Security_P
 
 * Misuse of a platform feature or failure to use platform security controls (Include Android intents, platform permissions, misuse of TouchID, the Keychain etc).
 
-=== Weekness
+=== Weakness
 
 * The organization must expose a web service or API call that is consumed by the mobile app. 
 * The exposed service or API call is implemented using insecure coding techniques that produce an https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project[OWASP Web Top Ten or Cloud Top Ten] within the server.
@@ -30,7 +30,7 @@ This is a summary of the https://www.owasp.org/index.php/OWASP_Mobile_Security_P
 * An adversary that has attained a lost/stolen mobile device
 * Malware or another repackaged app acting on the adversary's behalf that executes on the mobile device.
 
-=== Weekness
+=== Weakness
 
 * Development teams assume that users or malware will not have access to a mobile device's filesystem and subsequent sensitive information in data-stores on the device
 * Usage of poor encryption libraries
@@ -73,7 +73,7 @@ This is a summary of the https://www.owasp.org/index.php/OWASP_Mobile_Security_P
 * Carrier or network devices (routers, cell towers, proxy's, etc)
 * Malware on your mobile device
 
-=== Weekness
+=== Weakness
 
 * Do not protect network traffic
 * Use SSL/TLS during authentication but not elsewhere
@@ -117,7 +117,7 @@ This is a summary of the https://www.owasp.org/index.php/OWASP_Mobile_Security_P
 
 * Through automated attacks that use available or custom-built tools
 
-=== Weekness
+=== Weakness
 
 * Poor or missing authentication schemes
 * Authentication requirements for mobile apps can be quite different from traditional web authentication schemes due to availability requirements.
@@ -151,7 +151,7 @@ This is a summary of the https://www.owasp.org/index.php/OWASP_Mobile_Security_P
 * Anyone with physical access to data that has been encrypted improperly
 * Mobile malware acting on an adversary's behalf
 
-=== Weekness
+=== Weakness
 
 * Weak encryption algorithms or flaws within the encryption process
 
@@ -183,7 +183,7 @@ This is a summary of the https://www.owasp.org/index.php/OWASP_Mobile_Security_P
 
 * Through automated attacks that use available or custom-built tools
 
-=== Weekness
+=== Weakness
 
 * Poor or missing authorization schemes
 * Authorization requirements are more vulnerable when making authorization decisions within the mobile device instead of through a remote server
@@ -206,7 +206,7 @@ This is a summary of the https://www.owasp.org/index.php/OWASP_Mobile_Security_P
 * Pass untrusted inputs to method calls made within mobile code
 * Poor code-quality issues are typically exploited via malware or phishing scams
 
-=== Weekness
+=== Weakness
 
 * Memory leaks, buffer overflows, and other less severe issues that result in bad programming practice
 
@@ -229,7 +229,7 @@ This is a summary of the https://www.owasp.org/index.php/OWASP_Mobile_Security_P
 * Via malicious forms of the apps hosted in third-party app stores
 * Trick the user into installing the app via phishing attacks
 
-=== Weekness
+=== Weakness
 
 * An attacker can either directly modify the code, change the contents of memory dynamically, change or replace the system APIs that the application uses, or modify the application's data and resources. 
 
@@ -253,7 +253,7 @@ This is a summary of the https://www.owasp.org/index.php/OWASP_Mobile_Security_P
 ** otool
 ** strings
 
-=== Weekness
+=== Weakness
 
 * Code written in languages / frameworks that allow for dynamic introspection at runtime (Java, .NET, Objective C, Swift) are particularly at risk for reverse engineering.
 
@@ -275,7 +275,7 @@ This is a summary of the https://www.owasp.org/index.php/OWASP_Mobile_Security_P
 
 * An attacker seeks to understand extraneous functionality within a mobile app in order to discover hidden functionality in in backend systems
 
-=== Weekness
+=== Weakness
 
 * Functionality that exposes information related to back-end test, demo, staging, or UAT environments should not be included in a production build
 * Administrative API endpoints, or unofficial endpoints should not be included in final production builds
