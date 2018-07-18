@@ -1,0 +1,62 @@
+= Mobile Application Security Requirements
+
+This is a review this the https://www.stigviewer.com/stig/mobile_application_security_requirements_guide/[Mobile Application Security Requirements].
+
+== Requirements in Categories
+
+The requirements can be grouped in the following categories
+
+=== Design & High Level Requirement
+* The mobile app must enforce organization-defined limitations on the embedding of data types within other data types.
+* The mobile app must not record or forward sensor data unless explicitly authorized to do so.
+* The mobile app must initialize all parameter values on startup.
+* The mobile app must not be vulnerable to race conditions.
+
+=== Authentication & Authorisation
+* The mobile app must implement organization-defined out-of-band authentication under organization-defined conditions.
+* The mobile app must electronically verify Personal Identity Verification (PIV) credentials.
+* The mobile app must fail to an initial state when the application unexpectedly terminates, unless it maintains a secure state at all times.
+
+=== Secure Data Storage
+* The mobile app must remove temporary files when it terminates.
+* The mobile app must remove cookies or information used to track a users identity when it terminates.
+* The mobile app must not write data to persistent memory accessible to other applications.
+* The mobile app must not lock or set permissions on application files in a manner such that the operating system or an approved backup application cannot copy the files.
+* The mobile app must not change the file permissions of any files other than those dedicated to its own operation.
+
+=== Secure Network Communication
+* The mobile app must protect the confidentiality and integrity of transmitted information.
+* The mobile app must not transmit error messages to any entity other than authorized audit logs, the MDM, or the device display.
+* The mobile app must utilize ports or protocols in a manner consistent with DoD Ports and Protocols guidance.
+
+=== Trusted Third-party Libraries
+* The mobile app must not include source code, unreferenced code or subroutines that are never invoked during operation, except for software components and libraries from approved third-party products.
+* The mobile app source code must not contain adware or known malware.
+
+=== Interaction with OS/Other Apps
+* The mobile app must not modify, request, or assign values for operating system parameters unless necessary to perform application functions.
+* The mobile app must not execute as a privileged operating system process unless necessary to perform any app functions.
+* The mobile app must not enable other applications or non-privileged processes to modify software libraries.
+* The mobile app must prevent organization-defined software from executing at higher privilege levels than users executing the software.
+* The mobile app must validate information output from software programs and/or applications defined in SI-15, CCI-0002770 to ensure the information is consistent with the expected content.
+* The mobile app must synchronize internal information system clocks to the MOS-based authoritative time source.
+
+=== Safe App Memory Management
+* The mobile app must not call functions vulnerable to buffer overflows.
+* The mobile app must not be vulnerable to integer arithmetic vulnerabilities.
+* The mobile app must clear or overwrite memory blocks used to process potentially sensitive data. Sensitive data may include PII, a user's location, or authentication credentials.
+
+=== Secure Cryptography
+* Mobile apps involved in the production, control, and distribution of asymmetric cryptographic keys must use approved PKI Class 3 or class 4 certificates and hardware tokens that protect the user's private key.
+* Mobile apps involved in the production, control, and distribution of asymmetric cryptographic keys must use approved PKI Class 3 certificates or prepositioned keying material.
+* If the underlying MOS does not provide NIST FIPS-validated crypto modules, the mobile app must implement NIST FIPS-validated cryptography for the following: to provision digital signatures; to generate cryptographic hashes; and to protect unclassified information requiring confidentiality and cryptographic protection in accordance with applicable federal laws, Executive Orders, directives, policies, regulations, and standards.
+* The mobile app must accept Public Key Infrastructure (PKI) credentials.
+* The mobile app must implement NSA-approved cryptography to protect classified information in accordance with applicable federal laws, Executive Orders, directives, policies, regulations, and standards.
+* Mobile apps involved in the production, control, and distribution of symmetric cryptographic keys must use NIST approved or NSA approved key management technology and processes.
+
+=== References to External Resources
+* The mobile app code must not contain hardcoded references to resources external to the app.
+* A mobile app must not call APIs or otherwise invoke resources external to the mobile app unless such activity serves the documented purposes of the mobile app.
+
+=== Code Signing
+* Unless the MOS manages app signing, the mobile app installation package must be digitally signed in accordance with FIPS 186-3 approved methods.

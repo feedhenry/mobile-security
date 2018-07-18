@@ -1,0 +1,193 @@
+= Secure Mobile Development Guidelines
+
+This is a summary of how to develop secure mobile applications. It is generated based on the contents form the following sources:
+
+* The https://www.owasp.org/index.php/OWASP_Mobile_Security_Project#tab=Secure_M-Development[OWASP Mobile Development Guidelines].
+* The https://www.enisa.europa.eu/publications/smartphone-secure-development-guidelines-2016[ENISA Smartphone Secure Development Guidelines]
+* The https://www.owasp.org/index.php/OWASP_Mobile_Security_Project#tab=Top_10_Mobile_Controls[OWASP Top 10 Mobile Controls]
+
+== Authentication and Password Management
+. Instances where the mobile application requires a user to create a password or PIN (eg for offline access), the application should never use a PIN but enforce a password which follows a strong password policy.
+. Mobile devices may offer the possibility of using password patterns which are never to be utilized in place of passwords as sufficient entropy cannot be ensured and they are easily vulnerable to smudge-attacks.
+. Mobile devices may also offer the possibility of using biometric input to perform authentication which should never be used due to issues with false positives/negatives, among others.
+. Wipe/clear memory locations holding passwords directly after their hashes are calculated.
+. Based on risk assessment of the mobile application, consider utilizing two-factor authentication.
+. In scenarios where offline access to data is needed, add an intentional X second delay to the password entry process after each unsuccessful entry attempt (2 is reasonable, also consider a value which doubles after each incorrect attempt).
+. In scenarios where offline access to data is needed, perform an account/application lockout and/or application data wipe after X number of invalid password attempts (10 for example).
+. Based on a risk evaluation, consider adding context information (such as IP location, etc…) during authentication processes in order to perform Login Anomaly Detection.
+. Instead of passwords consider using longer term authorization tokens that can be securely stored on the device
+. Consider using asymmetric cryptography for authentication and authorization purposes.
+. If a password based authentication mechanism is used, ensure that a strong a password policy is being followed. Consider enforcing restrictions about password length and formation, reuse of old user passwords, use of common passwords, password duration, etc. However, do not maintain any representation of the password strength in application storage or the back-end server as it may expose the password in preimage attacks.
+. Do not reveal registered usernames and remove any fingerprint of their existence from verbose error messages.
+. Use authentication that ties back to the end user identity (rather than only to the device identity).
+. If the credentials or keys appear in the user interface (UI) components, try to release the UI frames immediately after use.
+. Ensure passwords and keys are not visible in cache or logs.
+
+== Communication Security
+. Ensure the application actually and properly validates (by checking the expiration date, issuer, subject, etc…) the server’s SSL certificate.
+. The application should only communicate with and accept data from authorized domain names/systems.
+. To protect against attacks which utilize software such as SSLStrip, implement controls to detect if the connection is not HTTPS with every request using HTTP Strict Transport Security (HSTS).
+. When using SSL/TLS, use certificates signed by trusted Certificate Authority (CA) providers.
+. Enforce secure TLS versions. Safely abort the connection, if this is not possible
+. Introduce certificate pinning. 
+. Design the user interface in a way that warns the user if the peer certificate does not match the expected certificate and provide the ability to abort any further interaction.
+. SMS and MMS should not be used to send sensitive data
+. Always use platform supported or vetted frameworks for establishing secure communication channels.
+. Ensure adequate logs on the server are retained about established connections.
+
+== Data Storage and Protection
+. Classify data storage according to sensitivity and apply controls accordingly (e.g. passwords, personal data, location, error logs, etc.). Process, store and use data according to its classification
+. Store sensitive data on the server instead of the client-end device, whenever possible. Assume any data written to device can be recovered.
+. When storing sensitive data on the device, use a file encryption API provided by the OS or other trusted source.
+. Use file encryption APIs which use a secret key protected by the device unlock code and deletable on remote wipe if available.
+. Beyond the time required by the application, don’t store sensitive information on the device (e.g. GPS/tracking).
+. Do not store temp/cached data in a world readable directory. Assume shared storage is untrusted.
+. Use the PBKDF2 function to generate strong keys for encryption algorithms while ensuring high entropy as much as possible. The number of iterations should be set as high as may be tolerated for the environment (with a minimum of 1000 iterations) while maintaining acceptable performance.
+. Sensitive data (such as encryption keys, passwords, credit card #’s, etc…) should stay in RAM for as little time as possible.
+. Encryption keys should not remain in RAM during the instance lifecycle of the app. Instead, keys should be generated real time for encryption/decryption as needed and discarded each time.
+. Address Space Layout Randomization (ASLR) should be taken advantage of to limit the impact of attacks such as buffer overflows.
+. When displaying sensitive information (such as full account numbers), ensure that the sensitive information is cleared from memory (such as from the webView) when no longer needed/displayed.
+. Do not store sensitive data on external storage like SD cards if it can be avoided.
+. Make use of remote wipe and kill switch APIs to remove sensitive information from the device in the event of theft or loss.
+. Use a time based (expiry) type of control which will wipe sensitive data from the mobile device once the application has not communicated with its servers for a given period of time.
+. Automatic application shutdown and/or lockout after X minutes of inactivity (e.g. 5 mins of inactivity).
+. Avoid cached application snapshots in iOS: iOS can capture and store screen captures and store them as images when an application suspends. To avoid any sensitive data getting captured, use one or both of the following options: 1. Use the ‘willEnterBackground’ callback, to hide all the sensitive data. 2. Configure the application in the info.plist file to terminate the app when pushed to background (only use if multitasking is disabled).
+. Prevent applications from being moved and/or run from external storage such as via SD cards.
+. Verify that OS level storage encryption is enabled and the device is protected by a PIN or passphrase.
+. Consider the security of the whole data lifecycle in writing your application (collection over the wire, temporary storage, caching, backup, deletion, etc.).
+. Ensure that during application removal (uninstall operation), any confidential user data and the corresponding app-specific credentials are deleted from the execution environment, the device, and any other storage medium.
+. Apply the principle of minimal disclosure - only collect and disclose data which is required for business use of the application. Identify in the design phase what data is needed, its sensitivity and whether it is appropriate to collect, store and use each data type.
+. Use non-persistent identifiers which are not shared with other apps wherever possible (e.g., do not use the device unique hardware identifiers such as IMEI or UDID as an identifier). 
+. Application developers may want to incorporate an application-specific "data kill switch" into their products, to allow the per-app deletion of their application's sensitive data when needed (strong authentication is required to protect misuse of such a feature).
+. Do not leak permission-protected data to other applications. This occurs when specific permissions are required to access the data, however an app that has been granted these permissions makes the data available to all other apps without restrictions (e.g., over IPC)
+. Restrict the data that is shared with other applications (e.g., by implementing an Android Content Provider). This can be accomplished using fine-grained permissions (ensure permissions are protected using signature protection level on Android).
+. Restrict broadcast messages (e.g., Android Broadcast Intents) to authorized applications and audit the application’s broadcast messages for sensitive content.
+. Do not allow third party keyboards to be used for inputs that may contain sensitive data (e.g., credentials, credit card information). Prefer a custom keyboard for such inputs instead 
+. Disable Auto Correction and Autosuggestion for inputs that contain sensitive data. 
+. Disable cut, copy and paste functionalities for inputs that may contain sensitive data or restrict the pasteboard to be accessible only from this application.
+. Introduce input field masking for inputs that contain sensitive data (e.g., passwords).
+. Leverage the hardware-level encryption support for files at the highest supported security level.
+. If the application while the device is locked needs to write data to a file, use temporary caches instead of weakening the encryption mode. Swap the file content when the device is unlocked and the original file is accessible again.
+. Prefer using framework functionality (e.g., Android Content Provider) for data sharing instead of using file system permissions or a custom access scheme on platforms that support this (e.g., Android).
+. Inspect application-initiated custom notification messages for sensitive content
+. Exclude sensitive application files from device backups and cloud synchronization services.
+. If the application allows the arbitrary selection of files from the device storage, consider the use of a white-list to restrict access only to the intended (absolute) file paths
+. Delete application caches on app termination
+. Database files that contain sensitive data (e.g., iOS WebView caches) must be manually removed from the file system. Deleting records using the database API will not necessary lead to complete data removal from database structure.
+. Disable application logging and debug messages in production releases. All exceptions should be handled securely. 
+. In the case that the application includes embedded web browsing capabilities (e.g., WebViews), clear stored cookies on app termination or use in-memory cookie storage
+
+== Session Management
+. Do not rely on client side security controls.  Both authentication and authorization controls should be implemented on the server side.
+. Ensure that the session management is handled securely after the initial authentication, using appropriate secure protocols. 
+. Perform a check at the start of each activity/screen to see if the user is in a logged in state and if not, switch to the login state.
+. When an application’s session is timed out, the application should discard and clear all memory associated with the user data, and any master keys used to decrypt the data.
+. Session tokens should be revocable (particularly on the server side).
+. Use lower timeout values to invalidate expired sessions (in contrast to the typical timeout values on traditional (non-mobile) applications).
+. Use unpredictable session identifiers with high entropy.
+. Clear any maintained sensitive data on session termination. Reset the application state and request for user re-authentication.
+
+== Secure the backend services and the platform server and APIs
+. Carry out a specific check of your code for sensitive data unintentionally transferred between the mobile device and web-server back-ends and other external interfaces
+. All back-end services (web services) for mobile apps should be tested for vulnerabilities periodically
+. Disable metadata publishing (e.g., metadata for WSDL documents and for WSDL derived objects), in order to prevent unintentional disclosure of potentially sensitive service metadata
+. Ensure that the back-end platform (server) is running with a hardened configuration with the latest security patches applied to the OS, web server and other application components.
+. Ensure adequate logs are retained on the back-end in order to detect and respond to incidents and perform forensics
+. Protect the back-end from client initiated log injections that may corrupt or forge the history of events2
+. Employ rate limiting and throttling on a per-user/IP basis
+
+== 3rd Party libraries
+. Vet the security/authenticity of any third party code/libraries used in your mobile application (e.g. making sure they come from a reliable source, will continue to be supported, contain no backdoors) and ensure that adequate internal approval is obtained to use the code/library.
+. Track all third party frameworks/APIs used in the mobile application for security patches and perform upgrades as they are released.
+. Pay particular attention to validating all data received from and sent to non-trusted third party apps (e.g. ad network software) before incorporating their use into an application.
+. Avoid using third-party libraries that contain main processor-only cryptographic implementations. Prefer using cryptographic framework provided by a platform supported secure hardware (e.g. TEE, SE).
+. Software components that are no longer supported by the vendor or developer must not be used
+
+== Consent and privacy protection
+. Check whether your application is collecting personal data
+. Create a privacy policy covering the usage of personal data and make it available to the user especially prior to making consent choices
+. Prior to using personal data consent should be obtained.
+. Consent may be collected in 3 main ways:
+.. At install time.
+.. At run-time when data is sent.
+.. Via “opt-in” mechanisms where a user has to explicitly turn on a setting
+. It should be possible for the user to withdraw consent at any time in the application
+. Audit communication mechanisms to check for unintended leaks
+. Keep a record of user consent for the processing of different types of personal data
+. Check whether data collection (from the user’s device) is not excessive with regard to the consent that has been granted by the user
+. Consider taking advantage of built-in features to require access to device sensors and data
+. Minimize access to sensor data whenever possible
+. Reduce data granularity and anonymize data on the device instead of remotely
+. Require consent prior to providing user data to third parties
+. Reduce retention period on the mobile or remotely to the minimum amount of time needed to provide the service
+. Use privacy enhancing technologies, that support data minimization, anonymization and security of personal data
+. The default settings of the application should provide maximum privacy and security protection for the user
+
+== Protect paid resources
+. Maintain logs of access to paid-for resources in non-repudiable format
+. Check for anomalous usage patterns in paid-for resources usage and trigger re-authentication
+. Consider a white-list model by default for paid-for resources addressing
+. Warn user and obtain consent for any cost implications for app behaviour
+. Follow the OS/device vendor guidelines for implementing In-App payment:
+.. Implement validation of payment receipts on the backend server not on the device
+.. Pay specific attention when integrating payment acceptance from a third party wallet
+
+== Secure software distribution
+. Applications must be designed and provisioned to allow updates for security patches, taking into account the requirements for approval by app-stores and the extra delay this may imply
+. Distributing apps through official app-stores
+. Provide feedback channels for users to report security problems with apps such as a security email address
+. If an enterprise app store is used, protect the application signing key with the utmost care
+. Out-of-appstore security updates should be shipped using an encrypted connection and their content should be verified before applying the update
+. Resources used by apps that are updated outside of the app-store normal mechanism must be signed. Apps must verify the signature before accepting the updated resource
+. Do not deploy apps with ad-hoc signing certificates used for development and testing
+. Do not generate one application for multiple environments
+
+== Handle runtime code interpretation correctly
+. Filter user data passed to interpreters.
+. Define comprehensive escape syntax as appropriate.
+. Do not reveal sensitive information such as usernames, personal data and others through error messages.
+. Deny interpreted code direct access to user data and encrypted storage.
+. Strip unused functionalities from interpreters.
+. Limit size of input data passed to interpreters.
+
+== Check device and application integrity
+. Check the device/platform integrity to ensure that the device is not modified.
+. Check the application integrity, check that the application and its resources are not modified
+. Disable developer features
+.. Disable debugging in the application settings.
+.. Check if the device is in developer mode if supported by platform (e.g., Android).
+.. Check if debugger is attached and/or if the process is being traced. On platforms with managed code check for managed and native code debuggers
+
+== Code Obfuscation
+. Obfuscate all sensitive application code where feasible by running an automated code obfuscation program.
+. For applications containing sensitive data, implement anti-debugging techniques (e.g. prevent a debugger from attaching to the process; android:debuggable=”false”).
+. Address Space Layout Randomization (ASLR) should be taken advantage of to hide executable code which could be used to remotely exploit the application and hinder the dumping of application’s memory.
+
+== Protect the application from client side injections
+. In the case that the application includes embedded web browsing capabilities (e.g., WebViews), restrict access to third party domains that do not comply with the required security standards, disable any unused platform supported functionalities, such as the plugins, local file accessibility, local content provider (content URL) accessibility and the dynamic code (e.g., JavaScript)execution support. Furthermore, avoid using full screen web interfaces since these can be abused from attackers to create fake application screens
+. Avoid using API calls that provide bridging of dynamic code (e.g., JavaScript) with native code (e.g., Objective-C) since an injection in the dynamic code will lead to native code execution
+. In the case that the application uses JavaScript code running in the context of a file scheme URL, it is recommended to disable any unused platform supported attributes, such as accessing content from other file scheme URL and content from any origin
+. Prevent interaction events when the application is obscured by another interface in the presentation layer in order to mitigate tapjacking attacks
+. In the case that the application requests custom permissions, and older platforms are supported (e.g., earlier than Android 5.0), always verify on the first run of the app that no other application has previously requested the same permissions
+. Always follow the domain name registration infrastructure to declare a custom permission, in order to avoid any collisions with other apps
+. Restrict what apps can cause an application component (e.g., Android Activity) to start or are able to interact with it (e.g., Android Service and Content Provider)
+. Restrict the third party applications whose broadcast messages will be accepted by the application.
+. In the case that the application utilizes a platform provided download manager, always verify that the received manager’s notifications are related to application’s initiated downloads
+. Always verify dynamic code downloads and application updates at the client side. 
+. Always validate server responses when using backend APIs. 
+. Mitigate SQL injections, local file inclusion, JavaScript injections, XML injections. When dealing with dynamic queries (e.g., SQL queries with untrusted inputs) or Content-Providers ensure you are using parameterized queries. Always validate user provided inputs that will be used for file accessing purposes or as part of a dynamic code execution. Use a vetted framework for XML operations.
+. Protect from memory corruptions in applications that are developed using a programming language which supports explicit memory management (e.g., Objective-C, C, C++). 
+. Do not use insecure cached data in HTTP connections and in embedded web browsing capabilities (e.g., WebViews). 
+. In platforms that support custom applications with accessibility permissions (e.g., Android), exclude sensitive user interface elements from being accessed by accessibility applications
+. Avoid populating webviews loaded from the file URI scheme with user supplied DOM input
+
+== Ensure correct usage of biometric sensors and secure hardware
+. Always verify that there is a biometric sensor (e.g., Fingerprint reader) present and available on the device before using the API for authentication purposes
+. Always verify that the biometric sensor/secure hardware authentication policy of the in-use platform complies with the application’s authentication policy (passcode required after cold boot, biometric sensor authentication expiration, adding a fingerprint requires pin/passcode/biometric authentication, requirement for biometric sensor being individually paired with secure hardware)
+. Ensure that there are enrolled data using the biometric sensor (e.g., user’s fingerprints and/or user’s iris are registered) before using the API for authentication purposes
+. Ensure that the enrolled biometric data has not been changed since the activation of the authentication control using the biometric sensor
+. The application should not use the biometric sensor for just verifying user presence (e.g., iOS LocalAuthentication).  Instead, the application should use the biometric sensor to access keys stored using a hardware backed keystore/keychain and protected with keychain access control lists (ACL).
+. Ensure that the key material is bound to the secure hardware (e.g., TEE, SE) in platforms that this is optional (e.g., Android)
+. For keys whose key material is inside a secure hardware (e.g., TEE, SE), ensure that cryptographic and user authentication authorizations are also enforced by secure hardware, in platforms that this is optional (e.g., Android).
+. The application should avoid using temporal validity interval authorizations, since they are unlikely to be enforced by the secure hardware because it normally does not have an independent secure real-time clock.
+. Verify that the application’s authentication policy complies with the possibility that different people may enroll for biometric authentication in the same device.

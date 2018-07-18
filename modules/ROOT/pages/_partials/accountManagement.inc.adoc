@@ -1,0 +1,6 @@
+  /**
+   * Redirects to the Account Management Console
+   */
+  accountManagement(): void {
+    KeycloakService.auth.authz.accountManagement();
+  }

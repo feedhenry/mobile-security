@@ -1,0 +1,23 @@
+runtime:
+  cache_dir: ./.cache/antora
+site:
+  title: AeroGear Mobile Security
+  url: https://www.aerogear.org
+  start_page: mobile-security::index
+content:
+  sources:
+  - url: .
+    branches: HEAD
+ui:
+  bundle:
+    url: https://github.com/aerogear/antora-ui/raw/master/build/ui-bundle.zip
+    snapshot: true
+
+asciidoc:
+  extensions:
+  - ./lib/remote-include-processor
+  attributes:
+    experimental: ''
+    idprefix: ''
+    idseparator: '-'
+    linkattrs: ''

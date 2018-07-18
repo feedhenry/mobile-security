@@ -1,0 +1,18 @@
+    /**
+     * Encrypt the given text.
+     * @param keyAlias The alias of the key in the keystore that will be used for the encryption.
+     * @param plainText the text to encrypt
+     * @return the encrypted data. The first 12 bytes will be the IV (initial vector) used for the encryption.
+     * @throws GeneralSecurityException
+     * @throws IOException
+     */
+    public byte[] encrypt(String keyAlias, byte[] plainText) throws GeneralSecurityException, IOException {
+        SecretKey secretKey = loadOrGenerateSecretKey(keyAlias, true);
+        Cipher cipher = Cipher.getInstance(secureKeyStore.getSupportedAESMode());
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+        //get the iv that is being used
+        byte[] iv = cipher.getIV();
+        byte[] encrypted = cipher.doFinal(plainText);
+        GCMEncrypted encryptedData = new GCMEncrypted(iv, encrypted);
+        return encryptedData.toByteArray();
+    }

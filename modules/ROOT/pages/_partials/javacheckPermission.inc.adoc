@@ -1,0 +1,17 @@
+        @Override
+        protected ClientStatus doInBackground(Void... voids) {
+            ClientStatus status = null;
+            try {
+                UserPrincipal user = authService.currentUser();
+                if (user != null ) {
+                    boolean hasPermission = user.hasRealmRole(requiredRole);
+                    long numberOfNotes = noteRepository.count();
+                    status = new ClientStatus(hasPermission, numberOfNotes);
+                    return status;
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Error - Exception", e);
+                this.error = e;
+            }
+            return status;
+        }

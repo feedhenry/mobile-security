@@ -1,0 +1,12 @@
+    /**
+     - Check if the device running the application is jailbroken.
+
+     - Returns: A detector object.
+     */
+    fileprivate func detectDebugabble() -> Detector {
+        #if DEBUG
+            return Detector(label: DEBUG_MODE_DETECTED_POSITIVE, detected: true, description: DEBUG_MODE_DETECTED_DESC)
+        #else
+            return Detector(label: DEBUG_MODE_DETECTED_NEGATIVE, detected: false, description: DEBUG_MODE_DETECTED_DESC)
+        #endif
+    }

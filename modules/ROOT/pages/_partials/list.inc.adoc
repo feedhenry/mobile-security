@@ -1,0 +1,39 @@
+    /**
+     - List the stored entities from the realm db
+
+     - Parameter onComplete - a closure called after retrieval
+     */
+    func list(onComplete: @escaping (Error?, [Note]?) -> Void) {
+        DispatchQueue.global(qos: .background).async {
+            do {
+                // create a new thread confined realm
+                let realm = try self.getRealmInstance()
+
+                // synchronization of Realm instance to the latest version on the background thread
+                realm.refresh()
+
+                // retieve the notes from realm
+                let notesResult = realm.objects(Note.self)
+
+                // create a new thread safe reference for these notes
+                let threadSafeNotes = ThreadSafeReference(to: notesResult)
+
+                // return note to the view controller on the main thread
+                DispatchQueue.main.async() {
+                    let realm = try! self.getRealmInstance()
+
+                    // get the notes using the thread safe reference
+                    guard let notes = realm.resolve(threadSafeNotes) else {
+                        return
+                    }
+
+                    // convert the notes to array format
+                    let notesArray = notes.toArray()
+
+                    onComplete(nil, notesArray)
+                }
+            } catch {
+                onComplete(error, nil)
+            }
+        }
+    }

@@ -1,0 +1,159 @@
+= OWASP Mobile Verification Standard
+
+This is a fork of the https://www.owasp.org/images/f/fe/MASVS_v0.9.3.pdf[OWASP Mobile Verification Standard].
+
+== Verification Levels
+
+* MASVS-L1: Standard Security
+** lists security best practices
+** all mobile apps
+* MASVS-L2: Defense-in-Depth
+** introduces advanced security controls
+** should be used by apps that store personally identifiable information, or highly sensitive information, like apps for health-care industry and financial industry
+* MASVS-R: Resiliency Against Reverse Engineering and Tampering
+** the app has state-of-the-art security, and is also resilient against specific client side attacks, such as tampering, modding or reverse engineering
+** can be used in combination with the other 2 levels. E.g. MASVS-L1 + R or MASVS-L2 + R
+
+== Table Keys
+
+_Category_ - The type of work required for each item. Some enhancements have been made.
+
+* Manual Observation - A task that may only require manual observation. eg. confirming that no sensitive information is being stored in log files.
+* Tooling - A task that may require the use of tooling to carry out the task. eg. pentesting or creating threat models
+* Process - A task that may require some processes to be setup. eg. dependency checks.
+* Coding - A task that requires coding.
+* Keycloak - A task that can be carried out using Keycloak.
+
+_OS/Framework Columns_ - A column is allocated for each Mobile OS/Framework for any specific details for each item.
+
+== Architecture, Design and Threat Modelling
+
+[%header,format=csv]
+|===
+V1, Description, Category, Comments, Android, iOS, Cordova, Level
+1.1,Verify all application components are identified and are known to be needed.,Manual/Tooling Observation,,,,"Check the https://cordova.apache.org/docs/en/latest/config_ref/#plugin[config.xml] for unrequired components.
+This also includes any JS files required from a CDN or elsewhere in the index.html or equivalent of an application.",L1+L2
+1.2,"Verify all third party components used by the mobile app, such as libraries and frameworks, are identified, and checked for known vulnerabilities.",Manual/Tooling Observation,,,,Check the https://cordova.apache.org/docs/en/latest/config_ref/#plugin[config.xml] for vulnerable components manually or using dependency checker.,L1+L2
+1.3,"Verify that security controls are never enforced only on the client side, but on the respective remote endpoints.",Keycloak/Server Task,,,,,L1+L2
+1.4,Verify that a high-level architecture for the mobile app and all connected remote services has been defined and security has been addressed in that architecture.,Manual Observation,See 1.7,,,,L11+L2
+1.5,Verify that data considered sensitive in the context of the mobile app is clearly identified.,Manual Observation,,,,,L1+L2
+1.6,Verify all app components are defined in terms of the business functions and/or security functions they provide.,Manual Observation,,,,,L2
+1.7,"Verify that a threat model for the mobile app and the associated remote services, which identifies potential threats and countermeasures, has been produced.",Tooling Observation,A threat model diagram could be created (perhaps using OWASP Threat Dragon) where we can map out all the potential threats.,,,,L2
+1.8,"Verify all third party components have been assessed (associated risks) before being used or implemented. Additionally verify that a process is in place to ensure that each time a security update for a third party component is published, the change is inspected and the risk evaluated.",Manual/Tooling/Process Observation,,,,We could also look at using https://www.w3.org/TR/SRI/[subresource integrity] checks for requiring JS libraries from the internet/CDN within an index.html.,L2
+1.9,Verify that all security controls have a centralized implementation.,Manual/Keycloak Observation,,,,,L2
+1.10,"Verify that all components that are not part of the application but that the application relies on to operate, are clearly identified and the security implications of using those components are known.",Manual/Keycloak Observation,,,,,L2
+1.11,"Verify that there is an explicit policy for how cryptographic keys (if any) are managed, and the lifecycle of cryptographic keys is enforced. Ideally, follow a key management standard such as NIST SP 800-57.",Coding/Observation Task,,,,,L2
+1.12,Verify that remote endpoints ensure that connecting clients use the current version of the mobile app.,Coding Task,,,,,L2
+1.13,"Verify that security testing is performed as part of the development lifecycle. If some or all of the testing is automated, the configuration of the testing tools must be tailored to the specific app.",Manual/Tooling Task/Observation,,,,,L2
+|===
+== Data Storage and Privacy
+[%header,format=csv]
+|===
+V2,Data Storage and Privacy,Category,Comments,Android,iOS,Cordova,Level
+2.1,"Verify that system credential storage facilities are used appropriately to store sensitive data, such as user credentials or cryptographic keys.",Coding Task,"Ie. Securely storing content on the device, but also only storing data in the correct features on the OS, and not putting sensitive content where you shouldn’t or using an OS feature for the wrong purpose. ",For Android we should use the Android https://developer.android.com/training/articles/keystore.html[Keystore].,,We could look at using the following https://www.npmjs.com/package/cordova-plugin-secure-key-store[cordova plugin] to provide secure storage., L1+L2
+2.2,Verify that no sensitive data is written to application logs.,Coding/Observation Task,,,,,L1+L2
+2.3,Verify that no sensitive data is shared with third parties unless it is a necessary part of the architecture.,Coding/Observation Task,,,,,L1+L2
+2.4,Verify that the keyboard cache is disabled on text inputs that process sensitive data.,Coding Task,,,,,L1+L2
+2.5,Verify that the clipboard is deactivated on text fields that may contain sensitive data.,Coding Task,,,,,L1+L2
+2.6,Verify that no sensitive data is exposed via IPC mechanisms.,Coding/Observation Task,,,,,L1+L2
+2.7,"Verify that no sensitive data, such as passwords and credit card numbers, is exposed through the user interface or leaks to screenshots.",Coding Task,"We should ensure that no sensitive information is shown as default in the mobile. This should be blurred/hidden behind asterisks instead.
+We should also ensure that screenshotting functionality is being blocked by the app.",,,,L1+L2
+2.8,Verify that no sensitive data is included in backups.,Coding/Observation Task,,We should ensure that the the allowBackup setting is disabled to prevent app data recovery via backups.,,We should ensure that the the allowBackup setting is disabled to prevent app data recovery via backups., L2
+2.9,Verify that the app removes sensitive data from views when backgrounded.,Coding Task,Disabling snapshotting might be sufficient. This will blur/blank-out the screenshot of the application when displayed in the app switcher on the phone.,,,This could be disabled for iOS using the following https://www.npmjs.com/package/cordova-plugin-blurred-snapshot[cordova plugin].,L2
+2.10,"Verify that the app does not hold sensitive data in memory longer than necessary, and memory is cleared explicitly after use.",Coding/Observation Task,,,,,L2
+2.11,"Verify that the app enforces a minimum device-access-security policy, such as requiring the user to set a device passcode.",Coding Task,,,,We could use the following https://github.com/ABarak64/Cordova-Screen-Lock-Enabled[cordova plugin] to check if a device passcode/lock screen has been set.,L2
+2.12,"Verify that the app educates the user about the types of personally identifiable information processed, as well as security best practices the user should follow in using the app.",Manual Observation,,,,,L2
+|===
+== Cryptography
+[%header,format=csv]
+|===
+V3,Cryptography,Category,Comments,Android,iOS,Cordova,Level
+3.1,Verify that the app does not rely on symmetric cryptography with hardcoded keys as a sole method of encryption.,Manual Observation,This should be covered by 2.1,,,,L1+L2
+3.2,Verify that the app uses proven implementations of cryptographic primitives.,Coding Task,,,,,L1+L2
+3.3,"Verify that the app uses cryptographic primitives that are appropriate for the particular use-case, configured with parameters that adhere to industry best practices.",Coding Task,,,,,L1+L2
+3.4,Verify that the app does not use cryptographic protocols or algorithms that are widely considered deprecated for security purposes.,Coding Task,,,,,L1+L2
+3.5,Verify that the app doesn't re-use the same cryptographic key for multiple purposes.,Coding/Observation Task,,,,,L1+L2
+3.6,Verify that all random values are generated using a sufficiently secure random number generator.,Coding Task,,,,,L1+L2
+|===
+== Authentication and Session Management
+[%header,format=csv]
+|===
+V4,Authentication and Session Management,Category,Comments,Android,iOS,Cordova,Level
+4.1,"Verify that if the app provides users with access to a remote service, an acceptable form of authentication such as username/password authentication is performed at the remote endpoint.",Keycloak Task,,,,,L1+L2
+4.2,Verify that the remote endpoint uses randomly generated access tokens to authenticate client requests without sending the user's credentials.,Keycloak Task,,,,,L1+L2
+4.3,Verify that the remote endpoint terminates the existing session when the user logs out.,Keycloak Task,Keycloak has its own logout flow on the server to terminate a user’s session.,,,,L1+L2
+4.4,Verify that a password policy exists and is enforced at the remote endpoint.,Keycloak Task,Keycloak has an in-depth password policy manager.  ,,,,L1+L2
+4.5,"Verify that the remote endpoint implements an exponential back-off, or temporarily locks the user account, when incorrect authentication credentials are submitted an excessive number of times.",Keycloak Task,Keycloak will allow you to both temporarily and permanently lock out a user after a specified number of failed login attempts.,,,,L1+L2
+4.6,"Verify that biometric authentication, if any, is not event-bound (i.e. using an API that simply returns ""true"" or ""false""). Instead, it is based on unlocking the keychain/keystore.",Coding/Observation Task,,,,,L2
+4.7,Verify that sessions are terminated at the remote endpoint after a predefined period of inactivity.,Keycloak Task,,,,,L2
+4.8,Verify that a second factor of authentication exists at the remote endpoint and the 2FA requirement is consistently enforced.,Keycloak Task,"Keycloak can be setup to enforce 2FA. This can also be done on user creation so when the new user logs in for the first time, the second layer of protection will already be enforced.",,,,L2
+4.9,Verify that step-up authentication is required to enable actions that deal with sensitive data or transactions.,Coding/Keycloak Task,We should ensure that Keycloak authentication should be performed again when carrying out a sensitive/important action in the mobile app.,,,,L2
+4.10,"Verify that the app informs the user of all login activities with his or her account. Users are able view a list of devices used to access the account, and to block specific devices.",Keycloak/Coding Task,"Keycloak supports viewing of sessions/IP addresses, but doesn’t currently allow to see user-agents/geo locations of the device. ",,,,L2
+|===
+== Network Communication
+[%header,format=csv]
+|===
+V5,Network Communication,Category,Comments,Android,iOS,Cordova,Level
+5.1,Verify that data is encrypted on the network using TLS. The secure channel is used consistently throughout the app.,Coding Task,,,,,L1+L2
+5.2,"Verify that the TLS settings are in line with current best practices, as far as they are supported by the mobile operating system.",Coding/Observation Task,,,,,L1+L2
+5.3,Verify that the app verifies the X.509 certificate of the remote endpoint when the secure channel is established. Only certificates signed by a valid CA are accepted.,Keycloak Task,This could be carried out with client cert auth in keycloak.,,,,L1+L2
+5.4,"Verify that the app either uses its own certificate store, or pins the endpoint certificate or public key, and subsequently does not establish connections with endpoints that offer a different certificate or key, even if signed by a trusted CA.",Keycloak/Coding Task,"Public key pinning might be better than full certificate pinning as handling cert renewals, compromises may be easier to work with, but requires more investigation.
+
+We should also consider HPKP.",https://github.com/datatheorem/TrustKit-Android[TrustKit] for Android can be used for certificate pinning.,https://github.com/datatheorem/TrustKit[TrustKit] for iOS can be user for certificate pinning.,The Secure HTTP http://plugins.telerik.com/cordova/plugin/secure-http[cordova plugin] will allow certificate pinning.,L2
+5.5,"Verify that the app doesn't rely on a single insecure communication channel (email or SMS) for critical operations, such as enrollments and account recovery.",Keycloak Task,Keycloak has a credentials reset flow which allows you to configure how password/credential resets should be carried out.,,,,L2
+5.6,"Verify that the app uses some form of whitelisting to control access to external domains.",Coding Task,,,,We should follow the https://cordova.apache.org/docs/en/7.x/guide/appdev/whitelist/index.html[whitelist guide] for controlling external domain access in Cordova.,L1+L2
+
+|===
+== Environmental Interaction
+[%header,format=csv]
+|===
+V6,Environmental Interaction,Category,Comments,Android,iOS,Cordova,Level
+6.1,Verify that the app only requires the minimum set of permissions necessary.,Coding/Process Task,,Check the https://developer.android.com/guide/topics/manifest/manifest-intro.html[AndroidManifest.xml] for unrequired permissions..,,Check the https://cordova.apache.org/docs/en/latest/config_ref/#plugin[config.xml] for unrequired permissions.,L1+L2
+6.2,"Verify that all inputs from external sources and the user are validated and if necessary sanitized. This includes data received via the UI, IPC mechanisms such as intents, custom URLs, and network sources.",Coding Task,,,,We should ensure that we are HTML encoding data that is coming from the server if it’s being rendered as html.,L1+L2
+6.3,"Verify that the app does not export sensitive functionality via custom URL schemes, unless these mechanisms are properly protected.",Coding Task,,,,,L1+L2
+6.4,"Verify that the app does not export sensitive functionality through IPC facilities, unless these mechanisms are properly protected.",Coding/Observation Task,,,,,L1+L2
+6.5,Verify that JavaScript is disabled in WebViews unless explicitly required.,Coding/Observation Task,,,,,L1+L2
+6.6,"Verify that WebViews are configured to allow only the minimum set of protocol handlers required (ideally, only https). Potentially dangerous handlers, such as file, tel and app-id, are disabled.",Coding/Observation Task,,,,,L1+L2
+6.7,Verify that the app does not load user-supplied local resources into WebViews.,Coding/Observation Task,,,,,L1+L2
+6.8,"Verify that if Java objects are exposed in a WebView, verify that the WebView only renders JavaScript contained within the app package.",Coding/Observation Task,Some content security policies might be of use here to limit what javascript can be executed from sources.,,,,L1+L2
+6.9,"Verify that object serialization, if any, is implemented using safe serialization APIs.",Coding/Observation Task,,,,,L1+L2
+6.10,"Verify that the app detects whether it is being executed on a rooted or jailbroken device. Depending on the business requirement, users are warned, or the app is terminated if the device is rooted or jailbroken.",Coding Task,,,,For both iOS and Android we could use the cordova-plugin-iroot.,L2
+|===
+== Code Quality and Build Settings
+[%header,format=csv]
+|===
+V7,Code Quality and Build Settings,Category,Comments,Android,iOS,Cordova,Level
+7.1,Verify that the app is signed and provisioned with valid certificate.,Coding/Process/Observation Task,,,,,L1+L2
+7.2,"Verify that the app has been built in release mode, with settings appropriate for a release build (e.g. non-debuggable).",Coding Task,,,,,L1+L2
+7.3,Verify that debugging symbols have been removed from native binaries.,Coding Task,,,,,L1+L2
+7.4,"Verify that debugging code has been removed, and the app does not log verbose errors or debugging messages.",Coding/Observation Task,,,,,L1+L2
+7.5,Verify that the app catches and handles possible exceptions.,Coding Task,,,,,L1+L2
+7.6,Verify that error handling logic in security controls denies access by default.,Coding Task,,,,,L1+L2
+7.7,"Verify that in unmanaged code, memory is allocated, freed and used securely.",Coding/Observation Task,,,,,L1+L2
+7.8,"Free security features offered by the toolchain, such as byte-code minification, stack protection, PIE support and automatic reference counting, are activated.",Coding/Observation Task,,,,,L1+L2
+|===
+== Resiliency Against Reverse Engineering Requirements
+[%header,format=csv]
+|===
+V8,Resiliency Against Reverse Engineering Requirements,Category,Comments,Android,iOS,Cordova,Level
+8.1,Verify that the app implements two or more functionally independent methods of root detection and responds to the presence of a rooted device either by alerting the user or terminating the app.,Coding Task,Implementation will be covered by 6.10,,,,R
+8.2,"Verify that the app implements multiple functionally independent debugging defenses that, in context of the overall protection scheme, force adversaries to invest significant manual effort to enable debugging. All available debugging protocols must be covered (e.g. JDWP and native).",Coding Task,It would be a good idea here to crash the debugger/browser where possible.,,,,R
+8.3,"Verify that the app detects, and responds to, tampering with executable files and critical data.",Coding Task,,,,,R
+8.4,"Verify that the app detects the presence of widely used reverse engineering tools, such as code injection tools, hooking frameworks and debugging servers.",Coding Task,,,,,R
+8.5,"Verify that the app detects, and response to, being run in an emulator using any method.",Coding Task,,,,,R
+8.6,"Verify that the app detects, and responds to, modifications of process memory, including relocation table patches and injected code.",Coding Task,,,,,R
+8.7,"Verify that the app implements multiple different responses to tampering, debugging and emulation (requirements 9.2 - 9.6), including stealthy responses that don't simply terminate the app.",Coding Task,,,,,R
+8.8,Verify all executable files and libraries belonging to the app are either encrypted on the file level and/or important code and data segments inside the executables are encrypted or packed. Trivial static analysis should not reveal important code or data.,Coding Task,,,,,R
+8.9,Verify that obfuscating transformations and functional defenses are interdependent and well-integrated throughout the app.,Coding Task,,,,,R
+8.10,Verify that the app implements a 'device binding' functionality when a mobile device is treated as being trusted. Verify that the device fingerprint is derived from multiple device properties.,Coding Task,,,,,R
+8.11,"Verify that the app uses multiple functionally independent means of emulator detection that, in context of the overall protection scheme, force adversaries to invest significant manual effort to run the app in an emulator (supersedes requirement 8.5).",Coding Task,,,,,R
+8.12,"Verify that if the architecture requires sensitive information be stored on the device, the app only runs on operating system versions and devices that offer hardware-backed key storage. Alternatively, the information is protected using obfuscation. Considering current published research, the obfuscation type and parameters are sufficient to cause significant manual effort to reverse engineers seeking to comprehend or extract the sensitive data.",Coding Task,,,,,R
+8.13,"Verify that if the architecture requires sensitive computations be performed on the client-side, these computations are isolated from the operating system by using a hardware-based SE or TEE. Alternatively, the information is protected using obfuscation. Considering current published research, the obfuscation type and parameters are sufficient to cause significant manual effort to reverse engineers seeking to comprehend the sensitive portions of the code and/or data.",Coding Task,,,,,R
+|===
+== Other Mobile Vulnerabilities
+[%header,format=csv]
+|===
+V9,Other Mobile Vulnerabilities,Category,Comments,Android,iOS,Cordova
+9.2,Verify that Function Level Access Control is being enforced,Coding/Observation Task,Limited to webviews.,,,
+9.3,"Verify that there are no insecure direct object references.",Coding/Observation Task,Limited to webviews.,,,
+|===

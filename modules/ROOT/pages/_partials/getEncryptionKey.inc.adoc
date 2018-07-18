@@ -1,0 +1,16 @@
+    /**
+     - Get the encryption key for the realm db
+
+     - Parameter kcWrapper: the keychain wrapper instance
+     - Parameter keychainAlias: the refernence alias for the encryption key stored in the keychain
+
+     - Returns: the encryption key
+     */
+    class func getEncryptionKey(kcWrapper: KeychainWrapper, keychainAlias: String) -> Data? {
+        guard let encryptionKey = kcWrapper.data(forKey: keychainAlias) else {
+            let newEncryptionKey = generateEncryptionKey()
+            kcWrapper.set(newEncryptionKey, forKey: keychainAlias)
+            return newEncryptionKey
+        }
+        return encryptionKey
+    }

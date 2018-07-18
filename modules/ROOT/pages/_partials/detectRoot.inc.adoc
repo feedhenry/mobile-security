@@ -1,0 +1,10 @@
+    /**
+     * Detect if the device is rooted.
+     */
+    public void detectRoot() {
+        totalTests++;
+        SecurityCheckResult result = securityService.check(SecurityCheckType.IS_ROOTED);
+        if (result.passed()) {
+            setDetected(rootAccess, R.string.root_detected_positive);
+        }
+    }

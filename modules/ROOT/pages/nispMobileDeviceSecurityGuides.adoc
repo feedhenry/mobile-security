@@ -1,0 +1,93 @@
+= Guidelines for Managing the Security of Mobile Devices in the Enterprise
+
+This is a summary of notes taken from the http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-124r1.pdf[NIST Guidelines for Managing the Security of Mobile Devices in the Enterprise].
+
+== High-Level Threats and Vulnerabilities for Mobile Devices
+
+=== Lack of Physical Security Controls
+
+==== Mitigations
+
+* Requiring authentication before gaining access to the mobile device or the organization’s resources accessible through the device.
+* Protecting sensitive data—either encrypting the mobile device’s storage so that sensitive data cannot be recovered from it by unauthorized parties, or not storing sensitive data on mobile devices.
+* User training and awareness, to reduce the frequency of insecure physical security practices.
+
+=== Use of Untrusted Mobile Devices
+
+==== Mitigations
+
+* Restrict or prohibit use of BYOD devices, thus favoring organization-issued devices
+* Fully secure each organization-issued mobile device; this gets the mobile device in as trusted a state as possible, and deviations from this secure state can be monitored and addressed.
+* Use other technical solutions for achieving degrees of trust in BYOD devices
+
+=== Use of Untrusted Networks
+
+==== Mitigations
+
+* Using strong encryption technologies (such as virtual private networks, VPNs) to protect the confidentiality and integrity of communications
+* Using mutual authentication mechanisms to verify the identities of both endpoints before transmitting data
+* Prohibit use of insecure Wi-Fi networks
+
+=== Use of Untrusted Applications
+
+==== Mitigations
+
+* Prohibiting all installation of thirdparty applications, or implementing whitelisting to allow installation of approved applications only.
+* Perform a risk assessment on each third-party application before permitting its use on the organization’s mobile devices
+* Prohibiting or restricting browser access
+
+=== Interaction with Other Systems
+
+==== Mitigations
+
+* Preventing an organization-issued mobile device from syncing with a personally-owned computer necessitates security controls on the mobile device that restrict what devices it can synchronize with
+* Preventing a personally-owned mobile device from syncing with an organization-issued computer necessitates security controls on the organization-issued computer, restricting the connection of mobile devices
+* Preventing the use of remote backup services can possibly be achieved by blocking use of those services or by configuring the mobile devices not to use such services
+* Users should be instructed not to connect their mobile devices to unknown charging devices; they should carry and use their own charging devices
+* Mobile devices can be prevented from exchanging data with each other through logical or physical means
+
+=== Use of Untrusted Content
+
+==== Mitigations
+
+* Educate users on the risks inherent in untrusted content and to discourage users from accessing untrusted content with any mobile devices they use for work
+* Have applications, such as QR readers, display the unobfuscated content (e.g., the URL) and allow users to accept or reject it before proceeding
+* Use secure web gateways, HTTP proxy servers, or other intermediate devices to validate URLs before allowing them to be contacted.
+* It is also possible to restrict peripheral use on mobile devices, such as disabling camera use in order to prevent QR codes from being processed
+
+=== Use of Location Services
+
+==== Mitigations
+
+* Disabling location services or by prohibiting use of location services for particular applications such as social networking or photo applications.
+* Users may also be trained to turn off location services when in sensitive areas
+
+== Technologies for Mobile Device Management
+
+The MDM system should have the following capabilities:
+
+* General policy
+** Restrict user and application access to hardware
+** Restrict user and application access to native OS services
+** Manage wireless network interfaces
+** Automatically monitor, detect, and report when policy violations occur
+** Limit or prevent access to enterprise services based on the mobile device’s operating system version
+* Data Communication and Storage
+** Strongly encrypt data communications between the mobile device and the organization.
+** Strongly encrypt stored data on both built-in storage and removable media storage. 
+** Wipe the device (to scrub its stored data) before reissuing it to another user, retiring the device, etc.
+** Remotely wipe the device (to scrub its stored data) if it is suspected that the device has been lost, stolen, or otherwise fallen into untrusted hands and is at risk of having its data recovered by an untrusted party.
+** A device often can also be configured to wipe itself after a certain number of incorrect authentication attempts.
+* User and Device Authentication
+** Require a device password/passcode and/or other authentication (e.g., token-based authentication, network-based device authentication, domain authentication) before accessing the organization’s resources.
+** If device account lockout is enabled or the device password/passcode is forgotten, an administrator can reset this remotely to restore access to the device.
+** Have the device automatically lock itself after it is idle for a period
+** Under the direction of an administrator, remotely lock the device if it is suspected that the device has been left in an unlocked state in an unsecured location
+* Applications
+** Restrict which app stores may be used.
+** Restrict which applications may be installed through whitelisting (preferable) or blacklisting.
+** Restrict the permissions (e.g., camera access, location access) assigned to each application.
+** Install, update, and remove applications.
+** Restrict the use of operating system and application synchronization services (e.g., local device synchronization, remote synchronization services and websites).
+** Verify digital signatures on applications to ensure that only applications from trusted entities are installed on the device and that code has not been modified.
+** Distribute the organization’s applications from a dedicated mobile application store

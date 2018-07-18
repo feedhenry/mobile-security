@@ -1,0 +1,39 @@
+    /**
+     - Create the stored entity
+
+     - Paramater title: the title of the note
+     - Paramater content: the content of the note
+     - Parameter onComplete - a closure called after creation
+     */
+    func create(title: String, content: String, onComplete: @escaping (Error?, Note?) -> Void) {
+        var id = generateId()
+        let createdAt = getDate()
+
+        // ensure the ID is unique
+        while !isIdentifierUnique(identifier: id) {
+            id = generateId()
+        }
+
+        // create the note object
+        let note = Note()
+        note.id = id
+        note.title = title
+        note.content = content
+        note.createdAt = createdAt
+        note.storageProvider = "Realm"
+
+        DispatchQueue.global(qos: .background).async {
+            // create the note in the db
+            do {
+                // create a new thread confined realm
+                let realm = try self.getRealmInstance()
+                try realm.safeWrite {
+                    realm.add(note)
+                    try! realm.commitWrite()
+                    onComplete(nil, note.clone())
+                }
+            } catch {
+                onComplete(error, nil)
+            }
+        }
+    }

@@ -1,0 +1,41 @@
+        @Override
+        protected Long doInBackground(Void... voids) {
+            String apiUrl = apiServerConfiguration.getNoteAPIUrl();
+
+            UserPrincipal user = authService.currentUser();
+            if (user != null ) {
+                String accessToken = user.getAccessToken();
+                try {
+                    List<Note> notes = noteRepository.listNotes();
+                    long totalNumber = notes.size();
+                    final AtomicLong currentCount = new AtomicLong(0);
+                    for (Note note : notes) {
+                        if (isCancelled() || this.error != null) {
+                            break;
+                        }
+                        Note readNote = noteRepository.readNote(note.getId());
+                        HttpRequest httpRequest = mobileCore.getHttpLayer().newRequest();
+                        httpRequest.addHeader("Authorization", String.format("Bearer %s", accessToken));
+                        httpRequest.post(apiUrl, readNote.toJson(true).toString().getBytes("UTF-8"));
+                        HttpResponse httpResponse = httpRequest.execute();
+
+                        httpResponse.onError(() -> {
+                            UploadNotesTask.this.error = new Exception(httpResponse.stringBody());
+                        });
+                        httpResponse.onSuccess(() -> {
+                            uploaded.incrementAndGet();
+                        });
+                        httpResponse.onComplete(() -> {
+                            long progress = currentCount.incrementAndGet();
+                            publishProgress(progress, totalNumber);
+                        });
+
+                        httpResponse.waitForCompletionAndClose();
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "Error - Exception", e);
+                    this.error = e;
+                }
+            }
+            return uploaded.longValue();
+        }

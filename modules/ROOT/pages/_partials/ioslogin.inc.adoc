@@ -1,0 +1,7 @@
+    func startAuth(presentingViewController: UIViewController) {
+        do {
+            try self.authService.login(presentingViewController: presentingViewController, onCompleted: onLoginCompleted)
+        } catch {
+            fatalError("Unexpected error: \(error)")
+        }
+    }

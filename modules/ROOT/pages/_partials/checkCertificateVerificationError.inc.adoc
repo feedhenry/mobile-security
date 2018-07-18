@@ -1,0 +1,16 @@
+    /**
+     * Check if an exception is caused by a certificate verification error
+     *
+     * @param error the error exception from a failed request
+     *
+     * @return boolean based on whether or not certificate pinning has failed
+     */
+    public boolean checkCertificateVerificationError(final Exception error) {
+        boolean certificateVerificationError = false;
+        if (error.getCause() != null &&
+                (error.getCause().toString().contains("Certificate validation failed") ||
+                        error.getCause().toString().contains("Pin verification failed"))) {
+            certificateVerificationError = true;
+        }
+        return certificateVerificationError;
+    }

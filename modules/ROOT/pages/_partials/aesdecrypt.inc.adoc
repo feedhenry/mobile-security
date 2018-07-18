@@ -1,0 +1,16 @@
+    /**
+     * Decrypt the given encrypted data
+     * @param keyAlias The alias of the key in the keystore that will be used for the decryption.
+     * @param encryptedText the text to decrypt. The first 12 bytes should be the IV used for encryption.
+     * @return the plain text data
+     * @throws GeneralSecurityException
+     * @throws IOException
+     */
+    public byte[] decrypt(String keyAlias, byte[] encryptedText) throws GeneralSecurityException, IOException {
+        GCMEncrypted encryptedData = GCMEncrypted.parse(encryptedText);
+        SecretKey secretKey = loadOrGenerateSecretKey(keyAlias, false);
+        Cipher cipher = Cipher.getInstance(secureKeyStore.getSupportedAESMode());
+        cipher.init(Cipher.DECRYPT_MODE, secretKey, new GCMParameterSpec(GCMEncrypted.GCM_TAG_LENGTH, encryptedData.iv));
+        byte[] plainText = cipher.doFinal(encryptedData.encryptedData);
+        return plainText;
+    }

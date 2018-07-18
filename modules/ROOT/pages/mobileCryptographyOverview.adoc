@@ -1,0 +1,35 @@
+= Cryptography Summary
+
+|===
+| Do's | Dont's
+
+| Apply cryptographic standards that will withstand the test of time for at least 10 years into the future
+| Including the keys in the same attacker-readable directory as the encrypted content
+
+| Use http://csrc.nist.gov/groups/STM/cmvp/documents/140-1/140val-all.htm[NIST FIPS-validated] crypto modules
+| Use of hardcoded keys within the binary
+
+| Use NIST approved or NSA approved key management technology and processes
+| Creation and Use of Custom Encryption Protocols
+
+| Recommended minimal key lengths and algorithms 
+
+Key exchange : Diffie–Hellman with a minimum of 2048 bits
+
+Message Integrity: HMAC-SHA2 (or HMAC-SHA-256)
+
+Message Hash: SHA2 256 bits
+
+Asymetric encryption: RSA 2048 bits
+
+Symmetric-key algorithm: AES 128 bits (CBC or GCM)
+
+Password Hashing: PBKDF2, Scrypt, Bcrypt
+| Use of Insecure and/or Deprecated Algorithms, like RC2, MD5, MD4, SHA1 
+
+|
+| Use the same cryptographic key for multiple purposes
+
+|
+| Random values are generated using a sufficiently secure random number generator
+|===

@@ -1,0 +1,102 @@
+= Android Security Guide
+
+This is a summary of the https://source.android.com/security/[Android Security Guide].
+
+== Kernel Security
+=== Application Sandbox
+Android uses the UNIX user-based protection to identify and isolate running applications.
+The Android system assigns a unique UID (User ID) to each Android application and runs the application as a certain user in a separate process.
+By default, applications cannot interact with each other. This is due to the user privileges being different for each application.
+Memory corruption errors in one application will not lead to corruption in other applications, due to this isolation.
+
+However, if the `android:sharedUserId` attribute is set (in the App Manifest) to the same value for two or more applications, they will all share the same User ID — provided that their certificate sets are identical.
+Applications with the same user ID can access each other's data and also run in the same process.
+
+=== Filesystem Permissions
+The filesystem permissions ensure that one user cannot alter or read another user's files. In the context of Android, this means that one application, cannot access or alter the data for another application, unless they explicitly allow it.
+
+=== Device Rooting
+By default, only the kernel and small number of core applications run using root permissions. Root permissions will allow you full access to all applications on the device, as well as their applications data.
+
+Encrypting data with a key stored on the device will not protect the application from a root user.
+Applications could use a key stored off-device, but this approach will only provide temporary protection while the key is not present on the device.
+At some point the key must be provided to the application and it then becomes accessible to root users.
+
+=== Filesystem Encryption
+A number of different filesytem encryption approaches have been used by different versions of Android.
+
+* _Android 3.0_
+** Full filesystem encryption in the kernel.
+
+* _Android 5.0_
+** Full-disk encryption which uses a single key—protected with the user’s device password—to protect the whole of a device’s userdata partition.
+** Upon boot, users must provide their credentials before any part of the disk is accessible.
+
+* _Android 7.0_
+** File-based encryption allows different files to be encrypted with different keys that can be unlocked independently.
+** The Direct Boot feature allows encrypted devices to boot straight to the lock screen.
+** This makes profiles more secure because it allows more than one user to be protected at a time as the encryption is no longer based solely on a boot time password.
+
+== Application Security
+=== Certificate Authorities
+Android includes a set of installed system Certificate Authorities, which are trusted system-wide.
+Devices running Android 7.0 and above will have an Android stock set of system CAs as device manufacturers supplied CA's are no longer permitted.
+
+=== Application Signing
+APK Signing will allow a developer to identify the author of the application.
+The signed application certificate defines which user id is associated with which application.
+The application signing ensures that applications cannot access each other except through a well-defined IPC (Inter-process communication).
+
+== Authentication
+Two key pieces make up Authentication & Key Storage from Android 6.0.
+
+* _Android Keystore_ - Cryptographic key storage which also provides standard crypto actions.
+* _Authentication Components_ - Assert the user's presence and/or provide user authentication.
+
+There are two authentication components:
+
+* _Gatekeeper_ - Pin, Pattern & Password Authentication
+* _Fingerprint_  - Fingerprint Authentication
+
+The two authentication components work with the Keystore and (other components) to support the use of hardware-backed authentication tokens or AuthTokens.
+
+=== Enrollment
+On first boot of the device, the user must initially enroll a PIN/pattern/password with Gatekeeper.
+This is known as enrollment.
+This is necessary to to create the User's SID (User Secure Identifier) which is a 64-bit randomly generated ID.
+
+This SID is cryptographically bound to the user's password, so when a successful authentication takes place, the AuthTokens will contain the User SID for that password.
+
+=== Authentication Process
+Once a user has set up a credential (eg. a Pattern lock) and they have received their User SID (Secure User Id), they are now ready to authenticate.
+
+As part of Android authentication, an operating system (known as Trusty OS) runs on a processor intended to provide a TEE (Trusted Execution Environment).
+
+.Android Authentication Process
+[caption="Figure 1: "]
+image::android-authentication-flow.png[600, 600]
+
+. Authentication begins when a user enters a Gatekeeper credential (eg. a Pin, Pattern, Password) or a Fingerprint.
+. The next step involves either the Gatekeeper daemon (gatekeeperd) or the Fingerprint daemon (fingerprintd) depending on what authentication credential is used.
+.. The `gatekeeperd` daemon will send a hash of the password/pin/pattern it received in step 1, to its counterpart `gatekeeper` in the TEE (TEE OS).
+.. Alternatively, the `fingerprintd` daemon sends the data to its `fingerprint` counterpart in the TEE.
+.. If authentication in the TEE (TEE OS) is successful, `gatekeeper` or `fingerprint` in the TEE sends an AuthToken containing the corresponding User SID, signed with the AuthToken HMAC key, to its counterpart in the Android OS.
+... Remember that the SID is cryptographically bound to the user's password.
+... The HMAC is used for message integrity.
+.. The `gatekeeperd` or `fingerprintd` daemon receives a signed AuthToken from the TEE and passes the AuthToken to the `keystore service`.
+.. Lastly, the `keystore service` passes the AuthTokens received from `gatekeeperd` and `fingerprintd` to the `keymaster`.
+The AuthToken is verified with the `AuthToken HMAC key` which was previously shared with the `gatekeeper` and `fingerprint` "trustlets" in step 2.
+The `keymaster` trusts the timestamp in the token as the last authentication time and bases a key release decision (to allow an app to use the key) on the timestamp.
+
+
+== Keystore
+The Android Keystore system allows storage of cryptographic keys inside a container to make it more difficult to extract them from a device.
+Once keys are in the keystore, they can be used for cryptographic operations with the key material remaining non-exportable.
+
+== Trusted Execution Environment
+A TEE processor is generally a separate microprocessor or a virtualized instance of the main processor.
+The TEE processor is isolated from the rest of the system using memory and I/O protection mechanisms supported by the hardware.
+
+TEE is necessary as the main processor on mobile devices is considered "untrusted".
+It is not allowed access to certain areas of RAM or where other device-specific cryptographic keys are stored.
+Applications running on the main processor will therefore delegate any operations that require use of secret/sensitive data to the TEE processor.

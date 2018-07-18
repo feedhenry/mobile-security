@@ -1,0 +1,77 @@
+= OWASP Cheat Sheet Series
+
+This is a summary of notes taken from the https://www.owasp.org/index.php/OWASP_Cheat_[OWASP Cheat Sheet Series]
+
+== Cryptographic Requirements
+
+The recommended minimal key lengths and algorithms by OWASP are outlined below.
+|=======================
+|Key exchange|Diffie–Hellman with a minimum of 2048 bits
+|Message Integrity    |HMAC-SHA2
+|Message Hash  |SHA2 256 bits
+|Asymetric encryption    |RSA 2048 bits
+|Symmetric-key algorithm    |AES 128 bits
+|Password Hashing    |PBKDF2, Scrypt, Bcrypt
+|=======================
+
+== Certificate Pinning
+Pinning is the process of associating a host with their expected X509 certificate or public key.
+Once a certificate or public key is known or seen for a host, the certificate or public key is associated or 'pinned' to the host. If more than one certificate or public key is acceptable, then the program holds a pinset. In this case, the advertised identity must match one of the elements in the pinset.
+
+=== Pinning Methods
+There are a number of ways you can pin the certificate to the client: the whole certificate, the public key of the certificate or a hash of the information.
+
+==== Certificate
+The certificate is the easiest to pin to the client. However, one of the main downsides is having to update the app with a new certificate every time the cert expires, cert rotation or a CA is compromised.
+
+==== Public Key
+Public key pinning is more flexible. As with a certificate, the program checks the extracted public key with its embedded copy of the public key. This will mean that if a cert is rotated or expires, and the public key doesn't change in the process, you don't need to update your applications with new certificates, as we are only concerned with a public key.
+There are some extra steps necessary to extract the public key from a certificate and as the key is static and may violate key rotation policies.
+
+==== HPKP (HTTP Public Key Pinning)
+With HPKP, a number of public keys are pinned on the server. When a client visits the website for the first time, the client will store these pins.
+On every future visit to the website, the client will make sure the public keys match the ones that they have stored locally. If the keys don't match, it could mean that the CA was compromised or the keys have been rotated.
+This is an example of dynamic pinning, where the entity to pin is retrieved dynamically from the server, rather than being packaged or stored locally at development/build time.
+
+A valid HPKP configuration must also include at least one backup key. Therefore, if something goes wrong, you can use the backup key instead.
+
+The following is an example of the Public-Key-Pins HPKP Header:
+
+[source,javascript]
+-----------------
+Public-Key-Pins:
+  pin-sha256="cUPcTAZWKaASuYWhhneDttWpY3oBAkE3h2+soZS7sWs=";
+  pin-sha256="M8HztCzM3elUxkcjR2S5P4hhyBNf6lHkmjAHKhpGPWE=";
+  max-age=5184000; includeSubDomains;
+  report-uri="https://www.example.org/hpkp-report"
+-----------------
+
+* The first `pin-sha256` is the production public key of the server.
+* The second `pin-sha256` is the backup key.
+* The `max-age` tells the client how long to store the keys for.
+* The `includeSubDomains` definition means that the key pinning is also valid for all subdomains.
+* The `report-uri` defines where you can report pin validation failures.
+
+Some potential issues with HPKP have been pointed out by https://blog.qualys.com/ssllabs/2016/09/06/is-http-public-key-pinning-dead[Qualys SSL Labs].
+
+An example of a helmet.js implementation guide for Node/Express is also available https://helmetjs.github.io/docs/hpkp/[here].
+
+=== TrustKit
+
+https://github.com/datatheorem/TrustKit[TrustKit] for iOS and https://github.com/datatheorem/TrustKit-Android[TrustKit-Android] for Android allow SSL pinning for native mobile apps.
+
+== Jailbreaking
+Jailbreaking or rooting is the process of gaining unauthorized access or elevated privileges on a system.
+
+=== Detecting Jailbreak
+
+* Identify 3rd party app stores (e.g. Cydia for iOS) or popular superuser applications.
+* Attempt to identify modified kernels by comparing certain system files that the application would have access to on a non-jailbroken device to known good file hashes. This technique can serve as a good starting point for detection.
+* Attempt to write a file outside of the application’s root directory. The attempt should fail for non-jailbroken devices as they don't have the necessary permissions.
+* Generalizing, attempt to identify anomalies in the underlying system or verify the ability to execute privileged functions or methods.
+
+== Mobile Testing
+The OWASP cheat sheet series also provides in-depth guides on how to analyse a mobile app for security risks.
+
+* https://www.owasp.org/index.php/Android_Testing_Cheat_Sheet[Android Testing]
+* https://www.owasp.org/index.php/IOS_Developer_Cheat_Sheet[iOS Developer Guide]

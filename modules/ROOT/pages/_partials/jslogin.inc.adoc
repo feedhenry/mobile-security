@@ -1,0 +1,6 @@
+  /**
+   * Redirect to Login
+   */
+  login(): void {
+    KeycloakService.auth.authz.login();
+  }

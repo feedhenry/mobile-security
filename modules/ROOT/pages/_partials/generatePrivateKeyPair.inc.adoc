@@ -1,0 +1,19 @@
+    @Override
+    public void generatePrivateKeyPair(String keyAlias) throws GeneralSecurityException, IOException {
+        //pre android-M, the keystore only support RSA key generation. So here we will generate a RSA keypair first, then generate the AES key.
+        //we then encrypt the AES key using the generated RSA public key, and save it using the SharedPreferences
+        Calendar start = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+        end.add(Calendar.YEAR, 99);
+        KeyPairGeneratorSpec generatorSpec = new KeyPairGeneratorSpec
+                .Builder(context)
+                .setAlias(keyAlias)
+                .setSubject(new X500Principal("CN=" + keyAlias))
+                .setSerialNumber(BigInteger.TEN)
+                .setStartDate(start.getTime())
+                .setEndDate(end.getTime())
+                .build();
+        KeyPairGenerator generator = KeyPairGenerator.getInstance(KeyProperties.KEY_ALGORITHM_RSA, ANDROID_KEY_STORE);
+        generator.initialize(generatorSpec);
+        generator.generateKeyPair();
+    }

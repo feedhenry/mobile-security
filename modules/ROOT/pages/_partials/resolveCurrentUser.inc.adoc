@@ -1,0 +1,4 @@
+    func resolveCurrentUser() -> User? {
+        let authService = self.appComponents.resolveAuthService()
+        return try! authService.currentUser()
+    }

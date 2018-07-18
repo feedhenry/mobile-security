@@ -1,0 +1,13 @@
+    /**
+     * Create the config for the initial Keycloak auth request to get a temporary token and create an intent to handle the response
+     *
+     * @param fromActivity the activity used to perform the login
+     * @param authCallback the authentication callback
+     */
+    @Override
+    public void login(final Activity fromActivity, final Callback authCallback) {
+
+        // Build the options object and start the authentication flow. Provide an activity to handle the auth response.
+        DefaultAuthenticateOptions options = new DefaultAuthenticateOptions(fromActivity, LOGIN_RESULT_CODE);
+        authService.login(options, authCallback);
+    }

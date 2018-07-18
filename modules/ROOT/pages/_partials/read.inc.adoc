@@ -1,0 +1,37 @@
+    /**
+     - Read the stored entity
+
+     - Parameter identifier: The identifier of the note
+     - Parameter onComplete - a closure called after retrieval
+     */
+    func read(identifier: Int, onComplete: @escaping (Error?, Note?) -> Void) {
+        DispatchQueue.global(qos: .background).async {
+            do {
+                // create a new thread confined realm
+                let realm = try self.getRealmInstance()
+
+                // retrieve the notes from realm
+                let noteResult = realm.objects(Note.self).filter("id = \(identifier)")
+
+                // create a new thread safe reference for these notes
+                let threadSafeNotes = ThreadSafeReference(to: noteResult)
+
+                // return note to the view controller on the main thread
+                DispatchQueue.main.async() {
+                    let realm = try! self.getRealmInstance()
+
+                    // get the notes using the thread safe reference
+                    guard let notes = realm.resolve(threadSafeNotes) else {
+                        return
+                    }
+
+                    // extract the note from the list
+                    let note = notes.first
+
+                    onComplete(nil, note?.clone())
+                }
+            } catch {
+                onComplete(error, nil)
+            }
+        }
+    }

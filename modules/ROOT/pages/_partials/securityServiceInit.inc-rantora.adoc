@@ -1,0 +1,4 @@
+    @Provides @Singleton
+    SecurityService provideSecurityService() {
+        return MobileCore.getInstance().getService(SecurityService.class);
+    }

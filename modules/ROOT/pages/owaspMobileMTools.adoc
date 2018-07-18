@@ -1,0 +1,134 @@
+= OWASP M-Tools
+
+This is a summary of the tools that are described in https://www.owasp.org/index.php/OWASP_Mobile_Security_Project#tab=M-Tools[OWASP Mobile Security M Tools] page.
+
+== iMAS
+
+* What is it?
+** iOS secure application framework research to reduce iOS application vulnerabilities and information loss
+* Source code
+** https://github.com/project-imas/about[Project iMAS]
+* Modules
+** https://github.com/project-imas/securefoundation[Secure Foundation Control]
+*** Cipherlib, crypto manager, keychain crypto
+** https://github.com/project-imas/app-password[AppPassword Control]
+*** Custom iOS user authentication mechanism (password with security questions for self reset)
+** https://github.com/project-imas/passcode-check[PasscodeCheck Control]
+*** Allows an application to verify if an iOS passcode has been set and what complexity. Based on this, an application can programmatically decide to execute fully or in a degraded state given this system evidence
+** https://github.com/project-imas/encrypted-core-data[Encrypted Core Data]
+*** Provides a Core Data encrypted SQLite store using SQLCipher.
+** https://github.com/project-imas/security-check[Security-check]
+*** Application level, attached debug detect and jailbreak checking
+** https://github.com/project-imas/memory-security[Memory Security]
+*** Library for securely clearing and validating iOS application memory
+*** Eliminate clear-text sensitive data from memory after app use
+
+=== Comment
+
+Although most of the modules are about 3-4 years old, I think the modules are still highly recommended and we should take a look when we implement some of the features.
+
+== GoatDroid
+
+* What is it?
+** A fully functional and self-contained training environment for educating developers and testers on Android security
+* Source Code
+** https://github.com/jackMannino/OWASP-GoatDroid-Project[OWASP-GoatDroid]
+
+=== Comment
+
+Looks promising, however, looks like the apps are not being maintained for the last 4 years and there are many issues being opened to complain the apps are not working anymore.
+
+We should take a look at it and see if there are some values to get it up and running.
+
+== iGoat
+
+* What is it?
+** A safe environment where iOS developers can learn about the major security pitfalls they face as well as how to avoid them.
+* Source Code
+** https://code.google.com/archive/p/owasp-igoat/source[iGoat]
+
+=== Comment
+
+Doesn't look like the app is being maintained, and doesn't appear to work with the latest version of iOS.
+
+We can take a quick look but it doesn't look like provide a lot of value to us.
+
+== Damn Vulnerable iOS Application
+
+* What is it?
+** A project gives mobile testers and developers an iOS application to practice attacking/defending skill sets
+* http://damnvulnerableiosapp.com/#about[Website]
+* Source code
+** https://github.com/prateek147/DVIA[DIVA]
+
+=== Comment
+
+Looks much better than iGoat. 
+Especially the websit has a "Learn" section provides a series of very good blog posts about iOS security.
+
+== MobiSec
+
+* What is it?
+** The MobiSec Live Environment Mobile Testing Framework project is a live environment for testing mobile environments, including devices, applications, and supporting infrastructure.
+* https://sourceforge.net/projects/mobisec/[Websit]
+
+=== Comment
+
+The last release was about 5 years ago. Doesn't looks like it's being maintained properly.
+
+== Androick
+
+* What is it?
+** Androick is a tool that allows any user to analyze an Android application
+* Source Code
+** https://github.com/Flo354/Androick[Androick]
+
+=== Comment
+
+A nice small tool that could be useful to get all the app files from an Android device.
+
+== NowSecure App Testing Community Edition
+
+* What is it?
+** It is the freely downloadable version of the powerful App Testing suite. Users are offered a number of features such as network capture, automation, import / export, and reporting to test and secure mobile apps
+* https://www.nowsecure.com/open-source/[Website]
+* Tools
+** https://santoku-linux.com/[Santoku Linux]
+*** Santoku is dedicated to mobile forensics, analysis, and security, and packaged in an easy to use, Open Source platform
+** https://github.com/AndroidVTS/android-vts[VTS for Android]
+*** An app to scan vulnerabilities on Android
+** https://www.frida.re/[Frida]
+*** Inject JavaScript to explore native apps on Windows, macOS, Linux, iOS, Android, and QNX.
+** http://radare.org/r/[Radare]
+*** Portable reversing framework
+
+=== Comment
+
+The tools are very useful. We should try them. 
+
+The NowSecure website also provides some resources/handbooks that could be very helpful. E.g.
+
+* Mobile Banking Applications: Security Challenges for Banks
+* Mobile App Security Program Management Handbook
+* https://books.nowsecure.com/secure-mobile-development/en/index.html[Secure Mobile Development Guide] 
+
+== Conclusion
+
+I think the tools we should try are:
+
+* Must
+** NowSecure App Testing Community Edition
+** Damn Vulnerable iOS Application
+** iMAS
+
+* Maybe
+** Androick
+
+* No
+** GoatDroid
+** iGoat
+** MobiSec
+
+
+
+

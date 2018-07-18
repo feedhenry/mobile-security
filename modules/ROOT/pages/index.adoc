@@ -1,0 +1,20 @@
+//:library: Asciidoctor
+//:idprefix:
+//:numbered:
+//:stylesheet: assets/asciidoctor.css
+:toc: 1
+//:source-highlighter: pygments
+//:pygments-style: manni
+[.text-center]
+
+= AeroGear Mobile Security
+
+== Mobile Security Recommendations Overview
+
+include::mobileAuthOverview.adoc[leveloffset=+1]
+include::mobileDataStorageOverview.adoc[leveloffset=+1]
+include::mobileNetworkOverview.adoc[leveloffset=+1]
+include::mobileAppSelfDefenceOverview.adoc[leveloffset=+1]
+include::mobileHandleSensitiveDataOverview.adoc[leveloffset=+1]
+include::mobileCryptographyOverview.adoc[leveloffset=+1]
+

@@ -1,0 +1,31 @@
+// ** xref:{partialsdir}/attributes.adoc[]
+
+* xref:index.adoc#aerogear-mobile-security[Overview]
+** xref:index.adoc#authentication-session-management[Authentication and Session Management]
+** xref:index.adoc#data-storage-summary[Data Storage]
+** xref:index.adoc#network-security[Network]
+** xref:index.adoc#mobile-app-self-defence[Mobile App Defense]
+** xref:index.adoc#handling-sensitive-data-overview[Sensitive Data]
+** xref:index.adoc#cryptography-summary[Cryptography]
+* Reference
+
+** xref:owaspTopMobileRisks.adoc[OWASP Top 10 Mobile Risks]
+** xref:mobileSecurityRequirements.adoc[Mobile Application Security Requirements]
+** xref:owaspMobileDevelopmentGuidelines.adoc[Secure Mobile Development Guidelines]
+** xref:owaspCheatSheetSeries.adoc[OWASP Cheat Sheet Series]
+** xref:owaspMobileVerificationStandard.adoc[OWASP Mobile Verification Standard]
+** xref:owaspMobileThreatModelProject.adoc[OWASP Threat Model Project]
+** xref:owaspMobileMTools.adoc[OWASP M-Tools]
+** xref:iosSecurityGuide.adoc[iOS Security Whitepaper]
+** xref:androidSecurityGuide.adoc[Android Security Guide]
+** xref:androidDeveloperSecurityGuide.adoc[Android Developer Security Guide]
+** xref:cordovaSecurityGuide.adoc[Cordova Security Guide]
+** xref:nispMobileSecurityVetting.adoc[Vetting the Security of Mobile Applications]
+** xref:niapMobileAppVetting.adoc[NIAP Mobile App Vetting]
+** xref:dhsMobileDeviceSecurity.adoc[DHS Study on Mobile Device Security]
+** xref:nispMobileDeviceSecurityGuides.adoc[Guidelines for Managing the Security of Mobile Devices in the Enterprise]
+** xref:mobileBankingSecurity.adoc[Mobile Banking Applications Security Challenges]
+** xref:mobileSecureDevelopmentGuide.adoc[Secure Mobile Development Guide]
+
+
+

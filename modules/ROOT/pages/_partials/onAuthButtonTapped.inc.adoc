@@ -1,0 +1,19 @@
+    @IBAction func onAuthButtonTapped(_ sender: UIButton) {
+        // perform cert pinning on the auth server when the auth button is pressed
+        if let listener = self.authListener {
+            listener.performPreCertCheck() {
+                validCert in
+                if(validCert) {
+                    // cert is valid, continue with login
+                    listener.startAuth(presentingViewController: self)
+                } else {
+                    // pin validation issues, update the UI to notify the user and prevent authentication.
+                    self.authenticationButton.isHidden = true
+                    self.certPinningError.isHidden = false
+                    self.logoImage.isHidden = true
+                    self.dangerLogo.isHidden = false
+                    self.backgroundImage.image = UIImage(named: "ic_error_background")
+                }
+            }
+        }
+    }

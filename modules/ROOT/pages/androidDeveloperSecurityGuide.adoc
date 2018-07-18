@@ -1,0 +1,639 @@
+= Android Developer Security Guide
+
+This is a summary of the https://developer.android.com/training/best-security.html[Android Developer Security Guide].
+
+== Overview
+The following core security features help you build secure apps:
+
+* The Android Application Sandbox, which isolates your app data and code execution from other apps.
+* An application framework with robust implementations of common security functionality such as cryptography, permissions, and secure IPC.
+* Technologies like ASLR, NX, ProPolice, safe_iop, OpenBSD dlmalloc, OpenBSD calloc, and Linux mmap_min_addr to mitigate risks associated with common memory management errors.
+* An encrypted file system that can be enabled to protect data on lost or stolen devices.
+* User-granted permissions to restrict access to system features and user data.
+* Application-defined permissions to control application data on a per-app basis.
+
+=== Data Storage
+
+The most common security concern for an application on Android is whether the data that you save on the device is accessible to other apps.
+
+There are three fundamental ways to save data on the device:
+
+. *Internal Storage*
+.. By default, files that you create on internal storage are accessible only to your app. Android implements this protection, and it's sufficient for most applications.
+.. Avoid the `MODE_WORLD_WRITEABLE` or `MODE_WORLD_READABLE` modes for IPC files because they do not provide the ability to limit data access to particular applications, nor do they provide any control of data format. If you want to share your data with other app processes, instead consider using a content provider, which offers read and write permissions to other apps and can make dynamic permission grants on a case-by-case basis.
+
+. *External Storage*
+.. Files created on external storage, such as SD cards, are globally readable and writable. Because external storage can be removed by the user and also modified by any application, don't store sensitive information using external storage.
+.. You should Perform input validation when handling data from external storage as you would with data from any untrusted source. You should not store executables or class files on external storage prior to dynamic loading. If your app does retrieve executable files from external storage, the files should be signed and cryptographically verified prior to dynamic loading.
+
+. *Content Providers*
+.. Content providers offer a structured storage mechanism that can be limited to your own application or exported to allow access by other applications.
+If you do not intend to provide other applications with access to your ContentProvider, mark them as `android:exported=false` in the application manifest.
+Otherwise, set the `android:exported` attribute to true to allow other apps to access the stored data.
+.. If you are using a content provider for sharing data between only your own apps, it is preferable to use the `android:protectionLevel` attribute set to signature protection.
+Signature permissions do not require user confirmation, so they provide a better user experience and more controlled access to the content provider data when the apps accessing the data are signed with the same key.
+
+=== Permissions
+
+Android permissions are ranked in four different categories based on the protection level they offer:
+
+. Normal: the lower level of protection. It gives the apps access to isolated application-level feature, with minimal risk to other apps, the user or the system. It is granted during the installation of the App. It is also the default value for the cases when no protection level is specified. Example: `android.permission.INTERNET`
+. Dangerous: This permission usually gives the app control over the user data or over the device that impacts the user. This type of permission may not be granted at installation time, leaving it to the user to decide whether the app should have the permission or not. Example: `android.permission.RECORD_AUDIO`
+. Signature: This permission is granted only if the requesting app was signed with the same certificate as the app that declared the permission. If the signature matches, the permission is automatically granted. Example: `android.permission.ACCESS_MOCK_LOCATION`
+. SystemOrSignature: Permission only granted to the apps embedded in the system image or that were signed using the same certificated as the app that declared the permission. Example: `android.permission.ACCESS_DOWNLOAD_MANAGER`
+
+=== IP Networking
+. You should use HTTPS over HTTP anywhere that HTTPS is supported on the server, because mobile devices frequently connect on networks that are not secured, such as public Wi-Fi hotspots.
+Authenticated, encrypted socket-level communication can be easily implemented using the https://developer.android.com/reference/javax/net/ssl/SSLSocket.html[SSLSocket class].
+
+. Some applications use localhost network ports for handling sensitive IPC.
+You should not use this approach because these interfaces are accessible by other applications on the device.
+Instead, use an Android IPC mechanism where authentication is possible, such as with a Service.
+Binding to `INADDR_ANY` is worse than using loopback because then your application may receive requests from anywhere.
+
+. Make sure that you don't trust data downloaded from HTTP or other insecure protocols. This includes validation of input in WebView and any responses to intents issued against HTTP.
+
+=== Telephony Networking
+. Beware that SMS is neither encrypted nor strongly authenticated on either the network or the device. In particular, any SMS receiver should expect that a malicious user may have sent the SMS to your application.
+Don't rely on unauthenticated SMS data to perform sensitive commands.
+
+. Also, you should be aware that SMS may be subject to spoofing and/or interception on the network. On the Android-powered device itself, SMS messages are transmitted as broadcast intents, so they may be read or captured by other applications that have the `READ_SMS` permission.
+
+=== Input Validation
+. Insufficient input validation is one of the most common security problems affecting applications, regardless of what platform they run on.
+Android has platform-level countermeasures that reduce the exposure of applications to input validation issues, and you should use those features where possible.
+
+. If you are using native code, any data read from files, received over the network, or received from an IPC has the potential to introduce a security issue. The most common problems are http://en.wikipedia.org/wiki/Buffer_overflow[buffer overflows], http://en.wikipedia.org/wiki/Double_free#Use_after_free[use after free], and http://en.wikipedia.org/wiki/Off-by-one_error[off-by-one errors].
+Android provides a number of technologies like ASLR and DEP that reduce the exploitability of these errors, but they don't solve the underlying problem. You can prevent these vulnerabilities by carefully handling pointers and managing buffers.
+
+. If you are using data within queries that are submitted to an SQL database or a content provider, SQL injection may be an issue. The best defense is to use parameterized queries, as is discussed in the above section about content providers. Limiting permissions to read-only or write-only can also reduce the potential for harm related to SQL injection.
+
+. You should make sure to use well-structured data formats and verify that the data conforms to the expected format. While blacklisting of characters or character-replacement can be an effective strategy, these techniques are error prone in practice and should be avoided when possible.
+
+=== Handling User Data
+. In general, the best approach for user data security is to minimize the use of APIs that access sensitive or personal user data. If you have access to user data and can avoid storing or transmitting it, don't store or transmit the data.
+
+. Consider if there is a way that your application logic can be implemented using a hash or non-reversible form of the data.
+
+. For example, your application might use the hash of an email address as a primary key to avoid transmitting or storing the email address. This reduces the chances of inadvertently exposing data, and it also reduces the chance of attackers attempting to exploit your application.
+
+. If your app requires access to sensitive data, evaluate whether you need to transmit it to a server or you can run the operation on the client. Consider running any code using sensitive data on the client to avoid transmitting user data.
+
+. Also, make sure that you do not inadvertently expose user data to other applications on the device through overly permissive IPC, world-writable files, or network sockets. Overly permissive IPC is a special case of leaking permission-protected data.
+
+. If a GUID is required, create a large, unique number and store it. Don't use phone identifiers such as the phone number or IMEI, which may be associated with personal information.
+
+. Be careful when writing to on-device logs. In Android, logs are a shared resource and are available to an application with the `READ_LOGS` permission.
+
+=== Using Webviews
+. Because WebView consumes web content that can include HTML and JavaScript, improper use can introduce common web security issues such as XSS.
+ Android includes a number of mechanisms to reduce the scope of these potential issues by limiting the capability of WebView to the minimum functionality required by your application
+
+ . If your application doesn't directly use JavaScript within a WebView, do not call `setJavaScriptEnabled()`. By default, WebView does not execute JavaScript, so XSS is not possible.
+
+ . If your application accesses sensitive data with a WebView, you may want to use the `clearCache()` method to delete any files stored locally. You can also use server-side headers such as `no-cache` to indicate that an application should not cache particular content.
+
+. Use `addJavaScriptInterface()` with particular care because it allows JavaScript to invoke operations that are normally reserved for Android applications. If you use it, expose `addJavaScriptInterface()` only to web pages from which all input is trustworthy.
+In general, the Android documentation recommends exposing `addJavaScriptInterface()` only to JavaScript that is contained within your application APK.
+
+=== Handling Credentials
+. To make phishing attacks more conspicuous and less likely to be successful, minimize the frequency of asking for user credentials. Instead use an authorization token and refresh it.
+
+. Where possible, don't store user names and passwords on the device. Instead, perform initial authentication using the user name and password supplied by the user, and then use a short-lived, service-specific authorization token.
+
+. Services that are accessible to multiple applications should be accessed using AccountManager. If possible, use the AccountManager class to invoke a cloud-based service and don't store passwords on the device.
+
+. After using AccountManager to retrieve an Account, use https://developer.android.com/reference/android/accounts/Account.html#CREATOR[CREATOR] before passing in any credentials so that you do not inadvertently pass credentials to the wrong application.
+
+. If credentials are used only by applications that you create, you can verify the application that accesses the AccountManager using `checkSignature()`. Alternatively, if only one application uses the credential, you might use a KeyStore for storage.
+
+=== Cryptography
+
+. Use a secure random number generator, SecureRandom, to initialize any cryptographic keys generated by KeyGenerator. Use of a key that is not generated with a secure random number generator significantly weakens the strength of the algorithm and may allow offline attacks.
+
+. If you need to store a key for repeated use, use a mechanism, such as KeyStore, that provides a mechanism for long term storage and retrieval of cryptographic keys.
+
+=== IPC
+. Some apps attempt to implement IPC using traditional Linux techniques such as network sockets and shared files.
+However, you should instead use Android system functionality for IPC such as https://developer.android.com/reference/android/content/Intent.html[Intent], https://developer.android.com/reference/android/os/Binder.html[Binder] or https://developer.android.com/reference/android/os/Messenger.html[Messenger] with a https://developer.android.com/reference/android/app/Service.html[Service], and https://developer.android.com/reference/android/content/BroadcastReceiver.html[BroadcastReceiver].
+The Android IPC mechanisms allow you to verify the identity of the application connecting to your IPC and set a security policy for each IPC mechanism.
+
+. Many of the security elements are shared across IPC mechanisms. If your IPC mechanism is not intended for use by other applications, set the `android:exported` attribute to `false` in the component's manifest element.
+
+. If your IPC is accessible to other applications, you can apply a security policy by using the `<permission>` element.
+If IPC is between your own separate apps that are signed with the same key, it is preferable to use signature level permission in the `android:protectionLevel`.
+
+=== Intents
+. For activities and broadcast receivers, intents are the preferred mechanism for asynchronous IPC in Android. Depending on your application requirements, you might use https://developer.android.com/reference/android/content/Context.html#sendBroadcast(android.content.Intent)[sendBroadcast()], https://developer.android.com/reference/android/content/Context.html#sendOrderedBroadcast[sendOrderedBroadcast()], or an explicit intent to a specific application component. For security purposes, explicit intents are preferred.
+
+. If you use an intent to bind to a Service, ensure that your app is secure by using an explicit intent. Using an implicit intent to start a service is a security hazard because you can't be certain what service will respond to the intent, and the user can't see which service starts.
+
+. Senders of an intent can verify that the recipient has permission by specifying a non-null permission with the method call. Only applications with that permission receive the intent. If data within a broadcast intent may be sensitive, you should consider applying a permission to make sure that malicious applications can't register to receive those messages without appropriate permissions. In those circumstances, you may also consider invoking the receiver directly, rather than raising a broadcast.
+
+=== Services
+A Service is often used to supply functionality for other applications to use. Each service class must have a corresponding `<service>` declaration in its manifest file.
+
+. By default, services are not exported and cannot be invoked by any other application. However, if you add any intent filters to the service declaration, it is exported by default.
+It's best if you explicitly declare the `android:exported` attribute to be sure it behaves as you'd like. Services can also be protected using the `android:permission attribute`.
+By doing so, other applications need to declare a corresponding `<uses-permission>` element in their own manifest to be able to start, stop, or bind to the service.
+
+. If your app targets Android 5.0 (API level 21) or later, you should use the https://developer.android.com/reference/android/app/job/JobScheduler.html[JobScheduler] to execute background services.
+
+. A service can protect individual IPC calls into it with permissions, by calling `checkCallingPermission()` before executing the implementation of that call.
+You should use the declarative permissions in the manifest, since those are less prone to oversight.
+
+=== Binder and Messenger Interfaces
+. Using https://developer.android.com/reference/android/os/Binder.html[Binder] or https://developer.android.com/reference/android/os/Messenger.html[Messenger] is the preferred mechanism for RPC-style IPC in Android.
+They provide a well-defined interface that enables mutual authentication of the endpoints, if required.
+
+. If you are providing an interface that does require access controls, use https://developer.android.com/reference/android/content/Context.html#checkCallingPermission(java.lang.String)[checkCallingPermission()] to verify whether the caller has a required permission.
+This is especially important before accessing a service on behalf of the caller, as the identify of your application is passed to other interfaces.
+
+=== Broadcast Receivers
+. A BroadcastReceiver handles asynchronous requests initiated by an Intent.
+
+. By default, receivers are exported and can be invoked by any other application. If your BroadcastReceiver is intended for use by other applications, you may want to apply security permissions to receivers using the `<receiver>` element within the application manifest.
+This prevents applications without appropriate permissions from sending an intent to the BroadcastReceiver.
+
+=== Dynamically Loading Code
+. Loading code from outside of your application APK significantly increases the likelihood of application compromise due to code injection or code tampering.
+
+. If your application does dynamically load code, the most important thing to keep in mind about dynamically-loaded code is that it runs with the same security permissions as the application APK.
+
+. The major security risk associated with dynamically loading code is that the code needs to come from a verifiable source.
+
+=== Virtual Machine Security
+. Dalvik is Android's runtime virtual machine (VM). Your application runs in a secure sandbox environment, so other processes on the system can't access your code or private data.
+
+== Security with HTTPS and SSL
+This is a summary of the https://developer.android.com/training/articles/security-ssl.html[Android Developer Security with HTTPS and SSL Guide].
+
+The Secure Sockets Layer (SSL)—now technically known as Transport Layer Security (TLS)—is a common building block for encrypted communications between clients and servers.
+It's possible that an application might use SSL incorrectly such that malicious entities may be able to intercept an app's data over the network.
+
+As of Android 4.2 (Jelly Bean), Android currently contains over 100 CAs that are updated in each release. Similar to a server, a CA has a certificate and a private key. When issuing a certificate for a server, the CA signs the server certificate using its private key. The client can then verify that the server has a certificate issued by a CA known to the platform.
+
+=== HTTPS Example
+Assuming you have a web server with a certificate issued by a well known CA, you can make a secure request with code as simple this:
+
+```
+URL url = new URL("https://wikipedia.org");
+URLConnection urlConnection = url.openConnection();
+InputStream in = urlConnection.getInputStream();
+copyInputStreamToOutputStream(in, System.out);
+```
+
+Suppose instead of receiving the content from `getInputStream()`, it throws an exception:
+
+```
+javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+```
+
+This can happen for several reasons, including:
+
+* *Unknown CA* - The CA that issued the server certificate was unknown.
+** In this case, the `SSLHandshakeException` occurs because you have a CA that isn't trusted by the system. It could be because you have a certificate from a new CA that isn't yet trusted by Android or your app is running on an older version without the CA. More often a CA is unknown because it isn't a public CA, but a private one issued by an organization such as a government, corporation, or education institution for their own use. With a custom TrustManager that knows about your CAs, the system is able to validate that your server certificate come from a trusted issuer.
+* *Self-Signed Server Certificate* - The server certificate wasn't signed by a CA, but was self signed.
+** The second case of `SSLHandshakeException` is due to a self-signed certificate, which means the server is behaving as its own CA. As before, you can create your own TrustManager, this time trusting the server certificate directly.
+* *Missing Intermediate CA* - The server configuration is missing an intermediate CA.
+** The third case of `SSLHandshakeException` occurs due to a missing intermediate CA. Most public CAs don't sign server certificates directly. Instead, they use their main CA certificate, referred to as the root CA, to sign intermediate CAs. They do this so the root CA can be stored offline to reduce risk of compromise.
+** However, operating systems like Android typically trust only root CAs directly, which leaves a short gap of trust between the server certificate—signed by the intermediate CA—and the certificate verifier, which knows the root CA.
+** To solve this, the server doesn't send the client only it's certificate during the SSL handshake, but a chain of certificates from the server CA through any intermediates necessary to reach a trusted root CA.
+** There are two approaches to solve this issue:
+*** Configure the server to include the intermediate CA in the server chain. Most CAs provide documentation on how to do this for all common web servers. This is the only approach if you need the site to work with default Android browsers at least through Android 4.2.
+*** Or, treat the intermediate CA like any other unknown CA, and create a TrustManager to trust it directly, as done in the previous two sections.
+
+=== Hostname verification
+There are two key parts to verifying an SSL connection:
+
+. The first is to verify the certificate is from a trusted source, which was the focus of the previous section.
+. The second part is making sure the server you are talking to presents the right certificate. When it doesn't, you'll typically see an error like this:
+
+```
+java.io.IOException: Hostname 'example.com' was not verified
+at libcore.net.http.HttpConnection.verifySecureSocketHostname(HttpConnection.java:223)
+at libcore.net.http.HttpsURLConnectionImpl$HttpsEngine.connect(HttpsURLConnectionImpl.java:446)
+```
+
+* One reason this can happen is due to a server configuration error.
+The server is configured with a certificate that does not have a subject or subject alternative name fields that match the server you are trying to reach. It is possible to have one certificate be used with many different servers.
+
+=== Warnings About Using SSLSocket Directly
+https://developer.android.com/reference/javax/net/ssl/SSLSocket.html[SSLSocket] does not perform hostname verification. It is up the your app to do its own hostname verification, preferably by calling `getDefaultHostnameVerifier()` with the expected hostname. Further beware that `HostnameVerifier.verify()` doesn't throw an exception on error but instead returns a boolean result that you must explicitly check.
+
+=== Blacklisting
+SSL relies heavily on CAs to issue certificates to only the properly verified owners of servers and domains. In rare cases, CAs are either tricked or breached, resulting in the certificates for a hostname to be issued to someone other than the owner of the server or domain.
+
+In order to mitigate this risk, Android has the ability to blacklist certain certificates or even whole CAs. While this list was historically built into the operating system, starting in Android 4.2 this list can be remotely updated to deal with future compromises.
+
+=== Pinning
+An app can further protect itself from fraudulently issued certificates by a technique known as pinning. This prevents the compromise of one of the other 100+ CAs in the system from resulting in a breach of the apps secure channel.
+
+=== Client Certificates
+SSL also supports the notion of client certificates that allow the server to validate the identity of a client.
+
+=== Nogotofail: A Network Traffic Security Testing Tool
+. https://github.com/google/nogotofail[Nogotofail] is a tool gives you an easy way to confirm that your apps are safe against known TLS/SSL vulnerabilities and misconfigurations.
+It's an automated, powerful, and scalable tool for testing network security issues on any device whose network traffic could be made to go through it.
+
+Nogotofail is useful for three main use cases:
+
+* Finding bugs and vulnerabilities.
+* Verifying fixes and watching for regressions.
+* Understanding what applications and devices are generating what traffic.
+
+== Network Security Configuration
+This is a summary of the https://developer.android.com/training/articles/security-ssl.html[Android Developer Network Security Configuration Guide].
+
+=== Configuration
+The Network Security Configuration feature lets apps customize their network security settings in a safe, declarative configuration file without modifying app code. These settings can be configured for specific domains and for a specific app. The key capabilities of this feature are as follows:
+
+. **Custom trust anchors**: Customize which Certificate Authorities (CA) are trusted for an app's secure connections. For example, trusting particular self-signed certificates or restricting the set of public CAs that the app trusts.
+
+. **Debug-only overrides**: Safely debug secure connections in an app without added risk to the installed base.
+
+. **Cleartext traffic opt-out**: Protect apps from accidental usage of cleartext traffic.
+
+. **Certificate pinning**: Restrict an app's secure connection to particular certificates.
+
+The Network Security Configuration feature uses an XML file where you specify the settings for your app. You must include an entry in the manifest of your app to point to this file.
+
+Example reference of the network security settings from the applications manifest xml:
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<manifest ... >
+    <application android:networkSecurityConfig="@xml/network_security_config"
+                    ... >
+        ...
+    </application>
+</manifest>
+```
+
+=== Customizing Trusted CAs
+An app may want to trust a custom set of CAs instead of the platform default. The most common reasons of this are:
+
+* Connecting to a host with a custom certificate authority, such as a CA that is self-signed or is issued internally within a company.
+* Limiting the set of CAs to only the CAs you trust instead of every pre-installed CA.
+* Trusting additional CAs not included in the system.
+
+An app can customize its own connections using `base-config` (for app-wide customization) or `domain-config` (for per-domain customization).
+
+
+For Configuring CA's, configuration examples are available in the Android Documentation.
+
+. https://developer.android.com/training/articles/security-config.html#ConfigCustom[Configuring a Custom CA]
+. https://developer.android.com/training/articles/security-config.html#LimitingCas[Limiting the Set of Trusted CAs]
+. https://developer.android.com/training/articles/security-config.html#TrustingAdditionalCas[Trusting Additional CAs]
+. http://developer.android.com/training/articles/security-config.html#TrustingDebugCa[Configuring CAs for Debugging]
+
+=== Opting Out of Cleartext Traffic
+Applications intending to connect to destinations using only secure connections can opt-out of supporting cleartext (using the unencrypted HTTP protocol instead of HTTPS) to those destinations. This option helps prevent accidental regressions in apps due to changes in URLs provided by external sources such as backend servers.
+
+For example, an app may want to ensure that all connections to secure.example.com are always done over HTTPS to protect sensitive traffic from hostile networks.
+
+*res/xml/network_security_config.xml*:
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">secure.example.com</domain>
+    </domain-config>
+</network-security-config>
+```
+
+=== Pinning Certificates
+Normally, an app trusts all pre-installed CAs. If any of these CAs were to issue a fraudulent certificate, the app would be at risk from a man-in-the-middle attack. Some apps choose to limit the set of certificates they accept by either limiting the set of CAs they trust or by certificate pinning.
+
+Certificate pinning is done by providing a set of certificates by hash of the public key (SubjectPublicKeyInfo of the X.509 certificate). A certificate chain is then valid only if the certificate chain contains at least one of the pinned public keys.
+
+Note that, when using certificate pinning, you should always include a backup key so that if you are forced to switch to new keys or change CAs (when pinning to a CA certificate or an intermediate of that CA), your app's connectivity is unaffected. Otherwise, you must push out an update to the app to restore connectivity.
+
+*res/xml/network_security_config.xml:*
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config>
+        <domain includeSubdomains="true">example.com</domain>
+        <pin-set expiration="2018-01-01">
+            <pin digest="SHA-256">7HIpactkIAq2Y49orFOOQKurWxmmSFZhBCoQYcRhJ3Y=</pin>
+            <!-- backup pin -->
+            <pin digest="SHA-256">fwza0LRMXouZHRC8Ei+4PyuldPDcf3UKgO/04cDM1oE=</pin>
+        </pin-set>
+    </domain-config>
+</network-security-config>
+```
+
+=== Configuration Inheritance Behavior
+Values not set in a specific configuration are inherited. This behavior allows more complex configurations while keeping the configuration file readable.
+
+If a value is not set in a specific entry, then the value from the more general entry is used. For example, values not set in a domain-config are taken from the parent domain-config, if nested, or from the base-config if not. Values not set in the base-config use the platform default values.
+
+For example, consider where all connections to subdomains of example.com must use a custom set of CAs. Additionally, cleartext traffic to these domains is permitted except when connecting to secure.example.com. By nesting the configuration for secure.example.com inside the configuration for example.com, the trust-anchors does not need to be duplicated.
+
+==== Configuration File Format
+
+The Network Security Configuration feature uses an XML file format. The overall structure of the file is shown in the following code sample:
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config>
+        <trust-anchors>
+            <certificates src="..."/>
+            ...
+        </trust-anchors>
+    </base-config>
+
+    <domain-config>
+        <domain>android.com</domain>
+        ...
+        <trust-anchors>
+            <certificates src="..."/>
+            ...
+        </trust-anchors>
+        <pin-set>
+            <pin digest="...">...</pin>
+            ...
+        </pin-set>
+    </domain-config>
+    ...
+    <debug-overrides>
+        <trust-anchors>
+            <certificates src="..."/>
+            ...
+        </trust-anchors>
+    </debug-overrides>
+</network-security-config>
+```
+
+The full network security configuration options can be seen https://developer.android.com/training/articles/security-config.html#network-security-config[here].
+
+== SafetyNet
+SafetyNet provides a set of services and APIs that help protect your app against security threats, including device tampering, bad URLs, potentially harmful apps, and fake users.
+
+=== SafetyNet Attestation API
+The https://developer.android.com/training/safetynet/attestation.html[SafetyNet Attestation API] provides services for determining whether a device running your app satisfies Android compatibility tests.
+
+SafetyNet examines software and hardware information on the device where your app is installed to create a profile of that device. The service then attempts to find this same profile within a list of device models that have passed Android compatibility testing. The API also uses this software and hardware information to help you assess the basic integrity of the device, as well as the APK information of the calling app. This attestation helps you to determine whether or not the particular device has been tampered with or otherwise modified.
+
+=== SafetyNet Safe Browsing API
+The https://developer.android.com/training/safetynet/safebrowsing.html[SafetyNet Safe Browsing API] provides services for determining whether a URL has been marked as a known threat by Google. Your app can use a URL check to determine whether a URL poses a known threat.
+
+=== SafetyNet reCAPTCHA API
+The https://developer.android.com/training/safetynet/recaptcha.html[SafetyNet reCAPTCHA API] service includes a reCAPTCHA API that you can use to protect your app from malicious traffic. reCAPTCHA is a free service that uses an advanced risk analysis engine to protect your app from spam and other abusive actions. If the service suspects that the user interacting with your app might be a bot instead of a human, it serves a CAPTCHA that a human must solve before your app can continue executing.
+
+=== SafetyNet Verify Apps API
+The https://developer.android.com/training/safetynet/verify-apps.html[SafetyNet Verify Apps API] allows your app to interact programmatically with the Verify Apps feature on a device, protecting the device against potentially harmful apps. The SafetyNet Verify Apps API allows you to leverage this feature to protect your app's data. By using this API, you can determine whether a user's device is protected by the Verify Apps feature, encourage users not already using the feature to opt in to its protection, and identify any known potentially harmful apps that are installed on the device.
+
+== Key Attestation
+This is a summary of the https://developer.android.com/training/articles/security-key-attestation.html[Android Developer Key Attestation Security Guide] and the https://www.androidcentral.com/how-android-n-addresses-security[Android 7.0: "Security Benefits that Truly Matter"] post.
+
+=== Verifying Hardware Backed Keypairs
+Key Attestation will allow developers to make sure the keys they may be using in their apps are valid and stored in the phone's hardware-backed keystore and not in software. When the attestation tool is given a generated alias for a key (the actual key should never be shared) it then generates a certificate chain that can be used to verify the key. Developers can verify both the key as well as the verified boot state to make sure everything is valid.
+
+Phones that ship with Android N and use Google services will have a certificate that's issued by Google as the root (or primary) authority while other phones that have been upgraded will need a certificate issued by the company who made them.
+
+Not all phones that can run Android N have a trusted hardware environment to store encryption keys, and in those cases, software-level key attestation is used instead. The verified boot state can still be checked to make sure the system software hasn't been tampered with.
+
+=== Retrieving and Verifying a Hardware-backed Key Pair
+During key attestation, you specify the alias of a key pair. The attestation tool, in return, provides a certificate chain, which you can use to verify the properties of that key pair.
+
+If the device supports hardware-level key attestation, the root certificate within this chain is signed using an attestation root key, which the device manufacturer injects into the device's hardware-backed keystore at the factory.
+
+On devices that ship with hardware-level key attestation, Android 7.0 (API level 24), and Google Play services, the root certificate is signed with the Google attestation root key. You should verify that this root certificate appears within Google's list of root certificates.
+
+=== Implementing Key Attestation
+. Use a KeyStore object's `getCertificateChain()` method to get a reference to the chain of X.509 certificates associated with the hardware-backed keystore.
+. Check each certificate's validity using a X509Certificate object's `checkValidity()` method. *Caution*: Although you can complete this process within your app directly, it's safer to check the certificates' revocation lists on a separate server that you trust.
+
+. On a separate server that you trust, obtain a reference to the ASN.1 parser library that is most appropriate for your toolset. Use this parser to extract the attestation certificate extension data, which appears within the first element of the certificate chain.
+.. The https://github.com/googlesamples/android-key-attestation[Key Attestation sample] uses the ASN.1 parser from Bouncy Castle to extract an attestation certificate's extension data. You can use this sample as a reference for creating your own parser.
+. Compare the extension data that you've retrieved from your ASN.1 parser with the set of values that you expect the hardware-backed key to contain.
+*Caution*: Although you can complete this process within your app directly, it's safer to check the certificate's extension data on a separate server that you trust.
+
+== Device Management Policies
+
+It allows developers to create an application that manages access to its content by enforcing device management policies.
+Specifically, the application can be configured such that it ensures a screen-lock password of sufficient strength is set up before displaying restricted content to the user.
+
+=== Define and Declare policy
+
+. Declare the policy in the `res/xml/device_admin.xml` file, example:
++
+```
+<device-admin xmlns:android="http://schemas.android.com/apk/res/android">
+  <uses-policies>
+    <limit-password />
+  </uses-policies>
+</device-admin>
+```
+. Then reference it in the Android manifest file:
++
+```
+<receiver android:name=".Policy$PolicyAdmin"
+    android:permission="android.permission.BIND_DEVICE_ADMIN">
+    <meta-data android:name="android.app.device_admin"
+        android:resource="@xml/device_admin" />
+    <intent-filter>
+        <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+    </intent-filter>
+</receiver>
+```
+
+=== Create the Device Administration Receiver
+
+The receiver will get notified of events related to the policies you’ve declared to support. 
+An application can selectively override callback methods. For example:
+
+```
+public static class PolicyAdmin extends DeviceAdminReceiver {
+
+    @Override
+    public void onDisabled(Context context, Intent intent) {
+        // Called when the app is about to be deactivated as a device administrator.
+        // Deletes previously stored password policy.
+        super.onDisabled(context, intent);
+        SharedPreferences prefs = context.getSharedPreferences(APP_PREF, Activity.MODE_PRIVATE);
+        prefs.edit().clear().commit();
+    }
+}
+```
+
+=== Activate the Device Administrator
+
+Before enforcing any policies, the user needs to manually activate the application as a device administrator.
+It can be done like this:
+
+```
+if (!mPolicy.isAdminActive()) {
+
+    Intent activateDeviceAdminIntent =
+        new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+
+    activateDeviceAdminIntent.putExtra(
+        DevicePolicyManager.EXTRA_DEVICE_ADMIN,
+        mPolicy.getPolicyAdmin());
+
+    // It is good practice to include the optional explanation text to
+    // explain to user why the application is requesting to be a device
+    // administrator. The system will display this message on the activation
+    // screen.
+    activateDeviceAdminIntent.putExtra(
+        DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+        getResources().getString(R.string.device_admin_activation_message));
+
+    startActivityForResult(activateDeviceAdminIntent,
+        REQ_ACTIVATE_DEVICE_ADMIN);
+}
+```
+
+=== Implement the Device Policy Controller
+
+After the device administrator is activated successfully, the application then configures Device Policy Manager with the requested policy. 
+For example:
+
+* Require password has minimum uppercase letters
++
+```
+DevicePolicyManager mDPM = (DevicePolicyManager)
+        context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+ComponentName mPolicyAdmin = new ComponentName(context, PolicyAdmin.class);
+...
+mDPM.setPasswordQuality(mPolicyAdmin, PASSWORD_QUALITY_VALUES[mPasswordQuality]);
+mDPM.setPasswordMinimumLength(mPolicyAdmin, mPasswordLength);
+if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+    mDPM.setPasswordMinimumUpperCase(mPolicyAdmin, mPasswordMinUpperCase);
+}
+```
+
+* If the requirement is not met, invoke the activity to ask user to reset password:
++
+```
+if (!mDPM.isActivePasswordSufficient()) {
+    ...
+    // Triggers password change screen in Settings.
+    Intent intent =
+        new Intent(DevicePolicyManager.ACTION_SET_NEW_PASSWORD);
+    startActivity(intent);
+}
+```
+
+* Finally, if requirement is met, the app can continue:
++
+```
+if (!mDPM.isAdminActive(..)) {
+    // Activates device administrator.
+    ...
+} else if (!mDPM.isActivePasswordSufficient()) {
+    // Launches password set-up screen in Settings.
+    ...
+} else {
+    // Grants access to secure content.
+    ...
+    startActivity(new Intent(context, SecureActivity.class));
+}
+```
+
+== Supporting Direct Boot
+
+Android 7.0 runs in a secure, Direct Boot mode when the device has been powered on but the user has not unlocked the device.
+
+NOTE: Most apps should not use Direct Boot mode, as the apps will be running before user has unlocked the device. 
+It should only be used if it's important for the app to run right after the system is started.
+
+=== Requesting Access to Run During Direct Boot
+
+Apps must register their components with the system before they can run during Direct Boot mode or access device encrypted storage. For example:
+
+```
+<receiver
+  android:directBootAware="true" >
+  ...
+  <intent-filter>
+    <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+  </intent-filter>
+</receiver>
+```
+
+=== Accessing Device Encrypted Storage
+
+The app will not be able to access the normal file system as the device is still locked.
+Android system provides two new storage locations for data:
+
+* Credential encrypted storage, which is the default storage location and only available after the user has unlocked the device.
+* Device encrypted storage, which is a storage location available both during Direct Boot mode and after the user has unlocked the device.
+
+You can access device encrypted storage like this:
+
+```
+Context directBootContext = appContext.createDeviceProtectedStorageContext();
+// Access appDataFilename that lives in device encrypted storage
+FileInputStream inStream = directBootContext.openFileInput(appDataFilename);
+// Use inStream to read content...
+```
+
+=== Getting Notified of User Unlock
+
+When the user unlocks the device after restart, your app can switch to accessing credential encrypted storage and use regular system services that depend on user credentials.
+
+To get notified when the user unlocks the device after a reboot, register a BroadcastReceiver from a running component to listen for unlock notification messages. 
+
+=== Migrating Existing Data
+
+If a user updates their device to use Direct Boot mode, you might have existing data that needs to get migrated to device encrypted storage.
+
+You can use:
+
+* Context.moveSharedPreferencesFrom()
+* Context.moveDatabaseFrom() 
+
+to migrate preference and database data between credential encrypted storage and device encrypted storage
+
+== Using Scoped Directory Access
+
+This function make it easier for apps that just need access to specific directories. For example, photo apps only need to access the `Pictures` directory.
+
+This is a new function provided from Android 7.0
+
+=== Accessing an External Storage Directory
+
+Example:
+
+```
+StorageManager sm = (StorageManager)getSystemService(Context.STORAGE_SERVICE);
+StorageVolume volume = sm.getPrimaryStorageVolume();
+Intent intent = volume.createAccessIntent(Environment.DIRECTORY_PICTURES);
+startActivityForResult(intent, request_code);
+```
+
+The system may confirm the access with the user.
+
+=== Accessing a Directory on Removable Media
+
+. Add a BroadcastReceiver that listens for the MEDIA_MOUNTED notification, for example:
++
+```
+<receiver
+    android:name=".MediaMountedReceiver"
+    android:enabled="true"
+    android:exported="true" >
+    <intent-filter>
+        <action android:name="android.intent.action.MEDIA_MOUNTED" />
+        <data android:scheme="file" />
+    </intent-filter>
+</receiver>
+```
+
+. When the user mounts removable media, like an SD card, the system sends a MEDIA_MOUNTED notification. Request access like this:
++
+```
+// BroadcastReceiver has already cached the MEDIA_MOUNTED
+// notification Intent in mediaMountedIntent
+StorageVolume volume = (StorageVolume)
+    mediaMountedIntent.getParcelableExtra(StorageVolume.EXTRA_STORAGE_VOLUME);
+volume.createAccessIntent(Environment.DIRECTORY_PICTURES);
+startActivityForResult(intent, request_code);
+```

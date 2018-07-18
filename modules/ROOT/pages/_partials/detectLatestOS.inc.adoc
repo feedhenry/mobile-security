@@ -1,0 +1,12 @@
+    /**
+     * Function to check if the device is running the latest Android OS
+     */
+    public void detectLatestOS() {
+        // todo: find if there is a better way to define what the latest android version is
+        int latestOsApiLevel = Build.VERSION_CODES.M;
+        totalTests++;
+
+        if (Build.VERSION.SDK_INT < latestOsApiLevel) {
+            setDetected(deviceOS, R.string.device_os_latest_negative);
+        }
+    }

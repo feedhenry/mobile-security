@@ -1,0 +1,9 @@
+    func logout() {
+        do {
+            try self.authService.logout(onCompleted: { error in
+                self.router?.leaveUserDetailsView(withError: error)
+            })
+        } catch {
+            fatalError("Unexpected error: \(error)")
+        }
+    }

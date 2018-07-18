@@ -1,0 +1,285 @@
+= Data Storage Summary
+
+|===
+| Do's | Dont's
+| *Classify data storage according to sensitivity and apply controls accordingly* _(To understand what information should be protected)_
+| *Store any sensitive data on a mobile device where possible* _(Prevent data leak)_.
+
+| *When storing sensitive data on the device, use a file encryption API provided by the OS or other trusted source* _(Secure Cryptography)_
+| *Write data to persistent memory accessible to other applications without encryption* _(Shared storage is untrusted)_
+
+| *Use file encryption APIs which use a secret key protected by the device unlock code and deletable on remote wipe if available* _(Protect secret key)_
+| *Including the keys in the same attacker-readable directory as the encrypted content* _(Can be used to decrypt data)_
+
+| *Make use of remote wipe and kill switch APIs to remove sensitive information from the device in the event of theft or loss* _(Prevent data leak if the device is lost)_
+| *Take screenshots contain sensitive data* _(Avoid sensitive data is exposed through screenshots)_
+
+| *Use a time based (expiry) type of control which will wipe sensitive data from the mobile device once the application has not communicated with its servers for a given period of time* _(Less chance to decrypt data by using brute force)_
+| *Leak permission-protected data to other applications* _(Prevent other apps access sensitive data)_
+
+| *Automatic application shutdown and/or lockout after X minutes of inactivity* _(Less chance of data leak)_
+| *Allow third party keyboards to be used for inputs that may contain sensitive data* _(Prevent data leak)_
+
+| *Verify that OS level storage encryption is enabled and the device is protected by a PIN or passphrase* _(Ensure data encryption by default)_
+| *Backup or synchronize sensitive data* _(Prevent data leak)_
+
+| *Restrict the data that is shared with other applications* _(Prevent other apps access sensitive data)_
+| *Log sensitive information* _(Prevent data leak through logs)_
+
+| *Nullify any variables that hold keys after use* _(Secure keys in memory)_
+| *using immutable objects for sensitive keys or passwords such as in Android java.lang.String and use char array instead* _(Secure keys in memory)_
+
+| *Restrict broadcast messages (e.g., Android Broadcast Intents) to authorized applications* _(Prevent other apps access sensitive data)_
+|
+
+| *Disable Auto Correction and Autosuggestion for inputs that contain sensitive data* _(Prevent data leak)_
+|
+
+| *Disable cut, copy and paste functionalities for inputs that may contain sensitive data or restrict the pasteboard to be accessible only from this application* _(Prevent data leak)_
+|
+
+| *Delete application caches on app termination* _(Prevent data leak)_
+|
+
+| *Clear cookies and data in Webview on app termination* _(Prevent data leak)_
+|
+
+| *Remove sensitive data from views when in background* _(Prevent data leak)_
+|
+
+
+|===
+
+== Implementation
+
+=== Overview
+
+We have implemented a secure storage feature in the sample mobile templates to allow users to manage secret notes. This feature is used to showcase the best practices around secure data storage.
+
+=== Native Android
+
+[.float-group]
+--
+[.left]
+image::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/screenshots/storage_menu.png[,270,480]
+
+[.left]
+image::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/screenshots/storage_main.png[,270,480]
+--
+
+The secret notes can be saved to either file system or database (SQLite). In both cases, the notes will be encrypted automatically when persisted, and decrypted automatically when loaded into the app.
+
+==== Secret Key Management
+
+Secret keys are being used to encrypt/decrypt the notes. To make sure the secret keys are securely persisted, in most cases, the OS's keystore should be used to persist the secret key.
+
+However, for Android, there is a difference between Android M and pre-Android M.
+
+==== Android M and later
+
+In Android M and later versions, the KeyStore API supports generating and persist secret key, so the implementation is quite straight forward:
+
+.Generate Secret Key
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/generateAESKey.inc.adoc[]
+....
+
+==== Pre-Android M
+
+However, in pre-Android M, the KeyStore API only supports generating public/private key pairs, so we can't persist the secret key using the keystore.
+
+Instead, we will have to:
+
+1. Generate the secret key without using the KeyStore
++
+.Generate Secret
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/generateSecretKey.inc.adoc[]
+....
+
+2. Generate a public/private key pair using the KeyStore
++
+.Generate Keypair
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/generatePrivateKeyPair.inc.adoc[]
+....
+
+3. Encrypt the generated secret key with the generated public key and persist the encrypted secret key using private SharedPreferences.
++
+.Encrypt Secret
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/pregenerateAESKey.inc.adoc[]
+....
+
+4. To load the secret key, the generated key pair needs to be loaded first, and then use the private key to decrypt the encrypted secret key.
++
+.Decrypt Secret
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/getSecretKey.inc.adoc[]
+....
+
+The alternative option is to ask the user to provide a password. The password will be used to encrypt/decrypt the secret key. This does mean that the user will have to remember the password and enter it every time when using the app.
+
+==== Encrypt/decrypt the secret key
+
+RSA encryption/decryption is used to encrypt/decrypt the secret key. It can be used to encrypt/decrypt relatively small amount of data.
+
+You can perform RSA encryption/decryption in Android like this:
+
+.RSA Encryption
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/encrypt.inc.adoc[]
+....
+
+.RSA Decryption
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/decrypt.inc.adoc[]
+....
+
+==== Encrypt/decrypt the content of notes
+
+Once we have the secret key, we can use it to encrypt/decrypt the content of the notes using AES.
+
+You can perform data encryption/decryption in Android like this:
+
+.Encryption
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/aesencrypt.inc.adoc[]
+....
+
+.Decryption
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/aesdecrypt.inc.adoc[]
+....
+
+==== Persist data using file system
+
+When a secret note is created, it can be persisted to the file system. We should encrypt the file when it is being persisted, and decrypt it when it is being loaded:
+
+.File Encryption
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/writeFile.inc.adoc[]
+....
+
+.File Decryption
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/readFile.inc.adoc[]
+....
+
+==== Persist data using database (SQLite)
+
+To securely persist data to the database, a library called https://www.zetetic.net/sqlcipher/[SqlCipher] is used. The library will automatically manage the encryption/decryption of the sqlite database file. It is easy to use, and requires minimum changes to the code.
+
+To encrypt/decrypt the database, a password is required. You can ask the user to provide the password. In our sample application, we generated a random password and then protected using a public/private key pair. The password is saved to the private SharedPreferences.
+
+.SqlCipher Password
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/getDbPassword.inc.adoc[]
+....
+
+=== Native iOS
+
+[.float-group]
+--
+[.left]
+image::ios-storage-1.png[,270,480]
+--
+
+The secret notes are being persisted using an encrypted https://realm.io/docs/swift/latest/[Realm Mobile DB].
+
+==== Initialising Realm DB
+
+The Realm DB storing the notes must be initialised using the encryption key.
+
+.Initialise Realm
+[source,swift,linenums,indent=0]
+....
+include::{partialsdir}/init.inc.adoc[]
+....
+
+The encryption key is stored in the iOS Keychain.
+
+.Get Encryption Key
+[source,swift,linenums,indent=0]
+....
+include::{partialsdir}/getEncryptionKey.inc.adoc[]
+....
+
+
+When the application is initialised for the first time, a new encryption key is randomly generated.
+
+.Generate Encryption Key
+[source,swift,linenums,indent=0]
+....
+include::{partialsdir}/generateEncryptionKey[]
+....
+
+==== Interacting with Realm DB
+
+Interactions with the Realm DB are performed on background threads. Completion handlers are used to pass information to the view controllers on the Main thread.
+
+==== Listing Notes
+List all the notes.
+
+.Listing Notes
+[source,swift,linenums,indent=0]
+....
+include::{partialsdir}/list.inc.adoc[]
+....
+
+==== Creating a Note
+Create an individual note.
+
+.Create a Note
+[source,swift,linenums,indent=0]
+....
+include::{partialsdir}/create.inc.adoc[]
+....
+
+==== Read a Note
+Read an individual note.
+
+.Read a Note
+[source,swift,linenums,indent=0]
+....
+include::{partialsdir}/read.inc.adoc[]
+....
+
+==== Edit a Note
+Edit an individual note.
+
+.Edit a Note
+[source,swift,linenums,indent=0]
+....
+include::{partialsdir}/edit.inc.adoc[]
+....
+
+==== Delete a Note
+Delete an individual note.
+
+.Delete a Note
+[source,swift,linenums,indent=0]
+....
+include::{partialsdir}/delete.inc.adoc[]
+....
+
+==== Delete all Notes
+Delete all notes.
+
+.Delete all Notes
+[source,swift,linenums,indent=0]
+....
+include::{partialsdir}/deleteAll.inc.adoc[]
+....

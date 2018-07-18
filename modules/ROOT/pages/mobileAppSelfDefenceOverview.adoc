@@ -1,0 +1,261 @@
+= Mobile App Self-Defence
+
+|===
+|Do's |Dont's
+
+|*Detect compromised environments (rooted/jaibreak) at runtime and react accordingly* _(Ensure the environment is not tampered with)_
+|*Obfuscation is not protection, assume everything in the code is public.* _(Application code *can* be deobfuscated)_
+
+|*Integrity check of the binary* _(Ensure the app itself is not tampered with)_
+|
+
+|*Verify and check the integrity of dynamic resources* _(Ensure those resources are not tampered with)_
+|
+
+|*Disable debugging in the application settings* _(Make sure the app is not debuggable)_
+|
+
+|*Check if the device is in developer mode if supported by platform* _(Prevent app debugging)_
+|
+
+|*Check if debugger is attached and/or if the process is being traced* _(Prevent app debugging)_
+|
+
+|*Check lockscreen/passcode is enabled on the device* _(Make sure device is secure)_
+|
+
+|*Consider blocking access if devices are out of date* _(Ensure device has no known vulnerabilities)_
+|
+
+|*Verify that the app implements two or more functionally independent methods of root detection.* _(Use a dual verification approach)_.
+|
+
+|*Verify that the app implements multiple functionally independent debugging defences.* _(Prevent a debugger from being attached that can view app data)._
+|
+
+|*Verify that the app detects, and response to, being run in an emulator using any method.* _(An emulator can be tampered with more easily than a hardware device)_.
+|
+
+|*Verify that the app detects, and responds to, modifications of process memory, including relocation table patches and injected code.* _(Ensure that the operating environment of the App is safe before running it.)_
+|
+
+|*Verify all executable files and libraries belonging to the app are either encrypted on the file level and/or important code and data segments inside the executables are encrypted or packed.* _(Sensitive or secret code/resources should be protected.)_
+|
+
+|*Verify that the app implements a 'device binding' functionality when a mobile device is treated as being trusted. Verify that the device fingerprint is derived from multiple device properties.* _(Improve device identity/integrity)._
+|
+
+|*Verify that if the architecture requires sensitive computations be performed on the client-side, these computations are isolated from the operating system by using a hardware-based SE or TEE.* _(Sensitive operations should be carried out away from the main processor in a Trusted Execution Environment)._
+|
+
+|*Perform user interaction anomaly detection.* _(Allows the identification of abnormal app usage by a user that may be malicious)._
+|
+
+|*Consider only starting the app if it is running on the latest version or block requests from old versions of the app.* _(Older versions maybe have logic or security issues)._
+|
+
+|*Out-of-appstore security updates should be shipped using an encrypted connection.* _(Ensure that the security patch has not been tampered with in transit)._
+|
+
+|*Ensure that the installation package and its updates shall be digitally signed such that its platform can cryptographically verify them prior to installation.* _(Verify integrity before applying the update)._
+|
+|===
+
+== Implementation
+=== Overview
+A number of checks were implemented to assess the security of the underlying device running both the Android and iOS template applications.
+
+=== Android
+
+[.float-group]
+--
+[.left]
+image::android-trust-1.png[,270,480]
+--
+
+The Android Template App is using the https://github.com/aerogear/aerogear-android-sdk/blob/master/docs/getting-started/auth-self-defence-checks.adoc[App Self-Defense Checks] that are included in the https://github.com/aerogear/aerogear-android-sdk[AeroGear Android SDK].
+
+The main code logic is found under https://github.com/aerogear/android-showcase-template/tree/master/app/src/main/java/com/aerogear/androidshowcase/features/device[here].
+
+The Security Service is being initialised in the https://github.com/aerogear/android-showcase-template/blob/master/app/src/main/java/com/aerogear/androidshowcase/di/SecureApplicationModule.java[SecureApplicationModule].
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/securityServiceInit.inc.adoc[]
+....
+
+The following code snippets describe the main device trust detection logic in the mobile app.
+
+==== Detecting Root Access
+A number of different checks are being used to check if root access is present on the device.
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/detectRoot.inc.adoc[]
+....
+
+==== Detecting if Lock Screen Set
+Detecting if the Android device has a lock screen set (with pin, fingerprint, pattern etc).
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/detectDeviceLock.inc.adoc[]
+....
+
+==== Detecting if Debugger is Attached
+Detecting if an Android debugger is attached to the application.
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/debuggerDetected.inc.adoc[]
+....
+
+==== Detecting Emulator Access
+Detecting if the Application is being run on an emulator.
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/detectEmulator.inc.adoc[]
+....
+
+==== Detecting Hooking Framework Apps
+There are some simple checks added to the application to check if the http://repo.xposed.info/module/de.robv.android.xposed.installer[Xposed Framework] or http://www.cydiasubstrate.com[Cydia Substrate] are installed on the device, which can be used to attack and tamper with logic in an Android applications.
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/detectHookingFramework.inc.adoc[]
+....
+
+==== Detecting App Data Backup Enabled
+The application can check if the `allowBackup` flag in the applications `AndroidManifest.xml` file is set to true. If this flag is set to true, it is possible for an attacker to recover application data from the device without requiring root access.
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/detectBackupEnabled.inc.adoc[]
+....
+
+==== Detecting Out of Date OS Version
+The devices OS version can be checked using the https://developer.android.com/reference/android/os/Build.html[Build] class to see if the device is not running the latest of Android.
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/detectLatestOS.inc.adoc[]
+....
+
+==== Detecting Developer Mode Enabled
+The Developer Mode status can be checked to see if this is enabled.
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::detectDeveloperOptions.inc.adoc[]
+....
+
+=== Native iOS
+
+[.float-group]
+--
+[.left]
+image::ios-trust-1.png[,270,480]
+--
+
+The following code snippets describe the main device trust detection logic in the iOS template app.
+
+==== Detecting Device Lock
+Detecting if the Device has a lock screen set.
+
+.Code
+[source,swift,linenums,indent=0]
+....
+include::{partialsdir}/iosdetectDeviceLock.inc.adoc[]
+....
+
+==== Detecting Jailbreak
+Detecting if the Device is Jailbroken using the https://github.com/thii/DTTJailbreakDetection[DTTJailbreakDetection] library.
+
+.Code
+[source,swift,linenums,indent=0]
+....
+include::{partialsdir}/detectJailbreak.inc.adoc[]
+....
+
+==== Detecting Debug Mode
+Detecting if the device is running in Debug mode.
+
+.Code
+[source,swift,linenums,indent=0]
+....
+include::{partialsdir}/detectDebugabble.inc.adoc[]
+....
+
+==== Detecting Emulator Access
+Detecting if the underlying device running the mobile application is an Emulator.
+
+.Code
+[source,swift,linenums,indent=0]
+....
+include::{partialsdir}/iosdetectEmulator.inc.adoc[]
+....
+
+==== Detecting Outdated OS Versions
+Detecting if the underlying device running the mobile application is running an old version of iOS.
+
+.Code
+[source,swift,linenums,indent=0]
+....
+include::{partialsdir}/iosdetectLatestOS.inc.adoc[]
+....
+
+=== Apache Cordova
+
+[.float-group]
+--
+[.left]
+image::cordova-trust-1.png[,270,480]
+--
+
+The following code snippets describe the main device trust detection logic in the Cordova template app.
+
+==== Detecting Emulator Access
+Detecting if the underlying device running the mobile application is an Emulator.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::{partialsdir}/jsdetectEmulator.inc.adoc[]
+....
+
+==== Detecting Root/Jailbreak
+Detecting if the underlying device is Jailbroken or has Root Access.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::{partialsdir}/jsdetectRoot.inc.adoc[]
+....
+
+==== Detecting Debug Access
+Detecting if the application is built in debug mode.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::{partialsdir}/detectDebug.inc.adoc[]
+....
+
+==== Detecting Device Lock Set
+Detecting if the underlying device has the device lock set.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::{partialsdir}/jsdetectDeviceLock.inc.adoc[]
+....

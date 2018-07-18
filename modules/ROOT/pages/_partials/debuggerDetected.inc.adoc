@@ -1,0 +1,10 @@
+    /**
+     * Detect if a debugger is attached to the application.
+     */
+    public void debuggerDetected() {
+        totalTests++;
+        SecurityCheckResult result = securityService.check(SecurityCheckType.IS_DEBUGGER);
+        if (result.passed()) {
+            setDetected(debuggerAccess, R.string.debugger_detected_positive);
+        }
+    }

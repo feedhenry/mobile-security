@@ -1,0 +1,22 @@
+    /**
+     * Perform encryption using RSA
+     * @param mode the RSA encryption alg
+     * @param keyEntry the private/public key entry
+     * @param text the data to encrypt
+     * @return the encrypted ddata
+     * @throws GeneralSecurityException
+     * @throws IOException
+     */
+    public static byte[] encrypt(String mode, KeyStore.PrivateKeyEntry keyEntry, byte[] text) throws GeneralSecurityException, IOException {
+        // Encrypt the text
+        Cipher inputCipher = Cipher.getInstance(mode);
+        inputCipher.init(Cipher.ENCRYPT_MODE, keyEntry.getCertificate().getPublicKey());
+        //The key to encrypt should be either 16 (128 bit) or 32 (256 bit) in size, well below the block size for RSA (should be around 214 bytes)
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        CipherOutputStream cipherOutputStream = new CipherOutputStream(outputStream, inputCipher);
+        cipherOutputStream.write(text);
+        cipherOutputStream.close();
+
+        byte[] vals = outputStream.toByteArray();
+        return vals;
+    }

@@ -1,0 +1,26 @@
+= Handling Sensitive Data Overview
+
+|===
+| Do's | Dont's
+| *Sensitive data should stay in RAM for as little time as possible* _(Prevent data leak)_
+| *Send sensitive data over alternate channels (e.g, SMS, MMS, or notifications)* _(They are not encrypted)_
+
+| *Address Space Layout Randomization (ASLR) should be taken advantage of* _(Limit the impact of attacks such as buffer overflow)_
+| *Encryption keys remain in RAM during the instance lifecycle of the app.* _(Prevent the key from being read from memory)_
+
+| *minimize the use of APIs that access sensitive or personal user data* _(Prevent data leak)_
+| *Write data to log files* _(Other applications can access the log data)_
+
+| *Consider using a hash or non-reversible form of the data* _(To protect the original data)_
+| *Store/cache sensitive data on the device* _(It can be leaked)_
+
+| *minimize the frequency of asking for user credentials. Instead use an authorization token and refresh it* _(Less chance of exposing user credentials)_
+| *storing/logging GPS data* _(Protect user privacy)_
+
+| *Use secure POST to send user data, with XSRF token protection* _(Query params in URL are logged)_
+| *Sending crash logs over the network in plaintext* _(Can contain sensitive info)_
+
+| *Add an additional layer of verified, third-party encryption (e.g., SQLCipher) to the data as device encryption is not sufficient* _(Extra layer of protection)_
+| 
+
+|===

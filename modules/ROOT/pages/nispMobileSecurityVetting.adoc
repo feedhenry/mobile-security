@@ -1,0 +1,233 @@
+= Vetting the Security of Mobile Applications
+
+This is a summary of notes taken from the http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-163.pdf[NIST Vetting the Security of Mobile Applications].
+
+== App Vetting Process
+
+=== General Process
+
+In an enterprise environment, before the mobile apps are deployed to the devices, they needs to be vetted. The process works like this:
+
+. The apps are submitted to the administrator.
+. The administrator submit the app for testing. 
+The app testing process will use both static analysis and dynamic analysis services or tools to identity poteintial vulnerabilities of the apps.
+It should also generate reports about those vulnerabilities and produce risk assessments.
+. The generated reports will be submitted to an auditor. 
+Based on the reports the auditor will then submit the recommendation to the approver.
+. Approver will either approve or reject the app.
+. If the app is approved, the administrator will deploy the app. Otherwise the administrator will reject the app.
+
+The following diagram can be used to describe the process:
+
+[caption="Figure 1: "]
+image::mobile-app-vetting.png[600, 600]
+
+Further note that although app vetting processes may vary among organizations, organizations should strive to implement a process that is repeatable, efficient, consistent, and that limits errors.
+
+=== Planning the Vetting Process
+
+Before an organization can implement an app vetting process, it is necessary for the organization to first
+
+. develop app security requirements
+. understand the limitations of app vetting, and 
+. procure a budget and staff for supporting the app vetting process.
+
+=== Recommendation
+
+* Perform a risk analysis to understand and document the potential security impact of mobile apps on the organization’s computing, networking, and data resources.
+* Review and document the mobile device hardware and operating system security controls, for example an encrypted file system, and identify which security and privacy requirements can be addressed by the mobile device itself.
+* Review and document mobile enterprise security technologies, such as Mobile Device Management (MDM) solutions, and identify which security and privacy requirements can be addressed by these technologies.
+* Review the organization’s mobile security architecture and understand what threats are mitigated through the technical and operational controls. Identify potential security and privacy risks that are not mitigated through these technical and operational controls.
+* Develop organizational app security requirements by identifying general and context-sensitive requirements.
+* Educate organizational staff on the limitations of app vetting and the value of human involvement in an app vetting process.
+* Procure an adequate budget for performing an app vetting process.
+* Hire personnel, particularly auditors, with appropriate expertise.
+
+== App Testing
+
+General app security requirements include:
+
+=== Testing Requirements
+
+==== Enabling authorized functionality
+
+===== Requirement
+
+The app must work as described; all buttons, menu items, and other interfaces must work. Error conditions must be handled gracefully, such as when a service or function is unavailable (e.g., disabled, unreachable, etc.)
+
+===== Examples
+
+* Testing the UI
+* Usage of the physical sensors on the device
+* Usage of Telephony and SMS messages of the device
+* Usage of the device identifier or PII (personally identifiable information)
+
+==== Preventing unauthorized functionality
+
+===== Requirement
+
+Unauthorized functionality, such as data exfiltration performed by malware, must not be supported.
+
+===== Examples
+
+* Malicious malwares that can
+** exfiltrating confidential information or PII to a third party
+** defrauding the user by sending premium SMS messages
+** injection of fake websites into the victim’s browser 
+** the use of banner ads that may be presented in a manner which causes the user to unintentionally select ads that may attempt to deceive the user
+* Use open source or commercially available malware detection and analysis tools to identify known or new form of malwares
+* Are there communications with disreputable websites, domains, servers, etc
+
+==== Limiting permissions
+
+===== Requirement
+
+Apps should have only the minimum permissions necessary and should only grant other applications the necessary permissions.
+
+===== Examples
+
+* File input/output (I/O) and removable storage
+** file scanning or access to files that are not part of an app’s own directory could be an indicator of malicious activity or bad coding practice
+* Privileged commands
+** Apps may possess the ability to invoke lower-level command line programs, which may allow access to low-level structures, such as the root directory, or may allow access to sensitive commands.
+* APIs
+** The app only uses designated APIs from the vendor-provided software development kit (SDK) and uses them properly; no other API calls are permitted
+
+==== Protecting sensitive data
+
+===== Requirement
+
+Apps that collect, store, and transmit sensitive data should protect the confidentiality and integrity of this data. 
+This category includes preserving privacy, such as asking permission to use personal information and using it only for authorized purposes
+
+===== Examples
+
+* Usage of invalid cryptography modules. See http://csrc.nist.gov/groups/STM/cmvp/documents/140-1/140val-all.htm[list of FIPS (Federal Information Processing Standards) validated modules]
+* Cryptography implementations must also be maintained in accordance with approved practices.
+** Cryptographic key management is often performed improperly, leading to exploitable weaknesses. See http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-57pt3r1.pdf[NIST Recommendation for Key Management]
+** The failure to properly validate digital certificates, leaving communications protected by these certificates subject to man-in-themiddle attacks.
+* Privacy considerations need to be taken into account for apps that handle PII, including mobile-specific personal information like location data and pictures taken by onboard cameras, as well as the broadcast ID of the device. 
+* Data leakage
+** Through unauthorized network connections.
+** Shared system-level logs, where multiple apps log their security events to a single log file
+
+==== Securing app code dependencies
+
+===== Requirement
+
+The app must use any dependencies, such as on libraries, in a reasonable manner and not for malicious reasons.
+Specifically, an app should properly use other bodies of code, such as libraries, only when needed, and not to attempt to obfuscate malicious activity
+
+===== Examples
+
+* Native Methods
+** Native method calls are typically calls to a library function that has already been loaded into memory.
+** However, can provide a level of obfuscation that impacts the ability to perform analysis of the app. 
+* External Libraries and Classes
+** Third-party libraries and classes can be closed source, can have selfmodifying code, or can execute unknown server-side code.
+** Legitimate uses for loaded libraries and classes might be for the use of a cryptographic library or a graphics API.
+** Tools are available that can list libraries, and these libraries can then be searched for in vulnerability databases to determine if they have known weaknesses.
+* Dynamic Behavior
+** The key point here is the need to know where data used by an app originates from and knowing whether and how it gets sanitized.
+** It is critical to recognize that data downloaded from an external source is particularly dangerous as a potential exploit vector unless it is clear how the app prevents insecure behaviors resulting from data from a source not trusted by the organization using the app.
+** Requiring some level of risk-tolerance mitigation.
+* Inter-Application Communications
+** Be aware of situations where an app is using nonhuman entities to make API calls to other devices, to communicate with third-party services, or to otherwise interact with other systems. 
+
+==== Testing app updates
+
+===== Requirement
+
+New versions of the app must be tested to identify any new weaknesses.
+
+===== Examples
+
+* All apps, as well as their updates, should go through a software assurance vetting process, because each new version of an app can introduce new unintentional weaknesses or unreliable code.
+* But devices can install updates automatically, or users can install updates from somewhere else
+** Disabling all automatic updates
+** Only permitting use of an organization-provided app store
+** Enabling MDM mobile application management features
+
+=== Testing Approaches
+
+==== Correctness Testing
+
+* Software correctness testing is the process of executing a program with the intent of finding errors. 
+* Although software correctness testing is aimed primarily at improving quality assurance, verifying and validating described functionality, or estimating reliability, it can also help to reveal potential security vulnerabilities since such vulnerabilities often have a negative effect on the quality, functionality, and reliability of the software.
+
+==== Source Code Versus Binary Code
+
+*  When source code is available, such as in the case of an open source app, a variety of tools can be used to analyze it.
+** Reviewers should generally use automated static analysis tools whether they are conducting an automated or a manual review, and they should express their findings in terms of Common Weakness Enumeration (CWE) identifiers or some other widely accepted nomenclature.
+
+==== Static Versus Dynamic Analysis
+
+* Organizations should consider the technical trade-off differences between what static and dynamic tools offer and balance their usage given the organization’s software assurance goals.
+
+==== Automated Tools
+
+Classes of automated tools include
+
+* Simulators
+* Remote Device Access
+* Automated Testing
+** User Interface-Driven Testing
+** Data-Driven Testing
+** Fuzzing
+** Network-Level Testing
+* Test Automation
+* Static Tools
+** Static Analysis Tools
+** Metrics Tools
+
+Organizations will need to use multiple automated tools to meet their testing requirements.
+
+=== Sharing Results
+
+* The https://nvd.nist.gov/[National Vulnerability Database (NVD)] is the U.S. government repository of standards-based
+vulnerability management data represented using the https://scap.nist.gov/[Security Content Automation Protocol (SCAP)]
+** The NVD includes databases of security checklists, security-related software flaws, misconfigurations,
+product names, and impact metrics. 
+** SCAP is a suite of specifications that standardize the format and nomenclature by which security software products communicate software flaw and security configuration information
+* The http://cwe.mitre.org/[CWE] and https://capec.mitre.org/[Common Attack Pattern Enumeration and Classification (CAPEC)] collections can provide a useful list of weaknesses and attack approaches to drive a binary or live system penetration test.
+
+=== Recommendation
+
+* Review licensing agreements associated with analyzers and understand the security implications surrounding the integrity, intellectual property, and licensing issues when submitting an app to an analyzer.
+* Ensure that apps transmitted over the network use an encrypted channel (e.g., SSL) and that apps are stored on a secure machine at the analyzer's location. In addition, ensure that only authorized users have access to that machine.
+* Identify general app security requirements needed by the organization.
+* Select appropriate testing tools and methodologies for determining the satisfaction or violation of general app security requirements.
+* Ensure that app updates are tested.
+* Leverage existing testing results where possible.
+
+== App Approval/Rejection
+
+=== Report and Risk Auditing
+
+* One of the main issues related to report and risk auditing stems from the difficulty in collating and interpreting different reports and risk assessments from multiple analyzers due to the wide variety of security-related definitions, semantics, nomenclature, and metrics
+** It is recommended that an organization identify analyzers that leverage vulnerability reporting and risk assessment standards.
+
+=== Organization-Specific Vetting Criteria
+
+Sample criterias:
+
+* Requirements
+* Provenance
+* Data Sensitivity
+* App Criticality
+* Target Users
+* Target Hardware
+* Target Environment
+* Digital Signature
+* App Documentation
+** User Guide
+** Test Plans
+** Testing Results
+** Service-Level Agreement
+
+=== Recommendation
+
+* Use analyzers that leverage a standardized reporting format or risk assessment methodology, or that provides intuitive and easy-to-interpret reports and risk assessments.
+* Ensure sufficient training of auditors on both the organization's security requirements and interpretation of analyzer reports and risk assessments. Use multiple auditors to increase likelihood of appropriate recommendations.
+* Identify organization-specific vetting criteria necessary for vetting context-sensitive app security requirements.
+* Monitor public databases, mailing lists, and other publicly available security vulnerability reporting repositories to keep abreast of new developments that may impact the security of mobile devices and mobile apps.

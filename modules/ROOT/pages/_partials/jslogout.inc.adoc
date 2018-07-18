@@ -1,0 +1,6 @@
+  /**
+  * Redirect to logout
+  */
+  logout(): void {
+    KeycloakService.auth.authz.logout();
+  }

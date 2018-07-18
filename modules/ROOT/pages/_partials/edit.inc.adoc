@@ -1,0 +1,29 @@
+    /**
+     - Edit the stored entity
+
+     - Parameter identifier: The identifier of the note
+     - Parameter title: The title of the note
+     - Parameter content: The content of the note
+     - Parameter onComplete - a closure called after editing
+     */
+    func edit(identifier: Int, title: String, content: String, onComplete: @escaping (Error?, Note?) -> Void) {
+        DispatchQueue.global(qos: .background).async {
+            do {
+                // create a new thread confined realm
+                let realm = try self.getRealmInstance()
+
+                // get the existing note to update
+                let notes = realm.objects(Note.self).filter("id = \(identifier)")
+                let note = notes.first
+
+                // update the note with the given id
+                try realm.write {
+                    note?.title = title
+                    note?.content = content
+                }
+                onComplete(nil, note?.clone())
+            } catch {
+                onComplete(error, nil)
+            }
+        }
+    }

@@ -1,0 +1,13 @@
+    /**
+     * Read the content of the file, and decrypt it automatically
+     * @param fileName the name of the file
+     * @return the decrypted file content
+     * @throws IOException
+     * @throws GeneralSecurityException
+     */
+    private String readFileWithDecryption(String fileName) throws IOException, GeneralSecurityException {
+        InputStream inputStream = context.openFileInput(fileName);
+        InputStream decryptedStream = aesCrypto.decryptStream(fileName, inputStream);
+
+        return StreamUtils.readStream(decryptedStream);
+    }

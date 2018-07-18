@@ -1,0 +1,180 @@
+= Network Security
+
+|===
+|Do's |Dont's
+
+|*Include a Backup Cert Pin.* _(Retain app connectivity if new keys on server are used or the CA is changed)_.
+|*Pin the full certificate*. _(The full cert, and potentially backup certs are available for inspection, the certificate is bundled with the app meaning that when a cert expires the app must be rebuilt with a new cert)_.
+
+|*Perform Certificate Pinning using the hash of the public key - SubjectPublicKeyInfo of the X.509 certificate.* _(Allows you to anonymize a certificate or public key and ensures an attacker does not see the reserved certificate or public key in advance of its use)._
+|*Send sensitive data without certificate pinning.* _(Creates higher risk as an attacker with network privileges, or who has compromised TLS, is better positioned to intercept data)_.
+
+|*Perform proper certificate validation if the platform doesn't allow true certificate pinning.* _(Adds an extra precautionary check when sending sensitive data)_.
+|*Establish connections with endpoints that offer a different certificate or key, even if signed by a trusted CA.* _(The channel is not trusted.)_
+
+|*Use TLS for network encryption.* _(SSL 2.0 and 3.0 have been deprecated by the IETF)_.
+|*Use Mixed SSL sessions*. _(The users session ID can be exposed over non HTTPS requests)_.
+
+|*Use a secure channel consistently throughout the app*. _(Ensure that some network calls are not sent in plaintext)_.
+|*Use localhost network ports for handling sensitive IPC.* _(The interface is accessible by other applications on the device)_.
+
+|*Verify that the app doesn’t rely on a single insecure communication channel such as email or SMS for critical operations, such as enrollments and account recovery.* _(Use a hardware token or secure channel as GCM or Apple Push notifications)_.
+|*Don’t rely on unauthenticated SMS data to perform sensitive commands.* _(The input may be malicious, be spoofed or sniffed using another app with SMS read permissions)_.
+
+|*Verify that the app uses some form of whitelisting to control access to external domains.* _(Limit the outbound requests to predefined trusted domains)._
+|*Avoid sending crash logs over the network in plaintext*. _(Logs can contain sensitive or important information about the user and/or the application)_.
+
+
+|*Pay particular attention to validating all data received from and sent to non-trusted third party apps/plugins before incorporating their use into an application.* _(Some plugins can interact with ad networks etc)_.
+|
+
+|*Consider using HTTP Strict Transport Security (HSTS).* _(Protect against protocol downgrade attacks and cookie hijacking)_.
+|
+
+|*Make sure that you don’t trust data downloaded from HTTP or other insecure protocols.* _(Validate the data before using it in an application)_.
+|
+
+|*Require User Approval before Executing a Function that Transmits PII over a Network*. _(Inform the user that their data is being transferred over a network or being sent to another location)_.
+|
+
+|*For highly sensitive values, implement additional encryption in transit.* _(Improved protection in case the secure channel somehow compromised)_.
+|
+
+|===
+
+== Implementation
+=== Overview
+A number of features were added to enhance the security of the channel between the Mobile App and the Authentication or API Server.
+
+=== Android
+
+[.float-group]
+--
+[.left]
+image::android-pinning-1.png[,270,480]
+--
+
+==== Certificate Pinning
+The main code logic for certificate pinning is found under https://github.com/aerogear/android-showcase-template/blob/master/app/src/main/java/com/aerogear/androidshowcase/mvp/components/CertPinningHelper.java[here] in the CertPinningHelper class.
+
+Certificate Pinning has been implemented in the Application using the SPKI technique. This ensures easier maintenance and improved security by anonymizing the certificate information in the application.
+The https://github.com/datatheorem/TrustKit-Android[TrustKit Android] library is being utilised to allow certificate pinning to work with older API levels.
+
+The Android https://developer.android.com/training/articles/security-config.html[Network Security Configuration] XML file defined the pins of the server you want to pin against.
+
+.Code
+[source,xml,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-android-template/bbb41ca86b52b2e9fd380097580a8d946258827c/app/src/main/res/xml/network_security_config.xml[]
+....
+
+You can get the pin for a website using OpenSSL:
+
+```
+openssl s_client -servername www.example.com -connect www.example.com:443 | openssl x509 -pubkey -noout | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64
+```
+
+A HTTP request function has been created to perform requests to the Authentication servers. The `createRequest()` functions performs pinning verification on the requests.
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/createRequest.inc.adoc[]
+....
+
+A function has also been provided to check if the OkHTTP callback failure exception was due to a certificate validation issue.
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/checkCertificateVerificationError.inc.adoc[]
+....
+
+==== Invoking remote APIs
+
+When remote APIs are being invoked, before sending the data, you should make sure the client does have the required permission. If the client doesn't have the required permission, the client should not perform the request at all:
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/javacheckPermission.inc.adoc[]
+....
+
+However, just checking the permission on the client is not enough. You should always check the user permission on the backend API server as well:
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::{partialsdir}/jscheckPermission.inc.adoc[]
+....
+
+You should also perform certificate pinning checks when calling remote APIs:
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/invokeAPI.inc.adoc[]
+....
+
+=== iOS
+
+[.float-group]
+--
+[.left]
+image::ios-pinning-1.png[,270,480]
+--
+
+==== Certificate Pinning
+The https://github.com/aerogear/ios-showcase-template/blob/master/ios-showcase-template/services/CertPinningService.swift[Certificate Pinning Service] and the https://github.com/aerogear/ios-showcase-template/blob/master/ios-showcase-template/AppDelegate.swift[AppDelegate] contain the main code for configuring and performing certificate pinning.
+The https://github.com/datatheorem/TrustKit[TrustKit] library is being used to perform SPKI Certificate Pinning. The pin is a Base64 encoded Subject Public Key Information fingerprint from an X.509 Certificate.
+
+You can get the pin for a website using OpenSSL:
+
+```
+openssl s_client -servername www.example.com -connect www.example.com:443 | openssl x509 -pubkey -noout | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64
+```
+
+TrustKit can be configured and initialised from the https://developer.apple.com/documentation/uikit/uiapplicationdelegate[AppDelegate] file.
+TrustKit is configured below to perform swizzling of the App's https://developer.apple.com/documentation/foundation/nsurlconnection[NSURLConnection] and https://developer.apple.com/documentation/foundation/nsurlsession[NSURLSession] delegates in order to automatically add pinning validation to the App's HTTPS connections.
+
+.Code
+[source,swift,linenums,indent=0]
+....
+include::{partialsdir}/trustkitConfig.inc.adoc[]
+....
+
+The `performValidCertCheck()` function in the https://github.com/aerogear/ios-showcase-template/blob/master/secure-ios-app/services/CertPinningService.swift[Certificate Pinning Service] can be used to manually check if a request to a host fails due to certificate pinning validation issues.
+
+.Code
+[source,swift,linenums,indent=0]
+....
+include::{partialsdir}/performValidCertCheck.inc.adoc[]
+....
+
+The outcome of the certificate checks can then be used to warn the user if a secure channel is not available. In the example below, pinning is performed when the authentication button is pressed. If there are certificate validation issues, the end user will not be allowed to authenticate and the UI is updated to warn them that their connection to the remote server is not secure.
+
+.Code
+[source,swift,linenums,indent=0]
+....
+include::{partialsdir}/onAuthButtonTapped.inc.adoc[]
+....
+
+=== Apache Cordova
+
+==== Certificate Pinning
+
+Certificate Pinning is being performed on preflight requests to ensure that the channel is secure before sending sensitive data.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::{partialsdir}/certPinning.inc.adoc[]
+....
+
+The pinning fingerprint is defined in the https://github.com/feedhenry/mobile-security-cordova-template/blob/c24297cda240efa40aca292e7d0657d7432d1eba/src/config/keycloak.json[/config/keycloak.json] file.
+
+.Code
+[source,json,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/0c8ccb1e1b01336aba47b596102e89575740d6ce/src/config/keycloak.json[]
+....

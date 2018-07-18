@@ -1,0 +1,437 @@
+= NIAP Mobile App Vetting
+
+This is a summary of the https://www.niap-ccevs.org/pp/pp_app_v1.2_table-reqs.htm[NIAP Mobile App Vetting] Guidelines.
+
+== Security Functional Requirements
+=== Random Bit Generation Services
+The Application should select from the following approaches for its cryptographic operations:
+
+* [ ] use no DRBG functionality
+* [ ] invoke platform-provided DRBG functionality
+* [ ] implement DRBG functionality
+
+_DRBG_: Deterministic Random Bit Generator (aka RNG, PRNG) based HMACs, Hashes, and Ciphers. In this requirement, cryptographic operations include all cryptographic key generation/derivation/agreement, IVs (for certain modes), as well as protocol-specific random values.
+
+=== Storage of Credentials
+The Application should select from the following approaches for storage of credentials in non-volatile memory:
+
+* [ ] not store any credentials
+* [ ] invoke the functionality provided by the platform to securely store credentials
+* [ ] implement functionality to securely store credentials
+
+This requirement ensures that persistent credentials like secret keys, PKI private keys, or passwords are stored in a secure manner.
+
+=== Access to Platform Resources
+The application shall restrict its access to the following and additional hardware resources:
+
+* [ ] No Hardware Resources
+* [ ] Network Connectivity
+* [ ] Camera
+* [ ] Microphone
+* [ ] Location Services
+* [ ] NFC
+* [ ] USB
+* [ ] Bluetooth
+
+The intent is to ensure that the selection captures all hardware resources which the application accesses, and that these are restricted to those which are required or used by the application.
+
+The application shall also restrict its access to the following and additional sensitive information repositories:
+
+* [ ] No Sensitive Information Repositories
+* [ ] Address Book
+* [ ] Calendar
+* [ ] Call Lists
+* [ ] System Logs
+
+Sensitive information repositories are defined as those collections of sensitive data that could be expected to be shared among some applications, users, or user roles, but to which not all of these would ordinarily require access.
+
+=== Network Communications
+The application shall restrict network communication to the following and additional application-initiated communications:
+
+* [ ] No Network Communication
+* [ ] User-initiated Communication for the list of Functions for which the User can Initiate Network Communication
+* [ ] Respond to Remotely Initiated Communications
+
+This requirement is intended to restrict both inbound/outbound network communications to only those required, or to those initiated by the user.
+
+=== Encryption Of Sensitive Application Data
+The Application should select from the following approaches for storage of sensitive data in non-volatile memory:
+
+* [ ] Leverage Platform-provided Functionality to Encrypt Sensitive Data
+* [ ] Implement Functionality to Encrypt Sensitive Data
+* [ ] Not Store any Sensitive Data
+
+Any file that may potentially contain sensitive data shall be protected.
+The only exception is if the user intentionally exports the sensitive data to non-protected files.
+
+=== Supported Configuration Mechanism
+The application shall invoke the mechanisms recommended by the platform or framework vendor for storing and setting configuration options.
+
+=== Secure by Default Configuration
+The application shall be configured by default with file permissions which protect it and its data from unauthorized access.
+There should be some form of trust boundary which protects the application and its data.
+
+=== Specification of Management Functions
+The TSF (Target of Evaluation Security Functionality) shall be capable of performing the following management functions:
+
+* [ ] No Management functions.
+* [ ] Enable/Disable the Transmission of any information describing the system's hardware, software, or configuration
+* [ ] Enable/Disable the Transmission of any PII (Personally Identifiable Information)
+* [ ] Enable/Disable the Transmission of any application state (e.g. crashdump) information
+* [ ] Enable/Disable network backup functionality to enterprise or commercial cloud backup systems
+
+TOE (Target of Evaluation) security functionality is the “combined functionality of all hardware, software, and firmware of a TOE that must be relied upon for the correct enforcement of the security functional requirements.
+
+=== User Consent for Transmission of Personally Identifiable Information
+The application shall:
+
+* [ ] Not Transmit PII over a Network
+* [ ] Require User Approval before Executing a Function that Transmits PII over a Network
+
+This requirement applies only to PII that is specifically requested by the application;
+it does not apply if the user volunteers PII without prompting from the application into a general (or inappropriate) data field.
+A dialog box that declares intent to send PII presented to the user when the application is started is sufficient to meet this requirement.
+
+=== Use of Supported Services and APIs
+The application shall use only documented platform APIs.
+
+=== Anti-Exploitation Capabilities
+The application shall:
+
+* [ ] Not allocate any memory region with both write and execute permissions
+* [ ] Allocate memory regions with write and execute permissions for only a specified list of functions performing just-in-time compilation
+
+** Requesting a memory mapping with both write and execute permissions subverts the platform protection provided by DEP.
+
+*** The application shall be compatible with security features provided by the platform vendor.
+
+** This requirement is designed to ensure that platform security features do not need to be disabled in order for the application to run.
+
+*** The application shall not write user-modifiable files to directories that contain executable files unless explicitly directed by the user to do so.
+
+** Executables and user-modifiable files may not share the same parent directory, but may share directories above the parent.
+
+*** The application shall be compiled with stack-based buffer overflow protection enabled.
+
+=== Integrity for Installation and Update
+The application shall:
+
+* [ ] Provide the ability or leverage the platform to check for updates and patches to the application software.
+
+* [ ] Be distributed using the format of the platform-supported package manager.
+
+* [ ] Be packaged such that its removal results in the deletion of all traces of the application, with the exception of configuration settings, output files, and audit/log events.
+
+* [ ] Not download, modify, replace or update its own binary code.
+
+* [ ] Provide the ability or leverage the platform to query the current version of the application software.
+
+* [ ] Ensure that the installation package and its updates shall be digitally signed such that its platform can cryptographically verify them prior to installation.
+
+=== Use of Third Party Libraries
+The application shall:
+
+* [ ] Be packaged with only third-party libraries that are required and vulnerability free.
+
+=== Protection of Data in Transit
+The application shall use one or more of the approaches for transmitting between itself and another trusted IT product:
+
+* [ ] Not Transmit any Data
+* [ ] Not Transmit any Sensitive Data
+* [ ] Encrypt all transmitted sensitive data with at least one of the following: HTTPS, TLS, DTLS, SSH
+* [ ] Encrypt all transmitted data with at least one of the following: HTTPS, TLS, DTLS, SSH
+
+== Security Assurance Requirements
+The application shall be labeled with a unique references:
+
+* [ ] Application Name
+* [ ] Application Version
+* [ ] Application Description
+* [ ] Platform on which Application Runs
+* [ ] Software Identification (SWID) tags, if available
+
+== Selection-Based Security Functional Requirements
+=== Random Bit Generation from Application
+The application shall perform all deterministic random bit generation (DRBG) services in accordance with http://csrc.nist.gov/publications/nistpubs/800-90A/SP800-90A.pdf[NIST Special Publication 800-90A] using any of the following:
+
+* [ ] Hash_DRBG (any)
+* [ ] HMAC_DRBG (any)
+* [ ] CTR_DRBG (AES)
+
+The deterministic RBG shall be seeded by an entropy source that accumulates entropy from a platform-based DRBG and a:
+
+* [ ] A software-based noise source
+* [ ] No other noise source
+
+with a minimum of:
+
+* [ ] 128 bits
+* [ ] 256 bits
+
+of entropy at least equal to the greatest security strength (according to http://csrc.nist.gov/publications/nistpubs/800-57/sp800-57-Part1-revised2_Mar08-2007.pdf[NIST SP 800-57]) of the keys and hashes that it will generate.
+
+=== Cryptographic Key Generation Services
+The application shall:
+
+* [ ] Generate no asymmetric cryptographic keys
+* [ ] Invoke platform-provided functionality for asymmetric key generation
+* [ ] Implement asymmetric key generation
+
+=== Cryptographic Asymmetric Key Generation
+The application shall:
+
+* [ ] Generate asymmetric cryptographic keys in accordance with a specified cryptographic key generation algorithm
+
+** An RSA scheme using cryptographic key sizes of 2048-bit or greater that meet the following:
+*** FIPS PUB 186-4, “Digital Signature Standard (DSS)”
+*** ANSI X9.31-1998
+
+=== Cryptographic Operation - Encryption/Decryption
+The application shall:
+
+* [ ] Perform encryption/decryption in accordance with a specified cryptographic algorithm:
+** AES-CBC
+
+and
+
+** AES-GCM
+** No other modes
+
+with cryptographic key sizes of 256-bit.
+
+=== Cryptographic Operation - Hashing
+The application shall:
+
+* [ ] Perform cryptographic hashing services in accordance with a specified cryptographic algorithm:
+** SHA-1
+** SHA-256
+** SHA-384
+** SHA-512
+** No other algorithms
+
+and message digest sizes:
+
+** 160
+** 256
+** 384
+** 512
+** No other message digest sizes
+
+=== Cryptographic Operation - Signing
+The application shall:
+
+* [ ] Perform cryptographic signature services (generation and verification) in accordance with a specified cryptographic algorithm:
+** RSA schemes using cryptographic key sizes of 2048-bit or greater that meet the following: http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf[FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 4].
+
+=== Cryptographic Operation - Keyed-Hash Message Authentication
+The application shall:
+
+* [ ] Perform keyed-hash message authentication in accordance with a specified cryptographic algorithm:
+** HMAC-SHA-256
+
+and
+
+** SHA-1
+** SHA-384
+** SHA-512
+** No other algorithms
+
+with key sizes the same length as those used in HMAC (in bits) and message digest sizes 256 and
+
+** 160
+** 384
+** 512
+** No other sizes
+
+bits that meet the following: http://csrc.nist.gov/publications/fips/fips198-1/FIPS-198-1_final.pdf[FIPS Pub 198-1] The Keyed-Hash Message Authentication Code and http://csrc.nist.gov/publications/fips/fips180-4/fips-180-4.pdf[FIPS Pub 180-4] Secure Hash Standard.
+
+=== TLS Client Protocol
+The application shall:
+
+* [ ] Invoke platform-provided TLS 1.2
+* [ ] Implement TLS 1.2 (RFC 5246)
+
+supporting the following cipher suites:
+
+** Mandatory Cipher Suites: TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246
+
+Optional Cipher Suites:
+
+** TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in https://tools.ietf.org/html/rfc5246[RFC 5246]
+** TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in https://tools.ietf.org/html/rfc5246[RFC 5246]
+** TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in https://tools.ietf.org/html/rfc5289[RFC 5289]
+** TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in https://tools.ietf.org/html/rfc5289[RFC 5289]
+** TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in https://tools.ietf.org/html/rfc5289[RFC 5289]
+** TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in https://tools.ietf.org/html/rfc5289[RFC 5289]
+** TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 as defined in https://tools.ietf.org/html/rfc5289[RFC 5289]
+** TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 as defined in https://tools.ietf.org/html/rfc5289[RFC 5289]
+** TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 as defined in https://tools.ietf.org/html/rfc5289[RFC 5289]
+** TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 as defined in https://tools.ietf.org/html/rfc5289[RFC 5289]
+** TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in https://tools.ietf.org/html/rfc5246[RFC 5246]
+** TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in https://tools.ietf.org/html/rfc5246[RFC 5246]
+** No other cipher suite
+
+The application shall:
+
+* [ ] Verify that the presented identifier matches the reference identifier according to https://tools.ietf.org/html/rfc6125[RFC 6125].
+
+The application shall:
+
+* [ ] Establish a trusted channel only if the peer certificate is valid.
+
+=== TLS Server Protocol
+The application shall:
+
+* [ ] Invoke platform-provided TLS 1.2
+* [ ] Implement TLS 1.2 (RFC 5246)
+
+supporting the following cipher suites:
+
+** Mandatory Cipher Suites: TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246
+
+Optional Cipher Suites:
+
+** TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in https://tools.ietf.org/html/rfc5246[RFC 5246]
+** TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in https://tools.ietf.org/html/rfc5246[RFC 5246]
+** TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in https://tools.ietf.org/html/rfc5289[RFC 5289]
+** TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in https://tools.ietf.org/html/rfc5289[RFC 5289]
+** TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in https://tools.ietf.org/html/rfc5289[RFC 5289]
+** TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in https://tools.ietf.org/html/rfc5289[RFC 5289]
+** TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 as defined in https://tools.ietf.org/html/rfc5289[RFC 5289]
+** TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 as defined in https://tools.ietf.org/html/rfc5289[RFC 5289]
+** TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 as defined in https://tools.ietf.org/html/rfc5289[RFC 5289]
+** TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 as defined in https://tools.ietf.org/html/rfc5289[RFC 5289]
+** TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in https://tools.ietf.org/html/rfc5246[RFC 5246]
+** TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in https://tools.ietf.org/html/rfc5246[RFC 5246]
+** No other cipher suite
+
+The application shall:
+
+* [ ] Deny connections from clients requesting:
+
+** SSL 2.0
+** SSL 3.0
+** TLS 1.0
+** TLS 1.1
+
+The application shall:
+
+* [ ] Support mutual authentication of TLS clients using X.509 v3 certificates.
+
+The application shall:
+
+* [ ] Not establish a trusted channel if the peer certificate is invalid.
+
+The application shall:
+
+* [ ] Not establish a trusted channel if the distinguished name (DN) or Subject Alternative Name (SAN) contained in a certificate does not match the expected identifier for the peer.
+
+=== DTLS Implementation
+The application shall:
+
+* [ ] Implement the DTLS protocol in accordance with DTLS 1.2 (https://tools.ietf.org/html/rfc6347[RFC 6347]).
+
+The application shall:
+
+* [ ] Implement the requirements in TLS (FCS_TLSC_EXT.1) for the DTLS implementation, except where variations are allowed according to DTLS 1.2 (https://tools.ietf.org/html/rfc6347[RFC 6347]).
+
+The application shall:
+
+* [ ] Not establish a trusted communication channel if the peer certificate is deemed invalid.
+
+=== HTTPS Protocol
+The application shall:
+
+* [ ] Implement the HTTPS protocol that complies with https://tools.ietf.org/html/rfc2818[RFC 2818].
+
+The application shall:
+
+* [ ] Implement HTTPS using TLS (https://www.niap-ccevs.org/pp/pp_app_v1.2_table-reqs.htm#FCS_TLSC_EXT.1[FCS_TLSC_EXT.1]).
+
+The application shall:
+
+* [ ] Notify the user and
+** Not establish the connection
+** Request application authorization to establish the connection
+** No other action
+
+if the peer certificate is deemed invalid.
+
+=== X.509 Certificate Validation
+The application shall:
+
+* [ ] Invoked platform-provided functionality
+* [ ] Implement functionality
+
+to validate certificates in accordance with the following rules:
+
+** https://tools.ietf.org/html/rfc5280[RFC 5280] certificate validation and certificate path validation.
+** The certificate path must terminate with a trusted CA certificate.
+** The application shall validate a certificate path by ensuring the presence of the basicConstraints extension and that the CA flag is set to TRUE for all CA certificates.
+
+** The application shall:
+
+* [ ] Validate the revocation status of the certificate using:
+*** The Online Certificate Status Protocol (OCSP) as specified in https://tools.ietf.org/html/rfc2560[RFC 2560]
+*** A Certificate Revocation List (CRL) as specified in https://tools.ietf.org/html/rfc5759[RFC 5759] , an OCSP TLS Status Request Extension (i.e., OCSP stapling) as specified in https://tools.ietf.org/html/rfc6066[RFC 6066].
+
+** The application shall validate the extendedKeyUsage field according to the following rules:
+*** Certificates used for trusted updates and executable code integrity verification shall have the Code Signing purpose (id-kp 3 with OID 1.3.6.1.5.5.7.3.3) in the extendedKeyUsage field.
+*** Server certificates presented for TLS shall have the Server Authentication purpose (id-kp 1 with OID 1.3.6.1.5.5.7.3.1) in the extendedKeyUsage field.
+*** Client certificates presented for TLS shall have the Client Authentication purpose (id-kp 2 with OID 1.3.6.1.5.5.7.3.2) in the extendedKeyUsage field.
+*** S/MIME certificates presented for email encryption and signature shall have the Email Protection purpose (id-kp 4 with OID 1.3.6.1.5.5.7.3.4) in the extendedKeyUsage field.
+*** OCSP certificates presented for OCSP responses shall have the OCSP Signing purpose (id-kp 9 with OID 1.3.6.1.5.5.7.3.9) in the extendedKeyUsage field.
+*** Server certificates presented for EST shall have the CMC Registration Authority (RA) purpose (id-kp-cmcRA with OID 1.3.6.1.5.5.7.3.28) in the extendedKeyUsage field.
+
+The application shall:
+
+* [ ] Treat a certificate as a CA certificate only if the basicConstraints extension is present and the CA flag is set to TRUE.
+
+=== X.509 Certificate Authentication
+The application shall:
+
+* [ ] Use X.509v3 certificates as defined by RFC 5280 to support authentication for:
+** HTTPS
+** TLS
+** DTLS
+
+When the application cannot establish a connection to determine the validity of a certificate, the application shall:
+
+* [ ] Allow the administrator to choose whether to accept the certificate in these cases
+* [ ] Accept the certificate
+* [ ] Not accept the certificate
+
+== Objective Security Functional Requirements
+=== TLS Client Protocol
+The application shall:
+
+* [ ] Present the signature_algorithms extension in the Client Hello with the supported_signature_algorithms value containing the following hash algorithms:
+** SHA256
+** SHA384
+** SHA512
+
+and no other hash algorithms.
+
+=== Use of Supported Services and APIs
+The application shall:
+
+* [ ] Use platform-provided libraries, does not implement functionality for parsing the list of formats parsed that are included in the http://www.iana.org/assignments/media-types[IANA MIME media types].
+
+=== Software Identification and Versions
+The application shall:
+
+* [ ] Include SWID tags that comply with the minimum requirements for SWID tag from https://www.iso.org/standard/53670.html[ISO/IEC 19770-2:2009 standard].
+** Valid SWID tags must contain a SoftwareIdentity element and an Entity element as defined in the https://www.iso.org/standard/53670.html[ISO/IEC 19770-2:2009 standard]. SWID tags must be stored with a .swidtag file extensions as defined in the ISO/IEC 19770-2:2009.
+
+== Optional Security Functional Requirements
+=== Cryptographic Symmetric Key Generation
+The application shall:
+
+* [ ] Generate symmetric cryptographic keys using a Random Bit Generator as specified in FCS_RBG_EXT.1 and specified cryptographic key sizes:
+** 128 bit
+** 256 bit
+
+=== TLS Client Protocol
+The application shall:
+
+* [ ] Support mutual authentication using X.509v3 certificates.

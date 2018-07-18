@@ -1,0 +1,345 @@
+= Authentication & Session Management
+
+|===
+|Do's |Dont's
+
+|*Perform Authentication on the Server Side.* _(The client side should never be trusted)_.
+|*Use the Fingerprint Scanner solely for Authentication.* _(Possible False Positives [1])_.
+
+|*Use Randomly Generated access tokens instead of sending user credentials in requests.* _(At worst, a temporary session token can therefore only be stolen)_.
+|*Use Pattern Locks for Authentication.* _(Lack of Entropy, Vulnerable to Smudge Attacks [2])_.
+
+|*A password policy is enforced at the remote endpoint.* _(Prevent easily guessable passwords from being used)_.
+|*Use a short Pin code solely authentication.* _(Easily brute forced and the end user may reuse the device security pin)_.
+
+|*Sessions are terminated at the remote endpoint after a predefined time.* _(Sessions token lifetimes should be kept short to limit the attack window if an valid session token is stolen)_.
+|*Do not use any values for authenticating a user like device identifiers or geo-location.* _(These can be spoofed easily)_.
+
+|*Temporarily lock out a user after a number of failed login attempts.* _(Prevent an endless brute force attack)_.
+|*Avoid relying on any roles or permission information that comes from the mobile device itself.* _(The client side and user input should not be trusted)_.
+
+|*Use contextual anomaly based detection to take into account the users IP, geographic location, time of day as part of the authentication phase.* _(Helps detect unusual login activity)_.
+|*Log user related information.* _(Personal information data leak)_
+
+|*A second factor of authentication exists and is enforced.* _(Extra layer of protection in case another authentication factor has been compromised)_.
+|*Use OAuth1.0*. _(OAuth1.0 has been found to be vulnerable to session fixation. Use OAuth 1.0a or OAuth 2.0 instead)_.
+
+|*Step-up authentication is used for carrying out sensitive actions in an application.* _(Useful when a user's device is stolen and they have already authenticated through the app)_.
+|
+
+|*Allow the user to see their current login sessions and allow them to logout of other sessions via the app.* _(The end user will be able to detect rogue sessions with the most accuracy instead of using anomaly detection)_.
+|
+
+|*Perform local integrity checks within the code to detect any unauthorized code changes before doing offline authentication.* _(Tampering may allow authentication bypasses)_.
+|
+
+|*Where offline access to data is needed, perform an account/application lockout and/or application data wipe after X number of invalid password attempts.* _(Wipe application data when a threat is imminent)_.
+|
+
+|*Perform a check at the start of each activity/screen to see if the user is in a logged in state and if not, switch to the login state.* _(A session could expire during use or over time. Also check that the user has a role that allows them to access to certain app view)._
+|
+
+|*When an application’s session is timed out, the application should discard and clear all memory associated with the user data, and any master keys used to decrypt the data.* _(Prevent data leakage after the user is no longer in an active session with the server)._
+|
+
+|*Store a masked user identifier instead of the actual username, and replace the user identifier value in authentication with a hash value.* _(If a username/id is being used in the mobile app for identification purposes only (not for display in the UI), then consider sending a related mapped token to the mobile device instead.)_.
+|
+
+|*Implement Secure Password Recovery Mechanism*. _(To allow a user to recover their account using security questions only they should know the answers too and sending a recovery code using a side channel such as SMS)_.
+|
+
+|*Fail authentication with a Generic Error.* _(The login screen should not show hints on the existence of a username/email address etc)_.
+|
+
+|===
+
+== References
+
+1. The probability of a random person unlocking a given iPhone with Touch ID is 1 in 50,000. https://support.apple.com/en-ie/HT204587[Apple Support]
+2. Penn State researchers managed to identify the pass code patterns on two smartphones, 68% of the time, using photographs taken under different lighting conditions, and camera positions. https://www.usenix.org/legacy/events/woot10/tech/full_papers/Aviv.pdf[Smudge Attacks on Smartphone Touch Screens]
+
+== Implementation
+=== Overview
+
+=== Native Android
+
+[.float-group]
+--
+[.left]
+image::android-auth-1.png[,270,480]
+
+[.left]
+image::android-auth-2.png[,270,480]
+
+[.left]
+image::android-auth-3.png[,270,480]
+
+[.left]
+image::android-auth-4.png[,270,480]
+
+[.left]
+image::android-auth-5.png[,270,480]
+--
+
+An Authentication & Session Management implementation has been provided in our https://github.com/aerogear/android-showcase-template[Mobile Security Android Template] App.
+
+The Application uses http://openid.net/connect/[OpenID Connect] for authentication and access control. The Open Source Identity and Access Management server, http://www.keycloak.org[Keycloak], is being used as an Identity Provider.
+The https://github.com/aerogear/aerogear-android-sdk/blob/master/docs/getting-started/auth.adoc[Aerogear Auth SDK] is being used for communicating with the Keycloak server.
+
+The Keycloak server is enforcing a number of Security Controls on the mobile app.
+
+. https://github.com/feedhenry/mobile-security/blob/master/projects/keycloak/secure-app-realm.json#L6-L11[Brute force detection] on the login screen.
+. https://github.com/feedhenry/mobile-security/blob/master/projects/keycloak/secure-app-realm.json#L12[Account lockouts] for failed login attempts.
+. https://github.com/feedhenry/mobile-security/blob/master/projects/keycloak/secure-app-realm.json#L101[2FA] for mobile users.
+. http://www.keycloak.org/docs/latest/server_admin/topics/sessions/administering.html[Session management] for mobile users.
+. https://github.com/feedhenry/mobile-security/blob/master/projects/keycloak/secure-app-realm.json#L13-L17[Audit tracing] of auth events.
+
+=== Code Examples
+The main code logic is found under https://github.com/aerogear/android-showcase-template/tree/master/app/src/main/java/com/aerogear/androidshowcase/features/authentication[mobile-security-android-template/.../authentication].
+
+The following code snippets describe the main authentication code logic in the mobile app.
+
+==== Configuration
+The Keycloak configuration is saved in the https://github.com/aerogear/android-showcase-template/tree/master/app/src/main/assets/mobile-services.json[mobile-services.json] file.
+
+.Code
+[source,json,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/assets/mobile-services.json[]
+....
+
+The redirect url of the application is defined in `android.defaultConfig.manifestPlaceholders` of the apps https://github.com/aerogear/android-showcase-template/blob/master/app/build.gradle[build.gradle] file.
+
+You will also need to define the URL in the https://github.com/aerogear/android-showcase-template/blob/master/app/src/main/java/com/aerogear/androidshowcase/di/SecureApplicationModule.java[SecureApplicationModule].
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/authServiceInit.inc.adoc[]
+....
+
+==== Authentication
+We can then perform the auth request and create a new intent which will handle the auth response from the system browser. The authentication phase will occur in a system browser in a safe context outside of the application.
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/login.inc.adoc[]
+....
+
+==== Handling the Authentication Response
+Once the Authentication phase has ended, the user will be redirected back to the mobile app from the system browser.
+A check is performed in the MainActivity for incoming intents so the result can be handled by the authentication service.
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/onActivityResult.inc.adoc[]
+....
+
+==== Logout
+
+To logout of the application, we must make a call to the logout endpoint on the OpenID Connect provider along with providing the identity token and a redirect URI.
+
+.Code
+[source,java,linenums,indent=0]
+....
+include::{partialsdir}/logout.inc.adoc[]
+....
+
+=== Native iOS
+
+[.float-group]
+--
+[.left]
+image::ios-auth-1.png[,270,480]
+
+[.left]
+image::ios-auth-2.png[,270,480]
+--
+
+An Authentication & Session Management implementation has been provided in our https://github.com/aerogear/ios-showcase-template[Mobile Security iOS Template] App.
+
+The Application uses http://openid.net/connect/[OpenID Connect] for authentication and access control. The Open Source Identity and Access Management server, http://www.keycloak.org[Keycloak], is being used as an Identity Provider.
+The https://github.com/aerogear/aerogear-ios-sdk/tree/master/docs/auth[Aerogear Auth SDK] is being used to communicate with the Keycloak server.
+
+The Keycloak server config is defined in the https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/mobile-services.json[mobile-services.json] file.
+
+.Code
+[source,swift,linenum,indent=0]
+....
+include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/mobile-services.json[]
+....
+
+The `startAuth()` function handles the user authentication browser flow and the back-channel token exchange.
+
+.Code
+[source,swift,linenum,indent=0]
+....
+include::{partialsdir}/ioslogin.inc.adoc[]
+
+....
+
+The `resolveCurrentUser()` returns the user profile, which can be used to retrieve user information and the auth tokens.
+
+.Code
+[source,swift,linenum,indent=0]
+....
+include::{partialsdir}/resolveCurrentUser.inc.adoc[]
+....
+
+The following information can be retrieved from an authenticated user:
+
+.Code
+[source,swift,linenum,indent=0]
+....
+// Get the users username
+let username = currentUser.userName
+// Get the users first name
+let firstName = currentUser.firstName
+// Get the users last name
+let lastName = currentUser.lastName
+// Get the users full name
+let fullName = currentUser.fullName
+// Get the users email address
+let emailAddress = currentUser.email
+// Get the users access token
+let accessToken = currentUser.accessToken
+// Get the users identity token
+let identityToken = currentUser.identityToken
+....
+
+Access Control is carried out by checking the access roles of the authenticated user.
+
+.Code
+[source,swift,linenum,indent=0]
+....
+include::{partialsdir}/highlightUserRealmRoles.inc.adoc[]
+....
+
+The `logout()` function is used to logout the user from the Keycloak server. The local auth tokens are also deleted.
+
+.Code
+[source,swift,linenum,indent=0]
+....
+include::{partialsdir}/ioslogout.inc.adoc[]
+....
+
+=== Apache Cordova
+
+[.float-group]
+--
+[.left]
+image::cordova-auth-1.png[,270,480]
+
+[.left]
+image::cordova-auth-2.png[,270,480]
+
+[.left]
+image::cordova-auth-3.png[,270,480]
+--
+
+The https://www.npmjs.com/package/keycloak-js[Keycloak JS] library is being used to perform the OpenID Connect based authentication.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::{partialsdir}/appInit.inc.adoc[]
+....
+
+The OpenID Connect Configuration can be found in the https://github.com/feedhenry/mobile-security-cordova-template/blob/c24297cda240efa40aca292e7d0657d7432d1eba/src/config/keycloak.json[/config/keycloak.json] file.
+
+.Code
+[source,json,linenums,indent=0]
+....
+include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/c24297cda240efa40aca292e7d0657d7432d1eba/src/config/keycloak.json[]
+....
+
+The Keycloak JS adapter is initialised with the `check-sso` config to automatically detect and authenticate the user if there is a valid session on app resume.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::{partialsdir}/jsinit.inc.adoc[]
+....
+
+The access token can be retrieved using the `getToken()` function.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::{partialsdir}/getToken.inc.adoc[]
+....
+
+The user can logout using the `logout()` function.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::{partialsdir}/jslogout.inc.adoc[]
+....
+
+The user can be redirected to the login screen using the `login()` function.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::{partialsdir}/jslogin.inc.adoc[]
+....
+
+The authentication state can ve cleared using the `clearToken()` function.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::{partialsdir}/clearToken.inc.adoc[]
+....
+
+The end users realm level roles can be retrieved using the `getRealmRoles()` function.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::{partialsdir}/getRealmRoles.inc.adoc[]
+....
+
+You can perform a check to see if the user has a given role using the `hasRealmRole()` function.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::{partialsdir}/hasRealmRole.inc.adoc[]
+....
+
+Information about the authentication server can be carried out using the `getConfiguration()` function.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::{partialsdir}/getConfiguration.inc.adoc[]
+....
+
+
+The user can be redirected to the Keycloak account management screen using the `accountManagement()` function.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::{partialsdir}/accountManagement.inc.adoc[]
+....
+
+The users profile data can be retrieved using the `loadUserProfile()` function.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::{partialsdir}/loadUserProfile.inc.adoc[]
+....
+
+You can check if the user is authenticated using the `isAuthenticated()` function.
+
+.Code
+[source,javascript,linenums,indent=0]
+....
+include::{partialsdir}/isAuthenticated.inc.adoc[]
+....

@@ -1,0 +1,94 @@
+= OWASP Threat Model Project
+
+This is a summary of notes taken from the https://www.owasp.org/index.php/OWASP_Mobile_Security_Project#tab=M-Threat_Model_Project[OWASP Threat Model Project].
+
+== Mobile Threat Model Overview
+To carry out threat modelling, you will need to have a clear understanding of the underlying system. Its important to define the following areas to understand possible threat to the mobile application.
+
+. **Mobile App Architecture** - This area describes how the application is designed from device specific features used by the application, such as:
+* Wireless transmission protocols
+* Data transmission mediums
+* Interaction with hardware components
+* Other applications
+
+. **Mobile Data** - This area cover what data does the application store and process, the business purpose of this data and what are the data workflows.
+
+. **Threat Agent Identification** - This area covers the threats to the mobile application and who are the threat agents.
+
+. **Methods of Attack** - This area covers the most common attacks utilized by threat agents.
+
+. **Controls** - This area covers the controls that can be used to prevent attacks.
+
+== Mobile Architecture
+The mobile application architecture should, at the very least, describe device specific features used by the application such as:
+
+* Wireless transmission protocols
+* Data transmission medium
+* Interaction with hardware components and other applications.
+
+Once you know what features/resources are used within the mobile app architecture, you can then begin to look at the attack surface.
+
+Although mobile applications vary in function, they can be described using a generalized model as follows:
+
+. Wireless interfaces
+. Transmission Type
+. Hardware Interaction
+. Interaction with on device applications/services
+. Interaction with off device applications/services
+. Encryption Protocols
+
+== Mobile Data
+Its important to know what purpose does the app serve from a business perspective and what data the app stores, transmits and receives.
+It’s also important to review data flow diagrams to determine exactly how data in the mobile app is handled.
+
+You should aim to answer the following questions:
+
+* What is the business functions of the app?
+* Does personal data intermingle with corporate data?
+* Is there specific business logic built into the app to process data?
+* What does the data give you (or an attacker) access to?
+* Do stored keys allow you to break crypto functions (data integrity)?
+* Third party data, is it being stored/transmitted?
+* Are there regulatory requirements to meet specific to user privacy?
+* How does other data on the device affect the app (sandboxing restrictions enforced?)
+* What is the impact of Jailbroken/Rooted vs Non Jailbroken/Rooted device and how this affects app data?
+
+== Threat Agent Identification
+This area covers what the threats to the mobile application are and who are the threat agents.
+
+=== Identifying Threat Agents
+The process of identifying a threat agent is very simple and have been mentioned in the below steps:
+
+* S1: Take the list of all sensitive data
+
+* S2: Make a list of all the ways to access this data
+
+* S3: The medium used to access the same listed in S2 above is the Threat Agent to be identified
+
+=== Listing of Threat Agents - By Category
+==== Human Interaction Examples
+* Stolen Device User
+* Owner of the Device
+* WiFi Network User
+* Malicious Developer
+* Organizations Internal Employee
+* App Store Approvers/Reviewers
+
+==== Automated Programs Examples
+* Malware on the device
+* Scripts executing in the browser
+* Malicious SMS
+* Malicious App
+
+=== Methods of Attack
+We should observe and list the different methods an attacker can use to reach the data.
+
+=== Controls
+Given the above methods of attacks, we should outline some controls to:
+
+. Prevent the attacks
+. Detect the attacks
+. Minimize the impact of the attacks
+. Protect users private information
+
+

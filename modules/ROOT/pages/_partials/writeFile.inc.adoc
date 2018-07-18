@@ -1,0 +1,17 @@
+    /**
+     * Encrypt the file when saving to the file system
+     * @param fileName the name of the file
+     * @param fileContent the content of the file
+     * @throws IOException
+     * @throws GeneralSecurityException
+     */
+    private void writeFileWithEncryption(String fileName, String fileContent) throws IOException, GeneralSecurityException {
+        File outputFile = new File(context.getFilesDir(), fileName);
+        if (!outputFile.exists()) {
+            outputFile.createNewFile();
+        }
+        OutputStream outStream = aesCrypto.encryptStream(fileName, new FileOutputStream(outputFile));
+        outStream.write(fileContent.getBytes("utf-8"));
+        outStream.flush();
+        outStream.close();
+    }

@@ -1,0 +1,18 @@
+    window.plugins.sslCertificateChecker.check(
+            function() {
+                // success
+            }.bind(this),
+            function(message) {
+              if (message == "CONNECTION_NOT_SECURE") {
+                let toast = this.toastCtrl.create({
+                   message: 'Connection Not Secure. Preventing Authentication.',
+                   duration: 10000,
+                   position: 'bottom'
+                 });
+
+                this.navCtrl.setRoot(HomePage);
+                toast.present();
+              }
+            }.bind(this),
+            server,
+            fingerprint);
