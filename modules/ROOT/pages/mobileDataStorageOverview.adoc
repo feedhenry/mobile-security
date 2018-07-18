@@ -82,7 +82,7 @@ In Android M and later versions, the KeyStore API supports generating and persis
 .Generate Secret Key
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/domain/crypto/AndroidMSecureKeyStore.java[tags=generateAESKey]
+include::{partialsdir}/generateAESKey.inc.adoc[]
 ....
 
 ==== Pre-Android M
@@ -96,7 +96,7 @@ Instead, we will have to:
 .Generate Secret
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/domain/crypto/PreAndroidMSecureKeyStore.java[tags=generateSecretKey]
+include::{partialsdir}/generateSecretKey.inc.adoc[]
 ....
 
 2. Generate a public/private key pair using the KeyStore
@@ -104,7 +104,7 @@ include::https://raw.githubusercontent.com/aerogear/android-showcase-template/ma
 .Generate Keypair
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/domain/crypto/PreAndroidMSecureKeyStore.java[tags=generatePrivateKeyPair]
+include::{partialsdir}/generatePrivateKeyPair.inc.adoc[]
 ....
 
 3. Encrypt the generated secret key with the generated public key and persist the encrypted secret key using private SharedPreferences.
@@ -112,7 +112,7 @@ include::https://raw.githubusercontent.com/aerogear/android-showcase-template/ma
 .Encrypt Secret
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/domain/crypto/PreAndroidMSecureKeyStore.java[tags=generateAESKey]
+include::{partialsdir}/pregenerateAESKey.inc.adoc[]
 ....
 
 4. To load the secret key, the generated key pair needs to be loaded first, and then use the private key to decrypt the encrypted secret key.
@@ -120,7 +120,7 @@ include::https://raw.githubusercontent.com/aerogear/android-showcase-template/ma
 .Decrypt Secret
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/domain/crypto/PreAndroidMSecureKeyStore.java[tags=getSecretKey]
+include::{partialsdir}/getSecretKey.inc.adoc[]
 ....
 
 The alternative option is to ask the user to provide a password. The password will be used to encrypt/decrypt the secret key. This does mean that the user will have to remember the password and enter it everytime when using the app.
@@ -134,13 +134,13 @@ You can perform RSA encryption/decryption in Android like this:
 .RSA Encryption
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/domain/crypto/RsaHelper.java[tags=encrypt]
+include::{partialsdir}/encrypt.inc.adoc[]
 ....
 
 .RSA Decryption
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/domain/crypto/RsaHelper.java[tags=decrypt]
+include::{partialsdir}/decrypt.inc.adoc[]
 ....
 
 ==== Encrypt/decrypt the content of notes
@@ -152,13 +152,13 @@ You can perform data encryption/decryption in Android like this:
 .Encryption
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/domain/crypto/AesCrypto.java[tags=encrypt]
+include::{partialsdir}/aesencrypt.inc.adoc[]
 ....
 
 .Decryption
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/domain/crypto/AesCrypto.java[tags=decrypt]
+include::{partialsdir}/aesdecrypt.inc.adoc[]
 ....
 
 ==== Persist data using file system
@@ -168,13 +168,13 @@ When a secret note is created, it can be persisted to the file system. We should
 .File Encryption
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/domain/store/SecureFileNoteStore.java[tags=writeFileWithEncryption]
+include::{partialsdir}/writeFile.inc.adoc[]
 ....
 
 .File Decryption
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/domain/store/SecureFileNoteStore.java[tags=readFileWithDecryption]
+include::{partialsdir}/readFile.inc.adoc[]
 ....
 
 ==== Persist data using database (SQLite)
@@ -186,7 +186,7 @@ To encrypt/decrypt the database, a password is required. You can ask the user to
 .SqlCipher Password
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/domain/store/sqlite/SqliteNoteStore.java[tags=getDbPassword]
+include::{partialsdir}/getDbPassword.inc.adoc[]
 ....
 
 === Native iOS
@@ -206,7 +206,7 @@ The Realm DB storing the notes must be initialised using the encryption key.
 .Initialise Realm
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/StorageService.swift[tags=init]
+include::{partialsdir}/init.inc.adoc[]
 ....
 
 The encryption key is stored in the iOS Keychain.
@@ -214,7 +214,7 @@ The encryption key is stored in the iOS Keychain.
 .Get Encryption Key
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/StorageService.swift[tags=getEncryptionKey]
+include::{partialsdir}/getEncryptionKey.inc.adoc[]
 ....
 
 
@@ -223,7 +223,7 @@ When the application is initialised for the first time, a new encryption key is 
 .Generate Encryption Key
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/StorageService.swift[tags=generateEncryptionKey]
+include::{partialsdir}/generateEncryptionKey[]
 ....
 
 ==== Interacting with Realm DB
@@ -236,7 +236,7 @@ List all the notes.
 .Listing Notes
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/StorageService.swift[tags=list]
+include::{partialsdir}/list.inc.adoc[]
 ....
 
 ==== Creating a Note
@@ -245,7 +245,7 @@ Create an individual note.
 .Create a Note
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/StorageService.swift[tags=create]
+include::{partialsdir}/create.inc.adoc[]
 ....
 
 ==== Read a Note
@@ -254,7 +254,7 @@ Read an individual note.
 .Read a Note
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/StorageService.swift[tags=read]
+include::{partialsdir}/read.inc.adoc[]
 ....
 
 ==== Edit a Note
@@ -263,7 +263,7 @@ Edit an individual note.
 .Edit a Note
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/StorageService.swift[tags=edit]
+include::{partialsdir}/edit.inc.adoc[]
 ....
 
 ==== Delete a Note
@@ -272,7 +272,7 @@ Delete an individual note.
 .Delete a Note
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/StorageService.swift[tags=delete]
+include::{partialsdir}/delete.inc.adoc[]
 ....
 
 ==== Delete all Notes
@@ -281,5 +281,5 @@ Delete all notes.
 .Delete all Notes
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/StorageService.swift[tags=deleteAll]
+include::{partialsdir}/deleteAll.inc.adoc[]
 ....

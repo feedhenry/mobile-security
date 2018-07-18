@@ -8,7 +8,7 @@ find modules -type f -name '*.inc' |\
   while IFS= read -r inc_path
   do
     inc_dirname=$(dirname "${inc_path}")
-    ruby ./bin/asciidoc-coalescer.rb  -a allow-uri-read $inc_path > $inc_path-rantora.adoc
+    ruby ./bin/asciidoc-coalescer.rb  -a allow-uri-read $inc_path > $inc_path.adoc
     
   done
 

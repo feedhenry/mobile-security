@@ -115,7 +115,7 @@ You will also need to define the URL in the https://github.com/aerogear/android-
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/di/SecureApplicationModule.java[tags=authServiceInit]
+include::{partialsdir}/authServiceInit.inc.adoc[]
 ....
 
 ==== Authentication
@@ -124,7 +124,7 @@ We can then perform the auth request and create a new intent which will handle t
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/features/authentication/providers/KeycloakAuthenticateProviderImpl.java[tags=login]
+include::{partialsdir}/login.inc.adoc[]
 ....
 
 ==== Handling the Authentication Response
@@ -134,7 +134,7 @@ A check is performed in the MainActivity for incoming intents so the result can 
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/MainActivity.java[tags=onActivityResult]
+include::{partialsdir}/onActivityResult.inc.adoc[]
 ....
 
 ==== Logout
@@ -144,7 +144,7 @@ To logout of the application, we must make a call to the logout endpoint on the 
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/features/authentication/providers/KeycloakAuthenticateProviderImpl.java[tags=logout]
+include::{partialsdir}/logout.inc.adoc[]
 ....
 
 === Native iOS
@@ -176,7 +176,8 @@ The `startAuth()` function handles the user authentication browser flow and the 
 .Code
 [source,swift,linenum,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/authentication/AuthenticationInteractor.swift[tags=login]
+include::{partialsdir}/ioslogin.inc.adoc[]
+
 ....
 
 The `resolveCurrentUser()` returns the user profile, which can be used to retrieve user information and the auth tokens.
@@ -184,7 +185,7 @@ The `resolveCurrentUser()` returns the user profile, which can be used to retrie
 .Code
 [source,swift,linenum,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/accesscontrol/AccessControlBuilder.swift[tags=resolveCurrentUser]
+include::{partialsdir}/resolveCurrentUser.inc.adoc[]
 ....
 
 The following information can be retrieved from an authenticated user:
@@ -213,7 +214,7 @@ Access Control is carried out by checking the access roles of the authenticated 
 .Code
 [source,swift,linenum,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/accesscontrol/AccessControlViewController.swift[tags=highlightUserRealmRoles]
+include::{partialsdir}/highlightUserRealmRoles.inc.adoc[]
 ....
 
 The `logout()` function is used to logout the user from the Keycloak server. The local auth tokens are also deleted.
@@ -221,7 +222,7 @@ The `logout()` function is used to logout the user from the Keycloak server. The
 .Code
 [source,swift,linenum,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/authentication/AuthenticationInteractor.swift[tags=logout]
+include::{partialsdir}/ioslogout.inc.adoc[]
 ....
 
 === Apache Cordova
@@ -243,7 +244,7 @@ The https://www.npmjs.com/package/keycloak-js[Keycloak JS] library is being used
 .Code
 [source,javascript,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/app/main.ts[tags=appInit]
+include::{partialsdir}/appInit.inc.adoc[]
 ....
 
 The OpenID Connect Configuration can be found in the https://github.com/feedhenry/mobile-security-cordova-template/blob/c24297cda240efa40aca292e7d0657d7432d1eba/src/config/keycloak.json[/config/keycloak.json] file.
@@ -259,7 +260,7 @@ The Keycloak JS adapter is initialised with the `check-sso` config to automatica
 .Code
 [source,javascript,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/services/auth.service.ts[tags=init]
+include::{partialsdir}/jsinit.inc.adoc[]
 ....
 
 The access token can be retrieved using the `getToken()` function.
@@ -267,7 +268,7 @@ The access token can be retrieved using the `getToken()` function.
 .Code
 [source,javascript,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/services/auth.service.ts[tags=getToken]
+include::{partialsdir}/getToken.inc.adoc[]
 ....
 
 The user can logout using the `logout()` function.
@@ -275,7 +276,7 @@ The user can logout using the `logout()` function.
 .Code
 [source,javascript,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/services/auth.service.ts[tags=logout]
+include::{partialsdir}/jslogout.inc.adoc[]
 ....
 
 The user can be redirected to the login screen using the `login()` function.
@@ -283,7 +284,7 @@ The user can be redirected to the login screen using the `login()` function.
 .Code
 [source,javascript,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/services/auth.service.ts[tags=login]
+include::{partialsdir}/jslogin.inc.adoc[]
 ....
 
 The authentication state can ve cleared using the `clearToken()` function.
@@ -291,7 +292,7 @@ The authentication state can ve cleared using the `clearToken()` function.
 .Code
 [source,javascript,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/services/auth.service.ts[tags=clearToken]
+include::{partialsdir}/clearToken.inc.adoc[]
 ....
 
 The end users realm level roles can be retrieved using the `getRealmRoles()` function.
@@ -299,7 +300,7 @@ The end users realm level roles can be retrieved using the `getRealmRoles()` fun
 .Code
 [source,javascript,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/services/auth.service.ts[tags=getRealmRoles]
+include::{partialsdir}/getRealmRoles.inc.adoc[]
 ....
 
 You can perform a check to see if the user has a given role using the `hasRealmRole()` function.
@@ -307,7 +308,7 @@ You can perform a check to see if the user has a given role using the `hasRealmR
 .Code
 [source,javascript,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/services/auth.service.ts[tags=hasRealmRole]
+include::{partialsdir}/hasRealmRole.inc.adoc[]
 ....
 
 Information about the authentication server can be carried out using the `getConfiguration()` function.
@@ -315,7 +316,7 @@ Information about the authentication server can be carried out using the `getCon
 .Code
 [source,javascript,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/services/auth.service.ts[tags=getConfiguration]
+include::{partialsdir}/getConfiguration.inc.adoc[]
 ....
 
 
@@ -324,7 +325,7 @@ The user can be redirected to the Keycloak account management screen using the `
 .Code
 [source,javascript,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/services/auth.service.ts[tags=accountManagement]
+include::{partialsdir}/accountManagement.inc.adoc[]
 ....
 
 The users profile data can be retrieved using the `loadUserProfile()` function.
@@ -332,7 +333,7 @@ The users profile data can be retrieved using the `loadUserProfile()` function.
 .Code
 [source,javascript,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/services/auth.service.ts[tags=loadUserProfile]
+include::{partialsdir}/loadUserProfile.inc.adoc[]
 ....
 
 You can check if the user is authenticated using the `isAuthenticated()` function.
@@ -340,5 +341,5 @@ You can check if the user is authenticated using the `isAuthenticated()` functio
 .Code
 [source,javascript,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/feedhenry/mobile-security-cordova-template/master/src/services/auth.service.ts[tags=isAuthenticated]
+include::{partialsdir}/isAuthenticated.inc.adoc[]
 ....

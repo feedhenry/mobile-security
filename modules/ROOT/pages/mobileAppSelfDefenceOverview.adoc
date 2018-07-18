@@ -82,7 +82,7 @@ The Security Service is being initialised in the https://github.com/aerogear/and
 .Code
 [source,java,linenums,indent=0]
 ....
-include::{partialsdir}/securityServiceInit.adoc[]
+include::{partialsdir}/securityServiceInit.inc.adoc[]
 ....
 
 The following code snippets below describe the main device trust detection logic in the mobile app.
@@ -93,7 +93,7 @@ A number of different checks are being used to check if root access is present o
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/features/device/DeviceFragment.java[tags=detectRoot]
+include::{partialsdir}/detectRoot.inc.adoc[]
 ....
 
 ==== Detecting if Lock Screen Set
@@ -102,7 +102,7 @@ Detecting if the Android device has a lock screen set (with pin, fingerprint, pa
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/features/device/DeviceFragment.java[tags=detectDeviceLock]
+include::{partialsdir}/detectDeviceLock.inc.adoc[]
 ....
 
 ==== Detecting if Debugger is Attached
@@ -111,7 +111,7 @@ Detecting if an Android debugger is attached to the application.
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/features/device/DeviceFragment.java[tags=debuggerDetected]
+include::{partialsdir}/debuggerDetected.inc.adoc[]
 ....
 
 ==== Detecting Emulator Access
@@ -120,7 +120,7 @@ Detecting if the Application is being run on an emulator.
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/features/device/DeviceFragment.java[tags=detectEmulator]
+include::{partialsdir}/detectEmulator.inc.adoc[]
 ....
 
 ==== Detecting Hooking Framework Apps
@@ -129,7 +129,7 @@ There are some simple checks added to the application to check if the http://rep
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/features/device/DeviceFragment.java[tags=detectHookingFramework]
+include::{partialsdir}/detectHookingFramework.inc.adoc[]
 ....
 
 ==== Detecting App Data Backup Enabled
@@ -138,7 +138,7 @@ The application can check if the `allowBackup` flag in the applications `Android
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/features/device/DeviceFragment.java[tags=detectBackupEnabled]
+include::{partialsdir}/detectBackupEnabled.inc.adoc[]
 ....
 
 ==== Detecting Out of Date OS Version
@@ -147,7 +147,7 @@ The devices OS version can be checked using the https://developer.android.com/re
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/features/device/DeviceFragment.java[tags=detectLatestOS]
+include::{partialsdir}/detectLatestOS.inc.adoc[]
 ....
 
 ==== Detecting Developer Mode Enabled
@@ -156,7 +156,7 @@ The Developer Mode status can be checked to see if this is enabled.
 .Code
 [source,java,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/android-showcase-template/master/app/src/main/java/com/aerogear/androidshowcase/features/device/DeviceFragment.java[tags=detectDeveloperOptions]
+include::detectDeveloperOptions.inc.adoc[]
 ....
 
 === Native iOS
@@ -175,7 +175,7 @@ Detecting if the Device has a lock screen set.
 .Code
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/DevicetrustService.swift[tags=detectDeviceLock]
+include::{partialsdir}/iosdetectDeviceLock.inc.adoc[]
 ....
 
 ==== Detecting Jailbreak
@@ -184,7 +184,7 @@ Detecting if the Device is Jailbroken using the https://github.com/thii/DTTJailb
 .Code
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/DevicetrustService.swift[tags=detectJailbreak]
+include::{partialsdir}/detectJailbreak.inc.adoc[]
 ....
 
 ==== Detecting Debug Mode
@@ -193,7 +193,7 @@ Detecting if the device is running in Debug mode.
 .Code
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/DevicetrustService.swift[tags=detectDebugabble]
+include::{partialsdir}/detectDebugabble.inc.adoc[]
 ....
 
 ==== Detecting Emulator Access
@@ -202,7 +202,7 @@ Detecting if the underlying device running the mobile application is an Emulator
 .Code
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/DevicetrustService.swift[tags=detectEmulator]
+include::{partialsdir}/iosdetectEmulator.inc.adoc[]
 ....
 
 ==== Detecting Outdated OS Versions
@@ -211,7 +211,7 @@ Detecting if the underlying device running the mobile application is running an 
 .Code
 [source,swift,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/ios-showcase-template/master/secure-ios-app/services/DevicetrustService.swift[tags=detectLatestOS]
+include::{partialsdir}/iosdetectLatestOS.inc.adoc[]
 ....
 
 === Apache Cordova
@@ -230,7 +230,7 @@ Detecting if the underlying device running the mobile application is an Emulator
 .Code
 [source,javascript,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/cordova-showcase-template/master/src/pages/security/deviceTrust/deviceTrust.ts[tags=detectEmulator]
+include::{partialsdir}/jsdetectEmulator.inc.adoc[]
 ....
 
 ==== Detecting Root/Jailbreak
@@ -239,7 +239,7 @@ Detecting if the underlying device is Jailbroken or has Root Access.
 .Code
 [source,javascript,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/cordova-showcase-template/master/src/pages/security/deviceTrust/deviceTrust.ts[tags=detectRoot]
+include::{partialsdir}/jsdetectRoot.inc.adoc[]
 ....
 
 ==== Detecting Debug Access
@@ -248,7 +248,7 @@ Detecting if the application is built in debug mode.
 .Code
 [source,javascript,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/cordova-showcase-template/master/src/pages/security/deviceTrust/deviceTrust.ts[tags=detectDebug]
+include::{partialsdir}/detectDebug.inc.adoc[]
 ....
 
 ==== Detecting Device Lock Set
@@ -257,5 +257,5 @@ Detecting if the underlying device has the device lock set.
 .Code
 [source,javascript,linenums,indent=0]
 ....
-include::https://raw.githubusercontent.com/aerogear/cordova-showcase-template/master/src/pages/security/deviceTrust/deviceTrust.ts[tags=detectDeviceLock]
+include::{partialsdir}/jsdetectDeviceLock.inc.adoc[]
 ....
