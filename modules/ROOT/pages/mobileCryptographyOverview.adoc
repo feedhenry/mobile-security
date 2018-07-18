@@ -20,7 +20,7 @@ Message Integrity: HMAC-SHA2 (or HMAC-SHA-256)
 
 Message Hash: SHA2 256 bits
 
-Assymetric encryption: RSA 2048 bits
+Asymetric encryption: RSA 2048 bits
 
 Symmetric-key algorithm: AES 128 bits (CBC or GCM)
 

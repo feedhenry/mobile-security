@@ -1,0 +1,10 @@
+    /**
+     * Detect if the application is being run in an emulator.
+     */
+    public void detectEmulator() {
+        totalTests++;
+        SecurityCheckResult result = securityService.check(SecurityCheckType.IS_EMULATOR);
+        if (result.passed()) {
+            setDetected(emulatorAccess, R.string.emulator_detected_positive);
+        }
+    }

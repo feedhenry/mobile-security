@@ -1,0 +1,10 @@
+    /**
+     * Function to check if the backup flag is enabled in the application manifest file
+     */
+    public void detectBackupEnabled() {
+        totalTests++;
+        SecurityCheckResult result = securityService.check(SecurityCheckType.ALLOW_BACKUP_ENABLED);
+        if (result.passed()) {
+            setDetected(allowBackup, R.string.allow_backup_detected_positive);
+        }
+    }

@@ -1,0 +1,12 @@
+    /**
+     * Detect if a hooking framework application is installed on the device
+     */
+    public void detectHookingFramework() {
+        totalTests++;
+        String xposedPackageName = "de.robv.android.xposed.installer";
+        String substratePackageName = "com.saurik.substrate";
+
+        if (checkAppInstalled(xposedPackageName) || checkAppInstalled(substratePackageName)) {
+            setDetected(hookingDetected, R.string.hooking_detected_positive);
+        }
+    }

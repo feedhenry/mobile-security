@@ -11,7 +11,7 @@ This is a fork of the https://www.owasp.org/images/f/fe/MASVS_v0.9.3.pdf[OWASP M
 ** introduces advanced security controls
 ** should be used by apps that store personally identifiable information, or highly sensitive information, like apps for health-care industry and financial industry
 * MASVS-R: Resiliency Against Reverse Engineering and Tampering
-** the app has state-of-the-art security, and is also resillient against specific client side attacks, such as tampering, modding or reverse engineering
+** the app has state-of-the-art security, and is also resilient against specific client side attacks, such as tampering, modding or reverse engineering
 ** can be used in combination with the other 2 levels. E.g. MASVS-L1 + R or MASVS-L2 + R
 
 == Table Keys

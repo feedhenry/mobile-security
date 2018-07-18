@@ -8,11 +8,11 @@
 | *When storing sensitive data on the device, use a file encryption API provided by the OS or other trusted source* _(Secure Cryptography)_
 | *Write data to persistent memory accessible to other applications without encryption* _(Shared storage is untrusted)_
 
-| *Use file encryption API’s which use a secret key protected by the device unlock code and deletable on remote wipe if available* _(Protect secret key)_
+| *Use file encryption APIs which use a secret key protected by the device unlock code and deletable on remote wipe if available* _(Protect secret key)_
 | *Including the keys in the same attacker-readable directory as the encrypted content* _(Can be used to decrypt data)_
 
 | *Make use of remote wipe and kill switch APIs to remove sensitive information from the device in the event of theft or loss* _(Prevent data leak if the device is lost)_
-| *Take screeenshots contain sensitive data* _(Avoid sensitive data is exposed through screenshots)_
+| *Take screenshots contain sensitive data* _(Avoid sensitive data is exposed through screenshots)_
 
 | *Use a time based (expiry) type of control which will wipe sensitive data from the mobile device once the application has not communicated with its servers for a given period of time* _(Less chance to decrypt data by using brute force)_
 | *Leak permission-protected data to other applications* _(Prevent other apps access sensitive data)_
@@ -44,7 +44,7 @@
 | *Clear cookies and data in Webview on app termination* _(Prevent data leak)_
 |
 
-| *Remove sesitive data from views when in background* _(Prevent data leak)_
+| *Remove sensitive data from views when in background* _(Prevent data leak)_
 |
 
 
@@ -123,7 +123,7 @@ include::{partialsdir}/pregenerateAESKey.inc.adoc[]
 include::{partialsdir}/getSecretKey.inc.adoc[]
 ....
 
-The alternative option is to ask the user to provide a password. The password will be used to encrypt/decrypt the secret key. This does mean that the user will have to remember the password and enter it everytime when using the app.
+The alternative option is to ask the user to provide a password. The password will be used to encrypt/decrypt the secret key. This does mean that the user will have to remember the password and enter it every time when using the app.
 
 ==== Encrypt/decrypt the secret key
 

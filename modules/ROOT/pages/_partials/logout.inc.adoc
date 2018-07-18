@@ -1,0 +1,20 @@
+    /**
+     * Perform a logout request against the openid connect server
+     *
+     * @param logoutCallback the logout callback
+     */
+    public void logout(final CallbackHandler logoutCallback) {
+        this.logoutCallback = logoutCallback;
+        UserPrincipal currentUser = authService.currentUser();
+        authService.logout(currentUser, new Callback<UserPrincipal>() {
+            @Override
+            public void onSuccess() {
+                logoutSuccess();
+            }
+
+            @Override
+            public void onError(Throwable error) {
+                logoutFailed(error);
+            }
+        });
+    }

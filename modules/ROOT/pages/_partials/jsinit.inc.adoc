@@ -1,0 +1,16 @@
+  /**
+  * Initialise the Keycloak Client Adapter
+  */
+  static init(): Promise<any> {
+    // Create a new Keycloak Client Instance
+    let keycloakAuth: any = new Keycloak(keycloakConfig);
+
+      return new Promise((resolve, reject) => {
+        keycloakAuth.init({onLoad: 'check-sso'}).success(() => {
+            KeycloakService.auth.authz = keycloakAuth;
+            resolve();
+          }).error((err) => {
+            reject(err);
+          });
+      });
+    }

@@ -41,7 +41,7 @@ This is a summary of notes taken from the http://nvlpubs.nist.gov/nistpubs/Speci
 ==== Mitigations
 
 * Preventing an organization-issued mobile device from syncing with a personally-owned computer necessitates security controls on the mobile device that restrict what devices it can synchronize with
-* Preventing a personally-owned mobile device from syncing with an organization-issued computer necessitates security controls on the organizationissued computer, restricting the connection of mobile devices
+* Preventing a personally-owned mobile device from syncing with an organization-issued computer necessitates security controls on the organization-issued computer, restricting the connection of mobile devices
 * Preventing the use of remote backup services can possibly be achieved by blocking use of those services or by configuring the mobile devices not to use such services
 * Users should be instructed not to connect their mobile devices to unknown charging devices; they should carry and use their own charging devices
 * Mobile devices can be prevented from exchanging data with each other through logical or physical means

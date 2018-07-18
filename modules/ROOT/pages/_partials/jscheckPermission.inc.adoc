@@ -1,0 +1,4 @@
+  const keycloak = new Keycloak({ store: memoryStore }, config.keycloak);
+
+  app.use(keycloak.middleware());
+  app.use('/', keycloak.protect('realm:api-access'), routes);

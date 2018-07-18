@@ -1,0 +1,6 @@
+  /**
+   * Check if the user is authenticated
+   */
+  isAuthenticated(): boolean {
+      return KeycloakService.auth.authz.authenticated;
+  }

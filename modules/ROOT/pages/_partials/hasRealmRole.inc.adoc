@@ -1,0 +1,6 @@
+  /**
+   * Check if the user has a specified realm role
+   */
+  hasRealmRole(role: String): boolean {
+    return KeycloakService.auth.authz.hasRealmRole(role);
+  }

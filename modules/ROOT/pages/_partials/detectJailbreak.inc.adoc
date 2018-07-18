@@ -1,0 +1,12 @@
+    /**
+     - Check if the device running the application is jailbroken.
+
+     - Returns: A detector object.
+     */
+    fileprivate func detectJailbreak() -> Detector {
+        if (DTTJailbreakDetection.isJailbroken()) {
+            return Detector(label: JAILBREAK_DETECTED_POSITIVE, detected: true, description: JAILBREAK_DETECTED_DESC)
+        } else {
+            return Detector(label: JAILBREAK_DETECTED_NEGATIVE, detected: false, description: JAILBREAK_DETECTED_DESC)
+        }
+    }

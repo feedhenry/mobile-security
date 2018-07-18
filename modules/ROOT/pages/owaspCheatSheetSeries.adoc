@@ -9,7 +9,7 @@ The recommended minimal key lengths and algorithms by OWASP are outlined below.
 |Key exchange|Diffie–Hellman with a minimum of 2048 bits
 |Message Integrity    |HMAC-SHA2
 |Message Hash  |SHA2 256 bits
-|Assymetric encryption    |RSA 2048 bits
+|Asymetric encryption    |RSA 2048 bits
 |Symmetric-key algorithm    |AES 128 bits
 |Password Hashing    |PBKDF2, Scrypt, Bcrypt
 |=======================
@@ -31,7 +31,7 @@ There are some extra steps necessary to extract the public key from a certificat
 ==== HPKP (HTTP Public Key Pinning)
 With HPKP, a number of public keys are pinned on the server. When a client visits the website for the first time, the client will store these pins.
 On every future visit to the website, the client will make sure the public keys match the ones that they have stored locally. If the keys don't match, it could mean that the CA was compromised or the keys have been rotated.
-This is an example of dynamic pinning, where the entity to pin is retieved dynamically from the server, rather than being packaged or stored locally at development/build time.
+This is an example of dynamic pinning, where the entity to pin is retrieved dynamically from the server, rather than being packaged or stored locally at development/build time.
 
 A valid HPKP configuration must also include at least one backup key. Therefore, if something goes wrong, you can use the backup key instead.
 
@@ -52,7 +52,7 @@ Public-Key-Pins:
 * The `includeSubDomains` definition means that the key pinning is also valid for all subdomains.
 * The `report-uri` defines where you can report pin validation failures.
 
-Some potentential issues with HPKP have been pointed out by https://blog.qualys.com/ssllabs/2016/09/06/is-http-public-key-pinning-dead[Qualys SSL Labs].
+Some potential issues with HPKP have been pointed out by https://blog.qualys.com/ssllabs/2016/09/06/is-http-public-key-pinning-dead[Qualys SSL Labs].
 
 An example of a helmet.js implementation guide for Node/Express is also available https://helmetjs.github.io/docs/hpkp/[here].
 

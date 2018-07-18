@@ -1,0 +1,10 @@
+    /**
+     * Detect if the device has a lock screen setup (pin, password etc).
+     */
+    public void detectDeviceLock() {
+        totalTests++;
+        SecurityCheckResult result = securityService.check(SecurityCheckType.SCREEN_LOCK_ENABLED);
+        if (!result.passed()) {
+            setDetected(lockScreenSetup, R.string.device_lock_detected_negative);
+        }
+    }

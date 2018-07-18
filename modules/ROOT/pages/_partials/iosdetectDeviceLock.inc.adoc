@@ -1,0 +1,13 @@
+    /**
+     - Check if a lock screen is set on the device. (iOS 9 or higher).
+
+     - Returns: A detector object.
+     */
+    fileprivate func detectDeviceLock() -> Detector {
+        let deviceLockSet = LAContext().canEvaluatePolicy(.deviceOwnerAuthentication, error: nil)
+        if deviceLockSet == false {
+            return Detector(label: DETECTION_DEVICE_LOCK_POSITIVE, detected: true, description: DETECTION_DEVICE_LOCK_DESC)
+        } else {
+            return Detector(label: DETECTION_DEVICE_LOCK_NEGATIVE, detected: false, description: DETECTION_DEVICE_LOCK_DESC)
+        }
+    }

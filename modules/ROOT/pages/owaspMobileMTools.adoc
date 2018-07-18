@@ -14,14 +14,14 @@ This is a summary of the tools that are described in https://www.owasp.org/index
 ** https://github.com/project-imas/app-password[AppPassword Control]
 *** Custom iOS user authentication mechanism (password with security questions for self reset)
 ** https://github.com/project-imas/passcode-check[PasscodeCheck Control]
-*** Allows an application to verify if an iOS passcode has been set and what complexity. Based on this, an application can programtically decide to execute fully or in a degraded state given this system evidence
+*** Allows an application to verify if an iOS passcode has been set and what complexity. Based on this, an application can programmatically decide to execute fully or in a degraded state given this system evidence
 ** https://github.com/project-imas/encrypted-core-data[Encrypted Core Data]
 *** Provides a Core Data encrypted SQLite store using SQLCipher.
 ** https://github.com/project-imas/security-check[Security-check]
 *** Application level, attached debug detect and jailbreak checking
 ** https://github.com/project-imas/memory-security[Memory Security]
 *** Library for securely clearing and validating iOS application memory
-*** Elliminate clear-text sensitive data from memory after app use
+*** Eliminate clear-text sensitive data from memory after app use
 
 === Comment
 
@@ -80,7 +80,7 @@ The last release was about 5 years ago. Doesn't looks like it's being maintained
 
 * What is it?
 ** Androick is a tool that allows any user to analyze an Android application
-* Soure Code
+* Source Code
 ** https://github.com/Flo354/Androick[Androick]
 
 === Comment

@@ -97,7 +97,7 @@ The Keycloak server is enforcing a number of Security Controls on the mobile app
 === Code Examples
 The main code logic is found under https://github.com/aerogear/android-showcase-template/tree/master/app/src/main/java/com/aerogear/androidshowcase/features/authentication[mobile-security-android-template/.../authentication].
 
-The following code snippets below describe the main authentication code logic in the mobile app.
+The following code snippets describe the main authentication code logic in the mobile app.
 
 ==== Configuration
 The Keycloak configuration is saved in the https://github.com/aerogear/android-showcase-template/tree/master/app/src/main/assets/mobile-services.json[mobile-services.json] file.

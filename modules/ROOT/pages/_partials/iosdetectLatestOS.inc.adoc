@@ -1,0 +1,12 @@
+    /**
+     - Check if the device is running the on the latest version of iOS.
+
+     - Returns: A detector object.
+     */
+    fileprivate func detectLatestOS() -> Detector {
+        if #available(iOS 11.0, *) {
+            return Detector(label: LATEST_OS_DETECTED_NEGATIVE, detected: false, description: LATEST_OS_DETECTED_DESC)
+        } else {
+            return Detector(label: LATEST_OS_DETECTED_POSITIVE, detected: true, description: LATEST_OS_DETECTED_DESC)
+        }
+    }

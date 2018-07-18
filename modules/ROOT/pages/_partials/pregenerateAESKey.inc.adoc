@@ -1,0 +1,9 @@
+    @Override
+    public void generateAESKey(String keyAlias) throws GeneralSecurityException, IOException {
+        byte[] secretKey = generateSecretKey(AES_KEYSIZE_128);
+        byte[] encryptedKey = rsaEncrypt(secretKey);
+        String encodedSecretKey = Base64.encodeToString(encryptedKey, BASE64_FLAG);
+        SharedPreferences.Editor editor = this.sharedPreferences.edit();
+        editor.putString(keyAlias, encodedSecretKey);
+        editor.commit();
+    }

@@ -1,0 +1,10 @@
+    @Provides @Singleton
+    AuthService provideAuthService(Context context, MobileCore mobileCore) {
+        AuthService authService = mobileCore.getInstance(AuthService.class);
+        AuthServiceConfiguration authServiceConfig = new AuthServiceConfiguration.AuthConfigurationBuilder()
+                .withRedirectUri("com.feedhenry.securenativeandroidtemplate:/callback")
+                .build();
+
+        authService.init(context, authServiceConfig);
+        return authService;
+    }

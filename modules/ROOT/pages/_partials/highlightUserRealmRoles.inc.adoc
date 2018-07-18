@@ -1,0 +1,9 @@
+    func highlightUserRealmRoles(user: User) {
+        for realmRole in self.allRealmRoles {
+            if user.hasRealmRole(realmRole.roleName) {
+                setRoleAccessoryType(role: realmRole, type: UITableViewCellAccessoryType.checkmark)
+            } else {
+                setRoleAccessoryType(role: realmRole, type: UITableViewCellAccessoryType.none)
+            }
+        }
+    }

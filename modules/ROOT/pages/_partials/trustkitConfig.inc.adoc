@@ -1,0 +1,15 @@
+        // Define TrustKit configuration
+        let trustKitConfig = [
+            kTSKSwizzleNetworkDelegates: true,
+            kTSKPinnedDomains: [
+                "security.feedhenry.org": [
+                    kTSKIncludeSubdomains : true,
+                    kTSKEnforcePinning : true,
+                    kTSKPublicKeyAlgorithms: [kTSKAlgorithmRsa2048],
+                    kTSKPublicKeyHashes: [
+                        "trENjoQnbWupnAtu1/WagBE0RgJ+p7ke2ppWML8vAl0=",
+                        "arENjoQnbWupnAtu1/WagBE0RgJ+p7ke2ppWML8vAl0="
+                    ],]]] as [String : Any]
+
+        // Init TrustKit with the above config
+        TrustKit.initSharedInstance(withConfiguration: trustKitConfig)

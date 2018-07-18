@@ -85,7 +85,7 @@ The Security Service is being initialised in the https://github.com/aerogear/and
 include::{partialsdir}/securityServiceInit.inc.adoc[]
 ....
 
-The following code snippets below describe the main device trust detection logic in the mobile app.
+The following code snippets describe the main device trust detection logic in the mobile app.
 
 ==== Detecting Root Access
 A number of different checks are being used to check if root access is present on the device.
@@ -167,7 +167,7 @@ include::detectDeveloperOptions.inc.adoc[]
 image::ios-trust-1.png[,270,480]
 --
 
-The following code snippets below describe the main device trust detection logic in the iOS template app.
+The following code snippets describe the main device trust detection logic in the iOS template app.
 
 ==== Detecting Device Lock
 Detecting if the Device has a lock screen set.
@@ -222,7 +222,7 @@ include::{partialsdir}/iosdetectLatestOS.inc.adoc[]
 image::cordova-trust-1.png[,270,480]
 --
 
-The following code snippets below describe the main device trust detection logic in the Cordova template app.
+The following code snippets describe the main device trust detection logic in the Cordova template app.
 
 ==== Detecting Emulator Access
 Detecting if the underlying device running the mobile application is an Emulator.

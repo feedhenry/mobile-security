@@ -1,0 +1,19 @@
+    /**
+     * Generate the AES key for encryption/decryption. The key will be 128bit and it can only be used with AES/GCM/NoPadding mode.
+     * @param keyAlias the key alias
+     * @throws GeneralSecurityException
+     * @throws IOException
+     */
+    @Override
+    public void generateAESKey(String keyAlias) throws GeneralSecurityException, IOException {
+        KeyGenerator keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, ANDROID_KEY_STORE);
+        //TODO: further control if user authentication is required for accessing the keys
+        KeyGenParameterSpec keyGenerationParameters = new KeyGenParameterSpec.Builder(keyAlias, KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
+                .setKeySize(AES_KEYSIZE_128)
+                .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
+                .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
+                .setRandomizedEncryptionRequired(true)
+                .build();
+        keyGenerator.init(keyGenerationParameters);
+        keyGenerator.generateKey();
+    }

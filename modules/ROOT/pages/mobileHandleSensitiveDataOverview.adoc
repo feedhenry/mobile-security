@@ -12,7 +12,7 @@
 | *Write data to log files* _(Other applications can access the log data)_
 
 | *Consider using a hash or non-reversible form of the data* _(To protect the original data)_
-| *Store/cache sensitive data on the device* _(It can be leakded)_
+| *Store/cache sensitive data on the device* _(It can be leaked)_
 
 | *minimize the frequency of asking for user credentials. Instead use an authorization token and refresh it* _(Less chance of exposing user credentials)_
 | *storing/logging GPS data* _(Protect user privacy)_

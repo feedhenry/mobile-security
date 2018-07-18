@@ -1,0 +1,23 @@
+    /**
+     - Delete all stored entities
+
+     - Parameter onComplete - a closure called after deletion
+     */
+    func deleteAll(onComplete: @escaping (Error?, Bool?) -> Void) {
+        DispatchQueue.global(qos: .background).async {
+            do {
+                // create a new thread confined realm
+                let realm = try self.getRealmInstance()
+
+                let notes = realm.objects(Note.self)
+
+                // delete all the notes
+                try realm.write {
+                    realm.delete(notes)
+                }
+                onComplete(nil, true)
+            } catch {
+                onComplete(error, nil)
+            }
+        }
+    }

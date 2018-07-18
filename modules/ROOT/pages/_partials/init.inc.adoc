@@ -1,0 +1,9 @@
+    /**
+     - Initilise the Realm Storage Service
+
+     - Parameter kcWrapper: the swift keychain wrapper
+     */
+    init(kcWrapper: KeychainWrapper, encryptionKey: Data) {
+        self.keychainWrapper = kcWrapper
+        self.encryptionKey = encryptionKey
+    }

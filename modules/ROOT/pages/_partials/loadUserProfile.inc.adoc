@@ -1,0 +1,13 @@
+  /**
+   * Get the users profile
+   */
+  loadUserProfile(): any {
+    // Retrieve User Profile
+    return new Promise((resolve, reject) => {
+      KeycloakService.auth.authz.loadUserProfile().success((profile) => {
+        resolve(<object>profile);
+      }).error(() => {
+        reject('Failed to retrieve user profile');
+      });
+    });
+  }

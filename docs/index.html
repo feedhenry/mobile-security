@@ -641,7 +641,7 @@ The <a href="https://github.com/aerogear/aerogear-android-sdk/blob/master/docs/g
 <p>The main code logic is found under <a href="https://github.com/aerogear/android-showcase-template/tree/master/app/src/main/java/com/aerogear/androidshowcase/features/authentication">mobile-security-android-template/&#8230;&#8203;/authentication</a>.</p>
 </div>
 <div class="paragraph">
-<p>The following code snippets below describe the main authentication code logic in the mobile app.</p>
+<p>The following code snippets describe the main authentication code logic in the mobile app.</p>
 </div>
 <div class="sect5">
 <h6 id="configuration">Configuration</h6>
@@ -1149,12 +1149,12 @@ isAuthenticated(): boolean {
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Write data to persistent memory accessible to other applications without encryption</strong> <em>(Shared storage is untrusted)</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use file encryption API’s which use a secret key protected by the device unlock code and deletable on remote wipe if available</strong> <em>(Protect secret key)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use file encryption APIs which use a secret key protected by the device unlock code and deletable on remote wipe if available</strong> <em>(Protect secret key)</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Including the keys in the same attacker-readable directory as the encrypted content</strong> <em>(Can be used to decrypt data)</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Make use of remote wipe and kill switch APIs to remove sensitive information from the device in the event of theft or loss</strong> <em>(Prevent data leak if the device is lost)</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Take screeenshots contain sensitive data</strong> <em>(Avoid sensitive data is exposed through screenshots)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Take screenshots contain sensitive data</strong> <em>(Avoid sensitive data is exposed through screenshots)</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use a time based (expiry) type of control which will wipe sensitive data from the mobile device once the application has not communicated with its servers for a given period of time</strong> <em>(Less chance to decrypt data by using brute force)</em></p></td>
@@ -1197,7 +1197,7 @@ isAuthenticated(): boolean {
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Remove sesitive data from views when in background</strong> <em>(Prevent data leak)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Remove sensitive data from views when in background</strong> <em>(Prevent data leak)</em></p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -1357,7 +1357,7 @@ public Key getSecretKey(String keyAlias) throws GeneralSecurityException, IOExce
 </ol>
 </div>
 <div class="paragraph">
-<p>The alternative option is to ask the user to provide a password. The password will be used to encrypt/decrypt the secret key. This does mean that the user will have to remember the password and enter it everytime when using the app.</p>
+<p>The alternative option is to ask the user to provide a password. The password will be used to encrypt/decrypt the secret key. This does mean that the user will have to remember the password and enter it every time when using the app.</p>
 </div>
 </div>
 <div class="sect5">
@@ -2218,7 +2218,7 @@ SecurityService provideSecurityService() {
 </div>
 </div>
 <div class="paragraph">
-<p>The following code snippets below describe the main device trust detection logic in the mobile app.</p>
+<p>The following code snippets describe the main device trust detection logic in the mobile app.</p>
 </div>
 <div class="sect5">
 <h6 id="detecting_root_access">Detecting Root Access</h6>
@@ -2383,7 +2383,7 @@ public void detectDeveloperOptions(Map&lt;String, SecurityCheckResult&gt; result
 </div>
 </div>
 <div class="paragraph">
-<p>The following code snippets below describe the main device trust detection logic in the iOS template app.</p>
+<p>The following code snippets describe the main device trust detection logic in the iOS template app.</p>
 </div>
 <div class="sect5">
 <h6 id="detecting_device_lock">Detecting Device Lock</h6>
@@ -2458,7 +2458,7 @@ public void detectDeveloperOptions(Map&lt;String, SecurityCheckResult&gt; result
 </div>
 </div>
 <div class="paragraph">
-<p>The following code snippets below describe the main device trust detection logic in the Cordova template app.</p>
+<p>The following code snippets describe the main device trust detection logic in the Cordova template app.</p>
 </div>
 <div class="sect5">
 <h6 id="detecting_emulator_access_3">Detecting Emulator Access</h6>
@@ -2573,7 +2573,7 @@ detectDeviceLock() {
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Consider using a hash or non-reversible form of the data</strong> <em>(To protect the original data)</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Store/cache sensitive data on the device</strong> <em>(It can be leakded)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Store/cache sensitive data on the device</strong> <em>(It can be leaked)</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>minimize the frequency of asking for user credentials. Instead use an authorization token and refresh it</strong> <em>(Less chance of exposing user credentials)</em></p></td>
@@ -2621,7 +2621,7 @@ detectDeviceLock() {
 <p class="tableblock">Key exchange : Diffie–Hellman with a minimum of 2048 bits</p>
 <p class="tableblock">Message Integrity: HMAC-SHA2 (or HMAC-SHA-256)</p>
 <p class="tableblock">Message Hash: SHA2 256 bits</p>
-<p class="tableblock">Assymetric encryption: RSA 2048 bits</p>
+<p class="tableblock">Asymetric encryption: RSA 2048 bits</p>
 <p class="tableblock">Symmetric-key algorithm: AES 128 bits (CBC or GCM)</p>
 <p class="tableblock">Password Hashing: PBKDF2, Scrypt, Bcrypt</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use of Insecure and/or Deprecated Algorithms, like RC2, MD5, MD4, SHA1</p></td>
@@ -2689,7 +2689,7 @@ detectDeviceLock() {
 </div>
 </div>
 <div class="sect4">
-<h5 id="preventations">Preventations</h5>
+<h5 id="Prevention Techniques">Prevention Techniques</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -2785,7 +2785,7 @@ detectDeviceLock() {
 </div>
 </div>
 <div class="sect4">
-<h5 id="preventations_2">Preventations</h5>
+<h5 id="Prevention Techniques_2">Prevention Techniques</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -2898,7 +2898,7 @@ detectDeviceLock() {
 </div>
 </div>
 <div class="sect4">
-<h5 id="preventations_3">Preventations</h5>
+<h5 id="Prevention Techniques_3">Prevention Techniques</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -3025,7 +3025,7 @@ detectDeviceLock() {
 </div>
 </div>
 <div class="sect4">
-<h5 id="preventations_4">Preventations</h5>
+<h5 id="Prevention Techniques_4">Prevention Techniques</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -3145,7 +3145,7 @@ detectDeviceLock() {
 </div>
 </div>
 <div class="sect4">
-<h5 id="preventations_5">Preventations</h5>
+<h5 id="Prevention Techniques_5">Prevention Techniques</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -3203,7 +3203,7 @@ detectDeviceLock() {
 </div>
 </div>
 <div class="sect4">
-<h5 id="preventations_6">Preventations</h5>
+<h5 id="Prevention Techniques_6">Prevention Techniques</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -3252,7 +3252,7 @@ detectDeviceLock() {
 </div>
 </div>
 <div class="sect4">
-<h5 id="preventations_7">Preventations</h5>
+<h5 id="Prevention Techniques_7">Prevention Techniques</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -3313,7 +3313,7 @@ detectDeviceLock() {
 </div>
 </div>
 <div class="sect4">
-<h5 id="preventations_8">Preventations</h5>
+<h5 id="Prevention Techniques_8">Prevention Techniques</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -3391,7 +3391,7 @@ detectDeviceLock() {
 </div>
 </div>
 <div class="sect4">
-<h5 id="preventations_9">Preventations</h5>
+<h5 id="Prevention Techniques_9">Prevention Techniques</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -3440,7 +3440,7 @@ detectDeviceLock() {
 </div>
 </div>
 <div class="sect4">
-<h5 id="preventations_10">Preventations</h5>
+<h5 id="Prevention Techniques_10">Prevention Techniques</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -3544,7 +3544,7 @@ detectDeviceLock() {
 </div>
 </div>
 <div class="sect4">
-<h5 id="trusted_third_party_libaries">Trusted Third-party libaries</h5>
+<h5 id="trusted_third_party_Libraries">Trusted Third-party Libraries</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -3768,7 +3768,7 @@ detectDeviceLock() {
 <p>When storing sensitive data on the device, use a file encryption API provided by the OS or other trusted source.</p>
 </li>
 <li>
-<p>Use file encryption API’s which use a secret key protected by the device unlock code and deletable on remote wipe if available.</p>
+<p>Use file encryption APIs which use a secret key protected by the device unlock code and deletable on remote wipe if available.</p>
 </li>
 <li>
 <p>Beyond the time required by the application, don’t store sensitive information on the device (e.g. GPS/tracking).</p>
@@ -3948,7 +3948,7 @@ detectDeviceLock() {
 <p>Vet the security/authenticity of any third party code/libraries used in your mobile application (e.g. making sure they come from a reliable source, will continue to be supported, contain no backdoors) and ensure that adequate internal approval is obtained to use the code/library.</p>
 </li>
 <li>
-<p>Track all third party frameworks/API’s used in the mobile application for security patches and perform upgrades as they are released.</p>
+<p>Track all third party frameworks/APIs used in the mobile application for security patches and perform upgrades as they are released.</p>
 </li>
 <li>
 <p>Pay particular attention to validating all data received from and sent to non-trusted third party apps (e.g. ad network software) before incorporating their use into an application.</p>
@@ -4279,7 +4279,7 @@ detectDeviceLock() {
 <td class="tableblock halign-left valign-top"><p class="tableblock">SHA2 256 bits</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Assymetric encryption</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Asymetric encryption</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">RSA 2048 bits</p></td>
 </tr>
 <tr>
@@ -4322,7 +4322,7 @@ There are some extra steps necessary to extract the public key from a certificat
 <div class="paragraph">
 <p>With HPKP, a number of public keys are pinned on the server. When a client visits the website for the first time, the client will store these pins.
 On every future visit to the website, the client will make sure the public keys match the ones that they have stored locally. If the keys don&#8217;t match, it could mean that the CA was compromised or the keys have been rotated.
-This is an example of dynamic pinning, where the entity to pin is retieved dynamically from the server, rather than being packaged or stored locally at development/build time.</p>
+This is an example of dynamic pinning, where the entity to pin is retrieved dynamically from the server, rather than being packaged or stored locally at development/build time.</p>
 </div>
 <div class="paragraph">
 <p>A valid HPKP configuration must also include at least one backup key. Therefore, if something goes wrong, you can use the backup key instead.</p>
@@ -4359,7 +4359,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 </ul>
 </div>
 <div class="paragraph">
-<p>Some potentential issues with HPKP have been pointed out by <a href="https://blog.qualys.com/ssllabs/2016/09/06/is-http-public-key-pinning-dead">Qualys SSL Labs</a>.</p>
+<p>Some potential issues with HPKP have been pointed out by <a href="https://blog.qualys.com/ssllabs/2016/09/06/is-http-public-key-pinning-dead">Qualys SSL Labs</a>.</p>
 </div>
 <div class="paragraph">
 <p>An example of a helmet.js implementation guide for Node/Express is also available <a href="https://helmetjs.github.io/docs/hpkp/">here</a>.</p>
@@ -4455,7 +4455,7 @@ This is an example of dynamic pinning, where the entity to pin is retieved dynam
 <div class="ulist">
 <ul>
 <li>
-<p>the app has state-of-the-art security, and is also resillient against specific client side attacks, such as tampering, modding or reverse engineering</p>
+<p>the app has state-of-the-art security, and is also resilient against specific client side attacks, such as tampering, modding or reverse engineering</p>
 </li>
 <li>
 <p>can be used in combination with the other 2 levels. E.g. MASVS-L1 + R or MASVS-L2 + R</p>
@@ -5748,10 +5748,10 @@ It’s also important to review data flow diagrams to determine exactly how data
 <p>Malware on the device</p>
 </li>
 <li>
-<p>Scripts executign in the browser</p>
+<p>Scripts executing in the browser</p>
 </li>
 <li>
-<p>Malicous SMS</p>
+<p>Malicious SMS</p>
 </li>
 <li>
 <p>Malicious App</p>
@@ -5769,7 +5769,7 @@ It’s also important to review data flow diagrams to determine exactly how data
 <div class="sect4">
 <h5 id="controls">Controls</h5>
 <div class="paragraph">
-<p>Given the above methods of attacks, we should outline some contols to:</p>
+<p>Given the above methods of attacks, we should outline some controls to:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -5780,7 +5780,7 @@ It’s also important to review data flow diagrams to determine exactly how data
 <p>Detect the attacks</p>
 </li>
 <li>
-<p>Minimize the impack of the attacks</p>
+<p>Minimize the impact of the attacks</p>
 </li>
 <li>
 <p>Protect users private information</p>
@@ -5848,7 +5848,7 @@ It’s also important to review data flow diagrams to determine exactly how data
 <div class="ulist">
 <ul>
 <li>
-<p>Allows an application to verify if an iOS passcode has been set and what complexity. Based on this, an application can programtically decide to execute fully or in a degraded state given this system evidence</p>
+<p>Allows an application to verify if an iOS passcode has been set and what complexity. Based on this, an application can programmatically decide to execute fully or in a degraded state given this system evidence</p>
 </li>
 </ul>
 </div>
@@ -5881,7 +5881,7 @@ It’s also important to review data flow diagrams to determine exactly how data
 <p>Library for securely clearing and validating iOS application memory</p>
 </li>
 <li>
-<p>Elliminate clear-text sensitive data from memory after app use</p>
+<p>Eliminate clear-text sensitive data from memory after app use</p>
 </li>
 </ul>
 </div>
@@ -6048,7 +6048,7 @@ Especially the websit has a "Learn" section provides a series of very good blog 
 </div>
 </li>
 <li>
-<p>Soure Code</p>
+<p>Source Code</p>
 <div class="ulist">
 <ul>
 <li>
@@ -7547,7 +7547,7 @@ It&#8217;s an automated, powerful, and scalable tool for testing network securit
 <p>An app can customize its own connections using <code>base-config</code> (for app-wide customization) or <code>domain-config</code> (for per-domain customization).</p>
 </div>
 <div class="paragraph">
-<p>For Configuring CA&#8217;s, configuration examples are available in the Andoird Documentation.</p>
+<p>For Configuring CA&#8217;s, configuration examples are available in the Android Documentation.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -7591,7 +7591,7 @@ It&#8217;s an automated, powerful, and scalable tool for testing network securit
 <div class="sect4">
 <h5 id="pinning_certificates">Pinning Certificates</h5>
 <div class="paragraph">
-<p>Normally, an app trusts all pre-installed CAs. If any of these CAs were to issue a fradulent certificate, the app would be at risk from a man-in-the-middle attack. Some apps choose to limit the set of certificates they accept by either limiting the set of CAs they trust or by certificate pinning.</p>
+<p>Normally, an app trusts all pre-installed CAs. If any of these CAs were to issue a fraudulent certificate, the app would be at risk from a man-in-the-middle attack. Some apps choose to limit the set of certificates they accept by either limiting the set of CAs they trust or by certificate pinning.</p>
 </div>
 <div class="paragraph">
 <p>Certificate pinning is done by providing a set of certificates by hash of the public key (SubjectPublicKeyInfo of the X.509 certificate). A certificate chain is then valid only if the certificate chain contains at least one of the pinned public keys.</p>
@@ -7627,7 +7627,7 @@ It&#8217;s an automated, powerful, and scalable tool for testing network securit
 <p>If a value is not set in a specific entry, then the value from the more general entry is used. For example, values not set in a domain-config are taken from the parent domain-config, if nested, or from the base-config if not. Values not set in the base-config use the platform default values.</p>
 </div>
 <div class="paragraph">
-<p>For example, consider where all connections to subdomains of example.com must use a custom set of CAs. Additonally, cleartext traffic to these domains is permitted except when connecting to secure.example.com. By nesting the configuration for secure.example.com inside the configuration for example.com, the trust-anchors does not need to be duplicated.</p>
+<p>For example, consider where all connections to subdomains of example.com must use a custom set of CAs. Additionally, cleartext traffic to these domains is permitted except when connecting to secure.example.com. By nesting the configuration for secure.example.com inside the configuration for example.com, the trust-anchors does not need to be duplicated.</p>
 </div>
 <div class="sect5">
 <h6 id="configuration_file_format">Configuration File Format</h6>
@@ -8870,7 +8870,7 @@ product names, and impact metrics.</p>
 <div class="sect4">
 <h5 id="access_to_platform_resources">Access to Platform Resources</h5>
 <div class="paragraph">
-<p>The application shall restrict its access to the following and additonal hardware resources:</p>
+<p>The application shall restrict its access to the following and additional hardware resources:</p>
 </div>
 <div class="ulist checklist">
 <ul class="checklist">
@@ -8904,7 +8904,7 @@ product names, and impact metrics.</p>
 <p>The intent is to ensure that the selection captures all hardware resources which the application accesses, and that these are restricted to those which are required or used by the application.</p>
 </div>
 <div class="paragraph">
-<p>The application shall also restrict its access to the following and additonal sensitive information repositories:</p>
+<p>The application shall also restrict its access to the following and additional sensitive information repositories:</p>
 </div>
 <div class="ulist checklist">
 <ul class="checklist">
@@ -9429,7 +9429,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 </ul>
 </div>
 <div class="paragraph">
-<p>with key sizes the same length as thouser used in HMAC (in bits) and message digest sizes 256 and</p>
+<p>with key sizes the same length as those used in HMAC (in bits) and message digest sizes 256 and</p>
 </div>
 <div class="ulist">
 <ul>
@@ -10993,7 +10993,7 @@ A dialog box that declares intent to send PII presented to the user when the app
 <p>Preventing an organization-issued mobile device from syncing with a personally-owned computer necessitates security controls on the mobile device that restrict what devices it can synchronize with</p>
 </li>
 <li>
-<p>Preventing a personally-owned mobile device from syncing with an organization-issued computer necessitates security controls on the organizationissued computer, restricting the connection of mobile devices</p>
+<p>Preventing a personally-owned mobile device from syncing with an organization-issued computer necessitates security controls on the organization-issued computer, restricting the connection of mobile devices</p>
 </li>
 <li>
 <p>Preventing the use of remote backup services can possibly be achieved by blocking use of those services or by configuring the mobile devices not to use such services</p>

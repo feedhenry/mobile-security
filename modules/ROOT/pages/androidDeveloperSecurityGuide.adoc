@@ -280,7 +280,7 @@ An app may want to trust a custom set of CAs instead of the platform default. Th
 An app can customize its own connections using `base-config` (for app-wide customization) or `domain-config` (for per-domain customization).
 
 
-For Configuring CA's, configuration examples are available in the Andoird Documentation.
+For Configuring CA's, configuration examples are available in the Android Documentation.
 
 . https://developer.android.com/training/articles/security-config.html#ConfigCustom[Configuring a Custom CA]
 . https://developer.android.com/training/articles/security-config.html#LimitingCas[Limiting the Set of Trusted CAs]
@@ -304,7 +304,7 @@ For example, an app may want to ensure that all connections to secure.example.co
 ```
 
 === Pinning Certificates
-Normally, an app trusts all pre-installed CAs. If any of these CAs were to issue a fradulent certificate, the app would be at risk from a man-in-the-middle attack. Some apps choose to limit the set of certificates they accept by either limiting the set of CAs they trust or by certificate pinning.
+Normally, an app trusts all pre-installed CAs. If any of these CAs were to issue a fraudulent certificate, the app would be at risk from a man-in-the-middle attack. Some apps choose to limit the set of certificates they accept by either limiting the set of CAs they trust or by certificate pinning.
 
 Certificate pinning is done by providing a set of certificates by hash of the public key (SubjectPublicKeyInfo of the X.509 certificate). A certificate chain is then valid only if the certificate chain contains at least one of the pinned public keys.
 
@@ -331,7 +331,7 @@ Values not set in a specific configuration are inherited. This behavior allows m
 
 If a value is not set in a specific entry, then the value from the more general entry is used. For example, values not set in a domain-config are taken from the parent domain-config, if nested, or from the base-config if not. Values not set in the base-config use the platform default values.
 
-For example, consider where all connections to subdomains of example.com must use a custom set of CAs. Additonally, cleartext traffic to these domains is permitted except when connecting to secure.example.com. By nesting the configuration for secure.example.com inside the configuration for example.com, the trust-anchors does not need to be duplicated.
+For example, consider where all connections to subdomains of example.com must use a custom set of CAs. Additionally, cleartext traffic to these domains is permitted except when connecting to secure.example.com. By nesting the configuration for secure.example.com inside the configuration for example.com, the trust-anchors does not need to be duplicated.
 
 ==== Configuration File Format
 

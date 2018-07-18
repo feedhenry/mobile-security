@@ -76,19 +76,19 @@ The process of identifying a threat agent is very simple and have been mentioned
 
 ==== Automated Programs Examples
 * Malware on the device
-* Scripts executign in the browser
-* Malicous SMS
+* Scripts executing in the browser
+* Malicious SMS
 * Malicious App
 
 === Methods of Attack
 We should observe and list the different methods an attacker can use to reach the data.
 
 === Controls
-Given the above methods of attacks, we should outline some contols to:
+Given the above methods of attacks, we should outline some controls to:
 
 . Prevent the attacks
 . Detect the attacks
-. Minimize the impack of the attacks
+. Minimize the impact of the attacks
 . Protect users private information
 
 

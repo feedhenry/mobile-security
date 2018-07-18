@@ -39,7 +39,7 @@ This is a summary of how to develop secure mobile applications. It is generated 
 . Classify data storage according to sensitivity and apply controls accordingly (e.g. passwords, personal data, location, error logs, etc.). Process, store and use data according to its classification
 . Store sensitive data on the server instead of the client-end device, whenever possible. Assume any data written to device can be recovered.
 . When storing sensitive data on the device, use a file encryption API provided by the OS or other trusted source.
-. Use file encryption API’s which use a secret key protected by the device unlock code and deletable on remote wipe if available.
+. Use file encryption APIs which use a secret key protected by the device unlock code and deletable on remote wipe if available.
 . Beyond the time required by the application, don’t store sensitive information on the device (e.g. GPS/tracking).
 . Do not store temp/cached data in a world readable directory. Assume shared storage is untrusted.
 . Use the PBKDF2 function to generate strong keys for encryption algorithms while ensuring high entropy as much as possible. The number of iterations should be set as high as may be tolerated for the environment (with a minimum of 1000 iterations) while maintaining acceptable performance.
@@ -98,7 +98,7 @@ This is a summary of how to develop secure mobile applications. It is generated 
 
 == 3rd Party libraries
 . Vet the security/authenticity of any third party code/libraries used in your mobile application (e.g. making sure they come from a reliable source, will continue to be supported, contain no backdoors) and ensure that adequate internal approval is obtained to use the code/library.
-. Track all third party frameworks/API’s used in the mobile application for security patches and perform upgrades as they are released.
+. Track all third party frameworks/APIs used in the mobile application for security patches and perform upgrades as they are released.
 . Pay particular attention to validating all data received from and sent to non-trusted third party apps (e.g. ad network software) before incorporating their use into an application.
 . Avoid using third-party libraries that contain main processor-only cryptographic implementations. Prefer using cryptographic framework provided by a platform supported secure hardware (e.g. TEE, SE).
 . Software components that are no longer supported by the vendor or developer must not be used

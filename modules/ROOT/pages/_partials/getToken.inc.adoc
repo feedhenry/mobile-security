@@ -1,0 +1,6 @@
+  /**
+  * Get Access Token
+  */
+  getToken(): string {
+  return KeycloakService.auth.authz.token;
+  }

@@ -1,0 +1,54 @@
+    /**
+     * Make a request to a resource that requires the access token to be sent with the request
+     *
+     * @param requestUrl the request URL
+     * @param sendAccessToken boolean on whether to send the access token as part of the request
+     * @param callback the OkHTTP callback for the request
+     */
+    public Call createRequest(final String requestUrl, final boolean sendAccessToken, final okhttp3.Callback callback) {
+
+        URL url = null;
+        try {
+            url = new URL(requestUrl);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        String serverHostname = url.getHost();
+
+        HttpsURLConnection connection = null;
+        try {
+            connection = (HttpsURLConnection) url.openConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        SSLSocketFactory sslSocketFactory = TrustKit.getInstance().getSSLSocketFactory(serverHostname);
+        X509TrustManager trustManager = TrustKit.getInstance().getTrustManager(serverHostname);
+        connection.setSSLSocketFactory(sslSocketFactory);
+
+        OkHttpClient httpClient = HttpHelper.getHttpClient()
+                .sslSocketFactory(sslSocketFactory, trustManager)
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .build();
+
+        Request request;
+
+        if (sendAccessToken) {
+
+            String accessToken = authService.currentUser().getAccessToken();
+
+            request = new Request.Builder()
+                    .url(url)
+                    .addHeader("Authorization", String.format("Bearer %s", accessToken))
+                    .build();
+        } else {
+            request = new Request.Builder()
+                    .url(url)
+                    .build();
+        }
+
+
+        Call call = httpClient.newCall(request);
+        call.enqueue(callback);
+        return call;
+    }

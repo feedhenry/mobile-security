@@ -22,7 +22,7 @@ The Application should select from the following approaches for storage of crede
 This requirement ensures that persistent credentials like secret keys, PKI private keys, or passwords are stored in a secure manner.
 
 === Access to Platform Resources
-The application shall restrict its access to the following and additonal hardware resources:
+The application shall restrict its access to the following and additional hardware resources:
 
 * [ ] No Hardware Resources
 * [ ] Network Connectivity
@@ -35,7 +35,7 @@ The application shall restrict its access to the following and additonal hardwar
 
 The intent is to ensure that the selection captures all hardware resources which the application accesses, and that these are restricted to those which are required or used by the application.
 
-The application shall also restrict its access to the following and additonal sensitive information repositories:
+The application shall also restrict its access to the following and additional sensitive information repositories:
 
 * [ ] No Sensitive Information Repositories
 * [ ] Address Book
@@ -236,7 +236,7 @@ and
 ** SHA-512
 ** No other algorithms
 
-with key sizes the same length as thouser used in HMAC (in bits) and message digest sizes 256 and
+with key sizes the same length as those used in HMAC (in bits) and message digest sizes 256 and
 
 ** 160
 ** 384

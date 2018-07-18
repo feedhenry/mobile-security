@@ -1,0 +1,6 @@
+  /**
+   * Clears Authentication State
+   */
+  clearToken(): void {
+    KeycloakService.auth.authz.clearToken();
+  }

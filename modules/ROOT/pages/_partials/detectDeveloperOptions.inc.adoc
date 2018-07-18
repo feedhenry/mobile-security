@@ -1,0 +1,10 @@
+    /**
+     * Detect if the developer options mode is enabled on the device
+     */
+    public void detectDeveloperOptions() {
+        totalTests++;
+        SecurityCheckResult result = securityService.check(SecurityCheckType.IS_DEVELOPER_MODE);
+        if (result.passed()) {
+            setDetected(developerOptions, R.string.developer_options_positive);
+        }
+    }

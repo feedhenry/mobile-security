@@ -19,7 +19,7 @@ This is a summary of the https://www.owasp.org/index.php/OWASP_Mobile_Security_P
 * Violation of convention or common practice
 * Unintentional Misuse
 
-=== Preventations
+=== Prevention Techniques
 
 * Secure coding and configuration practices must be used on server-side of the mobile application. See the  https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project[OWASP Web Top Ten or Cloud Top Ten] projects.
 
@@ -52,7 +52,7 @@ This is a summary of the https://www.owasp.org/index.php/OWASP_Mobile_Security_P
 ** Compiler environment
 ** New hardware
 
-=== Preventations
+=== Prevention Techniques
 
 * Understand the information assets the app processes and how the APIs handle those assets. E.g.
 ** URL caching (both request and response)
@@ -88,7 +88,7 @@ This is a summary of the https://www.owasp.org/index.php/OWASP_Mobile_Security_P
 * Privacy information leakage
 ** The mobile app transmits personally identifiable information to an endpoint via non-secure channels instead of over SSL.
 
-=== Preventations
+=== Prevention Techniques
 
 * General Best Practices
 ** Assume that the network layer is not secure and is susceptible to eavesdropping.
@@ -130,7 +130,7 @@ This is a summary of the https://www.owasp.org/index.php/OWASP_Mobile_Security_P
 * The mobile app uses a weak password policy to simplify entering a password
 * The mobile app uses a feature like TouchID
 
-=== Preventations
+=== Prevention Techniques
 
 * Authentication requirements of mobile applications should match that of the web application component
 * Authenticating a user locally can lead to client-side bypass vulnerabilities.
@@ -171,7 +171,7 @@ This is a summary of the https://www.owasp.org/index.php/OWASP_Mobile_Security_P
 ** MD5
 ** SHA1
 
-=== Preventations
+=== Prevention Techniques
 
 * Avoid the storage of any sensitive data on a mobile device where possible
 * Apply cryptographic standards that will withstand the test of time for at least 10 years into the future
@@ -194,7 +194,7 @@ This is a summary of the https://www.owasp.org/index.php/OWASP_Mobile_Security_P
 * Hidden Endpoints
 * User Role or Permission Transmissions
 
-=== Preventations
+=== Prevention Techniques
 
 * Verify the roles and permissions of the authenticated user using only information contained in backend systems. Avoid relying on any roles or permission information that comes from the mobile device itself
 * Backend code should independently verify that any incoming identifiers associated with a request (operands of a requested operation) that come along with the identify match up and belong to the incoming identity
@@ -214,7 +214,7 @@ This is a summary of the https://www.owasp.org/index.php/OWASP_Mobile_Security_P
 
 * Using the wrong API, using an API insecurely, using insecure language constructs, or some other code-level issue
 
-=== Preventations
+=== Prevention Techniques
 
 * Maintain consistent coding patterns that everyone in the organization agrees upon
 * Write code that is easy to read and well-documented
@@ -238,7 +238,7 @@ This is a summary of the https://www.owasp.org/index.php/OWASP_Mobile_Security_P
 * Technically, all mobile code is vulnerable to code tampering
 * It is important to ask yourself if it is worth detecting and trying to prevent unauthorized code modification. 
 
-=== Preventations
+=== Prevention Techniques
 
 *  Try and detect compromised environments (rooted/jaibreak) at runtime and react accordingly (report to the server or shutdown)
 
@@ -265,7 +265,7 @@ This is a summary of the https://www.owasp.org/index.php/OWASP_Mobile_Security_P
 ** Accurately perform cross-functional analysis
 ** Derive a reasonably accurate recreation of the source code from the binary
 
-=== Preventations
+=== Prevention Techniques
 
 * Use an obfuscation tool
 
@@ -285,7 +285,7 @@ This is a summary of the https://www.owasp.org/index.php/OWASP_Mobile_Security_P
 * Developers include hidden backdoor functionality or other internal development security controls that are not intended to be released into a production environment
 * Leaving functionality enabled in the app that was not intended to be released
 
-=== Preventations
+=== Prevention Techniques
 
 * Examine the app's configuration settings to discover any hidden switches
 * Verify that all test code is not included in the final production build of the app
